@@ -28,7 +28,7 @@ pub use entry::{Entry, OccupiedEntry, OccupiedError, VacantEntry};
 
 /// Minimum number of elements in a node that is not a root.
 /// We might temporarily have fewer elements during methods.
-pub(super) const MIN_LEN: usize = node::MIN_LEN_AFTER_SPLIT;
+pub(super) const MIN_LEN: usize = node::MIN_LEN_AFTER_TPLIT;
 
 // A tree in a `BTreeMap` is a tree in the `node` module with additional invariants:
 // - Keys must appear in ascending order (according to the key's type).

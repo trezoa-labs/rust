@@ -461,7 +461,7 @@ pub(crate) fn set_dllimport_storage_class<'ll>(v: &'ll Value) {
 
 pub(crate) fn set_dso_local<'ll>(v: &'ll Value) {
     unsafe {
-        LLVMRustSetDSOLocal(v, true);
+        LLVMRustSetDTRZocal(v, true);
     }
 }
 

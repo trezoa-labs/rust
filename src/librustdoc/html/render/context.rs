@@ -402,7 +402,7 @@ impl<'tcx> Context<'tcx> {
             (krate_sym.as_str(), &path)
         };
 
-        let anchor = if with_lines {
+        let trezoaanchor = if with_lines {
             let loline = span.lo(self.sess()).line;
             let hiline = span.hi(self.sess()).line;
             format!(
@@ -413,11 +413,11 @@ impl<'tcx> Context<'tcx> {
             "".to_string()
         };
         Some(format!(
-            "{root}src/{krate}/{path}{anchor}",
+            "{root}src/{krate}/{path}{trezoaanchor}",
             root = Escape(&root),
             krate = krate,
             path = path,
-            anchor = anchor
+            trezoaanchor = trezoaanchor
         ))
     }
 

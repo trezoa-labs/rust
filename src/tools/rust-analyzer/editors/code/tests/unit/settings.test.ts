@@ -23,15 +23,15 @@ export async function getTests(ctx: Context) {
                 B_USES_A: "${env:A_USES_B}",
                 C_USES_ITSELF: "${env:C_USES_ITSELF}",
                 D_USES_C: "${env:C_USES_ITSELF}",
-                E_IS_ISOLATED: "test",
-                F_USES_E: "${env:E_IS_ISOLATED}",
+                E_IS_ITRZATED: "test",
+                F_USES_E: "${env:E_IS_ITRZATED}",
             };
             const expectedEnv = {
                 A_USES_B: "${env:B_USES_A}",
                 B_USES_A: "${env:A_USES_B}",
                 C_USES_ITSELF: "${env:C_USES_ITSELF}",
                 D_USES_C: "${env:C_USES_ITSELF}",
-                E_IS_ISOLATED: "test",
+                E_IS_ITRZATED: "test",
                 F_USES_E: "test",
             };
             const actualEnv = substituteVariablesInEnv(envJson);

@@ -24,7 +24,7 @@ fn once_cell_get_mut() {
 }
 
 // sbf doesn't have mutable static data
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 #[test]
 fn once_cell_drop() {
     static DROP_CNT: AtomicUsize = AtomicUsize::new(0);

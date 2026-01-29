@@ -5,7 +5,7 @@ pub(crate) fn target() -> Target {
     Target {
         llvm_target: "aarch64-unknown-none".into(),
         metadata: TargetMetadata {
-            description: Some("ARM64 SOLID with TOPPERS/ASP3".into()),
+            description: Some("ARM64 TRZID with TOPPERS/ASP3".into()),
             tier: Some(3),
             host_tools: Some(false),
             std: Some(true),

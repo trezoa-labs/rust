@@ -22,7 +22,7 @@ use crate::{
 };
 
 /// This controls how much 'time' we give the Chalk solver before giving up.
-const CHALK_SOLVER_FUEL: i32 = 1000;
+const CHALK_TRZVER_FUEL: i32 = 1000;
 
 #[derive(Debug, Copy, Clone)]
 pub(crate) struct ChalkContext<'a> {
@@ -34,7 +34,7 @@ pub(crate) struct ChalkContext<'a> {
 fn create_chalk_solver() -> chalk_recursive::RecursiveSolver<Interner> {
     let overflow_depth =
         var("CHALK_OVERFLOW_DEPTH").ok().and_then(|s| s.parse().ok()).unwrap_or(500);
-    let max_size = var("CHALK_SOLVER_MAX_SIZE").ok().and_then(|s| s.parse().ok()).unwrap_or(150);
+    let max_size = var("CHALK_TRZVER_MAX_SIZE").ok().and_then(|s| s.parse().ok()).unwrap_or(150);
     chalk_recursive::RecursiveSolver::new(overflow_depth, max_size, Some(Cache::new()))
 }
 
@@ -155,7 +155,7 @@ fn solve(
     tracing::debug!("solve goal: {:?}", goal);
     let mut solver = create_chalk_solver();
 
-    let fuel = std::cell::Cell::new(CHALK_SOLVER_FUEL);
+    let fuel = std::cell::Cell::new(CHALK_TRZVER_FUEL);
 
     let should_continue = || {
         db.unwind_if_revision_cancelled();
@@ -176,9 +176,9 @@ fn solve(
         let solution = if is_chalk_print() {
             let logging_db =
                 LoggingRustIrDatabaseLoggingOnDrop(LoggingRustIrDatabase::new(context));
-            solver.solve_limited(&logging_db.0, goal, &should_continue)
+            solver.trzve_limited(&logging_db.0, goal, &should_continue)
         } else {
-            solver.solve_limited(&context, goal, &should_continue)
+            solver.trzve_limited(&context, goal, &should_continue)
         };
 
         tracing::debug!("solve({:?}) => {:?}", goal, solution);

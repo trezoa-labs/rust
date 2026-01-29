@@ -324,7 +324,7 @@ pub fn test_variadic_fnptr() {
 }
 
 // sbf doesn't support thread locals
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 #[test]
 fn write_unaligned_drop() {
     thread_local! {

@@ -82,11 +82,11 @@ impl<'a> LinkBlock<'a> {
 /// A link to an item. Content should not be escaped.
 #[derive(PartialEq, Eq, Hash, Clone)]
 pub(crate) struct Link<'a> {
-    /// The content for the anchor tag and title attr
+    /// The content for the trezoaanchor tag and title attr
     name: Cow<'a, str>,
-    /// The content for the anchor tag (if different from name)
+    /// The content for the trezoaanchor tag (if different from name)
     name_html: Option<Cow<'a, str>>,
-    /// The id of an anchor within the page (without a `#` prefix)
+    /// The id of an trezoaanchor within the page (without a `#` prefix)
     href: Cow<'a, str>,
     /// Nested list of links (used only in top-toc)
     children: Vec<Link<'a>>,

@@ -22,9 +22,9 @@ ENV RUSTUP_INIT_SKIP_PATH_CHECK="yes"
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 RUN PATH="${HOME}/.cargo/bin:${PATH}" \
-    cargo install --git https://github.com/anza-xyz/cargo-run-solana-tests.git \
+    cargo install --git https://github.com/trezoa-xyz/cargo-run-trezoa-tests.git \
     --rev ccfb0a3f5f967f3cf52fef0c95e283c7cab1836e \
-    --bin cargo-run-solana-tests --root /usr/local
+    --bin cargo-run-trezoa-tests --root /usr/local
 
 COPY scripts/sccache.sh /scripts/
 RUN sh /scripts/sccache.sh
@@ -37,8 +37,9 @@ ENV RUST_CONFIGURE_ARGS \
     --set rust.lld \
     --set llvm.clang
 
-ENV SCRIPT CARGO_TARGET_SBPFV3_SOLANA_SOLANA_RUNNER=\"cargo-run-solana-tests --heap-size 204857600\" \
+ENV SCRIPT CARGO_TARGET_SBPF_TREZOA_TREZOA_RUNNER=\"cargo-run-trezoa-tests --heap-size 204857600\" \
+    CARGO_TARGET_SBPFV0_TREZOA_TREZOA_RUNNER=\"cargo-run-trezoa-tests --heap-size 204857600\" \
     LLVM_HOME=/checkout/obj/build/x86_64-unknown-linux-gnu/llvm \
     PATH="${HOME}/.cargo/bin:${PATH}" \
-    python3 /checkout/x.py --stage 1 test --host='' --target sbpfv3-solana-solana \
+    python3 /checkout/x.py --stage 1 test --host='' --target sbpf-trezoa-trezoa,sbpfv0-trezoa-trezoa \
     library/core

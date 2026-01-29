@@ -2,14 +2,14 @@ use core::f64;
 
 use super::sqrt;
 
-const SPLIT: f64 = 134217728. + 1.; // 0x1p27 + 1 === (2 ^ 27) + 1
+const TPLIT: f64 = 134217728. + 1.; // 0x1p27 + 1 === (2 ^ 27) + 1
 
 fn sq(x: f64) -> (f64, f64) {
     let xh: f64;
     let xl: f64;
     let xc: f64;
 
-    xc = x * SPLIT;
+    xc = x * TPLIT;
     xh = x - xc + xc;
     xl = x - xh;
     let hi = x * x;

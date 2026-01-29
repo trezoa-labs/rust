@@ -79,7 +79,7 @@ where
         S: Copy,
     {
         self.spans.iter().enumerate().filter_map(move |(idx, &(end, s))| {
-            if s.anchor != span.anchor {
+            if s.trezoaanchor != span.trezoaanchor {
                 return None;
             }
             if !s.range.contains_range(span.range) {
@@ -207,7 +207,7 @@ impl RealSpanMap {
         let (offset, ast_id) = self.pairs[idx - 1];
         Span {
             range: range - offset,
-            anchor: SpanAnchor { file_id: self.file_id, ast_id },
+            trezoaanchor: SpanAnchor { file_id: self.file_id, ast_id },
             ctx: SyntaxContext::root(self.file_id.edition()),
         }
     }

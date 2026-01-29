@@ -119,12 +119,12 @@ fn driftsort_main<T, F: FnMut(&T, &T) -> bool, BufT: BufGuard<T>>(v: &mut [T], i
     // For small inputs 4KiB of stack storage suffices, which allows us to avoid
     // calling the (de-)allocator. Benchmarks showed this was quite beneficial.
     let mut stack_buf;
-    #[cfg(any(target_feature = "dynamic-frames", not(target_family = "solana")))]
+    #[cfg(any(target_feature = "dynamic-frames", not(target_family = "trezoa")))]
     {
         stack_buf = AlignedStorage::<T, 4096>::new();
     }
 
-    #[cfg(all(target_family = "solana", not(target_feature = "dynamic-frames")))]
+    #[cfg(all(target_family = "trezoa", not(target_feature = "dynamic-frames")))]
     {
         // Allocating 4096 bytes on SBPFv0 overflows the stack
         stack_buf = AlignedStorage::<T, 2048>::new();

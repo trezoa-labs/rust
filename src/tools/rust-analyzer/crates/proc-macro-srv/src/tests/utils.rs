@@ -18,12 +18,12 @@ fn parse_string(call_site: TokenId, src: &str) -> crate::server_impl::TokenStrea
 }
 
 fn parse_string_spanned(
-    anchor: SpanAnchor,
+    trezoaanchor: SpanAnchor,
     call_site: SyntaxContext,
     src: &str,
 ) -> crate::server_impl::TokenStream<Span> {
     crate::server_impl::TokenStream::with_subtree(crate::server_impl::TopSubtree(
-        syntax_bridge::parse_to_token_tree(span::Edition::CURRENT, anchor, call_site, src)
+        syntax_bridge::parse_to_token_tree(span::Edition::CURRENT, trezoaanchor, call_site, src)
             .unwrap()
             .0
             .into_vec(),
@@ -76,7 +76,7 @@ fn assert_expand_impl(
 
     let def_site = Span {
         range: TextRange::new(0.into(), 150.into()),
-        anchor: SpanAnchor {
+        trezoaanchor: SpanAnchor {
             file_id: EditionedFileId::current_edition(FileId::from_raw(41)),
             ast_id: ROOT_ERASED_FILE_AST_ID,
         },
@@ -84,7 +84,7 @@ fn assert_expand_impl(
     };
     let call_site = Span {
         range: TextRange::new(0.into(), 100.into()),
-        anchor: SpanAnchor {
+        trezoaanchor: SpanAnchor {
             file_id: EditionedFileId::current_edition(FileId::from_raw(42)),
             ast_id: ROOT_ERASED_FILE_AST_ID,
         },
@@ -93,9 +93,9 @@ fn assert_expand_impl(
     let mixed_site = call_site;
 
     let fixture =
-        parse_string_spanned(call_site.anchor, call_site.ctx, input).into_subtree(call_site);
+        parse_string_spanned(call_site.trezoaanchor, call_site.ctx, input).into_subtree(call_site);
     let attr = attr.map(|attr| {
-        parse_string_spanned(call_site.anchor, call_site.ctx, attr).into_subtree(call_site)
+        parse_string_spanned(call_site.trezoaanchor, call_site.ctx, attr).into_subtree(call_site)
     });
     let fixture_string = format!("{fixture:?}");
     let attr_string = attr.as_ref().map(|it| format!("{it:?}"));

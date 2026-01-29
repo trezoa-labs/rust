@@ -65,7 +65,7 @@ pub(crate) fn fixup_syntax(
         let span = span_map.span_for_range(range);
         Span {
             range: dummy_range,
-            anchor: SpanAnchor { ast_id: FIXUP_DUMMY_AST_ID, ..span.anchor },
+            trezoaanchor: SpanAnchor { ast_id: FIXUP_DUMMY_AST_ID, ..span.trezoaanchor },
             ctx: span.ctx,
         }
     };
@@ -85,7 +85,7 @@ pub(crate) fn fixup_syntax(
                 sym: sym::__ra_fixup,
                 span: Span {
                     range: TextRange::new(TextSize::new(idx), FIXUP_DUMMY_RANGE_END),
-                    anchor: SpanAnchor { ast_id: FIXUP_DUMMY_AST_ID, ..span.anchor },
+                    trezoaanchor: SpanAnchor { ast_id: FIXUP_DUMMY_AST_ID, ..span.trezoaanchor },
                     ctx: span.ctx,
                 },
                 is_raw: tt::IdentIsRaw::No,
@@ -348,16 +348,16 @@ pub(crate) fn reverse_fixups(tt: &mut TopSubtree, undo_info: &SyntaxFixupUndoInf
     let delimiter = tt.top_subtree_delimiter_mut();
     #[allow(deprecated)]
     if never!(
-        delimiter.close.anchor.ast_id == FIXUP_DUMMY_AST_ID
-            || delimiter.open.anchor.ast_id == FIXUP_DUMMY_AST_ID
+        delimiter.close.trezoaanchor.ast_id == FIXUP_DUMMY_AST_ID
+            || delimiter.open.trezoaanchor.ast_id == FIXUP_DUMMY_AST_ID
     ) {
         let span = |file_id| Span {
             range: TextRange::empty(TextSize::new(0)),
-            anchor: SpanAnchor { file_id, ast_id: ROOT_ERASED_FILE_AST_ID },
+            trezoaanchor: SpanAnchor { file_id, ast_id: ROOT_ERASED_FILE_AST_ID },
             ctx: SyntaxContext::root(span::Edition::Edition2015),
         };
-        delimiter.open = span(delimiter.open.anchor.file_id);
-        delimiter.close = span(delimiter.close.anchor.file_id);
+        delimiter.open = span(delimiter.open.trezoaanchor.file_id);
+        delimiter.close = span(delimiter.close.trezoaanchor.file_id);
     }
     reverse_fixups_(tt, undo_info);
 }
@@ -434,7 +434,7 @@ fn reverse_fixups_(tt: &mut TopSubtree, undo_info: &[TopSubtree]) {
     transform_tt(&mut tts, |tt| match tt {
         tt::TokenTree::Leaf(leaf) => {
             let span = leaf.span();
-            let is_real_leaf = span.anchor.ast_id != FIXUP_DUMMY_AST_ID;
+            let is_real_leaf = span.trezoaanchor.ast_id != FIXUP_DUMMY_AST_ID;
             let is_replaced_node = span.range.end() == FIXUP_DUMMY_RANGE_END;
             if !is_real_leaf && !is_replaced_node {
                 return TransformTtAction::remove();
@@ -453,8 +453,8 @@ fn reverse_fixups_(tt: &mut TopSubtree, undo_info: &[TopSubtree]) {
             // fixup should only create matching delimiters, but proc macros
             // could just copy the span to one of the delimiters. We don't want
             // to leak the dummy ID, so we remove both.
-            if tt.delimiter.close.anchor.ast_id == FIXUP_DUMMY_AST_ID
-                || tt.delimiter.open.anchor.ast_id == FIXUP_DUMMY_AST_ID
+            if tt.delimiter.close.trezoaanchor.ast_id == FIXUP_DUMMY_AST_ID
+                || tt.delimiter.open.trezoaanchor.ast_id == FIXUP_DUMMY_AST_ID
             {
                 return TransformTtAction::remove();
             }

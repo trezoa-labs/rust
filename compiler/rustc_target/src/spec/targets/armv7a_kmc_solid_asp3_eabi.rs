@@ -5,7 +5,7 @@ pub(crate) fn target() -> Target {
     Target {
         llvm_target: "armv7a-none-eabi".into(),
         metadata: TargetMetadata {
-            description: Some("Arm SOLID with TOPPERS/ASP3".into()),
+            description: Some("Arm TRZID with TOPPERS/ASP3".into()),
             tier: Some(3),
             host_tools: Some(false),
             std: Some(true),

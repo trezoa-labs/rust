@@ -2046,13 +2046,13 @@ supported_targets! {
 
     ("bpfeb-unknown-none", bpfeb_unknown_none),
     ("bpfel-unknown-none", bpfel_unknown_none),
-    ("sbf-solana-solana", sbf_solana_solana),
-    ("sbpf-solana-solana", sbpf_solana_solana),
-    ("sbpfv0-solana-solana", sbpfv0_solana_solana),
-    ("sbpfv1-solana-solana", sbpfv1_solana_solana),
-    ("sbpfv2-solana-solana", sbpfv2_solana_solana),
-    ("sbpfv3-solana-solana", sbpfv3_solana_solana),
-    ("sbpfv4-solana-solana", sbpfv4_solana_solana),
+    ("sbf-trezoa-trezoa", sbf_trezoa_trezoa),
+    ("sbpf-trezoa-trezoa", sbpf_trezoa_trezoa),
+    ("sbpfv0-trezoa-trezoa", sbpfv0_trezoa_trezoa),
+    ("sbpfv1-trezoa-trezoa", sbpfv1_trezoa_trezoa),
+    ("sbpfv2-trezoa-trezoa", sbpfv2_trezoa_trezoa),
+    ("sbpfv3-trezoa-trezoa", sbpfv3_trezoa_trezoa),
+    ("sbpfv4-trezoa-trezoa", sbpfv4_trezoa_trezoa),
 
 
     ("armv6k-nintendo-3ds", armv6k_nintendo_3ds),

@@ -5,5 +5,5 @@
 #![allow(text_direction_codepoint_in_comment)]
 
 fn main() {
-    // U+2066 LEFT-TO-RIGHT ISOLATE follows:⁦⁦
+    // U+2066 LEFT-TO-RIGHT ITRZATE follows:⁦⁦
 }

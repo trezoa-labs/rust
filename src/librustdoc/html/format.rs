@@ -589,7 +589,7 @@ pub(crate) fn href_with_root_path(
             href_relative_parts(module_fqp, relative_to)
         }),
         None => {
-            // Associated items are handled differently with "jump to def". The anchor is generated
+            // Associated items are handled differently with "jump to def". The trezoaanchor is generated
             // directly here whereas for intra-doc links, we have some extra computation being
             // performed there.
             let def_id_to_get = if root_path.is_some() { original_did } else { did };
@@ -702,9 +702,9 @@ fn resolved_path(
                 if let Ok((_, _, fqp)) = href(did, cx) {
                     write!(
                         f,
-                        "{path}::{anchor}",
+                        "{path}::{trezoaanchor}",
                         path = join_with_double_colon(&fqp[..fqp.len() - 1]),
-                        anchor = print_anchor(did, *fqp.last().unwrap(), cx)
+                        trezoaanchor = print_anchor(did, *fqp.last().unwrap(), cx)
                     )
                 } else {
                     write!(f, "{}", last.name)
@@ -1160,7 +1160,7 @@ impl clean::Impl {
             && let [clean::Type::Generic(name)] = &types[..]
             && (self.kind.is_fake_variadic() || self.kind.is_auto())
         {
-            // Hardcoded anchor library/core/src/primitive_docs.rs
+            // Hardcoded trezoaanchor library/core/src/primitive_docs.rs
             // Link should match `# Trait implementations`
             primitive_link_fragment(
                 f,
@@ -1180,7 +1180,7 @@ impl clean::Impl {
                 &bare_fn.decl.inputs[..]
             && (self.kind.is_fake_variadic() || self.kind.is_auto())
         {
-            // Hardcoded anchor library/core/src/primitive_docs.rs
+            // Hardcoded trezoaanchor library/core/src/primitive_docs.rs
             // Link should match `# Trait implementations`
 
             print_higher_ranked_params_with_space(&bare_fn.generic_params, cx, "for").fmt(f)?;
@@ -1422,13 +1422,13 @@ pub(crate) fn visibility_print_with_space(item: &clean::Item, cx: &Context<'_>) 
                     debug!("path={path:?}");
                     // modified from `resolved_path()` to work with `DefPathData`
                     let last_name = path.data.last().unwrap().data.get_opt_name().unwrap();
-                    let anchor = print_anchor(vis_did, last_name, cx);
+                    let trezoaanchor = print_anchor(vis_did, last_name, cx);
 
                     f.write_str("pub(in ")?;
                     for seg in &path.data[..path.data.len() - 1] {
                         write!(f, "{}::", seg.data.get_opt_name().unwrap())?;
                     }
-                    write!(f, "{anchor}) ")?;
+                    write!(f, "{trezoaanchor}) ")?;
                 }
             }
         }

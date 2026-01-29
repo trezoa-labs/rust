@@ -203,10 +203,10 @@ fn read_stats_from_file(file_path: &Path) -> HashMap<String, usize> {
         .skip(4)
         .take_while(|line| line.starts_with("| "))
         .filter_map(|line| {
-            let mut spl = line.split('|');
+            let mut tpl = line.split('|');
             // Skip the first `|` symbol
-            spl.next();
-            if let (Some(lint), Some(count)) = (spl.next(), spl.next()) {
+            tpl.next();
+            if let (Some(lint), Some(count)) = (tpl.next(), tpl.next()) {
                 Some((lint.trim().to_string(), count.trim().parse::<usize>().unwrap()))
             } else {
                 None

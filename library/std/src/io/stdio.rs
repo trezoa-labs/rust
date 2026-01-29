@@ -4,31 +4,31 @@
 mod tests;
 
 
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 use crate::cell::{Cell, RefCell};
 use crate::fmt;
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 use crate::fs::File;
 use crate::io::prelude::*;
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 use crate::io::{BufReader, SpecReadByte, LineWriter, Lines};
 use crate::io::{
     self, BorrowedCursor, IoSlice, IoSliceMut,
 };
 use crate::panic::{RefUnwindSafe, UnwindSafe};
-#[cfg(not(target_os = "solana"))]
+#[cfg(not(target_os = "trezoa"))]
 use crate::sync::atomic::{Atomic, AtomicBool, Ordering};
-#[cfg(not(target_os = "solana"))]
+#[cfg(not(target_os = "trezoa"))]
 use crate::sync::{MutexGuard, OnceLock, ReentrantLock, ReentrantLockGuard};
 use crate::sync::{Arc, Mutex};
-#[cfg(not(target_os = "solana"))]
+#[cfg(not(target_os = "trezoa"))]
 use crate::sys::stdio;
 use crate::thread::AccessError;
 
 
 type LocalStream = Arc<Mutex<Vec<u8>>>;
 
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 thread_local! {
     /// Used by the test crate to capture the output of the print macros and panics.
     static OUTPUT_CAPTURE: Cell<Option<LocalStream>> = const {
@@ -48,28 +48,28 @@ thread_local! {
 /// have a consistent order between set_output_capture and print_to *within
 /// the same thread*. Within the same thread, things always have a perfectly
 /// consistent order. So Ordering::Relaxed is fine.
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 static OUTPUT_CAPTURE_USED: Atomic<bool> = AtomicBool::new(false);
 
 /// A handle to a raw instance of the standard input stream of this process.
 ///
 /// This handle is not synchronized or buffered in any fashion. Constructed via
 /// the `std::io::stdio::stdin_raw` function.
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 struct StdinRaw(stdio::Stdin);
 
 /// A handle to a raw instance of the standard output stream of this process.
 ///
 /// This handle is not synchronized or buffered in any fashion. Constructed via
 /// the `std::io::stdio::stdout_raw` function.
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 struct StdoutRaw(stdio::Stdout);
 
 /// A handle to a raw instance of the standard output stream of this process.
 ///
 /// This handle is not synchronized or buffered in any fashion. Constructed via
 /// the `std::io::stdio::stderr_raw` function.
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 struct StderrRaw(stdio::Stderr);
 
 /// Constructs a new raw handle to the standard input of this process.
@@ -80,7 +80,7 @@ struct StderrRaw(stdio::Stderr);
 ///
 /// The returned handle has no external synchronization or buffering.
 #[unstable(feature = "libstd_sys_internals", issue = "none")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 const fn stdin_raw() -> StdinRaw {
     StdinRaw(stdio::Stdin::new())
 }
@@ -95,7 +95,7 @@ const fn stdin_raw() -> StdinRaw {
 /// The returned handle has no external synchronization or buffering layered on
 /// top.
 #[unstable(feature = "libstd_sys_internals", issue = "none")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 const fn stdout_raw() -> StdoutRaw {
     StdoutRaw(stdio::Stdout::new())
 }
@@ -108,12 +108,12 @@ const fn stdout_raw() -> StdoutRaw {
 /// The returned handle has no external synchronization or buffering layered on
 /// top.
 #[unstable(feature = "libstd_sys_internals", issue = "none")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 const fn stderr_raw() -> StderrRaw {
     StderrRaw(stdio::Stderr::new())
 }
 
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl Read for StdinRaw {
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
         handle_ebadf(self.0.read(buf), || Ok(0))
@@ -155,7 +155,7 @@ impl Read for StdinRaw {
     }
 }
 
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl Write for StdoutRaw {
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
         handle_ebadf(self.0.write(buf), || Ok(buf.len()))
@@ -188,7 +188,7 @@ impl Write for StdoutRaw {
     }
 }
 
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl Write for StderrRaw {
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
         handle_ebadf(self.0.write(buf), || Ok(buf.len()))
@@ -221,7 +221,7 @@ impl Write for StderrRaw {
     }
 }
 
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 fn handle_ebadf<T>(r: io::Result<T>, default: impl FnOnce() -> io::Result<T>) -> io::Result<T> {
     match r {
         Err(ref e) if stdio::is_ebadf(e) => default(),
@@ -270,7 +270,7 @@ fn handle_ebadf<T>(r: io::Result<T>, default: impl FnOnce() -> io::Result<T>) ->
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "Stdin")]
 pub struct Stdin {
-    #[cfg(not(target_family = "solana"))]
+    #[cfg(not(target_family = "trezoa"))]
     inner: &'static Mutex<BufReader<StdinRaw>>,
 }
 
@@ -308,7 +308,7 @@ pub struct Stdin {
 /// ```
 #[must_use = "if unused stdin will immediately unlock"]
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 pub struct StdinLock<'a> {
     inner: MutexGuard<'a, BufReader<StdinRaw>>,
 }
@@ -361,7 +361,7 @@ pub struct StdinLock<'a> {
 /// ```
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 pub fn stdin() -> Stdin {
     static INSTANCE: OnceLock<Mutex<BufReader<StdinRaw>>> = OnceLock::new();
     Stdin {
@@ -373,7 +373,7 @@ pub fn stdin() -> Stdin {
 
 /// SBF dummy
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(target_family = "solana")]
+#[cfg(target_family = "trezoa")]
 pub fn stdin() -> Stdin {
     Stdin {}
 }
@@ -401,7 +401,7 @@ impl Stdin {
     /// }
     /// ```
     #[stable(feature = "rust1", since = "1.0.0")]
-    #[cfg(not(target_family = "solana"))]
+    #[cfg(not(target_family = "trezoa"))]
     pub fn lock(&self) -> StdinLock<'static> {
         // Locks this handle with 'static lifetime. This depends on the
         // implementation detail that the underlying `Mutex` is static.
@@ -441,7 +441,7 @@ impl Stdin {
     ///   continuing
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("get_line")]
-    #[cfg(not(target_family = "solana"))]
+    #[cfg(not(target_family = "trezoa"))]
     pub fn read_line(&self, buf: &mut String) -> io::Result<usize> {
         self.lock().read_line(buf)
     }
@@ -463,7 +463,7 @@ impl Stdin {
     /// ```
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "stdin_forwarders", since = "1.62.0")]
-    #[cfg(not(target_family = "solana"))]
+    #[cfg(not(target_family = "trezoa"))]
     pub fn lines(self) -> Lines<StdinLock<'static>> {
         self.lock().lines()
     }
@@ -477,7 +477,7 @@ impl fmt::Debug for Stdin {
 }
 
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl Read for Stdin {
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
         self.lock().read(buf)
@@ -507,7 +507,7 @@ impl Read for Stdin {
 }
 
 #[stable(feature = "read_shared_stdin", since = "1.78.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl Read for &Stdin {
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
         self.lock().read(buf)
@@ -537,7 +537,7 @@ impl Read for &Stdin {
 }
 
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(target_family = "solana")]
+#[cfg(target_family = "trezoa")]
 impl Read for &Stdin {
     fn read(&mut self, _buf: &mut [u8]) -> io::Result<usize> {
         Ok(0)
@@ -572,7 +572,7 @@ impl StdinLock<'_> {
 }
 
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl Read for StdinLock<'_> {
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
         self.inner.read(buf)
@@ -608,7 +608,7 @@ impl Read for StdinLock<'_> {
     }
 }
 
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl SpecReadByte for StdinLock<'_> {
     #[inline]
     fn spec_read_byte(&mut self) -> Option<io::Result<u8>> {
@@ -616,7 +616,7 @@ impl SpecReadByte for StdinLock<'_> {
     }
 }
 
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 #[stable(feature = "rust1", since = "1.0.0")]
 impl BufRead for StdinLock<'_> {
     fn fill_buf(&mut self) -> io::Result<&[u8]> {
@@ -636,7 +636,7 @@ impl BufRead for StdinLock<'_> {
     }
 }
 
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 #[stable(feature = "std_debug", since = "1.16.0")]
 impl fmt::Debug for StdinLock<'_> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -677,7 +677,7 @@ pub struct Stdout {
     // FIXME: this should be LineWriter or BufWriter depending on the state of
     //        stdout (tty or not). Note that if this is not line buffered it
     //        should also flush-on-panic or some form of flush-on-abort.
-    #[cfg(not(target_family = "solana"))]
+    #[cfg(not(target_family = "trezoa"))]
     inner: &'static ReentrantLock<RefCell<LineWriter<StdoutRaw>>>,
 }
 
@@ -706,18 +706,18 @@ pub struct Stdout {
 /// [`flush`]: Write::flush
 #[must_use = "if unused stdout will immediately unlock"]
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 pub struct StdoutLock<'a> {
     inner: ReentrantLockGuard<'a, RefCell<LineWriter<StdoutRaw>>>,
 }
 
 /// SBF dummy
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(target_family = "solana")]
+#[cfg(target_family = "trezoa")]
 pub struct StdoutLock {
 }
 
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 static STDOUT: OnceLock<ReentrantLock<RefCell<LineWriter<StdoutRaw>>>> = OnceLock::new();
 
 /// Constructs a new handle to the standard output of the current process.
@@ -790,7 +790,7 @@ static STDOUT: OnceLock<ReentrantLock<RefCell<LineWriter<StdoutRaw>>>> = OnceLoc
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "io_stdout")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 pub fn stdout() -> Stdout {
     Stdout {
         inner: STDOUT
@@ -800,7 +800,7 @@ pub fn stdout() -> Stdout {
 
 /// Dummy stdout for SBF target
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(target_family = "solana")]
+#[cfg(target_family = "trezoa")]
 pub fn stdout() -> Stdout {
     Stdout {}
 }
@@ -808,7 +808,7 @@ pub fn stdout() -> Stdout {
 // Flush the data and disable buffering during shutdown
 // by replacing the line writer by one with zero
 // buffering capacity.
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 pub fn cleanup() {
     let mut initialized = false;
     let stdout = STDOUT.get_or_init(|| {
@@ -848,7 +848,7 @@ impl Stdout {
     /// }
     /// ```
     #[stable(feature = "rust1", since = "1.0.0")]
-    #[cfg(not(target_family = "solana"))]
+    #[cfg(not(target_family = "trezoa"))]
     pub fn lock(&self) -> StdoutLock<'static> {
         // Locks this handle with 'static lifetime. This depends on the
         // implementation detail that the underlying `ReentrantMutex` is
@@ -858,7 +858,7 @@ impl Stdout {
 
     /// Dummy lock for SBF
     #[stable(feature = "rust1", since = "1.0.0")]
-    #[cfg(target_family = "solana")]
+    #[cfg(target_family = "trezoa")]
     pub fn lock(&self) -> StdoutLock {
         // Locks this handle with 'static lifetime. This depends on the
         // implementation detail that the underlying `ReentrantMutex` is
@@ -881,7 +881,7 @@ impl fmt::Debug for Stdout {
 }
 
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl Write for Stdout {
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
         (&*self).write(buf)
@@ -908,7 +908,7 @@ impl Write for Stdout {
 }
 
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(target_family = "solana")]
+#[cfg(target_family = "trezoa")]
 impl Write for Stdout {
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
         crate::sys::sol_log(buf);
@@ -937,7 +937,7 @@ impl Write for Stdout {
 }
 
 #[stable(feature = "write_mt", since = "1.48.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl Write for &Stdout {
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
         self.lock().write(buf)
@@ -964,23 +964,23 @@ impl Write for &Stdout {
 }
 
 #[stable(feature = "catch_unwind", since = "1.9.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl UnwindSafe for StdoutLock<'_> {}
 
 #[stable(feature = "catch_unwind", since = "1.9.0")]
-#[cfg(target_family = "solana")]
+#[cfg(target_family = "trezoa")]
 impl UnwindSafe for StdoutLock {}
 
 #[stable(feature = "catch_unwind", since = "1.9.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl RefUnwindSafe for StdoutLock<'_> {}
 
 #[stable(feature = "catch_unwind", since = "1.9.0")]
-#[cfg(target_family = "solana")]
+#[cfg(target_family = "trezoa")]
 impl RefUnwindSafe for StdoutLock {}
 
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl Write for StdoutLock<'_> {
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
         self.inner.borrow_mut().write(buf)
@@ -1004,7 +1004,7 @@ impl Write for StdoutLock<'_> {
 }
 
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(target_family = "solana")]
+#[cfg(target_family = "trezoa")]
 impl Write for StdoutLock {
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
         crate::sys::sol_log(buf);
@@ -1030,7 +1030,7 @@ impl Write for StdoutLock {
 }
 
 #[stable(feature = "std_debug", since = "1.16.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl fmt::Debug for StdoutLock<'_> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("StdoutLock").finish_non_exhaustive()
@@ -1038,7 +1038,7 @@ impl fmt::Debug for StdoutLock<'_> {
 }
 
 #[stable(feature = "std_debug", since = "1.16.0")]
-#[cfg(target_family = "solana")]
+#[cfg(target_family = "trezoa")]
 impl fmt::Debug for StdoutLock {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.pad("StdoutLock { .. }")
@@ -1064,7 +1064,7 @@ impl fmt::Debug for StdoutLock {
 /// standard library or via raw Windows API calls, will fail.
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct Stderr {
-    #[cfg(not(target_family = "solana"))]
+    #[cfg(not(target_family = "trezoa"))]
     inner: &'static ReentrantLock<RefCell<StderrRaw>>,
 }
 
@@ -1086,7 +1086,7 @@ pub struct Stderr {
 /// standard library or via raw Windows API calls, will fail.
 #[must_use = "if unused stderr will immediately unlock"]
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 pub struct StderrLock<'a> {
     inner: ReentrantLockGuard<'a, RefCell<StderrRaw>>,
 }
@@ -1138,7 +1138,7 @@ pub struct StderrLock<'a> {
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "io_stderr")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 pub fn stderr() -> Stderr {
     // Note that unlike `stdout()` we don't use `at_exit` here to register a
     // destructor. Stderr is not buffered, so there's no need to run a
@@ -1151,7 +1151,7 @@ pub fn stderr() -> Stderr {
 
 /// SBF dummy
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(target_family = "solana")]
+#[cfg(target_family = "trezoa")]
 pub fn stderr() -> Stderr {
     Stderr {}
 }
@@ -1178,7 +1178,7 @@ impl Stderr {
     /// }
     /// ```
     #[stable(feature = "rust1", since = "1.0.0")]
-    #[cfg(not(target_family = "solana"))]
+    #[cfg(not(target_family = "trezoa"))]
     pub fn lock(&self) -> StderrLock<'static> {
         // Locks this handle with 'static lifetime. This depends on the
         // implementation detail that the underlying `ReentrantMutex` is
@@ -1201,7 +1201,7 @@ impl fmt::Debug for Stderr {
 }
 
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl Write for Stderr {
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
         (&*self).write(buf)
@@ -1228,7 +1228,7 @@ impl Write for Stderr {
 }
 
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(target_family = "solana")]
+#[cfg(target_family = "trezoa")]
 impl Write for Stderr {
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
         crate::sys::sol_log(buf);
@@ -1257,7 +1257,7 @@ impl Write for Stderr {
 }
 
 #[stable(feature = "write_mt", since = "1.48.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl Write for &Stderr {
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
         self.lock().write(buf)
@@ -1284,15 +1284,15 @@ impl Write for &Stderr {
 }
 
 #[stable(feature = "catch_unwind", since = "1.9.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl UnwindSafe for StderrLock<'_> {}
 
 #[stable(feature = "catch_unwind", since = "1.9.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl RefUnwindSafe for StderrLock<'_> {}
 
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl Write for StderrLock<'_> {
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
         self.inner.borrow_mut().write(buf)
@@ -1316,7 +1316,7 @@ impl Write for StderrLock<'_> {
 }
 
 #[stable(feature = "std_debug", since = "1.16.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl fmt::Debug for StderrLock<'_> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("StderrLock").finish_non_exhaustive()
@@ -1324,7 +1324,7 @@ impl fmt::Debug for StderrLock<'_> {
 }
 
 /// Sets the thread-local output capture buffer and returns the old one.
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 #[unstable(
     feature = "internal_output_capture",
     reason = "this function is meant for use in the test crate \
@@ -1342,7 +1342,7 @@ pub fn set_output_capture(sink: Option<LocalStream>) -> Option<LocalStream> {
 /// Tries to set the thread-local output capture buffer and returns the old one.
 /// This may fail once thread-local destructors are called. It's used in panic
 /// handling instead of `set_output_capture`.
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 #[unstable(
     feature = "internal_output_capture",
     reason = "this function is meant for use in the test crate \
@@ -1362,7 +1362,7 @@ pub fn try_set_output_capture(
 }
 
 /// Dummy version for satisfying test library dependencies when building the SBF target.
-#[cfg(target_family = "solana")]
+#[cfg(target_family = "trezoa")]
 #[unstable(
     feature = "internal_output_capture",
     reason = "this function is meant for use in the test crate \
@@ -1377,7 +1377,7 @@ pub fn try_set_output_capture(
 }
 
 /// Dummy version for satisfying test library dependencies when building the SBF target.
-#[cfg(target_family = "solana")]
+#[cfg(target_family = "trezoa")]
 #[unstable(
     feature = "internal_output_capture",
     reason = "this function is meant for use in the test crate \
@@ -1402,7 +1402,7 @@ pub fn set_output_capture(_sink: Option<LocalStream>) -> Option<LocalStream> {
 ///
 /// Writing to non-blocking stdout/stderr can cause an error, which will lead
 /// this function to panic.
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 fn print_to<T>(args: fmt::Arguments<'_>, global_s: fn() -> T, label: &str)
 where
     T: Write,
@@ -1417,7 +1417,7 @@ where
     }
 }
 
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 fn print_to_buffer_if_capture_used(args: fmt::Arguments<'_>) -> bool {
     OUTPUT_CAPTURE_USED.load(Ordering::Relaxed)
         && OUTPUT_CAPTURE.try_with(|s| {
@@ -1434,7 +1434,7 @@ fn print_to_buffer_if_capture_used(args: fmt::Arguments<'_>) -> bool {
 /// Used by impl Termination for Result to print error after `main` or a test
 /// has returned. Should avoid panicking, although we can't help it if one of
 /// the Display impls inside args decides to.
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 pub(crate) fn attempt_print_to_stderr(args: fmt::Arguments<'_>) {
     if print_to_buffer_if_capture_used(args) {
         return;
@@ -1500,7 +1500,7 @@ pub trait IsTerminal: crate::sealed::Sealed {
     fn is_terminal(&self) -> bool;
 }
 
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 macro_rules! impl_is_terminal {
     ($($t:ty),*$(,)?) => {$(
         #[unstable(feature = "sealed", issue = "none")]
@@ -1516,7 +1516,7 @@ macro_rules! impl_is_terminal {
     )*}
 }
 
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl_is_terminal!(File, Stdin, StdinLock<'_>, Stdout, StdoutLock<'_>, Stderr, StderrLock<'_>);
 
 #[unstable(
@@ -1526,7 +1526,7 @@ impl_is_terminal!(File, Stdin, StdinLock<'_>, Stdout, StdoutLock<'_>, Stderr, St
 )]
 #[doc(hidden)]
 #[cfg(not(test))]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 pub fn _print(args: fmt::Arguments<'_>) {
     print_to(args, stdout, "stdout");
 }
@@ -1537,7 +1537,7 @@ pub fn _print(args: fmt::Arguments<'_>) {
     issue = "none")]
 #[doc(hidden)]
 #[cfg(not(test))]
-#[cfg(target_family = "solana")]
+#[cfg(target_family = "trezoa")]
 pub fn _print(_args: fmt::Arguments<'_>) {
 }
 
@@ -1548,7 +1548,7 @@ pub fn _print(_args: fmt::Arguments<'_>) {
 )]
 #[doc(hidden)]
 #[cfg(not(test))]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 pub fn _eprint(args: fmt::Arguments<'_>) {
     print_to(args, stderr, "stderr");
 }
@@ -1559,7 +1559,7 @@ pub fn _eprint(args: fmt::Arguments<'_>) {
     issue = "none")]
 #[doc(hidden)]
 #[cfg(not(test))]
-#[cfg(target_family = "solana")]
+#[cfg(target_family = "trezoa")]
 pub fn _eprint(_args: fmt::Arguments<'_>) {
 }
 

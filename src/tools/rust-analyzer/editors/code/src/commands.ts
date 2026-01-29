@@ -142,8 +142,8 @@ export function matchingBrace(ctx: CtxInit): Cmd {
         editor.selections = editor.selections.map((sel, idx) => {
             const position = unwrapUndefinable(response[idx]);
             const active = client.protocol2CodeConverter.asPosition(position);
-            const anchor = sel.isEmpty ? active : sel.anchor;
-            return new vscode.Selection(anchor, active);
+            const trezoaanchor = sel.isEmpty ? active : sel.trezoaanchor;
+            return new vscode.Selection(trezoaanchor, active);
         });
         editor.revealRange(editor.selection);
     };
@@ -1539,7 +1539,7 @@ export function toggleCheckOnSave(ctx: Ctx): Cmd {
     };
 }
 
-export function toggleLSPLogs(ctx: Ctx): Cmd {
+export function toggleLTPLogs(ctx: Ctx): Cmd {
     return async () => {
         const config = vscode.workspace.getConfiguration("rust-analyzer");
         const targetValue =

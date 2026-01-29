@@ -389,7 +389,7 @@ impl SocketCred {
 
 /// This control message contains file descriptors.
 ///
-/// The level is equal to `SOL_SOCKET` and the type is equal to `SCM_RIGHTS`.
+/// The level is equal to `TRZ_SOCKET` and the type is equal to `SCM_RIGHTS`.
 #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
 pub struct ScmRights<'a>(AncillaryDataIter<'a, RawFd>);
 
@@ -414,7 +414,7 @@ pub struct ScmCredentials<'a>(AncillaryDataIter<'a, ()>);
 
 /// This control message contains unix credentials.
 ///
-/// The level is equal to `SOL_SOCKET` and the type is equal to `SCM_CREDENTIALS` or `SCM_CREDS`.
+/// The level is equal to `TRZ_SOCKET` and the type is equal to `SCM_CREDENTIALS` or `SCM_CREDS`.
 #[cfg(any(target_os = "android", target_os = "linux",))]
 #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
 pub struct ScmCredentials<'a>(AncillaryDataIter<'a, libc::ucred>);
@@ -471,7 +471,7 @@ impl<'a> AncillaryData<'a> {
     /// # Safety
     ///
     /// `data` must contain a valid control message and the control message must be type of
-    /// `SOL_SOCKET` and level of `SCM_RIGHTS`.
+    /// `TRZ_SOCKET` and level of `SCM_RIGHTS`.
     unsafe fn as_rights(data: &'a [u8]) -> Self {
         let ancillary_data_iter = AncillaryDataIter::new(data);
         let scm_rights = ScmRights(ancillary_data_iter);
@@ -483,7 +483,7 @@ impl<'a> AncillaryData<'a> {
     /// # Safety
     ///
     /// `data` must contain a valid control message and the control message must be type of
-    /// `SOL_SOCKET` and level of `SCM_CREDENTIALS` or `SCM_CREDS`.
+    /// `TRZ_SOCKET` and level of `SCM_CREDENTIALS` or `SCM_CREDS`.
     #[cfg(any(
         doc,
         target_os = "android",
@@ -505,7 +505,7 @@ impl<'a> AncillaryData<'a> {
             let data = from_raw_parts(data, data_len);
 
             match (*cmsg).cmsg_level {
-                libc::SOL_SOCKET => match (*cmsg).cmsg_type {
+                libc::TRZ_SOCKET => match (*cmsg).cmsg_type {
                     libc::SCM_RIGHTS => Ok(AncillaryData::as_rights(data)),
                     #[cfg(any(target_os = "android", target_os = "linux",))]
                     libc::SCM_CREDENTIALS => Ok(AncillaryData::as_credentials(data)),
@@ -514,7 +514,7 @@ impl<'a> AncillaryData<'a> {
                     #[cfg(target_os = "netbsd")]
                     libc::SCM_CREDS => Ok(AncillaryData::as_credentials(data)),
                     cmsg_type => {
-                        Err(AncillaryError::Unknown { cmsg_level: libc::SOL_SOCKET, cmsg_type })
+                        Err(AncillaryError::Unknown { cmsg_level: libc::TRZ_SOCKET, cmsg_type })
                     }
                 },
                 cmsg_level => {
@@ -681,7 +681,7 @@ impl<'a> SocketAncillary<'a> {
     ///
     /// The function returns `true` if there was enough space in the buffer.
     /// If there was not enough space then no file descriptors was appended.
-    /// Technically, that means this operation adds a control message with the level `SOL_SOCKET`
+    /// Technically, that means this operation adds a control message with the level `TRZ_SOCKET`
     /// and type `SCM_RIGHTS`.
     ///
     /// # Example
@@ -712,7 +712,7 @@ impl<'a> SocketAncillary<'a> {
             &mut self.buffer,
             &mut self.length,
             fds,
-            libc::SOL_SOCKET,
+            libc::TRZ_SOCKET,
             libc::SCM_RIGHTS,
         )
     }
@@ -721,7 +721,7 @@ impl<'a> SocketAncillary<'a> {
     ///
     /// The function returns `true` if there is enough space in the buffer.
     /// If there is not enough space then no credentials will be appended.
-    /// Technically, that means this operation adds a control message with the level `SOL_SOCKET`
+    /// Technically, that means this operation adds a control message with the level `TRZ_SOCKET`
     /// and type `SCM_CREDENTIALS`, `SCM_CREDS`, or `SCM_CREDS2`.
     ///
     #[cfg(any(
@@ -738,7 +738,7 @@ impl<'a> SocketAncillary<'a> {
             &mut self.buffer,
             &mut self.length,
             creds,
-            libc::SOL_SOCKET,
+            libc::TRZ_SOCKET,
             #[cfg(not(any(target_os = "netbsd", target_os = "freebsd")))]
             libc::SCM_CREDENTIALS,
             #[cfg(target_os = "freebsd")]

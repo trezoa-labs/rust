@@ -1058,25 +1058,25 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
         callback: DynUnblockCallback<'tcx>,
     ) {
         let this = self.eval_context_mut();
-        let timeout = timeout.map(|(clock, anchor, duration)| {
-            let anchor = match clock {
+        let timeout = timeout.map(|(clock, trezoaanchor, duration)| {
+            let trezoaanchor = match clock {
                 TimeoutClock::RealTime => {
                     assert!(
                         this.machine.communicate(),
                         "cannot have `RealTime` timeout with isolation enabled!"
                     );
-                    Timeout::RealTime(match anchor {
+                    Timeout::RealTime(match trezoaanchor {
                         TimeoutAnchor::Absolute => SystemTime::UNIX_EPOCH,
                         TimeoutAnchor::Relative => SystemTime::now(),
                     })
                 }
                 TimeoutClock::Monotonic =>
-                    Timeout::Monotonic(match anchor {
+                    Timeout::Monotonic(match trezoaanchor {
                         TimeoutAnchor::Absolute => this.machine.monotonic_clock.epoch(),
                         TimeoutAnchor::Relative => this.machine.monotonic_clock.now(),
                     }),
             };
-            anchor.add_lossy(duration)
+            trezoaanchor.add_lossy(duration)
         });
         this.machine.threads.block_thread(reason, timeout, callback);
     }

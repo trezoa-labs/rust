@@ -78,7 +78,7 @@ impl ModDir {
 
         let orig_file_id = file_id.original_file_respecting_includes(db);
         for candidate in candidate_files.iter() {
-            let path = AnchoredPath { anchor: orig_file_id.file_id(db), path: candidate.as_str() };
+            let path = AnchoredPath { trezoaanchor: orig_file_id.file_id(db), path: candidate.as_str() };
             if let Some(file_id) = db.resolve_path(path) {
                 let is_mod_rs = candidate.ends_with("/mod.rs");
 

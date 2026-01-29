@@ -350,7 +350,7 @@ impl<'a, I: Iterator<Item = Event<'a>>> Iterator for CodeBlocks<'_, 'a, I> {
     }
 }
 
-/// Make headings links with anchor IDs and build up TOC.
+/// Make headings links with trezoaanchor IDs and build up TOC.
 struct LinkReplacerInner<'a> {
     links: &'a [RenderedLink],
     shortcut_link: Option<&'a RenderedLink>,
@@ -532,7 +532,7 @@ impl<'a, I: Iterator<Item = Event<'a>>> Iterator for TableWrapper<'a, I> {
 
 type SpannedEvent<'a> = (Event<'a>, Range<usize>);
 
-/// Make headings links with anchor IDs and build up TOC.
+/// Make headings links with trezoaanchor IDs and build up TOC.
 struct HeadingLinks<'a, 'b, 'ids, I> {
     inner: I,
     toc: Option<&'b mut TocBuilder>,
@@ -589,7 +589,7 @@ impl<'a, I: Iterator<Item = SpannedEvent<'a>>> Iterator for HeadingLinks<'a, '_,
             self.buf.push_back((Event::Html(format!("</h{level}>").into()), 0..0));
 
             let start_tags =
-                format!("<h{level} id=\"{id}\"><a class=\"doc-anchor\" href=\"#{id}\">§</a>");
+                format!("<h{level} id=\"{id}\"><a class=\"doc-trezoaanchor\" href=\"#{id}\">§</a>");
             return Some((Event::Html(start_tags.into()), 0..0));
         }
         event

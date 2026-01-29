@@ -1,19 +1,19 @@
 use super::{Thread, ThreadId};
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 use crate::mem::ManuallyDrop;
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 use crate::ptr;
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 use crate::sys::thread_local::local_pointer;
 
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 const NONE: *mut () = ptr::null_mut();
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 const BUSY: *mut () = ptr::without_provenance_mut(1);
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 const DESTROYED: *mut () = ptr::without_provenance_mut(2);
 
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 local_pointer! {
     static CURRENT;
 }
@@ -23,7 +23,7 @@ local_pointer! {
 /// We store the thread ID so that it never gets destroyed during the lifetime
 /// of a thread, either using `#[thread_local]` or multiple `local_pointer!`s.
 pub(super) mod id {
-    #[cfg(not(target_family = "solana"))]
+    #[cfg(not(target_family = "trezoa"))]
     use super::*;
 
     cfg_if::cfg_if! {
@@ -86,7 +86,7 @@ pub(super) mod id {
                 ID0.set(ptr::without_provenance_mut(val as usize));
                 ID32.set(ptr::without_provenance_mut((val >> 32) as usize));
             }
-        } else if #[cfg(target_family = "solana")] {
+        } else if #[cfg(target_family = "trezoa")] {
 
         } else {
             local_pointer! {
@@ -108,7 +108,7 @@ pub(super) mod id {
     }
 
     #[inline]
-    #[cfg(not(target_family = "solana"))]
+    #[cfg(not(target_family = "trezoa"))]
     pub(super) fn get_or_init() -> ThreadId {
         get().unwrap_or_else(
             #[cold]
@@ -123,7 +123,7 @@ pub(super) mod id {
 
 /// Tries to set the thread handle for the current thread. Fails if a handle was
 /// already set or if the thread ID of `thread` would change an already-set ID.
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 pub fn set_current(thread: Thread) -> Result<(), Thread> {
     if CURRENT.get() != NONE {
         return Err(thread);
@@ -146,7 +146,7 @@ pub fn set_current(thread: Thread) -> Result<(), Thread> {
 ///
 /// This function will always succeed, will always return the same value for
 /// one thread and is guaranteed not to call the global allocator.
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 #[inline]
 pub(crate) fn current_id() -> ThreadId {
     // If accessing the persistent thread ID takes multiple TLS accesses, try
@@ -163,7 +163,7 @@ pub(crate) fn current_id() -> ThreadId {
 
 /// Gets a reference to the handle of the thread that invokes it, if the handle
 /// has been initialized.
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 pub(super) fn try_with_current<F, R>(f: F) -> R
 where
     F: FnOnce(Option<&Thread>) -> R,
@@ -185,7 +185,7 @@ where
 /// Gets a handle to the thread that invokes it. If the handle stored in thread-
 /// local storage was already destroyed, this creates a new unnamed temporary
 /// handle to allow thread parking in nearly all situations.
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 pub(crate) fn current_or_unnamed() -> Thread {
     let current = CURRENT.get();
     if current > DESTROYED {
@@ -200,7 +200,7 @@ pub(crate) fn current_or_unnamed() -> Thread {
     }
 }
 
-#[cfg(target_family = "solana")]
+#[cfg(target_family = "trezoa")]
 pub(crate) fn current_or_unnamed() -> Thread {
    current()
 }
@@ -226,7 +226,7 @@ pub(crate) fn current_or_unnamed() -> Thread {
 /// ```
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 pub fn current() -> Thread {
     let current = CURRENT.get();
     if current > DESTROYED {
@@ -238,16 +238,16 @@ pub fn current() -> Thread {
         init_current(current)
     }
 }
-/// Solana version of current
+/// Trezoa version of current
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
-#[cfg(target_family = "solana")]
+#[cfg(target_family = "trezoa")]
 pub fn current() -> Thread {
     Thread::new(ThreadId::from_u64(1).unwrap(), None)
 }
 
 #[cold]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 fn init_current(current: *mut ()) -> Thread {
     if current == NONE {
         CURRENT.set(BUSY);
@@ -292,7 +292,7 @@ fn init_current(current: *mut ()) -> Thread {
 
 /// This should be run in [`crate::rt::thread_cleanup`] to reset the thread
 /// handle.
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 pub(crate) fn drop_current() {
     let current = CURRENT.get();
     if current > DESTROYED {

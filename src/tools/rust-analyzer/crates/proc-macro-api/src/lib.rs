@@ -183,11 +183,11 @@ impl ProcMacro {
                 tt::TokenTree::Leaf(tt::Leaf::Ident(tt::Ident { span, .. }))
                 | tt::TokenTree::Leaf(tt::Leaf::Literal(tt::Literal { span, .. }))
                 | tt::TokenTree::Leaf(tt::Leaf::Punct(tt::Punct { span, .. })) => {
-                    change_ast_id(&mut span.anchor.ast_id);
+                    change_ast_id(&mut span.trezoaanchor.ast_id);
                 }
                 tt::TokenTree::Subtree(subtree) => {
-                    change_ast_id(&mut subtree.delimiter.open.anchor.ast_id);
-                    change_ast_id(&mut subtree.delimiter.close.anchor.ast_id);
+                    change_ast_id(&mut subtree.delimiter.open.trezoaanchor.ast_id);
+                    change_ast_id(&mut subtree.delimiter.close.trezoaanchor.ast_id);
                 }
             }
         }

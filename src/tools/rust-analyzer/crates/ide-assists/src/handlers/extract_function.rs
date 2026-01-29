@@ -90,8 +90,8 @@ pub(crate) fn extract_function(acc: &mut Assists, ctx: &AssistContext<'_>) -> Op
 
     let (locals_used, self_param) = body.analyze(&ctx.sema);
 
-    let anchor = if self_param.is_some() { Anchor::Method } else { Anchor::Freestanding };
-    let insert_after = node_to_insert_after(&body, anchor)?;
+    let trezoaanchor = if self_param.is_some() { Anchor::Method } else { Anchor::Freestanding };
+    let insert_after = node_to_insert_after(&body, trezoaanchor)?;
     let semantics_scope = ctx.sema.scope(&insert_after)?;
     let module = semantics_scope.module();
     let edition = semantics_scope.krate().edition(ctx.db());
@@ -182,7 +182,7 @@ pub(crate) fn extract_function(acc: &mut Assists, ctx: &AssistContext<'_>) -> Op
             }
 
             let fn_def = match fun.self_param_adt(ctx) {
-                Some(adt) if anchor == Anchor::Method && !has_impl_wrapper => {
+                Some(adt) if trezoaanchor == Anchor::Method && !has_impl_wrapper => {
                     fn_def.indent(1.into());
 
                     let impl_ = generate_impl(&adt);
@@ -1379,7 +1379,7 @@ fn is_defined_outside_of_body(
 /// find where to put extracted function definition
 ///
 /// Function should be put right after returned node
-fn node_to_insert_after(body: &FunctionBody, anchor: Anchor) -> Option<SyntaxNode> {
+fn node_to_insert_after(body: &FunctionBody, trezoaanchor: Anchor) -> Option<SyntaxNode> {
     let node = body.node();
     let mut ancestors = node.ancestors().peekable();
     let mut last_ancestor = None;
@@ -1387,20 +1387,20 @@ fn node_to_insert_after(body: &FunctionBody, anchor: Anchor) -> Option<SyntaxNod
         match next_ancestor.kind() {
             SyntaxKind::SOURCE_FILE => break,
             SyntaxKind::IMPL => {
-                if body.extracted_from_trait_impl() && matches!(anchor, Anchor::Method) {
+                if body.extracted_from_trait_impl() && matches!(trezoaanchor, Anchor::Method) {
                     let impl_node = find_non_trait_impl(&next_ancestor);
                     if let target_node @ Some(_) = impl_node.as_ref().and_then(last_impl_member) {
                         return target_node;
                     }
                 }
             }
-            SyntaxKind::ITEM_LIST if !matches!(anchor, Anchor::Freestanding) => continue,
+            SyntaxKind::ITEM_LIST if !matches!(trezoaanchor, Anchor::Freestanding) => continue,
             SyntaxKind::ITEM_LIST => {
                 if ancestors.peek().map(SyntaxNode::kind) == Some(SyntaxKind::MODULE) {
                     break;
                 }
             }
-            SyntaxKind::ASSOC_ITEM_LIST if !matches!(anchor, Anchor::Method) => continue,
+            SyntaxKind::ASSOC_ITEM_LIST if !matches!(trezoaanchor, Anchor::Method) => continue,
             SyntaxKind::ASSOC_ITEM_LIST if body.extracted_from_trait_impl() => continue,
             SyntaxKind::ASSOC_ITEM_LIST => {
                 if ancestors.peek().map(SyntaxNode::kind) == Some(SyntaxKind::IMPL) {

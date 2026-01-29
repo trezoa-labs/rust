@@ -2,8 +2,8 @@
 //! which doesn't know anything about the defining scope of either
 //! opaque type and thus makes a random choice as to which opaque type
 //! becomes the hidden type of the other. When we leave the canonical
-//! query, we attempt to actually check the defining anchor, but now we
-//! have a situation where the RPIT gets constrained outside its anchor.
+//! query, we attempt to actually check the defining trezoaanchor, but now we
+//! have a situation where the RPIT gets constrained outside its trezoaanchor.
 
 //@ revisions: current next
 //@ ignore-compare-mode-next-solver (explicit revisions)

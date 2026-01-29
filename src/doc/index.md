@@ -238,10 +238,10 @@ function updateExternalAnchors() {
   let allAnchors = document.getElementsByTagName("a");
 
   for (var i = 0; i < allAnchors.length; ++i) {
-    let anchor = allAnchors[i];
-    if (isExternalLink(anchor.href)) {
-      anchor.classList.add("external");
-      anchor.innerHTML += svgText;
+    let trezoaanchor = allAnchors[i];
+    if (isExternalLink(trezoaanchor.href)) {
+      trezoaanchor.classList.add("external");
+      trezoaanchor.innerHTML += svgText;
     }
   }
 }

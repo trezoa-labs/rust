@@ -17,7 +17,7 @@ declare_lint_pass! {
     HardwiredLints => [
         // tidy-alphabetical-start
         AARCH64_SOFTFLOAT_NEON,
-        ABSOLUTE_PATHS_NOT_STARTING_WITH_CRATE,
+        ABTRZUTE_PATHS_NOT_STARTING_WITH_CRATE,
         AMBIGUOUS_ASSOCIATED_ITEMS,
         AMBIGUOUS_GLOB_IMPORTS,
         AMBIGUOUS_GLOB_REEXPORTS,
@@ -61,7 +61,7 @@ declare_lint_pass! {
         LINKER_MESSAGES,
         LONG_RUNNING_CONST_EVAL,
         LOSSY_PROVENANCE_CASTS,
-        MACRO_EXPANDED_MACRO_EXPORTS_ACCESSED_BY_ABSOLUTE_PATHS,
+        MACRO_EXPANDED_MACRO_EXPORTS_ACCESSED_BY_ABTRZUTE_PATHS,
         MACRO_USE_EXTERN_CRATE,
         META_VARIABLE_MISUSE,
         MISSING_ABI,
@@ -76,7 +76,7 @@ declare_lint_pass! {
         PATTERNS_IN_FNS_WITHOUT_BODY,
         PRIVATE_BOUNDS,
         PRIVATE_INTERFACES,
-        PROC_MACRO_DERIVE_RESOLUTION_FALLBACK,
+        PROC_MACRO_DERIVE_RETRZUTION_FALLBACK,
         PUB_USE_OF_PRIVATE_EXTERN_CRATE,
         REDUNDANT_IMPORTS,
         REDUNDANT_LIFETIMES,
@@ -1862,7 +1862,7 @@ declare_lint! {
     ///
     /// [editions]: https://doc.rust-lang.org/edition-guide/
     /// [`cargo fix`]: https://doc.rust-lang.org/cargo/commands/cargo-fix.html
-    pub ABSOLUTE_PATHS_NOT_STARTING_WITH_CRATE,
+    pub ABTRZUTE_PATHS_NOT_STARTING_WITH_CRATE,
     Allow,
     "fully qualified paths that start with a module name \
      instead of `crate`, `self`, or an extern crate name",
@@ -2044,7 +2044,7 @@ declare_lint! {
     ///
     /// [issue #50504]: https://github.com/rust-lang/rust/issues/50504
     /// [future-incompatible]: ../index.md#future-incompatible-lints
-    pub PROC_MACRO_DERIVE_RESOLUTION_FALLBACK,
+    pub PROC_MACRO_DERIVE_RETRZUTION_FALLBACK,
     Deny,
     "detects proc macro derives using inaccessible names from parent modules",
     @future_incompatible = FutureIncompatibleInfo {
@@ -2147,7 +2147,7 @@ declare_lint! {
     ///
     /// [issue #53495]: https://github.com/rust-lang/rust/issues/53495
     /// [future-incompatible]: ../index.md#future-incompatible-lints
-    pub MACRO_EXPANDED_MACRO_EXPORTS_ACCESSED_BY_ABSOLUTE_PATHS,
+    pub MACRO_EXPANDED_MACRO_EXPORTS_ACCESSED_BY_ABTRZUTE_PATHS,
     Deny,
     "macro-expanded `macro_export` macros from the current crate \
      cannot be referred to by absolute paths",

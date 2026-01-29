@@ -503,7 +503,7 @@ impl HirDisplay for TypeParam {
                         "impl",
                         Either::Left(&ty),
                         &predicates,
-                        SizedByDefault::Sized { anchor: krate },
+                        SizedByDefault::Sized { trezoaanchor: krate },
                     );
                 }
             },
@@ -523,7 +523,7 @@ impl HirDisplay for TypeParam {
         });
         let has_only_not_sized_bound = predicates.is_empty();
         if !has_only_sized_bound || has_only_not_sized_bound {
-            let default_sized = SizedByDefault::Sized { anchor: krate };
+            let default_sized = SizedByDefault::Sized { trezoaanchor: krate };
             write_bounds_like_dyn_trait_with_prefix(
                 f,
                 ":",

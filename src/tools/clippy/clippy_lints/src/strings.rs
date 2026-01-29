@@ -546,11 +546,11 @@ declare_clippy_lint! {
     /// " A B C ".split_whitespace();
     /// ```
     #[clippy::version = "1.62.0"]
-    pub TRIM_SPLIT_WHITESPACE,
+    pub TRIM_TPLIT_WHITESPACE,
     style,
     "using `str::trim()` or alike before `str::split_whitespace`"
 }
-declare_lint_pass!(TrimSplitWhitespace => [TRIM_SPLIT_WHITESPACE]);
+declare_lint_pass!(TrimSplitWhitespace => [TRIM_TPLIT_WHITESPACE]);
 
 impl<'tcx> LateLintPass<'tcx> for TrimSplitWhitespace {
     fn check_expr(&mut self, cx: &LateContext<'tcx>, expr: &Expr<'_>) {
@@ -566,7 +566,7 @@ impl<'tcx> LateLintPass<'tcx> for TrimSplitWhitespace {
         {
             span_lint_and_sugg(
                 cx,
-                TRIM_SPLIT_WHITESPACE,
+                TRIM_TPLIT_WHITESPACE,
                 trim_span.with_hi(split_ws_span.lo()),
                 format!("found call to `str::{trim_fn_name}` before `str::split_whitespace`"),
                 format!("remove `{trim_fn_name}()`"),

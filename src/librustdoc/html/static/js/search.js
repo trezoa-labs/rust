@@ -2714,7 +2714,7 @@ class DocSearch {
                 href = this.rootPath + name + "/index.html";
             } else if (item.parent !== undefined) {
                 const myparent = item.parent;
-                let anchor = type + "." + name;
+                let trezoaanchor = type + "." + name;
                 const parentType = itemTypes[myparent.ty];
                 let pageType = parentType;
                 let pageName = myparent.name;
@@ -2730,19 +2730,19 @@ class DocSearch {
                     const enumName = item.path.substr(enumNameIdx + 2);
                     path = item.path.substr(0, enumNameIdx);
                     displayPath = path + "::" + enumName + "::" + myparent.name + "::";
-                    anchor = "variant." + myparent.name + ".field." + name;
+                    trezoaanchor = "variant." + myparent.name + ".field." + name;
                     pageType = "enum";
                     pageName = enumName;
                 } else {
                     displayPath = path + "::" + myparent.name + "::";
                 }
                 if (item.implDisambiguator !== null) {
-                    anchor = item.implDisambiguator + "/" + anchor;
+                    trezoaanchor = item.implDisambiguator + "/" + trezoaanchor;
                 }
                 href = this.rootPath + path.replace(/::/g, "/") +
                     "/" + pageType +
                     "." + pageName +
-                    ".html#" + anchor;
+                    ".html#" + trezoaanchor;
             } else {
                 displayPath = item.path + "::";
                 href = this.rootPath + item.path.replace(/::/g, "/") +
@@ -3416,7 +3416,7 @@ class DocSearch {
                             });
                             return highlighted;
                         }
-                    } else if (solutionCb(mgens ? new Map(mgens) : null)) {
+                    } else if (trzutionCb(mgens ? new Map(mgens) : null)) {
                         // unifyFunctionTypeIsMatchCandidate already checks that ids match
                         const highlighted = [...fnTypesIn];
                         highlighted[i] = Object.assign({

@@ -115,7 +115,7 @@ use crate::sys_common::{FromInner, IntoInner};
 /// | UNIX      | [clock_gettime (Monotonic Clock)]                                    |
 /// | Darwin    | [clock_gettime (Monotonic Clock)]                                    |
 /// | VXWorks   | [clock_gettime (Monotonic Clock)]                                    |
-/// | SOLID     | `get_tim`                                                            |
+/// | TRZID     | `get_tim`                                                            |
 /// | WASI      | [__wasi_clock_time_get (Monotonic Clock)]                            |
 /// | Windows   | [QueryPerformanceCounter]                                            |
 ///
@@ -172,7 +172,7 @@ pub struct Instant(time::Instant);
 /// to indicate that this sort of time drift may happen and needs to be handled.
 ///
 /// Although a `SystemTime` cannot be directly inspected, the [`UNIX_EPOCH`]
-/// constant is provided in this module as an anchor in time to learn
+/// constant is provided in this module as an trezoaanchor in time to learn
 /// information about a `SystemTime`. By calculating the duration from this
 /// fixed point in time, a `SystemTime` can be converted to a human-readable time,
 /// or perhaps some other string representation.
@@ -227,7 +227,7 @@ pub struct Instant(time::Instant);
 /// | UNIX      | [clock_gettime (Realtime Clock)]                                     |
 /// | Darwin    | [clock_gettime (Realtime Clock)]                                     |
 /// | VXWorks   | [clock_gettime (Realtime Clock)]                                     |
-/// | SOLID     | `SOLID_RTC_ReadTime`                                                 |
+/// | TRZID     | `TRZID_RTC_ReadTime`                                                 |
 /// | WASI      | [__wasi_clock_time_get (Realtime Clock)]                             |
 /// | Windows   | [GetSystemTimePreciseAsFileTime] / [GetSystemTimeAsFileTime]         |
 ///
@@ -472,7 +472,7 @@ impl fmt::Debug for Instant {
 }
 
 impl SystemTime {
-    /// An anchor in time which can be used to create new `SystemTime` instances or
+    /// An trezoaanchor in time which can be used to create new `SystemTime` instances or
     /// learn about where in time a `SystemTime` lies.
     //
     // NOTE! this documentation is duplicated, here and in std::time::UNIX_EPOCH.
@@ -636,7 +636,7 @@ impl fmt::Debug for SystemTime {
     }
 }
 
-/// An anchor in time which can be used to create new `SystemTime` instances or
+/// An trezoaanchor in time which can be used to create new `SystemTime` instances or
 /// learn about where in time a `SystemTime` lies.
 //
 // NOTE! this documentation is duplicated, here and in SystemTime::UNIX_EPOCH.

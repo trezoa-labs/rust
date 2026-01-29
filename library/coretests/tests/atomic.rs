@@ -213,7 +213,7 @@ fn ptr_bitops_tagging() {
 }
 
 // SBF does not support mustable static data
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 mod statik {
     use super::*;
 

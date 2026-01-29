@@ -747,7 +747,7 @@ impl GlobalStateSnapshot {
     }
 
     pub(crate) fn anchored_path(&self, path: &AnchoredPathBuf) -> Url {
-        let mut base = self.vfs_read().file_path(path.anchor).clone();
+        let mut base = self.vfs_read().file_path(path.trezoaanchor).clone();
         base.pop();
         let path = base.join(&path.path).unwrap();
         let path = path.as_path().unwrap();

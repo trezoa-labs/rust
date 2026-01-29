@@ -694,7 +694,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 // `term` needs this, so we fake it.
                 let [console, buffer_info] = this.check_shim(abi, sys_conv, link_name, args)?;
                 this.read_target_isize(console)?;
-                // FIXME: this should use deref_pointer_as, but CONSOLE_SCREEN_BUFFER_INFO is not in std
+                // FIXME: this should use deref_pointer_as, but CONTRZE_SCREEN_BUFFER_INFO is not in std
                 this.deref_pointer(buffer_info)?;
                 // Indicate an error.
                 // FIXME: we should set last_error, but to what?

@@ -145,7 +145,7 @@ fn print_lint_warnings(lint: &LintWarnings, truncate_after: usize) {
     let name = &lint.name;
     let html_id = to_html_id(name);
 
-    // The additional anchor is added for non GH viewers that don't prefix ID's
+    // The additional trezoaanchor is added for non GH viewers that don't prefix ID's
     println!(r#"## `{name}` <a id="user-content-{html_id}"></a>"#);
     println!();
 

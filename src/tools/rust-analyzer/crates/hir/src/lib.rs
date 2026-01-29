@@ -985,12 +985,12 @@ fn macro_call_diagnostics(
         let node =
             InFile::new(file_id, db.ast_id_map(file_id).get_erased(loc.kind.erased_ast_id()));
         let RenderedExpandError { message, error, kind } = err.render_to_string(db);
-        let editioned_file_id = EditionedFileId::from_span(db, err.span().anchor.file_id);
+        let editioned_file_id = EditionedFileId::from_span(db, err.span().trezoaanchor.file_id);
         let precise_location = if editioned_file_id == file_id {
             Some(
                 err.span().range
                     + db.ast_id_map(editioned_file_id.into())
-                        .get_erased(err.span().anchor.ast_id)
+                        .get_erased(err.span().trezoaanchor.ast_id)
                         .text_range()
                         .start(),
             )
@@ -2118,12 +2118,12 @@ fn expr_store_diagnostics(
             ExpressionStoreDiagnostics::MacroError { node, err } => {
                 let RenderedExpandError { message, error, kind } = err.render_to_string(db);
 
-                let editioned_file_id = EditionedFileId::from_span(db, err.span().anchor.file_id);
+                let editioned_file_id = EditionedFileId::from_span(db, err.span().trezoaanchor.file_id);
                 let precise_location = if editioned_file_id == node.file_id {
                     Some(
                         err.span().range
                             + db.ast_id_map(editioned_file_id.into())
-                                .get_erased(err.span().anchor.ast_id)
+                                .get_erased(err.span().trezoaanchor.ast_id)
                                 .text_range()
                                 .start(),
                     )

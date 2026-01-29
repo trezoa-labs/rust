@@ -14,7 +14,7 @@ use rustc_lint::LateContext;
 use rustc_middle::ty;
 use rustc_span::{Span, Symbol, SyntaxContext};
 
-use super::{MANUAL_SPLIT_ONCE, NEEDLESS_SPLITN};
+use super::{MANUAL_TPLIT_ONCE, NEEDLESS_TPLITN};
 
 pub(super) fn check(
     cx: &LateContext<'_>,
@@ -33,7 +33,7 @@ pub(super) fn check(
         IterUsageKind::Nth(n) => count > n + 1,
         IterUsageKind::NextTuple => count > 2,
     };
-    let manual = count == 2 && msrv.meets(cx, msrvs::STR_SPLIT_ONCE);
+    let manual = count == 2 && msrv.meets(cx, msrvs::STR_TPLIT_ONCE);
 
     match parse_iter_usage(cx, expr.span.ctxt(), cx.tcx.hir_parent_iter(expr.hir_id)) {
         Some(usage) if needless(usage.kind) => lint_needless(cx, method_name, expr, self_arg, pat_arg),
@@ -51,7 +51,7 @@ fn lint_needless(cx: &LateContext<'_>, method_name: Symbol, expr: &Expr<'_>, sel
 
     span_lint_and_sugg(
         cx,
-        NEEDLESS_SPLITN,
+        NEEDLESS_TPLITN,
         expr.span,
         format!("unnecessary use of `{r}splitn`"),
         "try",
@@ -109,7 +109,7 @@ fn check_manual_split_once(
         IterUsageKind::Nth(_) => return,
     };
 
-    span_lint_and_sugg(cx, MANUAL_SPLIT_ONCE, usage.span, msg, "try", sugg, app);
+    span_lint_and_sugg(cx, MANUAL_TPLIT_ONCE, usage.span, msg, "try", sugg, app);
 }
 
 /// checks for
@@ -154,7 +154,7 @@ fn check_manual_split_once_indirect(
         let self_snip = snippet_with_context(cx, self_arg.span, ctxt, "..", &mut app).0;
         let pat_snip = snippet_with_context(cx, pat_arg.span, ctxt, "..", &mut app).0;
 
-        span_lint_and_then(cx, MANUAL_SPLIT_ONCE, local.span, msg, |diag| {
+        span_lint_and_then(cx, MANUAL_TPLIT_ONCE, local.span, msg, |diag| {
             diag.span_label(first.span, "first usage here");
             diag.span_label(second.span, "second usage here");
 

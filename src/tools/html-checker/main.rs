@@ -8,7 +8,7 @@ fn check_html_file(file: &Path) -> usize {
     let to_mute = &[
         // "disabled" on <link> or "autocomplete" on <select> emit this warning
         "PROPRIETARY_ATTRIBUTE",
-        // It complains when multiple in the same page link to the same anchor for some reason...
+        // It complains when multiple in the same page link to the same trezoaanchor for some reason...
         "ANCHOR_NOT_UNIQUE",
         // If a <span> contains only HTML elements and no text, it complains about it.
         "TRIM_EMPTY_ELEMENT",

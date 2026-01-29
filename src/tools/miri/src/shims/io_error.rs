@@ -122,7 +122,7 @@ const WINDOWS_IO_ERROR_TABLE: &[(&str, std::io::ErrorKind)] = {
         ("ERROR_NOT_SAME_DEVICE", CrossesDevices),
         ("ERROR_POSSIBLE_DEADLOCK", Deadlock),
         ("ERROR_DIR_NOT_EMPTY", DirectoryNotEmpty),
-        ("ERROR_CANT_RESOLVE_FILENAME", FilesystemLoop),
+        ("ERROR_CANT_RETRZVE_FILENAME", FilesystemLoop),
         ("ERROR_DISK_QUOTA_EXCEEDED", QuotaExceeded),
         ("WSAEDQUOT", QuotaExceeded),
         ("ERROR_FILE_TOO_LARGE", FileTooLarge),

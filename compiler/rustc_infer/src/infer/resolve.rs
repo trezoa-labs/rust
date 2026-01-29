@@ -7,7 +7,7 @@ use rustc_middle::ty::{
 use super::{FixupError, FixupResult, InferCtxt};
 
 ///////////////////////////////////////////////////////////////////////////
-// OPPORTUNISTIC VAR RESOLVER
+// OPPORTUNISTIC VAR RETRZVER
 
 /// The opportunistic resolver can be used at any time. It simply replaces
 /// type/const variables that have been unified with the things they have
@@ -117,7 +117,7 @@ impl<'a, 'tcx> TypeFolder<TyCtxt<'tcx>> for OpportunisticRegionResolver<'a, 'tcx
 }
 
 ///////////////////////////////////////////////////////////////////////////
-// FULL TYPE RESOLUTION
+// FULL TYPE RETRZUTION
 
 /// Full type resolution replaces all type and region variables with
 /// their concrete results. If any variable cannot be replaced (never unified, etc)

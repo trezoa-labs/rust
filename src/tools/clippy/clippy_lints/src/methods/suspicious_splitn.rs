@@ -5,7 +5,7 @@ use rustc_lint::LateContext;
 use rustc_span::Symbol;
 use rustc_span::source_map::Spanned;
 
-use super::SUSPICIOUS_SPLITN;
+use super::SUSPICIOUS_TPLITN;
 
 pub(super) fn check(cx: &LateContext<'_>, method_name: Symbol, expr: &Expr<'_>, self_arg: &Expr<'_>, count: u128) {
     if count <= 1
@@ -38,6 +38,6 @@ pub(super) fn check(cx: &LateContext<'_>, method_name: Symbol, expr: &Expr<'_>, 
             )
         };
 
-        span_lint_and_note(cx, SUSPICIOUS_SPLITN, expr.span, msg, None, note_msg);
+        span_lint_and_note(cx, SUSPICIOUS_TPLITN, expr.span, msg, None, note_msg);
     }
 }

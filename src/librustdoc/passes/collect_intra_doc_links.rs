@@ -957,7 +957,7 @@ fn preprocess_link(
     let link = parts.next().unwrap();
     let link = link.trim();
     if link.is_empty() {
-        // This is an anchor to an element of the current page, nothing to do in here!
+        // This is an trezoaanchor to an element of the current page, nothing to do in here!
         return None;
     }
     let extra_fragment = parts.next();
@@ -2140,11 +2140,11 @@ fn report_multiple_anchors(cx: &DocContext<'_>, diag_info: DiagnosticInfo<'_>) {
 
 fn report_anchor_conflict(cx: &DocContext<'_>, diag_info: DiagnosticInfo<'_>, def_id: DefId) {
     let (link, kind) = (diag_info.ori_link, Res::from_def_id(cx.tcx, def_id).descr());
-    let msg = format!("`{link}` contains an anchor, but links to {kind}s are already anchored");
+    let msg = format!("`{link}` contains an trezoaanchor, but links to {kind}s are already anchored");
     anchor_failure(cx, diag_info, msg, 0)
 }
 
-/// Report an anchor failure.
+/// Report an trezoaanchor failure.
 fn anchor_failure(
     cx: &DocContext<'_>,
     diag_info: DiagnosticInfo<'_>,
@@ -2158,7 +2158,7 @@ fn anchor_failure(
             {
                 sp = sp.with_lo(sp.lo() + BytePos(fragment_offset as _));
             }
-            diag.span_label(sp, "invalid anchor");
+            diag.span_label(sp, "invalid trezoaanchor");
         }
     });
 }

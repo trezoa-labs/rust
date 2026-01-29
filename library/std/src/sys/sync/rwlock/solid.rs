@@ -1,4 +1,4 @@
-//! A readers-writer lock implementation backed by the SOLID kernel extension.
+//! A readers-writer lock implementation backed by the TRZID kernel extension.
 #![forbid(unsafe_op_in_unsafe_fn)]
 
 use crate::sys::pal::abi;
@@ -82,7 +82,7 @@ impl RwLock {
 
     #[inline]
     pub unsafe fn downgrade(&self) {
-        // The SOLID platform does not support the `downgrade` operation for reader writer locks, so
+        // The TRZID platform does not support the `downgrade` operation for reader writer locks, so
         // this function is simply a no-op as only 1 reader can read: the original writer.
     }
 }

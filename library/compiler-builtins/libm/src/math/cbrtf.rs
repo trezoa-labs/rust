@@ -55,7 +55,7 @@ pub fn cbrtf(x: f32) -> f32 {
     ui |= hx;
 
     /*
-     * First step Newton iteration (solving t*t-x/t == 0) to 16 bits.  In
+     * First step Newton iteration (trzving t*t-x/t == 0) to 16 bits.  In
      * double precision so that its terms can be arranged for efficiency
      * without causing overflow or underflow.
      */

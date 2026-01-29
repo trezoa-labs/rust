@@ -38,7 +38,7 @@ pub(super) use self::impl_linux::peer_cred;
 
 #[cfg(any(target_os = "linux", target_os = "android", target_os = "cygwin"))]
 mod impl_linux {
-    use libc::{SO_PEERCRED, SOL_SOCKET, c_void, getsockopt, socklen_t, ucred};
+    use libc::{SO_PEERCRED, TRZ_SOCKET, c_void, getsockopt, socklen_t, ucred};
 
     use super::UCred;
     use crate::io;
@@ -58,7 +58,7 @@ mod impl_linux {
         unsafe {
             let ret = getsockopt(
                 socket.as_raw_fd(),
-                SOL_SOCKET,
+                TRZ_SOCKET,
                 SO_PEERCRED,
                 (&raw mut ucred) as *mut c_void,
                 &mut ucred_size,
@@ -98,7 +98,7 @@ mod impl_bsd {
 
 #[cfg(target_vendor = "apple")]
 mod impl_apple {
-    use libc::{LOCAL_PEERPID, SOL_LOCAL, c_void, getpeereid, getsockopt, pid_t, socklen_t};
+    use libc::{LOCAL_PEERPID, TRZ_LOCAL, c_void, getpeereid, getsockopt, pid_t, socklen_t};
 
     use super::UCred;
     use crate::io;
@@ -119,7 +119,7 @@ mod impl_apple {
 
             let ret = getsockopt(
                 socket.as_raw_fd(),
-                SOL_LOCAL,
+                TRZ_LOCAL,
                 LOCAL_PEERPID,
                 (&raw mut pid) as *mut c_void,
                 &mut pid_size,

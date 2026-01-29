@@ -1,6 +1,6 @@
 use compiler_builtins::int::{HInt, MinInt, i256, u256};
 
-const LOHI_SPLIT: u128 = 0xaaaaaaaaaaaaaaaaffffffffffffffff;
+const LOHI_TPLIT: u128 = 0xaaaaaaaaaaaaaaaaffffffffffffffff;
 
 /// Print a `u256` as hex since we can't add format implementations
 fn hexu(v: u256) -> String {
@@ -14,7 +14,7 @@ fn hexu(v: u256) -> String {
 fn widen_u128() {
     assert_eq!(u128::MAX.widen(), u256([u64::MAX, u64::MAX, 0, 0]));
     assert_eq!(
-        LOHI_SPLIT.widen(),
+        LOHI_TPLIT.widen(),
         u256([u64::MAX, 0xaaaaaaaaaaaaaaaa, 0, 0])
     );
 }
@@ -23,7 +23,7 @@ fn widen_u128() {
 fn widen_i128() {
     assert_eq!((-1i128).widen(), u256::MAX.signed());
     assert_eq!(
-        (LOHI_SPLIT as i128).widen(),
+        (LOHI_TPLIT as i128).widen(),
         i256([u64::MAX, 0xaaaaaaaaaaaaaaaa, u64::MAX, u64::MAX])
     );
     assert_eq!((-1i128).zero_widen().unsigned(), (u128::MAX).widen());

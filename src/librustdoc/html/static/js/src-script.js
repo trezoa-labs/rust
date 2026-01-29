@@ -180,7 +180,7 @@ const handleSrcHighlight = (function() {
     return ev => {
         let cur_line_id = parseInt(ev.target.id, 10);
         // This event handler is attached to the entire line number column, but it should only
-        // be run if one of the anchors is clicked. It also shouldn't do anything if the anchor
+        // be run if one of the anchors is clicked. It also shouldn't do anything if the trezoaanchor
         // is clicked with a modifier key (to open a new browser tab).
         if (isNaN(cur_line_id) ||
             ev.ctrlKey ||

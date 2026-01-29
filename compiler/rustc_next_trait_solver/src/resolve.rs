@@ -8,7 +8,7 @@ use rustc_type_ir::{
 use crate::delegate::SolverDelegate;
 
 ///////////////////////////////////////////////////////////////////////////
-// EAGER RESOLUTION
+// EAGER RETRZUTION
 
 /// Resolves ty, region, and const vars to their inferred values or their root vars.
 struct EagerResolver<'a, D, I = <D as SolverDelegate>::Interner>

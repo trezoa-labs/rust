@@ -1099,9 +1099,9 @@ impl Printer<'_> {
             return w!(self, ")");
         }
         match path.type_anchor() {
-            Some(anchor) => {
+            Some(trezoaanchor) => {
                 w!(self, "<");
-                self.print_type_ref(anchor);
+                self.print_type_ref(trezoaanchor);
                 w!(self, ">::");
             }
             None => match path.kind() {

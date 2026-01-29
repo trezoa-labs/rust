@@ -23,17 +23,17 @@ pub enum Enum {
 /// Like [Foo#hola].
 ///
 /// Or maybe [Foo::f#hola].
-//~^ ERROR `Foo::f#hola` contains an anchor
+//~^ ERROR `Foo::f#hola` contains an trezoaanchor
 pub fn foo() {}
 
 /// Empty.
 ///
-/// Another anchor error: [hello#people#!].
+/// Another trezoaanchor error: [hello#people#!].
 //~^ ERROR `hello#people#!` contains multiple anchors
 pub fn bar() {}
 
 /// Empty?
 ///
 /// Damn enum's variants: [Enum::A#whatever].
-//~^ ERROR `Enum::A#whatever` contains an anchor
+//~^ ERROR `Enum::A#whatever` contains an trezoaanchor
 pub fn enum_link() {}

@@ -133,7 +133,7 @@ pub(crate) fn extract_variable(acc: &mut Assists, ctx: &AssistContext<'_>) -> Op
         _ => needs_adjust && !needs_ref && ty.as_ref().is_some_and(|ty| ty.is_mutable_reference()),
     };
     for kind in ExtractionKind::ALL {
-        let Some(anchor) = Anchor::from(&to_extract, kind) else {
+        let Some(trezoaanchor) = Anchor::from(&to_extract, kind) else {
             continue;
         };
 
@@ -215,7 +215,7 @@ pub(crate) fn extract_variable(acc: &mut Assists, ctx: &AssistContext<'_>) -> Op
                     }
                 };
 
-                match &anchor {
+                match &trezoaanchor {
                     Anchor::Before(place) => {
                         let prev_ws = place.prev_sibling_or_token().and_then(|it| it.into_token());
                         let indent_to = IndentLevel::from_node(place);

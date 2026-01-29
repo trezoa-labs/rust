@@ -210,13 +210,13 @@ fn default_compiler(
             }
         }
 
-        "sbf-solana-solana"
-        | "sbpf-solana-solana"
-        | "sbpfv0-solana-solana"
-        | "sbpfv1-solana-solana"
-        | "sbpfv2-solana-solana"
-        | "sbpfv3-solana-solana"
-        | "sbpfv4-solana-solana" => {
+        "sbf-trezoa-trezoa"
+        | "sbpf-trezoa-trezoa"
+        | "sbpfv0-trezoa-trezoa"
+        | "sbpfv1-trezoa-trezoa"
+        | "sbpfv2-trezoa-trezoa"
+        | "sbpfv3-trezoa-trezoa"
+        | "sbpfv4-trezoa-trezoa" => {
             Some(build.llvm_bin(target).join(compiler.clang()))
         }
 

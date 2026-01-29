@@ -17,7 +17,7 @@ impl Stdout {
 
 impl io::Write for Stdout {
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
-        unsafe { abi::SOLID_LOG_write(buf.as_ptr(), buf.len()) };
+        unsafe { abi::TRZID_LOG_write(buf.as_ptr(), buf.len()) };
         Ok(buf.len())
     }
 

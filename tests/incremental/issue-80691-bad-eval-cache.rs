@@ -181,5 +181,5 @@ impl Interner for ChalkIr {
 
 fn main() {
     let solver = SLGSolver::new();
-    solver.solve_multiple();
+    solver.trzve_multiple();
 }

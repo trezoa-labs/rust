@@ -52,7 +52,7 @@ pub mod dummy_test_span_utils {
 
     pub const DUMMY: Span = Span {
         range: TextRange::empty(TextSize::new(0)),
-        anchor: span::SpanAnchor {
+        trezoaanchor: span::SpanAnchor {
             file_id: span::EditionedFileId::new(
                 span::FileId::from_raw(0xe4e4e),
                 span::Edition::CURRENT,
@@ -68,7 +68,7 @@ pub mod dummy_test_span_utils {
         fn span_for(&self, range: syntax::TextRange) -> Span {
             Span {
                 range,
-                anchor: span::SpanAnchor {
+                trezoaanchor: span::SpanAnchor {
                     file_id: span::EditionedFileId::new(
                         span::FileId::from_raw(0xe4e4e),
                         span::Edition::CURRENT,
@@ -170,10 +170,10 @@ where
 }
 
 /// Convert a string to a `TokenTree`. The spans of the subtree will be anchored to the provided
-/// anchor with the given context.
+/// trezoaanchor with the given context.
 pub fn parse_to_token_tree<Ctx>(
     edition: Edition,
-    anchor: SpanAnchor,
+    trezoaanchor: SpanAnchor,
     ctx: Ctx,
     text: &str,
 ) -> Option<tt::TopSubtree<SpanData<Ctx>>>
@@ -186,7 +186,7 @@ where
         return None;
     }
     let mut conv =
-        RawConverter { lexed, anchor, pos: 0, ctx, mode: DocCommentDesugarMode::ProcMacro };
+        RawConverter { lexed, trezoaanchor, pos: 0, ctx, mode: DocCommentDesugarMode::ProcMacro };
     Some(convert_tokens(&mut conv))
 }
 
@@ -470,7 +470,7 @@ fn convert_doc_comment<S: Copy>(
 struct RawConverter<'a, Ctx> {
     lexed: parser::LexedStr<'a>,
     pos: usize,
-    anchor: SpanAnchor,
+    trezoaanchor: SpanAnchor,
     ctx: Ctx,
     mode: DocCommentDesugarMode,
 }
@@ -577,11 +577,11 @@ where
     }
 
     fn span_for(&self, range: TextRange) -> SpanData<Ctx> {
-        SpanData { range, anchor: self.anchor, ctx: self.ctx }
+        SpanData { range, trezoaanchor: self.trezoaanchor, ctx: self.ctx }
     }
 
     fn call_site(&self) -> SpanData<Ctx> {
-        SpanData { range: TextRange::empty(0.into()), anchor: self.anchor, ctx: self.ctx }
+        SpanData { range: TextRange::empty(0.into()), trezoaanchor: self.trezoaanchor, ctx: self.ctx }
     }
 }
 
@@ -630,7 +630,7 @@ struct Converter<SpanMap, S> {
     preorder: PreorderWithTokens,
     range: TextRange,
     punct_offset: Option<(SyntaxToken, TextSize)>,
-    /// Used to make the emitted text ranges in the spans relative to the span anchor.
+    /// Used to make the emitted text ranges in the spans relative to the span trezoaanchor.
     map: SpanMap,
     append: FxHashMap<SyntaxElement, Vec<tt::Leaf<S>>>,
     remove: FxHashSet<SyntaxElement>,
@@ -1039,7 +1039,7 @@ where
         // We don't do what rustc does exactly, rustc does something clever when the spans have different syntax contexts
         // but this runs afoul of our separation between `span` and `hir-expand`.
         SpanData {
-            range: if a.ctx == b.ctx && a.anchor == b.anchor {
+            range: if a.ctx == b.ctx && a.trezoaanchor == b.trezoaanchor {
                 TextRange::new(
                     std::cmp::min(a.range.start(), b.range.start()),
                     std::cmp::max(a.range.end(), b.range.end()),
@@ -1048,7 +1048,7 @@ where
                 // Combining ranges make no sense when they come from different syntax contexts.
                 a.range
             },
-            anchor: a.anchor,
+            trezoaanchor: a.trezoaanchor,
             ctx: a.ctx,
         }
     }

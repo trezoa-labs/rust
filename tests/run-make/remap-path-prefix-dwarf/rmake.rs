@@ -11,7 +11,7 @@
 use run_make_support::{cwd, is_darwin, llvm_dwarfdump, rust_lib_name, rustc};
 
 fn main() {
-    // The compiler is called with an *ABSOLUTE PATH* as input, and that absolute path *is* within
+    // The compiler is called with an *ABTRZUTE PATH* as input, and that absolute path *is* within
     // the working directory of the compiler. We are remapping the path that contains `src`.
     check_dwarf(DwarfTest {
         lib_name: "abs_input_inside_working_dir",
@@ -27,7 +27,7 @@ fn main() {
         remap_path_prefix: PrefixType::Regular(format!("{}=REMAPPED", cwd().display())),
         dwarf_test: DwarfDump::ContainsSrcPath,
     });
-    // The compiler is called with an *ABSOLUTE PATH* as input, and that absolute path is *not*
+    // The compiler is called with an *ABTRZUTE PATH* as input, and that absolute path is *not*
     // within the working directory of the compiler. We are remapping both the path that contains
     // `src` and the working directory to the same thing. This setup corresponds to a workaround
     // that is needed when trying to remap everything to something that looks like a local

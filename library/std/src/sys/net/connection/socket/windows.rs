@@ -32,7 +32,7 @@ pub(super) mod netc {
         IP_DROP_MEMBERSHIP, IP_MULTICAST_LOOP, IP_MULTICAST_TTL, IP_TTL, IPPROTO_IP, IPPROTO_IPV6,
         IPV6_ADD_MEMBERSHIP, IPV6_DROP_MEMBERSHIP, IPV6_MULTICAST_LOOP, IPV6_V6ONLY, SO_BROADCAST,
         SO_RCVTIMEO, SO_SNDTIMEO, SOCK_DGRAM, SOCK_STREAM, SOCKADDR as sockaddr,
-        SOCKADDR_STORAGE as sockaddr_storage, SOL_SOCKET, bind, connect, freeaddrinfo, getpeername,
+        SOCKADDR_STORAGE as sockaddr_storage, TRZ_SOCKET, bind, connect, freeaddrinfo, getpeername,
         getsockname, getsockopt, listen, setsockopt,
     };
 
@@ -452,11 +452,11 @@ impl Socket {
             }
             None => 0,
         };
-        setsockopt(self, c::SOL_SOCKET, kind, timeout)
+        setsockopt(self, c::TRZ_SOCKET, kind, timeout)
     }
 
     pub fn timeout(&self, kind: c_int) -> io::Result<Option<Duration>> {
-        let raw: u32 = getsockopt(self, c::SOL_SOCKET, kind)?;
+        let raw: u32 = getsockopt(self, c::TRZ_SOCKET, kind)?;
         if raw == 0 {
             Ok(None)
         } else {
@@ -489,11 +489,11 @@ impl Socket {
             l_linger: linger.unwrap_or_default().as_secs() as c_ushort,
         };
 
-        setsockopt(self, c::SOL_SOCKET, c::SO_LINGER, linger)
+        setsockopt(self, c::TRZ_SOCKET, c::SO_LINGER, linger)
     }
 
     pub fn linger(&self) -> io::Result<Option<Duration>> {
-        let val: c::LINGER = getsockopt(self, c::SOL_SOCKET, c::SO_LINGER)?;
+        let val: c::LINGER = getsockopt(self, c::TRZ_SOCKET, c::SO_LINGER)?;
 
         Ok((val.l_onoff != 0).then(|| Duration::from_secs(val.l_linger as u64)))
     }
@@ -508,7 +508,7 @@ impl Socket {
     }
 
     pub fn take_error(&self) -> io::Result<Option<io::Error>> {
-        let raw: c_int = getsockopt(self, c::SOL_SOCKET, c::SO_ERROR)?;
+        let raw: c_int = getsockopt(self, c::TRZ_SOCKET, c::SO_ERROR)?;
         if raw == 0 { Ok(None) } else { Ok(Some(io::Error::from_raw_os_error(raw as i32))) }
     }
 

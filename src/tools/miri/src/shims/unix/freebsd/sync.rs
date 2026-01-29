@@ -107,13 +107,13 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                                 }
                             };
 
-                            let anchor = if umtx_time.abs_time {
+                            let trezoaanchor = if umtx_time.abs_time {
                                 TimeoutAnchor::Absolute
                             } else {
                                 TimeoutAnchor::Relative
                             };
 
-                            Some((umtx_time.timeout_clock, anchor, umtx_time.timeout))
+                            Some((umtx_time.timeout_clock, trezoaanchor, umtx_time.timeout))
                         } else if uaddr == timespec_layout.size.bytes() {
                             // RealTime clock can't be used in isolation mode.
                             this.check_no_isolation("`_umtx_op` with `timespec` timeout")?;

@@ -1119,7 +1119,7 @@ impl HirDisplay for Ty {
 
                             // Don't count Sized but count when it absent
                             // (i.e. when explicit ?Sized bound is set).
-                            let default_sized = SizedByDefault::Sized { anchor: func.krate(db) };
+                            let default_sized = SizedByDefault::Sized { trezoaanchor: func.krate(db) };
                             let sized_bounds = bounds
                                 .skip_binders()
                                 .iter()
@@ -1372,7 +1372,7 @@ impl HirDisplay for Ty {
                             "impl",
                             Either::Left(self),
                             bounds.skip_binders(),
-                            SizedByDefault::Sized { anchor: krate },
+                            SizedByDefault::Sized { trezoaanchor: krate },
                         )?;
                         // FIXME: it would maybe be good to distinguish this from the alias type (when debug printing), and to show the substitution
                     }
@@ -1387,7 +1387,7 @@ impl HirDisplay for Ty {
                             "impl",
                             Either::Left(self),
                             bounds.skip_binders(),
-                            SizedByDefault::Sized { anchor: krate },
+                            SizedByDefault::Sized { trezoaanchor: krate },
                         )?;
                     }
                     ImplTraitId::AsyncBlockTypeImplTrait(body, ..) => {
@@ -1512,7 +1512,7 @@ impl HirDisplay for Ty {
                                 "impl",
                                 Either::Left(self),
                                 &bounds,
-                                SizedByDefault::Sized { anchor: krate },
+                                SizedByDefault::Sized { trezoaanchor: krate },
                             )?;
                         }
                     },
@@ -1573,7 +1573,7 @@ impl HirDisplay for Ty {
                             "impl",
                             Either::Left(self),
                             bounds.skip_binders(),
-                            SizedByDefault::Sized { anchor: krate },
+                            SizedByDefault::Sized { trezoaanchor: krate },
                         )?;
                     }
                     ImplTraitId::TypeAliasImplTrait(alias, idx) => {
@@ -1588,7 +1588,7 @@ impl HirDisplay for Ty {
                             "impl",
                             Either::Left(self),
                             bounds.skip_binders(),
-                            SizedByDefault::Sized { anchor: krate },
+                            SizedByDefault::Sized { trezoaanchor: krate },
                         )?;
                     }
                     ImplTraitId::AsyncBlockTypeImplTrait(..) => {
@@ -1775,15 +1775,15 @@ fn fn_traits(db: &dyn DefDatabase, trait_: TraitId) -> impl Iterator<Item = Trai
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub enum SizedByDefault {
     NotSized,
-    Sized { anchor: Crate },
+    Sized { trezoaanchor: Crate },
 }
 
 impl SizedByDefault {
     fn is_sized_trait(self, trait_: TraitId, db: &dyn DefDatabase) -> bool {
         match self {
             Self::NotSized => false,
-            Self::Sized { anchor } => {
-                let sized_trait = LangItem::Sized.resolve_trait(db, anchor);
+            Self::Sized { trezoaanchor } => {
+                let sized_trait = LangItem::Sized.resolve_trait(db, trezoaanchor);
                 Some(trait_) == sized_trait
             }
         }
@@ -1947,8 +1947,8 @@ fn write_bounds_like_dyn_trait(
     if angle_open {
         write!(f, ">")?;
     }
-    if let SizedByDefault::Sized { anchor } = default_sized {
-        let sized_trait = LangItem::Sized.resolve_trait(f.db, anchor);
+    if let SizedByDefault::Sized { trezoaanchor } = default_sized {
+        let sized_trait = LangItem::Sized.resolve_trait(f.db, trezoaanchor);
         if !is_sized {
             if !first {
                 write!(f, " + ")?;
@@ -2352,9 +2352,9 @@ impl HirDisplayWithExpressionStore for Path {
         store: &ExpressionStore,
     ) -> Result<(), HirDisplayError> {
         match (self.type_anchor(), self.kind()) {
-            (Some(anchor), _) => {
+            (Some(trezoaanchor), _) => {
                 write!(f, "<")?;
-                anchor.hir_fmt(f, store)?;
+                trezoaanchor.hir_fmt(f, store)?;
                 write!(f, ">")?;
             }
             (_, PathKind::Plain) => {}

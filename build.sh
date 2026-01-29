@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2025 Anza Technology Inc. <https://www.anza.xyz>
+# SPDX-FileCopyrightText: 2025 Trezoa-team Technology Inc. <https://www.trezoa.xyz>
 #
 # SPDX-License-Identifier: MIT
 
@@ -39,7 +39,7 @@ if [ -n "${REBUILD_LLVM}" ]; then
 fi
 
 if [ -n "${WITH_NIX}" ]; then
-    nix-shell src/tools/nix-dev-shell/shell.nix --pure --run "x build --stage 1 --target ${HOST_TRIPLE},sbf-solana-solana,sbpf-solana-solana,sbpfv1-solana-solana,sbpfv2-solana-solana"
+    nix-shell src/tools/nix-dev-shell/shell.nix --pure --run "x build --stage 1 --target ${HOST_TRIPLE},sbf-trezoa-trezoa,sbpf-trezoa-trezoa,sbpfv1-trezoa-trezoa,sbpfv2-trezoa-trezoa"
 else
-    ./x.py build --stage 1 --target "${HOST_TRIPLE}",sbf-solana-solana,sbpf-solana-solana,sbpfv1-solana-solana,sbpfv2-solana-solana
+    ./x.py build --stage 1 --target "${HOST_TRIPLE}",sbf-trezoa-trezoa,sbpf-trezoa-trezoa,sbpfv1-trezoa-trezoa,sbpfv2-trezoa-trezoa
 fi

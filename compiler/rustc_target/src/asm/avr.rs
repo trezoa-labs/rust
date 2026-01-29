@@ -102,7 +102,7 @@ def_regs! {
 
         #error = ["Y", "YL", "YH"] =>
             "the frame pointer cannot be used as an operand for inline asm",
-        #error = ["SP", "SPL", "SPH"] =>
+        #error = ["SP", "TPL", "SPH"] =>
             "the stack pointer cannot be used as an operand for inline asm",
         #error = ["r0", "r1", "r1r0"] =>
             "LLVM reserves r0 (scratch register) and r1 (zero register)",

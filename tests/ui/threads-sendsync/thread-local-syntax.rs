@@ -15,7 +15,7 @@ mod foo {
             pub(crate) static BAZ: usize = 0;
             pub(in crate::foo) static QUUX: usize = 0;
         }
-        thread_local!(static SPLOK: u32 = 0);
+        thread_local!(static TPLOK: u32 = 0);
     }
 }
 

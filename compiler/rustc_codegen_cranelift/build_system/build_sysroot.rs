@@ -240,7 +240,7 @@ fn build_clif_sysroot_for_triple(
     build_cmd.env("CARGO_PROFILE_RELEASE_DEBUG", "true");
     build_cmd.env("__CARGO_DEFAULT_LIB_METADATA", "cg_clif");
     if compiler.triple.contains("apple") {
-        build_cmd.env("CARGO_PROFILE_RELEASE_SPLIT_DEBUGINFO", "packed");
+        build_cmd.env("CARGO_PROFILE_RELEASE_TPLIT_DEBUGINFO", "packed");
     }
     spawn_and_wait(build_cmd);
 

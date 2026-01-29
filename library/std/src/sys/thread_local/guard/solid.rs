@@ -1,4 +1,4 @@
-//! SOLID, just like macOS, has an API to register TLS destructors. But since
+//! TRZID, just like macOS, has an API to register TLS destructors. But since
 //! it does not allow specifying an argument to that function, and will not run
 //! destructors for terminated tasks, we still keep our own list.
 
@@ -15,7 +15,7 @@ pub fn enable() {
         let tid = task::current_task_id_aborting();
         // Register `tls_dtor` to make sure the TLS destructors are called
         // for tasks created by other means than `std::thread`
-        unsafe { abi::SOLID_TLS_AddDestructor(tid as i32, tls_dtor) };
+        unsafe { abi::TRZID_TLS_AddDestructor(tid as i32, tls_dtor) };
     }
 
     unsafe extern "C" fn tls_dtor(_unused: *mut u8) {

@@ -53,7 +53,7 @@ fn check_(
         |_| (),
         Span {
             range: TextRange::up_to(TextSize::of(arg)),
-            anchor: call_anchor,
+            trezoaanchor: call_anchor,
             ctx: SyntaxContext::root(Edition::CURRENT),
         },
         def_edition,

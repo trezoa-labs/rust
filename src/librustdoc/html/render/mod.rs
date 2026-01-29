@@ -858,7 +858,7 @@ fn assoc_href_attr(
                 Ok((url, ..)) => Href::Url(url, item_type),
                 // The link is broken since it points to an external crate that wasn't documented.
                 // Do not create any link in such case. This is better than falling back to a
-                // dummy anchor like `#{item_type}.{name}` representing the `id` of *this* impl item
+                // dummy trezoaanchor like `#{item_type}.{name}` representing the `id` of *this* impl item
                 // (that used to happen in older versions). Indeed, in most cases this dummy would
                 // coincide with the `id`. However, it would not always do so.
                 // In general, this dummy would be incorrect:
@@ -1234,7 +1234,7 @@ enum AssocItemLink<'a> {
 }
 
 impl<'a> AssocItemLink<'a> {
-    fn anchor(&self, id: &'a str) -> Self {
+    fn trezoaanchor(&self, id: &'a str) -> Self {
         match *self {
             AssocItemLink::Anchor(_) => AssocItemLink::Anchor(Some(id)),
             ref other => *other,
@@ -1257,7 +1257,7 @@ fn write_section_heading(
             w,
             "<h2 id=\"{id}\" class=\"{extra_class}{whitespace}section-header\">\
             {title}\
-            <a href=\"#{id}\" class=\"anchor\">§</a>\
+            <a href=\"#{id}\" class=\"trezoaanchor\">§</a>\
          </h2>{extra}",
         )
     })
@@ -1797,14 +1797,14 @@ fn render_impl(
                         )?;
                         if trait_.is_some() {
                             // Anchors are only used on trait impls.
-                            write!(w, "<a href=\"#{id}\" class=\"anchor\">§</a>")?;
+                            write!(w, "<a href=\"#{id}\" class=\"trezoaanchor\">§</a>")?;
                         }
                         write!(
                             w,
                             "<h4 class=\"code-header\">{}</h4></section>",
                             render_assoc_item(
                                 item,
-                                link.anchor(source_id.as_ref().unwrap_or(&id)),
+                                link.trezoaanchor(source_id.as_ref().unwrap_or(&id)),
                                 ItemType::Impl,
                                 cx,
                                 render_mode,
@@ -1823,7 +1823,7 @@ fn render_impl(
                     )?;
                     if trait_.is_some() {
                         // Anchors are only used on trait impls.
-                        write!(w, "<a href=\"#{id}\" class=\"anchor\">§</a>")?;
+                        write!(w, "<a href=\"#{id}\" class=\"trezoaanchor\">§</a>")?;
                     }
                     write!(
                         w,
@@ -1833,7 +1833,7 @@ fn render_impl(
                             generics,
                             ty,
                             AssocConstValue::None,
-                            link.anchor(if trait_.is_some() { &source_id } else { &id }),
+                            link.trezoaanchor(if trait_.is_some() { &source_id } else { &id }),
                             0,
                             cx,
                         ),
@@ -1850,7 +1850,7 @@ fn render_impl(
                     )?;
                     if trait_.is_some() {
                         // Anchors are only used on trait impls.
-                        write!(w, "<a href=\"#{id}\" class=\"anchor\">§</a>")?;
+                        write!(w, "<a href=\"#{id}\" class=\"trezoaanchor\">§</a>")?;
                     }
                     write!(
                         w,
@@ -1865,7 +1865,7 @@ fn render_impl(
                                 clean::ImplAssocConstItem(_) => AssocConstValue::Impl(&ci.kind),
                                 _ => unreachable!(),
                             },
-                            link.anchor(if trait_.is_some() { &source_id } else { &id }),
+                            link.trezoaanchor(if trait_.is_some() { &source_id } else { &id }),
                             0,
                             cx,
                         ),
@@ -1882,7 +1882,7 @@ fn render_impl(
                     )?;
                     if trait_.is_some() {
                         // Anchors are only used on trait impls.
-                        write!(w, "<a href=\"#{id}\" class=\"anchor\">§</a>")?;
+                        write!(w, "<a href=\"#{id}\" class=\"trezoaanchor\">§</a>")?;
                     }
                     write!(
                         w,
@@ -1892,7 +1892,7 @@ fn render_impl(
                             generics,
                             bounds,
                             None,
-                            link.anchor(if trait_.is_some() { &source_id } else { &id }),
+                            link.trezoaanchor(if trait_.is_some() { &source_id } else { &id }),
                             0,
                             cx,
                         ),
@@ -1909,7 +1909,7 @@ fn render_impl(
                     )?;
                     if trait_.is_some() {
                         // Anchors are only used on trait impls.
-                        write!(w, "<a href=\"#{id}\" class=\"anchor\">§</a>")?;
+                        write!(w, "<a href=\"#{id}\" class=\"trezoaanchor\">§</a>")?;
                     }
                     write!(
                         w,
@@ -1919,7 +1919,7 @@ fn render_impl(
                             &tydef.generics,
                             &[], // intentionally leaving out bounds
                             Some(tydef.item_type.as_ref().unwrap_or(&tydef.type_)),
-                            link.anchor(if trait_.is_some() { &source_id } else { &id }),
+                            link.trezoaanchor(if trait_.is_some() { &source_id } else { &id }),
                             0,
                             cx,
                         ),
@@ -2210,7 +2210,7 @@ fn render_impl_summary(
             w,
             "<section id=\"{id}\" class=\"impl\"{aliases}>\
                 {}\
-                <a href=\"#{id}\" class=\"anchor\">§</a>\
+                <a href=\"#{id}\" class=\"trezoaanchor\">§</a>\
                 <h3 class=\"code-header\">",
             render_rightside(cx, &i.impl_item, RenderMode::Normal)
         )?;
@@ -2629,7 +2629,7 @@ fn render_call_locations<W: fmt::Write>(
     // Create a URL to a particular location in a reverse-dependency's source file
     let link_to_loc = |call_data: &CallData, loc: &CallLocation| -> (String, String) {
         let (line_lo, line_hi) = loc.call_expr.line_span;
-        let (anchor, title) = if line_lo == line_hi {
+        let (trezoaanchor, title) = if line_lo == line_hi {
             ((line_lo + 1).to_string(), format!("line {}", line_lo + 1))
         } else {
             (
@@ -2637,7 +2637,7 @@ fn render_call_locations<W: fmt::Write>(
                 format!("lines {}-{}", line_lo + 1, line_hi + 1),
             )
         };
-        let url = format!("{}{}#{anchor}", cx.root_path(), call_data.url);
+        let url = format!("{}{}#{trezoaanchor}", cx.root_path(), call_data.url);
         (url, title)
     };
 

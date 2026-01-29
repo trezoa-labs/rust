@@ -843,7 +843,7 @@ fn semantic_token_type_and_modifiers(
             HlOperator::Other => types::OPERATOR,
         },
         HlTag::StringLiteral => types::STRING,
-        HlTag::UnresolvedReference => types::UNRESOLVED_REFERENCE,
+        HlTag::UnresolvedReference => types::UNRETRZVED_REFERENCE,
         HlTag::Punctuation(punct) => match punct {
             HlPunct::Bracket => types::BRACKET,
             HlPunct::Brace => types::BRACE,

@@ -1143,7 +1143,7 @@ mod foo$0;
                             2,
                         ),
                         dst: AnchoredPathBuf {
-                            anchor: FileId(
+                            trezoaanchor: FileId(
                                 2,
                             ),
                             path: "foo2.rs",
@@ -1201,7 +1201,7 @@ use crate::foo$0::FooContent;
                             1,
                         ),
                         dst: AnchoredPathBuf {
-                            anchor: FileId(
+                            trezoaanchor: FileId(
                                 1,
                             ),
                             path: "quux.rs",
@@ -1239,7 +1239,7 @@ mod fo$0o;
                 file_system_edits: [
                     MoveDir {
                         src: AnchoredPathBuf {
-                            anchor: FileId(
+                            trezoaanchor: FileId(
                                 1,
                             ),
                             path: "../foo",
@@ -1248,7 +1248,7 @@ mod fo$0o;
                             1,
                         ),
                         dst: AnchoredPathBuf {
-                            anchor: FileId(
+                            trezoaanchor: FileId(
                                 1,
                             ),
                             path: "../foo2",
@@ -1290,7 +1290,7 @@ mod outer { mod fo$0o; }
                             1,
                         ),
                         dst: AnchoredPathBuf {
-                            anchor: FileId(
+                            trezoaanchor: FileId(
                                 1,
                             ),
                             path: "bar.rs",
@@ -1372,7 +1372,7 @@ pub mod foo$0;
                             2,
                         ),
                         dst: AnchoredPathBuf {
-                            anchor: FileId(
+                            trezoaanchor: FileId(
                                 2,
                             ),
                             path: "foo2.rs",
@@ -1427,7 +1427,7 @@ mod quux;
                             1,
                         ),
                         dst: AnchoredPathBuf {
-                            anchor: FileId(
+                            trezoaanchor: FileId(
                                 1,
                             ),
                             path: "foo2.rs",
@@ -1435,7 +1435,7 @@ mod quux;
                     },
                     MoveDir {
                         src: AnchoredPathBuf {
-                            anchor: FileId(
+                            trezoaanchor: FileId(
                                 1,
                             ),
                             path: "foo",
@@ -1444,7 +1444,7 @@ mod quux;
                             1,
                         ),
                         dst: AnchoredPathBuf {
-                            anchor: FileId(
+                            trezoaanchor: FileId(
                                 1,
                             ),
                             path: "foo2",
@@ -1564,7 +1564,7 @@ pub fn baz() {}
                             1,
                         ),
                         dst: AnchoredPathBuf {
-                            anchor: FileId(
+                            trezoaanchor: FileId(
                                 1,
                             ),
                             path: "fn.rs",
@@ -1572,7 +1572,7 @@ pub fn baz() {}
                     },
                     MoveDir {
                         src: AnchoredPathBuf {
-                            anchor: FileId(
+                            trezoaanchor: FileId(
                                 1,
                             ),
                             path: "foo",
@@ -1581,7 +1581,7 @@ pub fn baz() {}
                             1,
                         ),
                         dst: AnchoredPathBuf {
-                            anchor: FileId(
+                            trezoaanchor: FileId(
                                 1,
                             ),
                             path: "fn",
@@ -1632,7 +1632,7 @@ pub fn baz() {}
                             1,
                         ),
                         dst: AnchoredPathBuf {
-                            anchor: FileId(
+                            trezoaanchor: FileId(
                                 1,
                             ),
                             path: "foo.rs",
@@ -1640,7 +1640,7 @@ pub fn baz() {}
                     },
                     MoveDir {
                         src: AnchoredPathBuf {
-                            anchor: FileId(
+                            trezoaanchor: FileId(
                                 1,
                             ),
                             path: "fn",
@@ -1649,7 +1649,7 @@ pub fn baz() {}
                             1,
                         ),
                         dst: AnchoredPathBuf {
-                            anchor: FileId(
+                            trezoaanchor: FileId(
                                 1,
                             ),
                             path: "foo",

@@ -213,7 +213,7 @@ mod tests {
     use super::*;
 
     fn fixture_token_tree() -> TopSubtree<Span> {
-        let anchor = SpanAnchor {
+        let trezoaanchor = SpanAnchor {
             file_id: span::EditionedFileId::new(
                 span::FileId::from_raw(0xe4e4e),
                 span::Edition::CURRENT,
@@ -224,12 +224,12 @@ mod tests {
         let mut builder = TopSubtreeBuilder::new(Delimiter {
             open: Span {
                 range: TextRange::empty(TextSize::new(0)),
-                anchor,
+                trezoaanchor,
                 ctx: SyntaxContext::root(Edition::CURRENT),
             },
             close: Span {
                 range: TextRange::empty(TextSize::new(19)),
-                anchor,
+                trezoaanchor,
                 ctx: SyntaxContext::root(Edition::CURRENT),
             },
             kind: DelimiterKind::Invisible,
@@ -240,7 +240,7 @@ mod tests {
                 sym: Symbol::intern("struct"),
                 span: Span {
                     range: TextRange::at(TextSize::new(0), TextSize::of("struct")),
-                    anchor,
+                    trezoaanchor,
                     ctx: SyntaxContext::root(Edition::CURRENT),
                 },
                 is_raw: tt::IdentIsRaw::No,
@@ -252,7 +252,7 @@ mod tests {
                 sym: Symbol::intern("Foo"),
                 span: Span {
                     range: TextRange::at(TextSize::new(5), TextSize::of("r#Foo")),
-                    anchor,
+                    trezoaanchor,
                     ctx: SyntaxContext::root(Edition::CURRENT),
                 },
                 is_raw: tt::IdentIsRaw::Yes,
@@ -263,7 +263,7 @@ mod tests {
             symbol: Symbol::intern("Foo"),
             span: Span {
                 range: TextRange::at(TextSize::new(10), TextSize::of("\"Foo\"")),
-                anchor,
+                trezoaanchor,
                 ctx: SyntaxContext::root(Edition::CURRENT),
             },
             kind: tt::LitKind::Str,
@@ -273,7 +273,7 @@ mod tests {
             char: '@',
             span: Span {
                 range: TextRange::at(TextSize::new(13), TextSize::of('@')),
-                anchor,
+                trezoaanchor,
                 ctx: SyntaxContext::root(Edition::CURRENT),
             },
             spacing: Spacing::Joint,
@@ -282,7 +282,7 @@ mod tests {
             DelimiterKind::Brace,
             Span {
                 range: TextRange::at(TextSize::new(14), TextSize::of('{')),
-                anchor,
+                trezoaanchor,
                 ctx: SyntaxContext::root(Edition::CURRENT),
             },
         );
@@ -290,7 +290,7 @@ mod tests {
             symbol: sym::INTEGER_0,
             span: Span {
                 range: TextRange::at(TextSize::new(15), TextSize::of("0u32")),
-                anchor,
+                trezoaanchor,
                 ctx: SyntaxContext::root(Edition::CURRENT),
             },
             kind: tt::LitKind::Integer,
@@ -298,7 +298,7 @@ mod tests {
         }));
         builder.close(Span {
             range: TextRange::at(TextSize::new(19), TextSize::of('}')),
-            anchor,
+            trezoaanchor,
             ctx: SyntaxContext::root(Edition::CURRENT),
         });
 

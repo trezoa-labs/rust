@@ -64,7 +64,7 @@ cfg_if::cfg_if! {
     } else if #[cfg(target_os = "zkvm")] {
         mod zkvm;
         pub use self::zkvm::*;
-    } else if #[cfg(target_family = "solana")] {
+    } else if #[cfg(target_family = "trezoa")] {
         mod sbf;
         pub use self::sbf::*;
     } else {
@@ -78,7 +78,7 @@ cfg_if::cfg_if! {
     if #[cfg(target_os = "fuchsia")] {
         pub const FULL_BACKTRACE_DEFAULT: bool = true;
     } else {
-        #[cfg(not(target_family = "solana"))]
+        #[cfg(not(target_family = "trezoa"))]
         pub const FULL_BACKTRACE_DEFAULT: bool = false;
     }
 }

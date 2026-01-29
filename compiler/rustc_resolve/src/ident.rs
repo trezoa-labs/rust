@@ -5,7 +5,7 @@ use rustc_errors::ErrorGuaranteed;
 use rustc_hir::def::{DefKind, Namespace, NonMacroAttrKind, PartialRes, PerNS};
 use rustc_middle::{bug, ty};
 use rustc_session::lint::BuiltinLintDiag;
-use rustc_session::lint::builtin::PROC_MACRO_DERIVE_RESOLUTION_FALLBACK;
+use rustc_session::lint::builtin::PROC_MACRO_DERIVE_RETRZUTION_FALLBACK;
 use rustc_session::parse::feature_err;
 use rustc_span::def_id::LocalDefId;
 use rustc_span::hygiene::{ExpnId, ExpnKind, LocalExpnId, MacroKind, SyntaxContext};
@@ -535,7 +535,7 @@ impl<'ra, 'tcx> Resolver<'ra, 'tcx> {
                             Ok(binding) => {
                                 if let Some(lint_id) = derive_fallback_lint_id {
                                     this.lint_buffer.buffer_lint(
-                                        PROC_MACRO_DERIVE_RESOLUTION_FALLBACK,
+                                        PROC_MACRO_DERIVE_RETRZUTION_FALLBACK,
                                         lint_id,
                                         orig_ident.span,
                                         BuiltinLintDiag::ProcMacroDeriveResolutionFallback {

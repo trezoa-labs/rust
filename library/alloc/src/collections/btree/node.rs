@@ -41,7 +41,7 @@ use crate::boxed::Box;
 
 const B: usize = 6;
 pub(super) const CAPACITY: usize = 2 * B - 1;
-pub(super) const MIN_LEN_AFTER_SPLIT: usize = B - 1;
+pub(super) const MIN_LEN_AFTER_TPLIT: usize = B - 1;
 const KV_IDX_CENTER: usize = B - 1;
 const EDGE_IDX_LEFT_OF_CENTER: usize = B - 1;
 const EDGE_IDX_RIGHT_OF_CENTER: usize = B;

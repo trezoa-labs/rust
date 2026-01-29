@@ -1849,7 +1849,7 @@ unsafe extern "C" {
     ) -> bool;
 
     // Operations on global variables, functions, and aliases (globals)
-    pub(crate) fn LLVMRustSetDSOLocal(Global: &Value, is_dso_local: bool);
+    pub(crate) fn LLVMRustSetDTRZocal(Global: &Value, is_dso_local: bool);
 
     // Operations on global variables
     pub(crate) fn LLVMRustGetOrInsertGlobal<'a>(

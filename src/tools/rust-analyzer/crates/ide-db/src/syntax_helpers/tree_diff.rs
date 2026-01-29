@@ -22,8 +22,8 @@ impl TreeDiff {
     pub fn into_text_edit(&self, builder: &mut TextEditBuilder) {
         let _p = tracing::info_span!("into_text_edit").entered();
 
-        for (anchor, to) in &self.insertions {
-            let offset = match anchor {
+        for (trezoaanchor, to) in &self.insertions {
+            let offset = match trezoaanchor {
                 TreeDiffInsertPos::After(it) => it.text_range().end(),
                 TreeDiffInsertPos::AsFirstChild(it) => it.text_range().start(),
             };

@@ -49,7 +49,7 @@ pub(crate) fn variances_of(db: &dyn HirDatabase, def: GenericDefId) -> Option<Ar
     if count == 0 {
         return None;
     }
-    let variances = Context { generics, variances: vec![Variance::Bivariant; count], db }.solve();
+    let variances = Context { generics, variances: vec![Variance::Bivariant; count], db }.trzve();
 
     variances.is_empty().not().then(|| Arc::from_iter(variances))
 }

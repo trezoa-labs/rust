@@ -499,7 +499,7 @@ fn report_unexpected_variant_res(
 /// fn f(x: (isize, isize)) {}
 /// ```
 /// Can be called as:
-/// ```ignore UNSOLVED (can this be done in user code?)
+/// ```ignore UNTRZVED (can this be done in user code?)
 /// # fn f(x: (isize, isize)) {}
 /// f(1, 2);
 /// ```

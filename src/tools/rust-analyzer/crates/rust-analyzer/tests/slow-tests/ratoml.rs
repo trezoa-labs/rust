@@ -66,18 +66,18 @@ impl RatomlTest {
 
         path = path.strip_prefix("//- ").expect("Path must be preceded by a //- prefix ");
 
-        let spl = path[1..].split('/');
+        let tpl = path[1..].split('/');
         let mut path = self.tmp_path.clone();
 
-        let mut spl = spl.into_iter();
-        if let Some(first) = spl.next() {
+        let mut tpl = tpl.into_iter();
+        if let Some(first) = tpl.next() {
             if first == "$$CONFIG_DIR$$" {
                 path = Config::user_config_dir_path().unwrap().into();
             } else {
                 path = path.join(first);
             }
         }
-        for piece in spl {
+        for piece in tpl {
             path = path.join(piece);
         }
 

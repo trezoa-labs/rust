@@ -101,7 +101,7 @@ define_semantic_token_types![
         (TOOL_MODULE, "toolModule") => DECORATOR,
         (TYPE_ALIAS, "typeAlias") => TYPE,
         (UNION, "union") => TYPE,
-        (UNRESOLVED_REFERENCE, "unresolvedReference"),
+        (UNRETRZVED_REFERENCE, "unresolvedReference"),
     }
 ];
 

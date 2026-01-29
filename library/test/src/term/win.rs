@@ -42,7 +42,7 @@ struct COORD {
 
 #[allow(non_snake_case)]
 #[repr(C)]
-struct CONSOLE_SCREEN_BUFFER_INFO {
+struct CONTRZE_SCREEN_BUFFER_INFO {
     dwSize: COORD,
     dwCursorPosition: COORD,
     wAttributes: WORD,
@@ -55,7 +55,7 @@ struct CONSOLE_SCREEN_BUFFER_INFO {
 unsafe extern "system" {
     fn SetConsoleTextAttribute(handle: HANDLE, attr: WORD) -> BOOL;
     fn GetStdHandle(which: DWORD) -> HANDLE;
-    fn GetConsoleScreenBufferInfo(handle: HANDLE, info: *mut CONSOLE_SCREEN_BUFFER_INFO) -> BOOL;
+    fn GetConsoleScreenBufferInfo(handle: HANDLE, info: *mut CONTRZE_SCREEN_BUFFER_INFO) -> BOOL;
 }
 
 fn color_to_bits(color: color::Color) -> u16 {
@@ -117,7 +117,7 @@ impl<T: Write + Send + 'static> WinConsole<T> {
         let fg;
         let bg;
         unsafe {
-            let mut buffer_info = MaybeUninit::<CONSOLE_SCREEN_BUFFER_INFO>::uninit();
+            let mut buffer_info = MaybeUninit::<CONTRZE_SCREEN_BUFFER_INFO>::uninit();
             let handle = GetStdHandle(STD_OUTPUT_HANDLE);
             if GetConsoleScreenBufferInfo(handle, buffer_info.as_mut_ptr()) != 0 {
                 let buffer_info = buffer_info.assume_init();

@@ -184,7 +184,7 @@ function createCommands(): Record<string, CommandFactory> {
         serverVersion: { enabled: commands.serverVersion },
         viewMemoryLayout: { enabled: commands.viewMemoryLayout },
         toggleCheckOnSave: { enabled: commands.toggleCheckOnSave },
-        toggleLSPLogs: { enabled: commands.toggleLSPLogs },
+        toggleLTPLogs: { enabled: commands.toggleLTPLogs },
         openWalkthrough: { enabled: commands.openWalkthrough },
         // Internal commands which are invoked by the server.
         applyActionGroup: { enabled: commands.applyActionGroup },

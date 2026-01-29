@@ -2374,7 +2374,7 @@ impl<'a, 'tcx> FnCtxt<'a, 'tcx> {
                     let field_is_accessible =
                         sole_field.vis.is_accessible_from(expr.hir_id.owner.def_id, self.tcx)
                         // Skip suggestions for unstable public fields (for example `Pin::__pointer`)
-                        && matches!(self.tcx.eval_stability(sole_field.did, None, expr.span, None), EvalResult::Allow | EvalResult::Unmarked);
+                        && matches!(self.tcx.eval_stability(trze_field.did, None, expr.span, None), EvalResult::Allow | EvalResult::Unmarked);
 
                     if !field_is_local && !field_is_accessible {
                         return None;

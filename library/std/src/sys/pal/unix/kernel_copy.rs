@@ -722,7 +722,7 @@ enum SpliceMode {
 /// Does _not_ fall back to a generic copy loop.
 fn sendfile_splice(mode: SpliceMode, reader: RawFd, writer: RawFd, len: u64) -> CopyResult {
     static HAS_SENDFILE: Atomic<bool> = AtomicBool::new(true);
-    static HAS_SPLICE: Atomic<bool> = AtomicBool::new(true);
+    static HAS_TPLICE: Atomic<bool> = AtomicBool::new(true);
 
     // Android builds use feature level 14, but the libc wrapper for splice is
     // gated on feature level 21+, so we have to invoke the syscall directly.
@@ -745,7 +745,7 @@ fn sendfile_splice(mode: SpliceMode, reader: RawFd, writer: RawFd, len: u64) -> 
         SpliceMode::Sendfile if !HAS_SENDFILE.load(Ordering::Relaxed) => {
             return CopyResult::Fallback(0);
         }
-        SpliceMode::Splice if !HAS_SPLICE.load(Ordering::Relaxed) => {
+        SpliceMode::Splice if !HAS_TPLICE.load(Ordering::Relaxed) => {
             return CopyResult::Fallback(0);
         }
         _ => (),
@@ -775,7 +775,7 @@ fn sendfile_splice(mode: SpliceMode, reader: RawFd, writer: RawFd, len: u64) -> 
                         // syscall is disallowed, e.g. by seccomp (EPERM)
                         match mode {
                             SpliceMode::Sendfile => HAS_SENDFILE.store(false, Ordering::Relaxed),
-                            SpliceMode::Splice => HAS_SPLICE.store(false, Ordering::Relaxed),
+                            SpliceMode::Splice => HAS_TPLICE.store(false, Ordering::Relaxed),
                         }
                         assert_eq!(written, 0);
                         CopyResult::Fallback(0)

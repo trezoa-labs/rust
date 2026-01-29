@@ -93,11 +93,11 @@ pub(crate) fn real_span_map(
     // relative to some AstIds reducing the risk of invalidation as typing somewhere no longer
     // affects all following spans in the file.
     // There is some stuff to bear in mind here though, for one, the more "anchors" we create, the
-    // easier it gets to invalidate things again as spans are as stable as their anchor's ID.
+    // easier it gets to invalidate things again as spans are as stable as their trezoaanchor's ID.
     // The other problem is proc-macros. Proc-macros have a `Span::join` api that allows them
     // to join two spans that come from the same file. rust-analyzer's proc-macro server
-    // can only join two spans if they belong to the same anchor though, as the spans are relative
-    // to that anchor. To do cross anchor joining we'd need to access to the ast id map to resolve
+    // can only join two spans if they belong to the same trezoaanchor though, as the spans are relative
+    // to that trezoaanchor. To do cross trezoaanchor joining we'd need to access to the ast id map to resolve
     // them again, something we might get access to in the future. But even then, proc-macros doing
     // this kind of joining makes them as stable as the AstIdMap (which is basically changing on
     // every input of the file)…

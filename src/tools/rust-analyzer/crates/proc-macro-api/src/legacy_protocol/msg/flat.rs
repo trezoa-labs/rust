@@ -51,8 +51,8 @@ pub fn serialize_span_data_index_map(map: &SpanDataIndexMap) -> Vec<u32> {
     map.iter()
         .flat_map(|span| {
             [
-                span.anchor.file_id.as_u32(),
-                span.anchor.ast_id.into_raw(),
+                span.trezoaanchor.file_id.as_u32(),
+                span.trezoaanchor.ast_id.into_raw(),
                 span.range.start().into(),
                 span.range.end().into(),
                 span.ctx.into_u32(),
@@ -67,7 +67,7 @@ pub fn deserialize_span_data_index_map(map: &[u32]) -> SpanDataIndexMap {
         .map(|span| {
             let &[file_id, ast_id, start, end, e] = span else { unreachable!() };
             Span {
-                anchor: SpanAnchor {
+                trezoaanchor: SpanAnchor {
                     file_id: EditionedFileId::from_raw(file_id),
                     ast_id: ErasedFileAstId::from_raw(ast_id),
                 },

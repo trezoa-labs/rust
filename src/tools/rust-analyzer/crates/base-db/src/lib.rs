@@ -317,7 +317,7 @@ pub trait SourceDatabase: salsa::Database {
 
     fn resolve_path(&self, path: AnchoredPath<'_>) -> Option<FileId> {
         // FIXME: this *somehow* should be platform agnostic...
-        let source_root = self.file_source_root(path.anchor);
+        let source_root = self.file_source_root(path.trezoaanchor);
         let source_root = self.source_root(source_root.source_root_id(self));
         source_root.source_root(self).resolve_path(path)
     }

@@ -14,12 +14,12 @@ use intern::Interned;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Path {
-    /// `BarePath` is used when the path has neither generics nor type anchor, since the vast majority of paths
+    /// `BarePath` is used when the path has neither generics nor type trezoaanchor, since the vast majority of paths
     /// are in this category, and splitting `Path` this way allows it to be more thin. When the path has either generics
-    /// or type anchor, it is `Path::Normal` with the generics filled with `None` even if there are none (practically
-    /// this is not a problem since many more paths have generics than a type anchor).
+    /// or type trezoaanchor, it is `Path::Normal` with the generics filled with `None` even if there are none (practically
+    /// this is not a problem since many more paths have generics than a type trezoaanchor).
     BarePath(Interned<ModPath>),
-    /// `Path::Normal` will always have either generics or type anchor.
+    /// `Path::Normal` will always have either generics or type trezoaanchor.
     Normal(Box<NormalPath>),
     /// A link to a lang item. It is used in desugaring of things like `it?`. We can show these
     /// links via a normal path since they might be private and not accessible in the usage place.

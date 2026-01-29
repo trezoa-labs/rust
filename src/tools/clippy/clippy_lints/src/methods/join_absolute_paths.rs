@@ -9,7 +9,7 @@ use rustc_lint::LateContext;
 use rustc_span::Span;
 use rustc_span::symbol::sym;
 
-use super::JOIN_ABSOLUTE_PATHS;
+use super::JOIN_ABTRZUTE_PATHS;
 
 pub(super) fn check<'tcx>(cx: &LateContext<'tcx>, recv: &'tcx Expr<'tcx>, join_arg: &'tcx Expr<'tcx>, expr_span: Span) {
     let ty = cx.typeck_results().expr_ty(recv).peel_refs();
@@ -21,7 +21,7 @@ pub(super) fn check<'tcx>(cx: &LateContext<'tcx>, recv: &'tcx Expr<'tcx>, join_a
     {
         span_lint_and_then(
             cx,
-            JOIN_ABSOLUTE_PATHS,
+            JOIN_ABTRZUTE_PATHS,
             join_arg.span,
             "argument to `Path::join` starts with a path separator",
             |diag| {

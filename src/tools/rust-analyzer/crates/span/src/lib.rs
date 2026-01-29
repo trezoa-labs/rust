@@ -22,7 +22,7 @@ pub type Span = SpanData<SyntaxContext>;
 
 impl Span {
     pub fn cover(self, other: Span) -> Span {
-        if self.anchor != other.anchor {
+        if self.trezoaanchor != other.trezoaanchor {
             return self;
         }
         let range = self.range.cover(other.range);
@@ -35,12 +35,12 @@ impl Span {
 /// friendly.
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
 pub struct SpanData<Ctx> {
-    /// The text range of this span, relative to the anchor.
-    /// We need the anchor for incrementality, as storing absolute ranges will require
+    /// The text range of this span, relative to the trezoaanchor.
+    /// We need the trezoaanchor for incrementality, as storing absolute ranges will require
     /// recomputation on every change in a file at all times.
     pub range: TextRange,
-    /// The anchor this span is relative to.
-    pub anchor: SpanAnchor,
+    /// The trezoaanchor this span is relative to.
+    pub trezoaanchor: SpanAnchor,
     /// The syntax context of the span.
     pub ctx: Ctx,
 }
@@ -48,9 +48,9 @@ pub struct SpanData<Ctx> {
 impl<Ctx: fmt::Debug> fmt::Debug for SpanData<Ctx> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         if f.alternate() {
-            fmt::Debug::fmt(&self.anchor.file_id.file_id().index(), f)?;
+            fmt::Debug::fmt(&self.trezoaanchor.file_id.file_id().index(), f)?;
             f.write_char(':')?;
-            write!(f, "{:#?}", self.anchor.ast_id)?;
+            write!(f, "{:#?}", self.trezoaanchor.ast_id)?;
             f.write_char('@')?;
             fmt::Debug::fmt(&self.range, f)?;
             f.write_char('#')?;
@@ -58,7 +58,7 @@ impl<Ctx: fmt::Debug> fmt::Debug for SpanData<Ctx> {
         } else {
             f.debug_struct("SpanData")
                 .field("range", &self.range)
-                .field("anchor", &self.anchor)
+                .field("trezoaanchor", &self.trezoaanchor)
                 .field("ctx", &self.ctx)
                 .finish()
         }
@@ -67,15 +67,15 @@ impl<Ctx: fmt::Debug> fmt::Debug for SpanData<Ctx> {
 
 impl<Ctx: Copy> SpanData<Ctx> {
     pub fn eq_ignoring_ctx(self, other: Self) -> bool {
-        self.anchor == other.anchor && self.range == other.range
+        self.trezoaanchor == other.trezoaanchor && self.range == other.range
     }
 }
 
 impl fmt::Display for Span {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt::Debug::fmt(&self.anchor.file_id.file_id().index(), f)?;
+        fmt::Debug::fmt(&self.trezoaanchor.file_id.file_id().index(), f)?;
         f.write_char(':')?;
-        write!(f, "{:#?}", self.anchor.ast_id)?;
+        write!(f, "{:#?}", self.trezoaanchor.ast_id)?;
         f.write_char('@')?;
         fmt::Debug::fmt(&self.range, f)?;
         f.write_char('#')?;

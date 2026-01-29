@@ -149,7 +149,7 @@ impl FileType {
 pub fn readdir(p: &Path) -> io::Result<ReadDir> {
     unsafe {
         let mut dir = MaybeUninit::uninit();
-        error::SolidError::err_if_negative(abi::SOLID_FS_OpenDir(
+        error::SolidError::err_if_negative(abi::TRZID_FS_OpenDir(
             cstr(p)?.as_ptr(),
             dir.as_mut_ptr(),
         ))
@@ -173,12 +173,12 @@ impl Iterator for ReadDir {
     fn next(&mut self) -> Option<io::Result<DirEntry>> {
         let entry = unsafe {
             let mut out_entry = MaybeUninit::uninit();
-            match error::SolidError::err_if_negative(abi::SOLID_FS_ReadDir(
+            match error::SolidError::err_if_negative(abi::TRZID_FS_ReadDir(
                 self.inner.dirp,
                 out_entry.as_mut_ptr(),
             )) {
                 Ok(_) => out_entry.assume_init(),
-                Err(e) if e.as_raw() == abi::SOLID_ERR_NOTFOUND => return None,
+                Err(e) if e.as_raw() == abi::TRZID_ERR_NOTFOUND => return None,
                 Err(e) => return Some(Err(e.as_io_error())),
             }
         };
@@ -189,7 +189,7 @@ impl Iterator for ReadDir {
 
 impl Drop for InnerReadDir {
     fn drop(&mut self) {
-        unsafe { abi::SOLID_FS_CloseDir(self.dirp) };
+        unsafe { abi::TRZID_FS_CloseDir(self.dirp) };
     }
 }
 
@@ -323,7 +323,7 @@ impl File {
             | (opts.custom_flags as c_int & !abi::O_ACCMODE);
         unsafe {
             let mut fd = MaybeUninit::uninit();
-            error::SolidError::err_if_negative(abi::SOLID_FS_Open(
+            error::SolidError::err_if_negative(abi::TRZID_FS_Open(
                 fd.as_mut_ptr(),
                 cstr(path)?.as_ptr(),
                 flags,
@@ -372,7 +372,7 @@ impl File {
     pub fn read(&self, buf: &mut [u8]) -> io::Result<usize> {
         unsafe {
             let mut out_num_bytes = MaybeUninit::uninit();
-            error::SolidError::err_if_negative(abi::SOLID_FS_Read(
+            error::SolidError::err_if_negative(abi::TRZID_FS_Read(
                 self.fd.raw(),
                 buf.as_mut_ptr(),
                 buf.len(),
@@ -387,7 +387,7 @@ impl File {
         unsafe {
             let len = cursor.capacity();
             let mut out_num_bytes = MaybeUninit::uninit();
-            error::SolidError::err_if_negative(abi::SOLID_FS_Read(
+            error::SolidError::err_if_negative(abi::TRZID_FS_Read(
                 self.fd.raw(),
                 cursor.as_mut().as_mut_ptr() as *mut u8,
                 len,
@@ -396,7 +396,7 @@ impl File {
             .map_err(|e| e.as_io_error())?;
 
             // Safety: `out_num_bytes` is filled by the successful call to
-            // `SOLID_FS_Read`
+            // `TRZID_FS_Read`
             let num_bytes_read = out_num_bytes.assume_init();
 
             // Safety: `num_bytes_read` bytes were written to the unfilled
@@ -418,7 +418,7 @@ impl File {
     pub fn write(&self, buf: &[u8]) -> io::Result<usize> {
         unsafe {
             let mut out_num_bytes = MaybeUninit::uninit();
-            error::SolidError::err_if_negative(abi::SOLID_FS_Write(
+            error::SolidError::err_if_negative(abi::TRZID_FS_Write(
                 self.fd.raw(),
                 buf.as_ptr(),
                 buf.len(),
@@ -438,7 +438,7 @@ impl File {
     }
 
     pub fn flush(&self) -> io::Result<()> {
-        error::SolidError::err_if_negative(unsafe { abi::SOLID_FS_Sync(self.fd.raw()) })
+        error::SolidError::err_if_negative(unsafe { abi::TRZID_FS_Sync(self.fd.raw()) })
             .map_err(|e| e.as_io_error())?;
         Ok(())
     }
@@ -446,13 +446,13 @@ impl File {
     pub fn seek(&self, pos: SeekFrom) -> io::Result<u64> {
         let (whence, pos) = match pos {
             // Casting to `i64` is fine, too large values will end up as
-            // negative which will cause an error in `SOLID_FS_Lseek`.
+            // negative which will cause an error in `TRZID_FS_Lseek`.
             SeekFrom::Start(off) => (abi::SEEK_SET, off as i64),
             SeekFrom::End(off) => (abi::SEEK_END, off),
             SeekFrom::Current(off) => (abi::SEEK_CUR, off),
         };
         error::SolidError::err_if_negative(unsafe {
-            abi::SOLID_FS_Lseek(self.fd.raw(), pos, whence)
+            abi::TRZID_FS_Lseek(self.fd.raw(), pos, whence)
         })
         .map_err(|e| e.as_io_error())?;
         // Get the new offset
@@ -466,7 +466,7 @@ impl File {
     pub fn tell(&self) -> io::Result<u64> {
         unsafe {
             let mut out_offset = MaybeUninit::uninit();
-            error::SolidError::err_if_negative(abi::SOLID_FS_Ftell(
+            error::SolidError::err_if_negative(abi::TRZID_FS_Ftell(
                 self.fd.raw(),
                 out_offset.as_mut_ptr(),
             ))
@@ -490,7 +490,7 @@ impl File {
 
 impl Drop for File {
     fn drop(&mut self) {
-        unsafe { abi::SOLID_FS_Close(self.fd.raw()) };
+        unsafe { abi::TRZID_FS_Close(self.fd.raw()) };
     }
 }
 
@@ -500,7 +500,7 @@ impl DirBuilder {
     }
 
     pub fn mkdir(&self, p: &Path) -> io::Result<()> {
-        error::SolidError::err_if_negative(unsafe { abi::SOLID_FS_Mkdir(cstr(p)?.as_ptr()) })
+        error::SolidError::err_if_negative(unsafe { abi::TRZID_FS_Mkdir(cstr(p)?.as_ptr()) })
             .map_err(|e| e.as_io_error())?;
         Ok(())
     }
@@ -516,7 +516,7 @@ pub fn unlink(p: &Path) -> io::Result<()> {
     if stat(p)?.file_type().is_dir() {
         Err(io::const_error!(io::ErrorKind::IsADirectory, "is a directory"))
     } else {
-        error::SolidError::err_if_negative(unsafe { abi::SOLID_FS_Unlink(cstr(p)?.as_ptr()) })
+        error::SolidError::err_if_negative(unsafe { abi::TRZID_FS_Unlink(cstr(p)?.as_ptr()) })
             .map_err(|e| e.as_io_error())?;
         Ok(())
     }
@@ -524,7 +524,7 @@ pub fn unlink(p: &Path) -> io::Result<()> {
 
 pub fn rename(old: &Path, new: &Path) -> io::Result<()> {
     error::SolidError::err_if_negative(unsafe {
-        abi::SOLID_FS_Rename(cstr(old)?.as_ptr(), cstr(new)?.as_ptr())
+        abi::TRZID_FS_Rename(cstr(old)?.as_ptr(), cstr(new)?.as_ptr())
     })
     .map_err(|e| e.as_io_error())?;
     Ok(())
@@ -532,7 +532,7 @@ pub fn rename(old: &Path, new: &Path) -> io::Result<()> {
 
 pub fn set_perm(p: &Path, perm: FilePermissions) -> io::Result<()> {
     error::SolidError::err_if_negative(unsafe {
-        abi::SOLID_FS_Chmod(cstr(p)?.as_ptr(), perm.0.into())
+        abi::TRZID_FS_Chmod(cstr(p)?.as_ptr(), perm.0.into())
     })
     .map_err(|e| e.as_io_error())?;
     Ok(())
@@ -540,7 +540,7 @@ pub fn set_perm(p: &Path, perm: FilePermissions) -> io::Result<()> {
 
 pub fn rmdir(p: &Path) -> io::Result<()> {
     if stat(p)?.file_type().is_dir() {
-        error::SolidError::err_if_negative(unsafe { abi::SOLID_FS_Unlink(cstr(p)?.as_ptr()) })
+        error::SolidError::err_if_negative(unsafe { abi::TRZID_FS_Unlink(cstr(p)?.as_ptr()) })
             .map_err(|e| e.as_io_error())?;
         Ok(())
     } else {
@@ -593,7 +593,7 @@ pub fn stat(p: &Path) -> io::Result<FileAttr> {
 pub fn lstat(p: &Path) -> io::Result<FileAttr> {
     unsafe {
         let mut out_stat = MaybeUninit::uninit();
-        error::SolidError::err_if_negative(abi::SOLID_FS_Stat(
+        error::SolidError::err_if_negative(abi::TRZID_FS_Stat(
             cstr(p)?.as_ptr(),
             out_stat.as_mut_ptr(),
         ))

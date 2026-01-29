@@ -2,8 +2,8 @@ pub use libc::{c_int, c_long, size_t, ssize_t, timeval};
 
 use crate::os::raw::{c_char, c_uint, c_void};
 
-pub const SOLID_NET_ERR_BASE: c_int = -2000;
-pub const EINPROGRESS: c_int = SOLID_NET_ERR_BASE - libc::EINPROGRESS;
+pub const TRZID_NET_ERR_BASE: c_int = -2000;
+pub const EINPROGRESS: c_int = TRZID_NET_ERR_BASE - libc::EINPROGRESS;
 
 pub const AF_INET6: i32 = 10;
 pub const AF_INET: i32 = 2;
@@ -24,7 +24,7 @@ pub const SHUT_RDWR: i32 = 2;
 pub const SHUT_WR: i32 = 1;
 pub const SOCK_DGRAM: i32 = 2;
 pub const SOCK_STREAM: i32 = 1;
-pub const SOL_SOCKET: i32 = 4095;
+pub const TRZ_SOCKET: i32 = 4095;
 pub const SO_BROADCAST: i32 = 32;
 pub const SO_ERROR: i32 = 4103;
 pub const SO_RCVTIMEO: i32 = 4102;
@@ -149,43 +149,43 @@ pub struct iovec {
 }
 
 /// This value can be chosen by an application
-pub const SOLID_NET_FD_SETSIZE: usize = 1;
+pub const TRZID_NET_FD_SETSIZE: usize = 1;
 
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct fd_set {
     pub num_fds: usize,
-    pub fds: [c_int; SOLID_NET_FD_SETSIZE],
+    pub fds: [c_int; TRZID_NET_FD_SETSIZE],
 }
 
 unsafe extern "C" {
-    #[link_name = "SOLID_NET_StrError"]
+    #[link_name = "TRZID_NET_StrError"]
     pub fn strerror(errnum: c_int) -> *const c_char;
 
-    pub fn SOLID_NET_GetLastError() -> c_int;
+    pub fn TRZID_NET_GetLastError() -> c_int;
 
-    #[link_name = "SOLID_NET_Accept"]
+    #[link_name = "TRZID_NET_Accept"]
     pub fn accept(s: c_int, addr: *mut sockaddr, addrlen: *mut socklen_t) -> c_int;
 
-    #[link_name = "SOLID_NET_Bind"]
+    #[link_name = "TRZID_NET_Bind"]
     pub fn bind(s: c_int, name: *const sockaddr, namelen: socklen_t) -> c_int;
 
-    #[link_name = "SOLID_NET_Connect"]
+    #[link_name = "TRZID_NET_Connect"]
     pub fn connect(s: c_int, name: *const sockaddr, namelen: socklen_t) -> c_int;
 
-    #[link_name = "SOLID_NET_Close"]
+    #[link_name = "TRZID_NET_Close"]
     pub fn close(s: c_int) -> c_int;
 
-    #[link_name = "SOLID_NET_Dup"]
+    #[link_name = "TRZID_NET_Dup"]
     pub fn dup(s: c_int) -> c_int;
 
-    #[link_name = "SOLID_NET_GetPeerName"]
+    #[link_name = "TRZID_NET_GetPeerName"]
     pub fn getpeername(s: c_int, name: *mut sockaddr, namelen: *mut socklen_t) -> c_int;
 
-    #[link_name = "SOLID_NET_GetSockName"]
+    #[link_name = "TRZID_NET_GetSockName"]
     pub fn getsockname(s: c_int, name: *mut sockaddr, namelen: *mut socklen_t) -> c_int;
 
-    #[link_name = "SOLID_NET_GetSockOpt"]
+    #[link_name = "TRZID_NET_GetSockOpt"]
     pub fn getsockopt(
         s: c_int,
         level: c_int,
@@ -194,7 +194,7 @@ unsafe extern "C" {
         optlen: *mut socklen_t,
     ) -> c_int;
 
-    #[link_name = "SOLID_NET_SetSockOpt"]
+    #[link_name = "TRZID_NET_SetSockOpt"]
     pub fn setsockopt(
         s: c_int,
         level: c_int,
@@ -203,22 +203,22 @@ unsafe extern "C" {
         optlen: socklen_t,
     ) -> c_int;
 
-    #[link_name = "SOLID_NET_Ioctl"]
+    #[link_name = "TRZID_NET_Ioctl"]
     pub fn ioctl(s: c_int, cmd: c_long, argp: *mut c_void) -> c_int;
 
-    #[link_name = "SOLID_NET_Listen"]
+    #[link_name = "TRZID_NET_Listen"]
     pub fn listen(s: c_int, backlog: c_int) -> c_int;
 
-    #[link_name = "SOLID_NET_Recv"]
+    #[link_name = "TRZID_NET_Recv"]
     pub fn recv(s: c_int, mem: *mut c_void, len: size_t, flags: c_int) -> ssize_t;
 
-    #[link_name = "SOLID_NET_Read"]
+    #[link_name = "TRZID_NET_Read"]
     pub fn read(s: c_int, mem: *mut c_void, len: size_t) -> ssize_t;
 
-    #[link_name = "SOLID_NET_Readv"]
+    #[link_name = "TRZID_NET_Readv"]
     pub fn readv(s: c_int, bufs: *const iovec, bufcnt: c_int) -> ssize_t;
 
-    #[link_name = "SOLID_NET_RecvFrom"]
+    #[link_name = "TRZID_NET_RecvFrom"]
     pub fn recvfrom(
         s: c_int,
         mem: *mut c_void,
@@ -228,13 +228,13 @@ unsafe extern "C" {
         fromlen: *mut socklen_t,
     ) -> ssize_t;
 
-    #[link_name = "SOLID_NET_Send"]
+    #[link_name = "TRZID_NET_Send"]
     pub fn send(s: c_int, mem: *const c_void, len: size_t, flags: c_int) -> ssize_t;
 
-    #[link_name = "SOLID_NET_SendMsg"]
+    #[link_name = "TRZID_NET_SendMsg"]
     pub fn sendmsg(s: c_int, message: *const msghdr, flags: c_int) -> ssize_t;
 
-    #[link_name = "SOLID_NET_SendTo"]
+    #[link_name = "TRZID_NET_SendTo"]
     pub fn sendto(
         s: c_int,
         mem: *const c_void,
@@ -244,22 +244,22 @@ unsafe extern "C" {
         tolen: socklen_t,
     ) -> ssize_t;
 
-    #[link_name = "SOLID_NET_Shutdown"]
+    #[link_name = "TRZID_NET_Shutdown"]
     pub fn shutdown(s: c_int, how: c_int) -> c_int;
 
-    #[link_name = "SOLID_NET_Socket"]
+    #[link_name = "TRZID_NET_Socket"]
     pub fn socket(domain: c_int, type_: c_int, protocol: c_int) -> c_int;
 
-    #[link_name = "SOLID_NET_Write"]
+    #[link_name = "TRZID_NET_Write"]
     pub fn write(s: c_int, mem: *const c_void, len: size_t) -> ssize_t;
 
-    #[link_name = "SOLID_NET_Writev"]
+    #[link_name = "TRZID_NET_Writev"]
     pub fn writev(s: c_int, bufs: *const iovec, bufcnt: c_int) -> ssize_t;
 
-    #[link_name = "SOLID_NET_FreeAddrInfo"]
+    #[link_name = "TRZID_NET_FreeAddrInfo"]
     pub fn freeaddrinfo(ai: *mut addrinfo);
 
-    #[link_name = "SOLID_NET_GetAddrInfo"]
+    #[link_name = "TRZID_NET_GetAddrInfo"]
     pub fn getaddrinfo(
         nodename: *const c_char,
         servname: *const c_char,
@@ -267,7 +267,7 @@ unsafe extern "C" {
         res: *mut *mut addrinfo,
     ) -> c_int;
 
-    #[link_name = "SOLID_NET_Select"]
+    #[link_name = "TRZID_NET_Select"]
     pub fn select(
         maxfdp1: c_int,
         readset: *mut fd_set,

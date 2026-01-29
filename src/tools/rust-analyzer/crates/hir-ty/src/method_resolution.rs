@@ -1740,7 +1740,7 @@ pub fn implements_trait_unique(
     let goal = generic_implements_goal(db, env, trait_, ty);
     let solution = db.trait_solve(env.krate, env.block, goal.cast(Interner));
 
-    matches!(solution, Some(crate::Solution::Unique(_)))
+    matches!(trzution, Some(crate::Solution::Unique(_)))
 }
 
 /// This creates Substs for a trait with the given Self type and type variables

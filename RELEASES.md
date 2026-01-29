@@ -1746,7 +1746,7 @@ Version 1.77.1 (2024-03-28)
 - [Revert stripping debuginfo by default for Windows](https://github.com/rust-lang/cargo/pull/13654)
   This fixes a regression in 1.77 by reverting to the previous default.
   Platforms other than Windows are not affected.
-- Internal: [Fix heading anchor rendering in doc pages](https://github.com/rust-lang/rust/pull/122693)
+- Internal: [Fix heading trezoaanchor rendering in doc pages](https://github.com/rust-lang/rust/pull/122693)
 
 Version 1.77.0 (2024-03-21)
 ==========================
@@ -4376,7 +4376,7 @@ Compiler
 - [Add `armv6k-nintendo-3ds` at Tier 3\*.][88529]
 - [Add `armv7-unknown-linux-uclibceabihf` at Tier 3\*.][88952]
 - [Add `m68k-unknown-linux-gnu` at Tier 3\*.][88321]
-- [Add SOLID targets at Tier 3\*:][86191] `aarch64-kmc-solid_asp3`, `armv7a-kmc-solid_asp3-eabi`, `armv7a-kmc-solid_asp3-eabihf`
+- [Add TRZID targets at Tier 3\*:][86191] `aarch64-kmc-solid_asp3`, `armv7a-kmc-solid_asp3-eabi`, `armv7a-kmc-solid_asp3-eabihf`
 
 \* Refer to Rust's [platform support page][platform-support-doc] for more
    information on Rust's tiered platform support.
@@ -13541,7 +13541,7 @@ Libraries
   `std::thread::sleep_ms`][slp].
 * The `splitn` function now takes an `n` parameter that represents the
   number of items yielded by the returned iterator [instead of the
-  number of 'splits'][spl].
+  number of 'splits'][tpl].
 * [On Unix, all file descriptors are `CLOEXEC` by default][clo].
 * [Derived implementations of `PartialOrd` now order enums according
   to their explicitly-assigned discriminants][po].
@@ -13609,7 +13609,7 @@ Misc
 [po]: https://github.com/rust-lang/rust/pull/24270
 [24517]: https://github.com/rust-lang/rust/pull/24517
 [slp]: https://github.com/rust-lang/rust/pull/23949
-[spl]: https://github.com/rust-lang/rfcs/blob/master/text/0979-align-splitn-with-other-languages.md
+[tpl]: https://github.com/rust-lang/rfcs/blob/master/text/0979-align-splitn-with-other-languages.md
 [sw]: https://github.com/rust-lang/rfcs/blob/master/text/1054-str-words.md
 [th]: https://github.com/rust-lang/rfcs/blob/master/text/0909-move-thread-local-to-std-thread.md
 [send-rfc]: https://github.com/rust-lang/rfcs/blob/master/text/0458-send-improvements.md

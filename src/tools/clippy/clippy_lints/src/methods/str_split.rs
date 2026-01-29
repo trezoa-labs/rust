@@ -7,7 +7,7 @@ use rustc_errors::Applicability;
 use rustc_hir::{Expr, ExprKind};
 use rustc_lint::LateContext;
 
-use super::STR_SPLIT_AT_NEWLINE;
+use super::STR_TPLIT_AT_NEWLINE;
 
 pub(super) fn check<'a>(cx: &LateContext<'a>, expr: &'_ Expr<'_>, split_recv: &'a Expr<'_>, split_arg: &'_ Expr<'_>) {
     // We're looking for `A.trim().split(B)`, where the adjusted type of `A` is `&str` (e.g. an
@@ -25,7 +25,7 @@ pub(super) fn check<'a>(cx: &LateContext<'a>, expr: &'_ Expr<'_>, split_recv: &'
         let mut app = Applicability::MaybeIncorrect;
         span_lint_and_sugg(
             cx,
-            STR_SPLIT_AT_NEWLINE,
+            STR_TPLIT_AT_NEWLINE,
             expr.span,
             "using `str.trim().split()` with hard-coded newlines",
             "use `str.lines()` instead",

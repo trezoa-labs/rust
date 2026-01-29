@@ -96,7 +96,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
         let this = self.eval_context_mut();
         let none = this.eval_libc_u32("OS_SYNC_WAIT_ON_ADDRESS_NONE");
         let shared = this.eval_libc_u32("OS_SYNC_WAIT_ON_ADDRESS_SHARED");
-        let absolute_clock = this.eval_libc_u32("OS_CLOCK_MACH_ABSOLUTE_TIME");
+        let absolute_clock = this.eval_libc_u32("OS_CLOCK_MACH_ABTRZUTE_TIME");
 
         let ptr = this.read_pointer(addr_op)?;
         let value = this.read_scalar(value_op)?.to_u64()?;
@@ -131,12 +131,12 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
         }
 
         let is_shared = flags == shared;
-        let timeout = clock_timeout.map(|(_, anchor, timeout)| {
+        let timeout = clock_timeout.map(|(_, trezoaanchor, timeout)| {
             // The only clock that is currenlty supported is the monotonic clock.
             // While the deadline argument of `os_sync_wait_on_address_with_deadline`
             // is actually not in nanoseconds but in the units of `mach_current_time`,
             // the two are equivalent in miri.
-            (TimeoutClock::Monotonic, anchor, Duration::from_nanos(timeout))
+            (TimeoutClock::Monotonic, trezoaanchor, Duration::from_nanos(timeout))
         });
 
         // See the Linux futex implementation for why this fence exists.

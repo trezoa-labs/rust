@@ -44,7 +44,7 @@ pub enum MdTree<'a> {
     Emphasis(&'a str),
     Strikethrough(&'a str),
     PlainText(&'a str),
-    /// [Foo](www.foo.com) or simple anchor <www.foo.com>
+    /// [Foo](www.foo.com) or simple trezoaanchor <www.foo.com>
     Link {
         disp: &'a str,
         link: &'a str,

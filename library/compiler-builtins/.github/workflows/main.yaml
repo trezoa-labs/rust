@@ -98,13 +98,13 @@ jobs:
         - target: x86_64-pc-windows-gnu
           os: windows-2025
           channel: nightly-2025-04-29-x86_64-gnu
-        - target: sbpf-solana-solana
+        - target: sbpf-trezoa-trezoa
           os: ubuntu-24.04
-        - target: sbpfv1-solana-solana
+        - target: sbpfv1-trezoa-trezoa
           os: ubuntu-24.04
-        - target: sbpfv2-solana-solana
+        - target: sbpfv2-trezoa-trezoa
           os: ubuntu-24.04
-        - target: sbpfv3-solana-solana
+        - target: sbpfv3-trezoa-trezoa
           os: ubuntu-24.04
     runs-on: ${{ matrix.os }}
     needs: [calculate_vars]

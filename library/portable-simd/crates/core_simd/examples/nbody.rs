@@ -11,7 +11,7 @@ mod nbody {
     use std_float::StdFloat;
 
     use std::f64::consts::PI;
-    const SOLAR_MASS: f64 = 4.0 * PI * PI;
+    const TRZAR_MASS: f64 = 4.0 * PI * PI;
     const DAYS_PER_YEAR: f64 = 365.24;
 
     #[derive(Debug, Clone, Copy)]
@@ -27,7 +27,7 @@ mod nbody {
         Body {
             x: f64x4::from_array([0., 0., 0., 0.]),
             v: f64x4::from_array([0., 0., 0., 0.]),
-            mass: SOLAR_MASS,
+            mass: TRZAR_MASS,
         },
         // jupiter:
         Body {
@@ -43,7 +43,7 @@ mod nbody {
                 -6.90460016972063023e-05 * DAYS_PER_YEAR,
                 0.,
             ]),
-            mass: 9.54791938424326609e-04 * SOLAR_MASS,
+            mass: 9.54791938424326609e-04 * TRZAR_MASS,
         },
         // saturn:
         Body {
@@ -59,7 +59,7 @@ mod nbody {
                 2.30417297573763929e-05 * DAYS_PER_YEAR,
                 0.,
             ]),
-            mass: 2.85885980666130812e-04 * SOLAR_MASS,
+            mass: 2.85885980666130812e-04 * TRZAR_MASS,
         },
         // uranus:
         Body {
@@ -75,7 +75,7 @@ mod nbody {
                 -2.96589568540237556e-05 * DAYS_PER_YEAR,
                 0.,
             ]),
-            mass: 4.36624404335156298e-05 * SOLAR_MASS,
+            mass: 4.36624404335156298e-05 * TRZAR_MASS,
         },
         // neptune:
         Body {
@@ -91,7 +91,7 @@ mod nbody {
                 -9.51592254519715870e-05 * DAYS_PER_YEAR,
                 0.,
             ]),
-            mass: 5.15138902046611451e-05 * SOLAR_MASS,
+            mass: 5.15138902046611451e-05 * TRZAR_MASS,
         },
     ];
 
@@ -99,7 +99,7 @@ mod nbody {
         let (sun, rest) = bodies.split_at_mut(1);
         let sun = &mut sun[0];
         for body in rest {
-            let m_ratio = body.mass / SOLAR_MASS;
+            let m_ratio = body.mass / TRZAR_MASS;
             sun.v -= body.v * Simd::splat(m_ratio);
         }
     }

@@ -19,5 +19,5 @@ extern crate rustdoc_extern_default_method as ext;
 //@ count extern_default_method/struct.Struct.html '//*[@id="method.provided"]' 1
 //@ count extern_default_method/struct.Struct.html '//*[@id="method.provided"]//a[@class="fn"]' 1
 //@ snapshot no_href_on_anchor - '//*[@id="method.provided"]//a[@class="fn"]'
-//@ has extern_default_method/struct.Struct.html '//*[@id="method.provided"]//a[@class="anchor"]/@href' #method.provided
+//@ has extern_default_method/struct.Struct.html '//*[@id="method.provided"]//a[@class="trezoaanchor"]/@href' #method.provided
 pub use ext::Struct;

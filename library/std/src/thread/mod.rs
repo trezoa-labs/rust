@@ -155,7 +155,7 @@
 // Under `test`, `__FastLocalKeyInner` seems unused.
 #![cfg_attr(test, allow(dead_code))]
 
-#[cfg(all(test, not(any(target_os = "emscripten", target_os = "wasi", not(target_family = "solana")))))]
+#[cfg(all(test, not(any(target_os = "emscripten", target_os = "wasi", not(target_family = "trezoa")))))]
 mod tests;
 
 use crate::any::Any;
@@ -163,19 +163,19 @@ use crate::cell::UnsafeCell;
 use crate::ffi::CStr;
 use crate::marker::PhantomData;
 use crate::mem::{self, forget};
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 use crate::mem::ManuallyDrop;
 use crate::num::NonZero;
 use crate::pin::Pin;
 use crate::sync::Arc;
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 use crate::sync::atomic::{Atomic, AtomicUsize, Ordering};
 use crate::sys::sync::Parker;
 use crate::sys::thread as imp;
 use crate::sys_common::{AsInner, IntoInner};
 use crate::time::{Duration, Instant};
 use crate::{fmt, io, panicking, str};
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 use crate::{env, panic};
 
 #[stable(feature = "scoped_threads", since = "1.63.0")]
@@ -189,9 +189,9 @@ mod current;
 #[stable(feature = "rust1", since = "1.0.0")]
 pub use current::current;
 pub(crate) use current::current_or_unnamed;
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 use current::try_with_current;
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 pub(crate) use current::{set_current, current_id, drop_current};
 
 mod spawnhook;
@@ -476,7 +476,7 @@ impl Builder {
     }
 
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
-    #[cfg(not(target_family = "solana"))]
+    #[cfg(not(target_family = "trezoa"))]
     unsafe fn spawn_unchecked_<'scope, F, T>(
         self,
         f: F,
@@ -611,7 +611,7 @@ impl Builder {
     }
 
     /// SBF version of spawn_unchecked
-    #[cfg(target_family = "solana")]
+    #[cfg(target_family = "trezoa")]
     unsafe fn spawn_unchecked_<'a, 'scope, F, T>(
         self,
         _f: F,
@@ -1261,13 +1261,13 @@ impl ThreadId {
     // Generate a new unique thread ID.
     pub(crate) fn new() -> ThreadId {
         #[cold]
-        #[cfg(not(target_family = "solana"))]
+        #[cfg(not(target_family = "trezoa"))]
         fn exhausted() -> ! {
             panic!("failed to generate unique thread ID: bitspace exhausted")
         }
 
         cfg_if::cfg_if! {
-            if #[cfg(all(target_has_atomic = "64", not(target_family = "solana")))] {
+            if #[cfg(all(target_has_atomic = "64", not(target_family = "trezoa")))] {
                 use crate::sync::atomic::{Atomic, AtomicU64};
 
                 static COUNTER: Atomic<u64> = AtomicU64::new(0);
@@ -1283,7 +1283,7 @@ impl ThreadId {
                         Err(id) => last = id,
                     }
                 }
-            } else if #[cfg(not(target_family = "solana"))] {
+            } else if #[cfg(not(target_family = "trezoa"))] {
                 use crate::sync::{Mutex, PoisonError};
 
                 static COUNTER: Mutex<u64> = Mutex::new(0);
@@ -1391,7 +1391,7 @@ pub(crate) mod main_thread {
 
             /// # Safety
             /// May only be called once.
-            #[cfg(not(target_family = "solana"))]
+            #[cfg(not(target_family = "trezoa"))]
             pub(crate) unsafe fn set(id: ThreadId) {
                 MAIN.store(id.as_u64().get(), Relaxed)
             }
@@ -1426,7 +1426,7 @@ pub(crate) mod main_thread {
 ///
 /// Modulo thread local accesses, this function is safe to call from signal
 /// handlers and in similar circumstances where allocations are not possible.
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 pub(crate) fn with_current_name<F, R>(f: F) -> R
 where
     F: FnOnce(Option<&str>) -> R,
@@ -1794,7 +1794,7 @@ impl<'scope, T> Drop for Packet<'scope, T> {
         // (And even if we tried to handle it somehow, we'd also need to handle
         // the case where the panic payload we get out of it also panics on
         // drop, and so on. See issue #86027.)
-        #[cfg(not(target_family = "solana"))]
+        #[cfg(not(target_family = "trezoa"))]
         if let Err(_) = panic::catch_unwind(panic::AssertUnwindSafe(|| {
             *self.result.get_mut() = None;
         })) {

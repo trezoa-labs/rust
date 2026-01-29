@@ -286,12 +286,12 @@ impl ast::PathSegment {
                 _ => PathSegmentKind::Name(name_ref),
             }
         } else {
-            let anchor = self.type_anchor()?;
+            let trezoaanchor = self.type_anchor()?;
             // FIXME: Move this over to `ast::TypeAnchor`
             // <T> or <T as Trait>
             // T is any TypeRef, Trait has to be a PathType
             let mut type_refs =
-                anchor.syntax().children().filter(|node| ast::Type::can_cast(node.kind()));
+                trezoaanchor.syntax().children().filter(|node| ast::Type::can_cast(node.kind()));
             let type_ref = type_refs.next().and_then(ast::Type::cast);
             let trait_ref = type_refs.next().and_then(ast::PathType::cast);
             PathSegmentKind::Type { type_ref, trait_ref }

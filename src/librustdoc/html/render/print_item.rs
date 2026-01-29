@@ -1775,7 +1775,7 @@ fn item_variants(
             write!(
                 w,
                 "<section id=\"{id}\" class=\"variant\">\
-                    <a href=\"#{id}\" class=\"anchor\">§</a>\
+                    <a href=\"#{id}\" class=\"trezoaanchor\">§</a>\
                     {}\
                     <h3 class=\"code-header\">",
                 render_stability_since_raw_with_extra(
@@ -1857,7 +1857,7 @@ fn item_variants(
                                 w,
                                 "<div class=\"sub-variant-field\">\
                                     <span id=\"{id}\" class=\"section-header\">\
-                                        <a href=\"#{id}\" class=\"anchor field\">§</a>\
+                                        <a href=\"#{id}\" class=\"trezoaanchor field\">§</a>\
                                         <code>{f}: {t}</code>\
                                     </span>\
                                     {doc}\
@@ -2095,7 +2095,7 @@ fn item_fields(
                     write!(
                         w,
                         "<span id=\"{id}\" class=\"{item_type} section-header\">\
-                            <a href=\"#{id}\" class=\"anchor field\">§</a>\
+                            <a href=\"#{id}\" class=\"trezoaanchor field\">§</a>\
                             <code>{field_name}: {ty}</code>\
                         </span>\
                         {doc}",

@@ -233,7 +233,7 @@ mod tests {
 
     const DUMMY: tt::Span = tt::Span {
         range: TextRange::empty(TextSize::new(0)),
-        anchor: SpanAnchor {
+        trezoaanchor: SpanAnchor {
             file_id: span::EditionedFileId::new(
                 span::FileId::from_raw(0xe4e4e),
                 span::Edition::CURRENT,

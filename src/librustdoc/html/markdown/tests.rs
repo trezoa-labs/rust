@@ -312,33 +312,33 @@ fn test_header() {
 
     t(
         "# Foo bar",
-        "<h2 id=\"foo-bar\"><a class=\"doc-anchor\" href=\"#foo-bar\">§</a>Foo bar</h2>",
+        "<h2 id=\"foo-bar\"><a class=\"doc-trezoaanchor\" href=\"#foo-bar\">§</a>Foo bar</h2>",
     );
     t(
         "## Foo-bar_baz qux",
         "<h3 id=\"foo-bar_baz-qux\">\
-             <a class=\"doc-anchor\" href=\"#foo-bar_baz-qux\">§</a>\
+             <a class=\"doc-trezoaanchor\" href=\"#foo-bar_baz-qux\">§</a>\
              Foo-bar_baz qux\
          </h3>",
     );
     t(
         "### **Foo** *bar* baz!?!& -_qux_-%",
         "<h4 id=\"foo-bar-baz--qux-\">\
-            <a class=\"doc-anchor\" href=\"#foo-bar-baz--qux-\">§</a>\
+            <a class=\"doc-trezoaanchor\" href=\"#foo-bar-baz--qux-\">§</a>\
             <strong>Foo</strong> <em>bar</em> baz!?!&amp; -<em>qux</em>-%\
          </h4>",
     );
     t(
         "#### **Foo?** & \\*bar?!*  _`baz`_ ❤ #qux",
         "<h5 id=\"foo--bar--baz--qux\">\
-             <a class=\"doc-anchor\" href=\"#foo--bar--baz--qux\">§</a>\
+             <a class=\"doc-trezoaanchor\" href=\"#foo--bar--baz--qux\">§</a>\
              <strong>Foo?</strong> &amp; *bar?!*  <em><code>baz</code></em> ❤ #qux\
          </h5>",
     );
     t(
         "# Foo [bar](https://hello.yo)",
         "<h2 id=\"foo-bar\">\
-             <a class=\"doc-anchor\" href=\"#foo-bar\">§</a>\
+             <a class=\"doc-trezoaanchor\" href=\"#foo-bar\">§</a>\
              Foo <a href=\"https://hello.yo\">bar</a>\
          </h2>",
     );
@@ -364,32 +364,32 @@ fn test_header_ids_multiple_blocks() {
     t(
         &mut map,
         "# Example",
-        "<h2 id=\"example\"><a class=\"doc-anchor\" href=\"#example\">§</a>Example</h2>",
+        "<h2 id=\"example\"><a class=\"doc-trezoaanchor\" href=\"#example\">§</a>Example</h2>",
     );
     t(
         &mut map,
         "# Panics",
-        "<h2 id=\"panics\"><a class=\"doc-anchor\" href=\"#panics\">§</a>Panics</h2>",
+        "<h2 id=\"panics\"><a class=\"doc-trezoaanchor\" href=\"#panics\">§</a>Panics</h2>",
     );
     t(
         &mut map,
         "# Example",
-        "<h2 id=\"example-1\"><a class=\"doc-anchor\" href=\"#example-1\">§</a>Example</h2>",
+        "<h2 id=\"example-1\"><a class=\"doc-trezoaanchor\" href=\"#example-1\">§</a>Example</h2>",
     );
     t(
         &mut map,
         "# Search",
-        "<h2 id=\"search-1\"><a class=\"doc-anchor\" href=\"#search-1\">§</a>Search</h2>",
+        "<h2 id=\"search-1\"><a class=\"doc-trezoaanchor\" href=\"#search-1\">§</a>Search</h2>",
     );
     t(
         &mut map,
         "# Example",
-        "<h2 id=\"example-2\"><a class=\"doc-anchor\" href=\"#example-2\">§</a>Example</h2>",
+        "<h2 id=\"example-2\"><a class=\"doc-trezoaanchor\" href=\"#example-2\">§</a>Example</h2>",
     );
     t(
         &mut map,
         "# Panics",
-        "<h2 id=\"panics-1\"><a class=\"doc-anchor\" href=\"#panics-1\">§</a>Panics</h2>",
+        "<h2 id=\"panics-1\"><a class=\"doc-trezoaanchor\" href=\"#panics-1\">§</a>Panics</h2>",
     );
 }
 

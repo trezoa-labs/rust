@@ -1059,7 +1059,7 @@ mod prim_str {}
 ///
 /// For more about tuples, see [the book](../book/ch03-02-data-types.html#the-tuple-type).
 ///
-// Hardcoded anchor in src/librustdoc/html/format.rs
+// Hardcoded trezoaanchor in src/librustdoc/html/format.rs
 // linked to as `#trait-implementations-1`
 /// # Trait implementations
 ///

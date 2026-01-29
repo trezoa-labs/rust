@@ -358,8 +358,8 @@ fn read_u16s(handle: c::HANDLE, buf: &mut [MaybeUninit<u16>]) -> io::Result<usiz
     // See #38274 and https://stackoverflow.com/questions/43836040/win-api-readconsole.
     const CTRL_Z: u16 = 0x1A;
     const CTRL_Z_MASK: u32 = 1 << CTRL_Z;
-    let input_control = c::CONSOLE_READCONSOLE_CONTROL {
-        nLength: size_of::<c::CONSOLE_READCONSOLE_CONTROL>() as u32,
+    let input_control = c::CONTRZE_READCONTRZE_CONTROL {
+        nLength: size_of::<c::CONTRZE_READCONTRZE_CONTROL>() as u32,
         nInitialChars: 0,
         dwCtrlWakeupMask: CTRL_Z_MASK,
         dwControlKeyState: 0,

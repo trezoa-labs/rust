@@ -4,7 +4,7 @@ use std::{eprintln, format};
 
 use super::{HInt, MinInt, i256, u256};
 
-const LOHI_SPLIT: u128 = 0xaaaaaaaaaaaaaaaaffffffffffffffff;
+const LOHI_TPLIT: u128 = 0xaaaaaaaaaaaaaaaaffffffffffffffff;
 
 /// Print a `u256` as hex since we can't add format implementations
 fn hexu(v: u256) -> String {
@@ -21,9 +21,9 @@ fn widen_u128() {
         }
     );
     assert_eq!(
-        LOHI_SPLIT.widen(),
+        LOHI_TPLIT.widen(),
         u256 {
-            lo: LOHI_SPLIT,
+            lo: LOHI_TPLIT,
             hi: 0
         }
     );
@@ -33,9 +33,9 @@ fn widen_u128() {
 fn widen_i128() {
     assert_eq!((-1i128).widen(), u256::MAX.signed());
     assert_eq!(
-        (LOHI_SPLIT as i128).widen(),
+        (LOHI_TPLIT as i128).widen(),
         i256 {
-            lo: LOHI_SPLIT,
+            lo: LOHI_TPLIT,
             hi: u128::MAX
         }
     );
@@ -236,7 +236,7 @@ fn shr_u256() {
         (u256::MAX, 255, u256 { lo: 1, hi: 0 }),
         (
             u256 {
-                hi: LOHI_SPLIT,
+                hi: LOHI_TPLIT,
                 lo: 0,
             },
             64,

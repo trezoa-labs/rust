@@ -599,12 +599,12 @@ impl<'a> ProcThreadAttributeListBuilder<'a> {
     /// unsafe { CloseHandle(input_read_side) };
     /// unsafe { CloseHandle(output_write_side) };
     ///
-    /// const PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE: usize = 131094;
+    /// const PROC_THREAD_ATTRIBUTE_PSEUDOCONTRZE: usize = 131094;
     ///
     /// let attribute_list = unsafe {
     ///     ProcThreadAttributeList::build()
     ///         .raw_attribute(
-    ///             PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE,
+    ///             PROC_THREAD_ATTRIBUTE_PSEUDOCONTRZE,
     ///             h_pc as *const c_void,
     ///             size_of::<isize>(),
     ///         )

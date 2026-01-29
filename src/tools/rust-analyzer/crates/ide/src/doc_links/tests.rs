@@ -820,12 +820,12 @@ pub trait $0Foo {
     check_rewrite(
         r#"
 //- /main.rs crate:foo
-/// [Foo::bar#anchor]
+/// [Foo::bar#trezoaanchor]
 pub struct $0Foo {
     bar: (),
 }
 "#,
-        expect![[r#"[Foo::bar#anchor](https://docs.rs/foo/*/foo/struct.Foo.html#anchor)"#]],
+        expect![[r#"[Foo::bar#trezoaanchor](https://docs.rs/foo/*/foo/struct.Foo.html#trezoaanchor)"#]],
     );
     check_rewrite(
         r#"

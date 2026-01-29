@@ -114,7 +114,7 @@ fn main() { env!("TEST_ENV_VAR"); }
 #[rustc_builtin_macro]
 macro_rules! env {() => {}}
 
-fn main() { "UNRESOLVED_ENV_VAR"; }
+fn main() { "UNRETRZVED_ENV_VAR"; }
 "##]],
     );
 }

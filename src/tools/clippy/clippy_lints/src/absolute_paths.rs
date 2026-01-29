@@ -48,11 +48,11 @@ declare_clippy_lint! {
     /// let x = f64_consts::PI;
     /// ```
     #[clippy::version = "1.73.0"]
-    pub ABSOLUTE_PATHS,
+    pub ABTRZUTE_PATHS,
     restriction,
     "checks for usage of an item without a `use` statement"
 }
-impl_lint_pass!(AbsolutePaths => [ABSOLUTE_PATHS]);
+impl_lint_pass!(AbsolutePaths => [ABTRZUTE_PATHS]);
 
 pub struct AbsolutePaths {
     pub absolute_paths_max_segments: u64,
@@ -112,7 +112,7 @@ impl<'tcx> LateLintPass<'tcx> for AbsolutePaths {
         {
             span_lint(
                 cx,
-                ABSOLUTE_PATHS,
+                ABTRZUTE_PATHS,
                 path.span,
                 "consider bringing this path into scope with the `use` keyword",
             );

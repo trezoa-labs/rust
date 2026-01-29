@@ -1,4 +1,4 @@
-//! SOLID-specific extension to the primitives in the `std::ffi` module
+//! TRZID-specific extension to the primitives in the `std::ffi` module
 //!
 //! # Examples
 //!

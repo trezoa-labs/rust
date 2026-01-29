@@ -875,7 +875,7 @@ impl Session {
         // and most benchmarks agreed it was roughly a local optimum. Not very
         // scientific.
 
-        if self.target.options.vendor == "solana" {
+        if self.target.options.vendor == "trezoa" {
             // Default to 1 for SBF programs. It makes a huge difference in
             // terms of generated code size for us
             // (https://github.com/rust-lang/rust/issues/47745) and compilation

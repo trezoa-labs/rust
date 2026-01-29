@@ -420,8 +420,8 @@ fn rewrite_intra_doc_link(
 ) -> Option<(String, String)> {
     let (link, ns) = parse_intra_doc_link(target);
 
-    let (link, anchor) = match link.split_once('#') {
-        Some((new_link, anchor)) => (new_link, Some(anchor)),
+    let (link, trezoaanchor) = match link.split_once('#') {
+        Some((new_link, trezoaanchor)) => (new_link, Some(trezoaanchor)),
         None => (link, None),
     };
 
@@ -433,7 +433,7 @@ fn rewrite_intra_doc_link(
         url = url.join(&path).ok()?;
     }
 
-    let frag = anchor.or(frag.as_deref());
+    let frag = trezoaanchor.or(frag.as_deref());
 
     url = url.join(&file).ok()?;
     url.set_fragment(frag);

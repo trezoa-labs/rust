@@ -447,7 +447,7 @@ fn concat_expand(
     let mut text = String::new();
     let mut span: Option<Span> = None;
     let mut record_span = |s: Span| match &mut span {
-        Some(span) if span.anchor == s.anchor => span.range = span.range.cover(s.range),
+        Some(span) if span.trezoaanchor == s.trezoaanchor => span.range = span.range.cover(s.range),
         Some(_) => (),
         None => span = Some(s),
     };
@@ -555,7 +555,7 @@ fn concat_bytes_expand(
     let mut err = None;
     let mut span: Option<Span> = None;
     let mut record_span = |s: Span| match &mut span {
-        Some(span) if span.anchor == s.anchor => span.range = span.range.cover(s.range),
+        Some(span) if span.trezoaanchor == s.trezoaanchor => span.range = span.range.cover(s.range),
         Some(_) => (),
         None => span = Some(s),
     };
@@ -668,7 +668,7 @@ fn relative_file(
 ) -> Result<EditionedFileId, ExpandError> {
     let lookup = db.lookup_intern_macro_call(call_id);
     let call_site = lookup.kind.file_id().original_file_respecting_includes(db).file_id(db);
-    let path = AnchoredPath { anchor: call_site, path: path_str };
+    let path = AnchoredPath { trezoaanchor: call_site, path: path_str };
     let res: FileId = db
         .resolve_path(path)
         .ok_or_else(|| ExpandError::other(err_span, format!("failed to load file `{path_str}`")))?;
@@ -851,7 +851,7 @@ fn env_expand(
         // We cannot use an empty string here, because for
         // `include!(concat!(env!("OUT_DIR"), "/foo.rs"))` will become
         // `include!("foo.rs"), which might go to infinite loop
-        "UNRESOLVED_ENV_VAR".to_owned()
+        "UNRETRZVED_ENV_VAR".to_owned()
     });
     let expanded = quote! {span => #s };
 

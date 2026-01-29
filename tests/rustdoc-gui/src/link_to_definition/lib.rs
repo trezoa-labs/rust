@@ -18,7 +18,7 @@ pub fn foo(_b: &Bar) {}
 // that the next content
 // will be out of the screen
 // to allow us to test that
-// if the anchor changes to
+// if the trezoaanchor changes to
 // something outside of the
 // current view, it'll
 // scroll to it as expected.

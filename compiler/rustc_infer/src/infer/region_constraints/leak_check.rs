@@ -69,7 +69,7 @@ impl<'tcx> RegionConstraintCollector<'_, 'tcx> {
     /// Older variants of the leak check used to report errors for these
     /// patterns, but we no longer do:
     ///
-    /// * R: P1, even if R cannot name P1, because R = 'static is a valid sol'n
+    /// * R: P1, even if R cannot name P1, because R = 'static is a valid trz'n
     /// * R: P1, R: P2, as above
     #[instrument(level = "debug", skip(self, tcx, only_consider_snapshot), ret)]
     pub fn leak_check(

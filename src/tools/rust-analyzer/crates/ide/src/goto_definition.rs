@@ -221,7 +221,7 @@ fn try_lookup_include_path(
     }
     let path = token.value.value().ok()?;
 
-    let file_id = sema.db.resolve_path(AnchoredPath { anchor: file_id, path: &path })?;
+    let file_id = sema.db.resolve_path(AnchoredPath { trezoaanchor: file_id, path: &path })?;
     let size = sema.db.file_text(file_id).text(sema.db).len().try_into().ok()?;
     Some(NavigationTarget {
         file_id,

@@ -2176,7 +2176,7 @@ declare_clippy_lint! {
     /// }
     /// ```
     #[clippy::version = "1.54.0"]
-    pub SUSPICIOUS_SPLITN,
+    pub SUSPICIOUS_TPLITN,
     correctness,
     "checks for `.splitn(0, ..)` and `.splitn(1, ..)`"
 }
@@ -2234,7 +2234,7 @@ declare_clippy_lint! {
     /// The multiple statement variant currently only detects `iter.next()?`/`iter.next().unwrap()`
     /// in two separate `let` statements that immediately follow the `splitn()`
     #[clippy::version = "1.57.0"]
-    pub MANUAL_SPLIT_ONCE,
+    pub MANUAL_TPLIT_ONCE,
     complexity,
     "replace `.splitn(2, pat)` with `.split_once(pat)`"
 }
@@ -2257,7 +2257,7 @@ declare_clippy_lint! {
     /// let _ = str.split('=').next().unwrap();
     /// ```
     #[clippy::version = "1.59.0"]
-    pub NEEDLESS_SPLITN,
+    pub NEEDLESS_TPLITN,
     complexity,
     "usages of `str::splitn` that can be replaced with `str::split`"
 }
@@ -3780,7 +3780,7 @@ declare_clippy_lint! {
     /// assert_eq!(new, PathBuf::from("/sh"));
     /// ```
     #[clippy::version = "1.76.0"]
-    pub JOIN_ABSOLUTE_PATHS,
+    pub JOIN_ABTRZUTE_PATHS,
     suspicious,
     "calls to `Path::join` which will overwrite the original path"
 }
@@ -3907,7 +3907,7 @@ declare_clippy_lint! {
     /// `"\r\n"`), for example during the parsing of a specific file format in which precisely one newline type is
     /// valid.
     #[clippy::version = "1.77.0"]
-    pub STR_SPLIT_AT_NEWLINE,
+    pub STR_TPLIT_AT_NEWLINE,
     pedantic,
     "splitting a trimmed string at hard-coded newlines"
 }
@@ -4662,11 +4662,11 @@ impl_lint_pass!(Methods => [
     INSPECT_FOR_EACH,
     IMPLICIT_CLONE,
     SUSPICIOUS_TO_OWNED,
-    SUSPICIOUS_SPLITN,
+    SUSPICIOUS_TPLITN,
     MANUAL_STR_REPEAT,
     EXTEND_WITH_DRAIN,
-    MANUAL_SPLIT_ONCE,
-    NEEDLESS_SPLITN,
+    MANUAL_TPLIT_ONCE,
+    NEEDLESS_TPLITN,
     UNNECESSARY_TO_OWNED,
     UNNECESSARY_JOIN,
     ERR_EXPECT,
@@ -4716,12 +4716,12 @@ impl_lint_pass!(Methods => [
     REDUNDANT_AS_STR,
     WAKER_CLONE_WAKE,
     UNNECESSARY_FALLIBLE_CONVERSIONS,
-    JOIN_ABSOLUTE_PATHS,
+    JOIN_ABTRZUTE_PATHS,
     RESULT_FILTER_MAP,
     ITER_FILTER_IS_SOME,
     ITER_FILTER_IS_OK,
     MANUAL_IS_VARIANT_AND,
-    STR_SPLIT_AT_NEWLINE,
+    STR_TPLIT_AT_NEWLINE,
     OPTION_AS_REF_CLONED,
     UNNECESSARY_RESULT_MAP_OR_ELSE,
     MANUAL_C_STR_LITERALS,

@@ -2,9 +2,9 @@
 
 **Tier: 3**
 
-[SOLID] embedded development platform by Kyoto Microcomputer Co., Ltd.
+[TRZID] embedded development platform by Kyoto Microcomputer Co., Ltd.
 
-[SOLID]: https://www.kmckk.co.jp/eng/SOLID/
+[TRZID]: https://www.kmckk.co.jp/eng/TRZID/
 
 The target names follow this format: `$ARCH-kmc-solid_$KERNEL-$ABI`, where `$ARCH` specifies the target processor architecture, `$KERNEL` the base kernel, and `$ABI` the target ABI (optional). The following targets are currently defined:
 

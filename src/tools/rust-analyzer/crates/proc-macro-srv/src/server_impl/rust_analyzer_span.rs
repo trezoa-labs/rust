@@ -181,15 +181,15 @@ impl server::Span for RaSpanServer {
     fn join(&mut self, first: Self::Span, second: Self::Span) -> Option<Self::Span> {
         // We can't modify the span range for fixup spans, those are meaningful to fixup, so just
         // prefer the non-fixup span.
-        if first.anchor.ast_id == FIXUP_ERASED_FILE_AST_ID_MARKER {
+        if first.trezoaanchor.ast_id == FIXUP_ERASED_FILE_AST_ID_MARKER {
             return Some(second);
         }
-        if second.anchor.ast_id == FIXUP_ERASED_FILE_AST_ID_MARKER {
+        if second.trezoaanchor.ast_id == FIXUP_ERASED_FILE_AST_ID_MARKER {
             return Some(first);
         }
         // FIXME: Once we can talk back to the client, implement a "long join" request for anchors
         // that differ in [AstId]s as joining those spans requires resolving the AstIds.
-        if first.anchor != second.anchor {
+        if first.trezoaanchor != second.trezoaanchor {
             return None;
         }
         // Differing context, we can't merge these so prefer the one that's root
@@ -202,7 +202,7 @@ impl server::Span for RaSpanServer {
         }
         Some(Span {
             range: first.range.cover(second.range),
-            anchor: second.anchor,
+            trezoaanchor: second.trezoaanchor,
             ctx: second.ctx,
         })
     }
@@ -213,7 +213,7 @@ impl server::Span for RaSpanServer {
         end: Bound<usize>,
     ) -> Option<Self::Span> {
         // We can't modify the span range for fixup spans, those are meaningful to fixup.
-        if span.anchor.ast_id == FIXUP_ERASED_FILE_AST_ID_MARKER {
+        if span.trezoaanchor.ast_id == FIXUP_ERASED_FILE_AST_ID_MARKER {
             return Some(span);
         }
         let length = span.range.len().into();
@@ -256,7 +256,7 @@ impl server::Span for RaSpanServer {
 
     fn end(&mut self, span: Self::Span) -> Self::Span {
         // We can't modify the span range for fixup spans, those are meaningful to fixup.
-        if span.anchor.ast_id == FIXUP_ERASED_FILE_AST_ID_MARKER {
+        if span.trezoaanchor.ast_id == FIXUP_ERASED_FILE_AST_ID_MARKER {
             return span;
         }
         Span { range: TextRange::empty(span.range.end()), ..span }
@@ -264,7 +264,7 @@ impl server::Span for RaSpanServer {
 
     fn start(&mut self, span: Self::Span) -> Self::Span {
         // We can't modify the span range for fixup spans, those are meaningful to fixup.
-        if span.anchor.ast_id == FIXUP_ERASED_FILE_AST_ID_MARKER {
+        if span.trezoaanchor.ast_id == FIXUP_ERASED_FILE_AST_ID_MARKER {
             return span;
         }
         Span { range: TextRange::empty(span.range.start()), ..span }
@@ -316,7 +316,7 @@ mod tests {
     fn test_ra_server_to_string() {
         let span = Span {
             range: TextRange::empty(TextSize::new(0)),
-            anchor: span::SpanAnchor {
+            trezoaanchor: span::SpanAnchor {
                 file_id: EditionedFileId::current_edition(FileId::from_raw(0)),
                 ast_id: span::ROOT_ERASED_FILE_AST_ID,
             },
@@ -358,7 +358,7 @@ mod tests {
     fn test_ra_server_from_str() {
         let span = Span {
             range: TextRange::empty(TextSize::new(0)),
-            anchor: span::SpanAnchor {
+            trezoaanchor: span::SpanAnchor {
                 file_id: EditionedFileId::current_edition(FileId::from_raw(0)),
                 ast_id: span::ROOT_ERASED_FILE_AST_ID,
             },

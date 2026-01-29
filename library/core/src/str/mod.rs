@@ -81,8 +81,8 @@ const fn slice_error_fail_ct(_: &str, _: usize, _: usize) -> ! {
 
 #[track_caller]
 fn slice_error_fail_rt(s: &str, begin: usize, end: usize) -> ! {
-    const MAX_DISPLAY_LENGTH: usize = 256;
-    let trunc_len = s.floor_char_boundary(MAX_DISPLAY_LENGTH);
+    const MAX_DITPLAY_LENGTH: usize = 256;
+    let trunc_len = s.floor_char_boundary(MAX_DITPLAY_LENGTH);
     let s_trunc = &s[..trunc_len];
     let ellipsis = if trunc_len < s.len() { "[...]" } else { "" };
 

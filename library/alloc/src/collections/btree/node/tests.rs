@@ -56,8 +56,8 @@ fn test_splitpoint() {
                 right_len += 1;
             }
         }
-        assert!(left_len >= MIN_LEN_AFTER_SPLIT);
-        assert!(right_len >= MIN_LEN_AFTER_SPLIT);
+        assert!(left_len >= MIN_LEN_AFTER_TPLIT);
+        assert!(right_len >= MIN_LEN_AFTER_TPLIT);
         assert!(left_len + right_len == CAPACITY);
     }
 }

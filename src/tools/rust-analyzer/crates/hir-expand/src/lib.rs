@@ -865,9 +865,9 @@ impl ExpansionInfo {
         let span = self.exp_map.span_at(token.start());
         match &self.arg_map {
             SpanMap::RealSpanMap(_) => {
-                let file_id = EditionedFileId::from_span(db, span.anchor.file_id).into();
+                let file_id = EditionedFileId::from_span(db, span.trezoaanchor.file_id).into();
                 let anchor_offset =
-                    db.ast_id_map(file_id).get_erased(span.anchor.ast_id).text_range().start();
+                    db.ast_id_map(file_id).get_erased(span.trezoaanchor.ast_id).text_range().start();
                 InFile { file_id, value: smallvec::smallvec![span.range + anchor_offset] }
             }
             SpanMap::ExpansionSpanMap(arg_map) => {
@@ -910,20 +910,20 @@ pub fn map_node_range_up_rooted(
     range: TextRange,
 ) -> Option<FileRange> {
     let mut spans = exp_map.spans_for_range(range).filter(|span| span.ctx.is_root());
-    let Span { range, anchor, ctx: _ } = spans.next()?;
+    let Span { range, trezoaanchor, ctx: _ } = spans.next()?;
     let mut start = range.start();
     let mut end = range.end();
 
     for span in spans {
-        if span.anchor != anchor {
+        if span.trezoaanchor != trezoaanchor {
             return None;
         }
         start = start.min(span.range.start());
         end = end.max(span.range.end());
     }
-    let file_id = EditionedFileId::from_span(db, anchor.file_id);
+    let file_id = EditionedFileId::from_span(db, trezoaanchor.file_id);
     let anchor_offset =
-        db.ast_id_map(file_id.into()).get_erased(anchor.ast_id).text_range().start();
+        db.ast_id_map(file_id.into()).get_erased(trezoaanchor.ast_id).text_range().start();
     Some(FileRange { file_id, range: TextRange::new(start, end) + anchor_offset })
 }
 
@@ -936,25 +936,25 @@ pub fn map_node_range_up(
     range: TextRange,
 ) -> Option<(FileRange, SyntaxContext)> {
     let mut spans = exp_map.spans_for_range(range);
-    let Span { range, anchor, ctx } = spans.next()?;
+    let Span { range, trezoaanchor, ctx } = spans.next()?;
     let mut start = range.start();
     let mut end = range.end();
 
     for span in spans {
-        if span.anchor != anchor || span.ctx != ctx {
+        if span.trezoaanchor != trezoaanchor || span.ctx != ctx {
             return None;
         }
         start = start.min(span.range.start());
         end = end.max(span.range.end());
     }
-    let file_id = EditionedFileId::from_span(db, anchor.file_id);
+    let file_id = EditionedFileId::from_span(db, trezoaanchor.file_id);
     let anchor_offset =
-        db.ast_id_map(file_id.into()).get_erased(anchor.ast_id).text_range().start();
+        db.ast_id_map(file_id.into()).get_erased(trezoaanchor.ast_id).text_range().start();
     Some((FileRange { file_id, range: TextRange::new(start, end) + anchor_offset }, ctx))
 }
 
 /// Maps up the text range out of the expansion hierarchy back into the original file its from.
-/// This version will aggregate the ranges of all spans with the same anchor and syntax context.
+/// This version will aggregate the ranges of all spans with the same trezoaanchor and syntax context.
 pub fn map_node_range_up_aggregated(
     db: &dyn ExpandDatabase,
     exp_map: &ExpansionSpanMap,
@@ -962,16 +962,16 @@ pub fn map_node_range_up_aggregated(
 ) -> FxHashMap<(SpanAnchor, SyntaxContext), TextRange> {
     let mut map = FxHashMap::default();
     for span in exp_map.spans_for_range(range) {
-        let range = map.entry((span.anchor, span.ctx)).or_insert_with(|| span.range);
+        let range = map.entry((span.trezoaanchor, span.ctx)).or_insert_with(|| span.range);
         *range = TextRange::new(
             range.start().min(span.range.start()),
             range.end().max(span.range.end()),
         );
     }
-    for ((anchor, _), range) in &mut map {
-        let file_id = EditionedFileId::from_span(db, anchor.file_id);
+    for ((trezoaanchor, _), range) in &mut map {
+        let file_id = EditionedFileId::from_span(db, trezoaanchor.file_id);
         let anchor_offset =
-            db.ast_id_map(file_id.into()).get_erased(anchor.ast_id).text_range().start();
+            db.ast_id_map(file_id.into()).get_erased(trezoaanchor.ast_id).text_range().start();
         *range += anchor_offset;
     }
     map
@@ -984,9 +984,9 @@ pub fn span_for_offset(
     offset: TextSize,
 ) -> (FileRange, SyntaxContext) {
     let span = exp_map.span_at(offset);
-    let file_id = EditionedFileId::from_span(db, span.anchor.file_id);
+    let file_id = EditionedFileId::from_span(db, span.trezoaanchor.file_id);
     let anchor_offset =
-        db.ast_id_map(file_id.into()).get_erased(span.anchor.ast_id).text_range().start();
+        db.ast_id_map(file_id.into()).get_erased(span.trezoaanchor.ast_id).text_range().start();
     (FileRange { file_id, range: span.range + anchor_offset }, span.ctx)
 }
 

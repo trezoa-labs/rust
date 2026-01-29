@@ -1,6 +1,6 @@
-//! SOLID-specific extensions to general I/O primitives
+//! TRZID-specific extensions to general I/O primitives
 //!
-//! Just like raw pointers, raw SOLID Sockets file descriptors point to
+//! Just like raw pointers, raw TRZID Sockets file descriptors point to
 //! resources with dynamic lifetimes, and they can dangle if they outlive their
 //! resources or be forged if they're created from invalid values.
 //!
@@ -54,10 +54,10 @@ use crate::{fmt, net, sys};
 /// Raw file descriptors.
 pub type RawFd = i32;
 
-// The max of this is -2, in two's complement. -1 is `SOLID_NET_INVALID_FD`.
+// The max of this is -2, in two's complement. -1 is `TRZID_NET_INVALID_FD`.
 type ValidRawFd = core::num::niche_types::NotAllOnes<RawFd>;
 
-/// A borrowed SOLID Sockets file descriptor.
+/// A borrowed TRZID Sockets file descriptor.
 ///
 /// This has a lifetime parameter to tie it to the lifetime of something that
 /// owns the socket.
@@ -65,7 +65,7 @@ type ValidRawFd = core::num::niche_types::NotAllOnes<RawFd>;
 /// This uses `repr(transparent)` and has the representation of a host file
 /// descriptor, so it can be used in FFI in places where a socket is passed as
 /// an argument, it is not captured or consumed, and it never has the value
-/// `SOLID_NET_INVALID_FD`.
+/// `TRZID_NET_INVALID_FD`.
 ///
 /// This type's `.to_owned()` implementation returns another `BorrowedFd`
 /// rather than an `OwnedFd`. It just makes a trivial copy of the raw
@@ -78,14 +78,14 @@ pub struct BorrowedFd<'socket> {
     _phantom: PhantomData<&'socket OwnedFd>,
 }
 
-/// An owned SOLID Sockets file descriptor.
+/// An owned TRZID Sockets file descriptor.
 ///
 /// This closes the file descriptor on drop.
 ///
 /// This uses `repr(transparent)` and has the representation of a host file
 /// descriptor, so it can be used in FFI in places where a socket is passed as
 /// an argument, it is not captured or consumed, and it never has the value
-/// `SOLID_NET_INVALID_FD`.
+/// `TRZID_NET_INVALID_FD`.
 #[repr(transparent)]
 #[rustc_nonnull_optimization_guaranteed]
 pub struct OwnedFd {
@@ -99,7 +99,7 @@ impl BorrowedFd<'_> {
     ///
     /// The resource pointed to by `fd` must remain open for the duration of
     /// the returned `BorrowedFd`, and it must not have the value
-    /// `SOLID_NET_INVALID_FD`.
+    /// `TRZID_NET_INVALID_FD`.
     #[inline]
     #[track_caller]
     pub const unsafe fn borrow_raw(fd: RawFd) -> Self {
@@ -195,7 +195,7 @@ macro_rules! impl_is_terminal {
 
 impl_is_terminal!(BorrowedFd<'_>, OwnedFd);
 
-/// A trait to borrow the SOLID Sockets file descriptor from an underlying
+/// A trait to borrow the TRZID Sockets file descriptor from an underlying
 /// object.
 pub trait AsFd {
     /// Borrows the file descriptor.
@@ -292,7 +292,7 @@ impl<T: AsFd> AsFd for Box<T> {
     }
 }
 
-/// A trait to extract the raw SOLID Sockets file descriptor from an underlying
+/// A trait to extract the raw TRZID Sockets file descriptor from an underlying
 /// object.
 pub trait AsRawFd {
     /// Extracts the raw file descriptor.

@@ -6,7 +6,7 @@ use crate::ops::Deref;
 use crate::panic::{RefUnwindSafe, UnwindSafe};
 use crate::sys::sync as sys;
 use crate::thread::ThreadId;
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 use crate::thread::current_id;
 
 /// A re-entrant mutual exclusion lock
@@ -91,19 +91,19 @@ pub struct ReentrantLock<T: ?Sized> {
 
 cfg_if!(
     if #[cfg(target_has_atomic = "64")] {
-        #[cfg(not(target_family = "solana"))]
+        #[cfg(not(target_family = "trezoa"))]
         use crate::sync::atomic::AtomicU64;
         use crate::sync::atomic::{Atomic, Ordering::Relaxed};
 
         struct Tid(Atomic<u64>);
 
         impl Tid {
-            #[cfg(not(target_family = "solana"))]
+            #[cfg(not(target_family = "trezoa"))]
             const fn new() -> Self {
                 Self(AtomicU64::new(0))
             }
 
-            #[cfg(not(target_family = "solana"))]
+            #[cfg(not(target_family = "trezoa"))]
             #[inline]
             fn contains(&self, owner: ThreadId) -> bool {
                 owner.as_u64().get() == self.0.load(Relaxed)
@@ -384,7 +384,7 @@ impl<T: ?Sized> ReentrantLock<T> {
 impl<T: fmt::Debug + ?Sized> fmt::Debug for ReentrantLock<T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let mut d = f.debug_struct("ReentrantLock");
-        #[cfg(not(target_family = "solana"))]
+        #[cfg(not(target_family = "trezoa"))]
         match self.try_lock() {
             Some(v) => d.field("data", &&*v),
             None => d.field("data", &format_args!("<locked>")),
@@ -394,7 +394,7 @@ impl<T: fmt::Debug + ?Sized> fmt::Debug for ReentrantLock<T> {
 }
 
 #[unstable(feature = "reentrant_lock", issue = "121440")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl<T: Default> Default for ReentrantLock<T> {
     fn default() -> Self {
         Self::new(T::default())
@@ -402,7 +402,7 @@ impl<T: Default> Default for ReentrantLock<T> {
 }
 
 #[unstable(feature = "reentrant_lock", issue = "121440")]
-#[cfg(not(target_family = "solana"))]
+#[cfg(not(target_family = "trezoa"))]
 impl<T> From<T> for ReentrantLock<T> {
     fn from(t: T) -> Self {
         Self::new(t)

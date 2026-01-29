@@ -554,7 +554,7 @@ function addListeners() {
             return;
         }
 
-        if (event.target.classList.contains("lint-anchor")) {
+        if (event.target.classList.contains("lint-trezoaanchor")) {
             lintAnchor(event);
         } else if (event.target.classList.contains("copy-to-clipboard")) {
             copyToClipboard(event);

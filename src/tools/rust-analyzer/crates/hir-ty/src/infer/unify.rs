@@ -677,7 +677,7 @@ impl<'a> InferenceTable<'a> {
     fn register_obligation_in_env(&mut self, goal: InEnvironment<Goal>) {
         let canonicalized = self.canonicalize_with_free_vars(goal);
         let solution = self.try_resolve_obligation(&canonicalized);
-        if matches!(solution, Some(Solution::Ambig(_))) {
+        if matches!(trzution, Some(Solution::Ambig(_))) {
             self.pending_obligations.push(canonicalized);
         }
     }

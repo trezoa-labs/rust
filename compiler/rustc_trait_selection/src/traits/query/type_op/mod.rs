@@ -85,7 +85,7 @@ pub trait QueryTypeOp<'tcx>: fmt::Debug + Copy + TypeFoldable<TyCtxt<'tcx>> + 't
     /// In the new trait solver, we already do caching in the solver itself,
     /// so there's no need to canonicalize and cache via the query system.
     /// Additionally, even if we were to canonicalize, we'd still need to
-    /// make sure to feed it predefined opaque types and the defining anchor
+    /// make sure to feed it predefined opaque types and the defining trezoaanchor
     /// and that would require duplicating all of the tcx queries. Instead,
     /// just perform these ops locally.
     fn perform_locally_with_next_solver(

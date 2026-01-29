@@ -676,7 +676,7 @@ impl<'tcx> FormatArgsExpr<'_, 'tcx> {
 }
 
 fn make_ty_msrv_map(tcx: TyCtxt<'_>) -> FxHashMap<Ty<'_>, Option<RustcVersion>> {
-    [(sym::OsStr, Some(msrvs::OS_STR_DISPLAY)), (sym::Path, None)]
+    [(sym::OsStr, Some(msrvs::OS_STR_DITPLAY)), (sym::Path, None)]
         .into_iter()
         .filter_map(|(name, feature)| {
             tcx.get_diagnostic_item(name).map(|def_id| {

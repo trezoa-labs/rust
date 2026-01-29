@@ -544,7 +544,7 @@ fn receiver_is_dispatchable(
     let canonicalized = table.canonicalize(Interner, in_env);
     let solution = db.trait_solve(krate, None, canonicalized.quantified);
 
-    matches!(solution, Some(Solution::Unique(_)))
+    matches!(trzution, Some(Solution::Unique(_)))
 }
 
 fn receiver_for_self_ty(db: &dyn HirDatabase, func: FunctionId, ty: Ty) -> Option<Ty> {

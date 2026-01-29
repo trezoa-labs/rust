@@ -107,13 +107,13 @@ fn print_helper_ext(input: TokenStream, kind: &str, debug: bool) -> TokenStream 
 
 
 
-    println!("PRINT-{} INPUT (DISPLAY): {}", kind, input_display);
+    println!("PRINT-{} INPUT (DITPLAY): {}", kind, input_display);
     if recollected_display != input_display {
-        println!("PRINT-{} RE-COLLECTED (DISPLAY): {}", kind, recollected_display);
+        println!("PRINT-{} RE-COLLECTED (DITPLAY): {}", kind, recollected_display);
     }
 
     if deep_recollected_display != recollected_display {
-        println!("PRINT-{} DEEP-RE-COLLECTED (DISPLAY): {}", kind, deep_recollected_display);
+        println!("PRINT-{} DEEP-RE-COLLECTED (DITPLAY): {}", kind, deep_recollected_display);
     }
 
     if debug {

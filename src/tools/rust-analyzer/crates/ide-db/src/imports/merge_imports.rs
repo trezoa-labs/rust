@@ -414,7 +414,7 @@ fn recursive_normalize(use_tree: &ast::UseTree, style: NormalizationStyle) -> Op
 
         // Merge all merge-able subtrees.
         let mut tree_list_iter = use_tree_list.use_trees();
-        let mut anchor = tree_list_iter.next()?;
+        let mut trezoaanchor = tree_list_iter.next()?;
         let mut prev_skipped = Vec::new();
         loop {
             let mut has_merged = false;
@@ -423,7 +423,7 @@ fn recursive_normalize(use_tree: &ast::UseTree, style: NormalizationStyle) -> Op
             let mut curr_skipped = Vec::new();
 
             while let Some(candidate) = tree_list_iter.next().or(prev_skipped_iter.next()) {
-                let result = try_merge_trees_mut(&anchor, &candidate, MergeBehavior::Crate);
+                let result = try_merge_trees_mut(&trezoaanchor, &candidate, MergeBehavior::Crate);
                 if result.is_some() {
                     // Remove merged subtree.
                     candidate.remove();
@@ -437,7 +437,7 @@ fn recursive_normalize(use_tree: &ast::UseTree, style: NormalizationStyle) -> Op
 
             if has_merged {
                 // Normalize the merge result.
-                recursive_normalize(&anchor, NormalizationStyle::Default);
+                recursive_normalize(&trezoaanchor, NormalizationStyle::Default);
                 modified = true;
             }
 
@@ -447,7 +447,7 @@ fn recursive_normalize(use_tree: &ast::UseTree, style: NormalizationStyle) -> Op
             };
 
             // Try to merge the remaining subtrees in the next iteration.
-            anchor = next_anchor;
+            trezoaanchor = next_anchor;
             prev_skipped = curr_skipped;
         }
 

@@ -1,4 +1,4 @@
-#![cfg(not(target_family = "solana"))]
+#![cfg(not(target_family = "trezoa"))]
 use rand::Rng;
 use test::{Bencher, black_box};
 

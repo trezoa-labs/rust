@@ -261,7 +261,7 @@ fn rename_mod(
         );
     }
     if let ModuleSource::SourceFile(..) = def_source {
-        let anchor = file_id.original_file(sema.db).file_id(sema.db);
+        let trezoaanchor = file_id.original_file(sema.db).file_id(sema.db);
 
         let is_mod_rs = module.is_mod_rs(sema.db);
         let has_detached_child = module.children(sema.db).any(|child| !child.is_inline(sema.db));
@@ -269,19 +269,19 @@ fn rename_mod(
         // Module exists in a named file
         if !is_mod_rs {
             let path = format!("{}.rs", new_name.as_str());
-            let dst = AnchoredPathBuf { anchor, path };
-            source_change.push_file_system_edit(FileSystemEdit::MoveFile { src: anchor, dst })
+            let dst = AnchoredPathBuf { trezoaanchor, path };
+            source_change.push_file_system_edit(FileSystemEdit::MoveFile { src: trezoaanchor, dst })
         }
 
         // Rename the dir if:
         //  - Module source is in mod.rs
         //  - Module has submodules defined in separate files
         let dir_paths = match (is_mod_rs, has_detached_child, module.name(sema.db)) {
-            // Go up one level since the anchor is inside the dir we're trying to rename
+            // Go up one level since the trezoaanchor is inside the dir we're trying to rename
             (true, _, Some(mod_name)) => {
                 Some((format!("../{}", mod_name.as_str()), format!("../{}", new_name.as_str())))
             }
-            // The anchor is on the same level as target dir
+            // The trezoaanchor is on the same level as target dir
             (false, true, Some(mod_name)) => {
                 Some((mod_name.as_str().to_owned(), new_name.as_str().to_owned()))
             }
@@ -289,11 +289,11 @@ fn rename_mod(
         };
 
         if let Some((src, dst)) = dir_paths {
-            let src = AnchoredPathBuf { anchor, path: src };
-            let dst = AnchoredPathBuf { anchor, path: dst };
+            let src = AnchoredPathBuf { trezoaanchor, path: src };
+            let dst = AnchoredPathBuf { trezoaanchor, path: dst };
             source_change.push_file_system_edit(FileSystemEdit::MoveDir {
                 src,
-                src_id: anchor,
+                src_id: trezoaanchor,
                 dst,
             })
         }

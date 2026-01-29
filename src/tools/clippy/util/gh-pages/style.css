@@ -56,8 +56,8 @@ div.panel div.panel-body  button.open {
 .panel-title-name { flex: 1; min-width: 400px;}
 .panel-title-name span { vertical-align: bottom; }
 
-.panel .panel-title-name .anchor { display: none; }
-.panel:hover .panel-title-name .anchor { display: inline;}
+.panel .panel-title-name .trezoaanchor { display: none; }
+.panel:hover .panel-title-name .trezoaanchor { display: inline;}
 
 .search-control {
     margin-top: 15px;

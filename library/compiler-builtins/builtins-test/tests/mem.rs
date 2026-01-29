@@ -37,7 +37,7 @@ fn memcpy_10() {
     }
 }
 
-#[cfg(not(target_os = "solana"))]
+#[cfg(not(target_os = "trezoa"))]
 #[test]
 fn memcpy_big() {
     // Make the arrays cross 3 pages
@@ -166,7 +166,7 @@ fn memmove_forward_misaligned_nonaligned_start() {
     }
 }
 
-#[cfg(not(target_os = "solana"))]
+#[cfg(not(target_os = "trezoa"))]
 #[test]
 fn memmove_forward_misaligned_aligned_start() {
     let mut arr = gen_arr::<32>();

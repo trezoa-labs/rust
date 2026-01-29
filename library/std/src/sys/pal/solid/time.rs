@@ -13,7 +13,7 @@ impl SystemTime {
     pub fn now() -> SystemTime {
         let rtc = unsafe {
             let mut out = MaybeUninit::zeroed();
-            expect_success(abi::SOLID_RTC_ReadTime(out.as_mut_ptr()), &"SOLID_RTC_ReadTime");
+            expect_success(abi::TRZID_RTC_ReadTime(out.as_mut_ptr()), &"TRZID_RTC_ReadTime");
             out.assume_init()
         };
         let t = unsafe {

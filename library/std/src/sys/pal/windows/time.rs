@@ -234,7 +234,7 @@ impl WaitableTimer {
             c::CreateWaitableTimerExW(
                 null(),
                 null(),
-                c::CREATE_WAITABLE_TIMER_HIGH_RESOLUTION,
+                c::CREATE_WAITABLE_TIMER_HIGH_RETRZUTION,
                 c::TIMER_ALL_ACCESS,
             )
         };

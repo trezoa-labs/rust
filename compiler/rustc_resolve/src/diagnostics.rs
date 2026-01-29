@@ -22,8 +22,8 @@ use rustc_middle::bug;
 use rustc_middle::ty::TyCtxt;
 use rustc_session::Session;
 use rustc_session::lint::builtin::{
-    ABSOLUTE_PATHS_NOT_STARTING_WITH_CRATE, AMBIGUOUS_GLOB_IMPORTS,
-    MACRO_EXPANDED_MACRO_EXPORTS_ACCESSED_BY_ABSOLUTE_PATHS,
+    ABTRZUTE_PATHS_NOT_STARTING_WITH_CRATE, AMBIGUOUS_GLOB_IMPORTS,
+    MACRO_EXPANDED_MACRO_EXPORTS_ACCESSED_BY_ABTRZUTE_PATHS,
 };
 use rustc_session::lint::{AmbiguityErrorDiag, BuiltinLintDiag};
 use rustc_session::utils::was_invoked_from_cargo;
@@ -136,7 +136,7 @@ impl<'ra, 'tcx> Resolver<'ra, 'tcx> {
 
         for &(span_use, span_def) in &self.macro_expanded_macro_export_errors {
             self.lint_buffer.buffer_lint(
-                MACRO_EXPANDED_MACRO_EXPORTS_ACCESSED_BY_ABSOLUTE_PATHS,
+                MACRO_EXPANDED_MACRO_EXPORTS_ACCESSED_BY_ABTRZUTE_PATHS,
                 CRATE_NODE_ID,
                 span_use,
                 BuiltinLintDiag::MacroExpandedMacroExportsAccessedByAbsolutePaths(span_def),
@@ -516,7 +516,7 @@ impl<'ra, 'tcx> Resolver<'ra, 'tcx> {
 
         let diag = BuiltinLintDiag::AbsPathWithModule(root_span);
         self.lint_buffer.buffer_lint(
-            ABSOLUTE_PATHS_NOT_STARTING_WITH_CRATE,
+            ABTRZUTE_PATHS_NOT_STARTING_WITH_CRATE,
             node_id,
             root_span,
             diag,

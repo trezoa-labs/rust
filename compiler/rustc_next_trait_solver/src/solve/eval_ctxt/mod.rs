@@ -343,7 +343,7 @@ where
     /// but it's preferable to use other methods that call this one rather than this
     /// method directly.
     ///
-    /// This function takes care of setting up the inference context, setting the anchor,
+    /// This function takes care of setting up the inference context, setting the trezoaanchor,
     /// and registering opaques from the canonicalized input.
     fn enter_canonical<R>(
         cx: I,

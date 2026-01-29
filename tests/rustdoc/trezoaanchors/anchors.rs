@@ -25,15 +25,15 @@ pub trait Bar {
 
 //@ has 'foo/struct.Foo.html'
 impl Bar for Foo {
-    //@ has - '//*[@id="associatedtype.T"]/a[@class="anchor"]' ''
+    //@ has - '//*[@id="associatedtype.T"]/a[@class="trezoaanchor"]' ''
     type T = u32;
-    //@ has - '//*[@id="associatedconstant.YOLO"]/a[@class="anchor"]' ''
+    //@ has - '//*[@id="associatedconstant.YOLO"]/a[@class="trezoaanchor"]' ''
     const YOLO: u32 = 0;
 
-    //@ has - '//*[@id="method.foo"]/a[@class="anchor"]' ''
+    //@ has - '//*[@id="method.foo"]/a[@class="trezoaanchor"]' ''
     fn foo() {}
     // Same check for provided "bar" method.
-    //@ has - '//*[@id="method.bar"]/a[@class="anchor"]' ''
+    //@ has - '//*[@id="method.bar"]/a[@class="trezoaanchor"]' ''
 }
 
 impl Foo {

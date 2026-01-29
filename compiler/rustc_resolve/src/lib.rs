@@ -119,7 +119,7 @@ enum Scope<'ra> {
     DeriveHelpersCompat,
     MacroRules(MacroRulesScopeRef<'ra>),
     CrateRoot,
-    // The node ID is for reporting the `PROC_MACRO_DERIVE_RESOLUTION_FALLBACK`
+    // The node ID is for reporting the `PROC_MACRO_DERIVE_RETRZUTION_FALLBACK`
     // lint if it should be reported.
     Module(Module<'ra>, Option<NodeId>),
     MacroUsePrelude,

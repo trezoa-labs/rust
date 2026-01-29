@@ -99,8 +99,8 @@ function getVirtualKey(ev) {
 
 const MAIN_ID = "main-content";
 const SETTINGS_BUTTON_ID = "settings-menu";
-const ALTERNATIVE_DISPLAY_ID = "alternative-display";
-const NOT_DISPLAYED_ID = "not-displayed";
+const ALTERNATIVE_DITPLAY_ID = "alternative-display";
+const NOT_DITPLAYED_ID = "not-displayed";
 const HELP_BUTTON_ID = "help-button";
 
 function getSettingsButton() {
@@ -155,7 +155,7 @@ function getOrCreateSection(id, classes) {
  * @return {HTMLElement}
  */
 function getAlternativeDisplayElem() {
-    return getOrCreateSection(ALTERNATIVE_DISPLAY_ID, "content hidden");
+    return getOrCreateSection(ALTERNATIVE_DITPLAY_ID, "content hidden");
 }
 
 /**
@@ -164,7 +164,7 @@ function getAlternativeDisplayElem() {
  * @return {HTMLElement}
  */
 function getNotDisplayedElem() {
-    return getOrCreateSection(NOT_DISPLAYED_ID, "hidden");
+    return getOrCreateSection(NOT_DITPLAYED_ID, "hidden");
 }
 
 /**
@@ -306,7 +306,7 @@ function preLoadCss(cssUrl) {
             const outputElement = window.searchState.outputElement();
             return !!outputElement &&
                 !!outputElement.parentElement &&
-                outputElement.parentElement.id === ALTERNATIVE_DISPLAY_ID;
+                outputElement.parentElement.id === ALTERNATIVE_DITPLAY_ID;
         },
         // Sets the focus on the search bar at the top of the page
         focus: () => {
@@ -749,14 +749,14 @@ function preLoadCss(cssUrl) {
                 });
 
                 const currentId = baseIdName + currentNbImpls;
-                const anchor = document.createElement("a");
-                anchor.href = "#" + currentId;
-                addClass(anchor, "anchor");
+                const trezoaanchor = document.createElement("a");
+                trezoaanchor.href = "#" + currentId;
+                addClass(trezoaanchor, "trezoaanchor");
 
                 const display = document.createElement("div");
                 display.id = currentId;
                 addClass(display, "impl");
-                display.appendChild(anchor);
+                display.appendChild(trezoaanchor);
                 display.appendChild(code);
                 // @ts-expect-error
                 list.appendChild(display);
@@ -1191,7 +1191,7 @@ function preLoadCss(cssUrl) {
     /**
      * Show a tooltip immediately.
      *
-     * @param {HTMLElement} e - The tooltip's anchor point. The DOM is consulted to figure
+     * @param {HTMLElement} e - The tooltip's trezoaanchor point. The DOM is consulted to figure
      *                          out what the tooltip should contain, and where it should be
      *                          positioned.
      */
@@ -1293,7 +1293,7 @@ function preLoadCss(cssUrl) {
      * was called, that timeout gets cleared. If the tooltip is already in the requested state,
      * this function will still clear any pending timeout, but otherwise do nothing.
      *
-     * @param {HTMLElement} element - The tooltip's anchor point. The DOM is consulted to figure
+     * @param {HTMLElement} element - The tooltip's trezoaanchor point. The DOM is consulted to figure
      *                                out what the tooltip should contain, and where it should be
      *                                positioned.
      * @param {boolean}    show    - If true, the tooltip will be made visible. If false, it will
@@ -1331,7 +1331,7 @@ function preLoadCss(cssUrl) {
      * If a show/hide timeout was set by `setTooltipHoverTimeout`, cancel it. If none exists,
      * do nothing.
      *
-     * @param {HTMLElement} element - The tooltip's anchor point,
+     * @param {HTMLElement} element - The tooltip's trezoaanchor point,
      *                                as passed to `setTooltipHoverTimeout`.
      */
     function clearTooltipHoverTimeout(element) {
@@ -1371,7 +1371,7 @@ function preLoadCss(cssUrl) {
     /**
      * Hide the current tooltip immediately.
      *
-     * @param {boolean} focus - If set to `true`, move keyboard focus to the tooltip anchor point.
+     * @param {boolean} focus - If set to `true`, move keyboard focus to the tooltip trezoaanchor point.
      *                          If set to `false`, leave keyboard focus alone.
      */
     function hideTooltip(focus) {
@@ -1446,13 +1446,13 @@ function preLoadCss(cssUrl) {
                 //
                 // To figure this out, a few different techniques are used:
                 //
-                // * When the mouse pointer enters a tooltip anchor point, its hitbox is grown
+                // * When the mouse pointer enters a tooltip trezoaanchor point, its hitbox is grown
                 //   on the bottom, where the popover is/will appear. Search "hover tunnel" in
                 //   rustdoc.css for the implementation.
-                // * There's a delay when the mouse pointer enters the popover base anchor, in
+                // * There's a delay when the mouse pointer enters the popover base trezoaanchor, in
                 //   case the mouse pointer was just passing through and the user didn't want
                 //   to open it.
-                // * Similarly, a delay is added when exiting the anchor, or the popover
+                // * Similarly, a delay is added when exiting the trezoaanchor, or the popover
                 //   itself, before hiding it.
                 // * A fade-out animation is layered onto the pointer exit delay to immediately
                 //   inform the user that they successfully dismissed the popover, while still

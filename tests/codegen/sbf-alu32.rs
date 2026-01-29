@@ -1,6 +1,6 @@
 //@ revisions: sbf
 
-//@[sbf] compile-flags: --target=sbf-solana-solana
+//@[sbf] compile-flags: --target=sbf-trezoa-trezoa
 //@[sbf] needs-llvm-components: sbf
 
 #![crate_type = "lib"]

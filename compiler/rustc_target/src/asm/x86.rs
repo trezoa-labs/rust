@@ -332,7 +332,7 @@ def_regs! {
         tmm7: tmm_reg = ["tmm7"] % x86_64_only,
         #error = ["bp", "bpl", "ebp", "rbp"] =>
             "the frame pointer cannot be used as an operand for inline asm",
-        #error = ["sp", "spl", "esp", "rsp"] =>
+        #error = ["sp", "tpl", "esp", "rsp"] =>
             "the stack pointer cannot be used as an operand for inline asm",
         #error = ["ip", "eip", "rip"] =>
             "the instruction pointer cannot be used as an operand for inline asm",

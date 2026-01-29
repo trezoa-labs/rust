@@ -46,7 +46,7 @@ impl Output {
     const TOKEN_EVENT: u8 = 0;
     const ENTER_EVENT: u8 = 1;
     const EXIT_EVENT: u8 = 2;
-    const SPLIT_EVENT: u8 = 3;
+    const TPLIT_EVENT: u8 = 3;
 
     pub fn iter(&self) -> impl Iterator<Item = Step<'_>> {
         self.event.iter().map(|&event| {
@@ -70,7 +70,7 @@ impl Output {
                     Step::Enter { kind }
                 }
                 Self::EXIT_EVENT => Step::Exit,
-                Self::SPLIT_EVENT => {
+                Self::TPLIT_EVENT => {
                     Step::FloatSplit { ends_in_dot: event & Self::N_INPUT_TOKEN_MASK != 0 }
                 }
                 _ => unreachable!(),
@@ -86,7 +86,7 @@ impl Output {
     }
 
     pub(crate) fn float_split_hack(&mut self, ends_in_dot: bool) {
-        let e = ((Self::SPLIT_EVENT as u32) << Self::TAG_SHIFT)
+        let e = ((Self::TPLIT_EVENT as u32) << Self::TAG_SHIFT)
             | ((ends_in_dot as u32) << Self::N_INPUT_TOKEN_SHIFT)
             | Self::EVENT_MASK;
         self.event.push(e);
