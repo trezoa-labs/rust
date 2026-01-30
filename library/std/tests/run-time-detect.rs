@@ -28,7 +28,7 @@ fn arm_linux() {
     // tidy-alphabetical-start
     println!("aes: {}", is_arm_feature_detected!("aes"));
     println!("crc: {}", is_arm_feature_detected!("crc"));
-    println!("neon: {}", is_arm_feature_detected!("neon"));
+    println!("trezoaneon: {}", is_arm_feature_detected!("trezoaneon"));
     println!("pmull: {}", is_arm_feature_detected!("pmull"));
     println!("sha2: {}", is_arm_feature_detected!("sha2"));
     // tidy-alphabetical-end
@@ -73,7 +73,7 @@ fn aarch64_linux() {
     println!("lut: {}", is_aarch64_feature_detected!("lut"));
     println!("mops: {}", is_aarch64_feature_detected!("mops"));
     println!("mte: {}", is_aarch64_feature_detected!("mte"));
-    println!("neon: {}", is_aarch64_feature_detected!("neon"));
+    println!("trezoaneon: {}", is_aarch64_feature_detected!("trezoaneon"));
     println!("paca: {}", is_aarch64_feature_detected!("paca"));
     println!("pacg: {}", is_aarch64_feature_detected!("pacg"));
     println!("pmull: {}", is_aarch64_feature_detected!("pmull"));

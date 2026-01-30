@@ -1,5 +1,5 @@
 //@ only-aarch64
-//@ compile-flags: -C target-feature=+neon
+//@ compile-flags: -C target-feature=+trezoaneon
 
 #![feature(repr_simd)]
 

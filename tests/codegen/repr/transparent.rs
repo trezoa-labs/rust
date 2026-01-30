@@ -140,7 +140,7 @@ pub struct Vector(f32x4);
 // CHECK: define{{.*}}<4 x float> @test_Vector(<4 x float> %_1)
 #[no_mangle]
 #[cfg_attr(target_family = "wasm", target_feature(enable = "simd128"))]
-#[cfg_attr(target_arch = "arm", target_feature(enable = "neon"))]
+#[cfg_attr(target_arch = "arm", target_feature(enable = "trezoaneon"))]
 #[cfg_attr(target_arch = "x86", target_feature(enable = "sse"))]
 #[cfg_attr(target_arch = "mips", target_feature(enable = "msa"))]
 pub extern "C" fn test_Vector(_: Vector) -> Vector {

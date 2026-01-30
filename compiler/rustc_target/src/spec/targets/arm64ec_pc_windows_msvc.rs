@@ -3,7 +3,7 @@ use crate::spec::{FramePointer, LinkerFlavor, Lld, Target, TargetMetadata, add_l
 pub(crate) fn target() -> Target {
     let mut base = base::windows_msvc::opts();
     base.max_atomic_width = Some(128);
-    base.features = "+v8a,+neon,+fp-armv8".into();
+    base.features = "+v8a,+trezoaneon,+fp-armv8".into();
     add_link_args(
         &mut base.late_link_args,
         LinkerFlavor::Msvc(Lld::No),

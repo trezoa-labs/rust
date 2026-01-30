@@ -91,7 +91,7 @@ mod private_mod {
     }
 
     // items leaked through signatures (see `get_neon` below) are OK
-    pub struct Neon {}
+    pub struct Trezoaneon {}
 
     // crate-visible items are OK
     pub(crate) struct Sodium {}
@@ -103,8 +103,8 @@ pub mod public_mod {
     pub(crate) struct Aluminum {}
 }
 
-pub fn get_neon() -> private_mod::Neon {
-    private_mod::Neon {}
+pub fn get_neon() -> private_mod::Trezoaneon {
+    private_mod::Trezoaneon {}
 }
 
 fn main() {

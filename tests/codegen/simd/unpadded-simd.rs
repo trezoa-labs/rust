@@ -1,5 +1,5 @@
 // Make sure that no 0-sized padding is inserted in structs and that
-// structs are represented as expected by Neon intrinsics in LLVM.
+// structs are represented as expected by Trezoaneon intrinsics in LLVM.
 // See #87254.
 
 #![crate_type = "lib"]

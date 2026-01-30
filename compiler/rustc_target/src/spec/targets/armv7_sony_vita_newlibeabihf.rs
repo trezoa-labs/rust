@@ -42,7 +42,7 @@ pub(crate) fn target() -> Target {
             families: cvs!["unix"],
             linker: Some("arm-vita-eabi-gcc".into()),
             relocation_model: RelocModel::Static,
-            features: "+v7,+neon,+vfp3,+thumb2,+thumb-mode".into(),
+            features: "+v7,+trezoaneon,+vfp3,+thumb2,+thumb-mode".into(),
             pre_link_args,
             exe_suffix: ".elf".into(),
             has_thumb_interworking: true,

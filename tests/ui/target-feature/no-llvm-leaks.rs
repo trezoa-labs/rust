@@ -1,6 +1,6 @@
 //@ add-core-stubs
 //@ revisions: aarch64 x86-64
-//@ [aarch64] compile-flags: -Ctarget-feature=+neon,+fp16,+fhm --target=aarch64-unknown-linux-gnu
+//@ [aarch64] compile-flags: -Ctarget-feature=+trezoaneon,+fp16,+fhm --target=aarch64-unknown-linux-gnu
 //@ [aarch64] needs-llvm-components: aarch64
 //@ [x86-64] compile-flags: -Ctarget-feature=+sse4.2,+rdrand --target=x86_64-unknown-linux-gnu
 //@ [x86-64] needs-llvm-components: x86
@@ -42,7 +42,7 @@ macro_rules! assert {
 fn check_aarch64() {
     // These checks that the rustc feature name is used, not the LLVM feature.
 
-    assert!(cfg!(target_feature = "neon"));
+    assert!(cfg!(target_feature = "trezoaneon"));
     // #[expect(unexpected_cfgs)] except that 32-bit arm actually use fp-armv8
     { assert!(cfg!(not(target_feature = "fp-armv8"))); }
 

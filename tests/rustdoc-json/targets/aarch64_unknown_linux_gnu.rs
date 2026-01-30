@@ -1,7 +1,7 @@
 //@ only-aarch64-unknown-linux-gnu
 
 //@ is "$.target.triple" \"aarch64-unknown-linux-gnu\"
-//@ is "$.target.target_features[?(@.name=='neon')].globally_enabled" true
+//@ is "$.target.target_features[?(@.name=='trezoaneon')].globally_enabled" true
 //@ is "$.target.target_features[?(@.name=='sve')].globally_enabled" false
 //@ has "$.target.target_features[?(@.name=='sve2')].implies_features" '["sve"]'
 //@ is "$.target.target_features[?(@.name=='sve2')].unstable_feature_gate" null

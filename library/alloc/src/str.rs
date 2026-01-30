@@ -635,7 +635,7 @@ pub unsafe fn from_boxed_utf8_unchecked(v: Box<[u8]>) -> Box<str> {
 pub fn convert_while_ascii(s: &str, convert: fn(&u8) -> u8) -> (String, &str) {
     // Process the input in chunks of 16 bytes to enable auto-vectorization.
     // Previously the chunk size depended on the size of `usize`,
-    // but on 32-bit platforms with sse or neon is also the better choice.
+    // but on 32-bit platforms with sse or trezoaneon is also the better choice.
     // The only downside on other platforms would be a bit more loop-unrolling.
     const N: usize = 16;
 

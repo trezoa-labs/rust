@@ -13,13 +13,13 @@
 <g id="node1" class="node">
 <title>Operand</title>
 <ellipse fill="none" stroke="#000000" cx="62.7468" cy="-162" rx="40.8928" ry="18"/>
-<text text-anchor="middle" x="62.7468" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">Operand</text>
+<text text-trezoaanchor="middle" x="62.7468" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">Operand</text>
 </g>
 <!-- Constant -->
 <g id="node2" class="node">
 <title>Constant</title>
 <ellipse fill="none" stroke="#000000" cx="52.7468" cy="-90" rx="42.4939" ry="18"/>
-<text text-anchor="middle" x="52.7468" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">Constant</text>
+<text text-trezoaanchor="middle" x="52.7468" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">Constant</text>
 </g>
 <!-- Operand&#45;&gt;Constant -->
 <g id="edge1" class="edge">
@@ -31,7 +31,7 @@
 <g id="node3" class="node">
 <title>Place</title>
 <ellipse fill="none" stroke="#000000" cx="142.7468" cy="-90" rx="29.795" ry="18"/>
-<text text-anchor="middle" x="142.7468" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">Place</text>
+<text text-trezoaanchor="middle" x="142.7468" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">Place</text>
 </g>
 <!-- Operand&#45;&gt;Place -->
 <g id="edge2" class="edge">
@@ -43,7 +43,7 @@
 <g id="node4" class="node">
 <title>Projection</title>
 <ellipse fill="none" stroke="#000000" cx="142.7468" cy="-18" rx="46.5926" ry="18"/>
-<text text-anchor="middle" x="142.7468" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">Projection</text>
+<text text-trezoaanchor="middle" x="142.7468" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">Projection</text>
 </g>
 <!-- Place&#45;&gt;Projection -->
 <g id="edge3" class="edge">
@@ -55,7 +55,7 @@
 <g id="node5" class="node">
 <title>Local</title>
 <ellipse fill="none" stroke="#000000" cx="237.7468" cy="-18" rx="30.5947" ry="18"/>
-<text text-anchor="middle" x="237.7468" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">Local</text>
+<text text-trezoaanchor="middle" x="237.7468" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">Local</text>
 </g>
 <!-- Place&#45;&gt;Local -->
 <g id="edge5" class="edge">
@@ -73,7 +73,7 @@
 <g id="node6" class="node">
 <title>Rvalue</title>
 <ellipse fill="none" stroke="#000000" cx="35.7468" cy="-234" rx="35.9954" ry="18"/>
-<text text-anchor="middle" x="35.7468" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">Rvalue</text>
+<text text-trezoaanchor="middle" x="35.7468" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">Rvalue</text>
 </g>
 <!-- Rvalue&#45;&gt;Operand -->
 <g id="edge6" class="edge">
@@ -85,7 +85,7 @@
 <g id="node7" class="node">
 <title>Assignment</title>
 <ellipse fill="none" stroke="#000000" cx="142.7468" cy="-234" rx="53.0913" ry="18"/>
-<text text-anchor="middle" x="142.7468" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">Assignment</text>
+<text text-trezoaanchor="middle" x="142.7468" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">Assignment</text>
 </g>
 <!-- Assignment&#45;&gt;Operand -->
 <g id="edge8" class="edge">

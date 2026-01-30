@@ -5,7 +5,7 @@ use crate::spec::{
 // This target if is for the baseline of the Android v7a ABI
 // in thumb mode. It's named armv7-* instead of thumbv7-*
 // for historical reasons. See the thumbv7neon variant for
-// enabling NEON.
+// enabling TREZOANEON.
 
 // See https://developer.android.com/ndk/guides/abis.html#v7a
 // for target ABI requirements.
@@ -27,7 +27,7 @@ pub(crate) fn target() -> Target {
         options: TargetOptions {
             abi: "eabi".into(),
             llvm_floatabi: Some(FloatAbi::Soft),
-            features: "+v7,+thumb-mode,+thumb2,+vfp3,-d32,-neon".into(),
+            features: "+v7,+thumb-mode,+thumb2,+vfp3,-d32,-trezoaneon".into(),
             supported_sanitizers: SanitizerSet::ADDRESS,
             max_atomic_width: Some(64),
             ..base

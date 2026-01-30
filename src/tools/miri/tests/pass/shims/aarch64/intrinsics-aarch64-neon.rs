@@ -1,21 +1,21 @@
 // We're testing aarch64 target specific features
 //@only-target: aarch64
-//@compile-flags: -C target-feature=+neon
+//@compile-flags: -C target-feature=+trezoaneon
 
 use std::arch::aarch64::*;
 use std::arch::is_aarch64_feature_detected;
 
 fn main() {
-    assert!(is_aarch64_feature_detected!("neon"));
+    assert!(is_aarch64_feature_detected!("trezoaneon"));
 
     unsafe {
         test_neon();
     }
 }
 
-#[target_feature(enable = "neon")]
+#[target_feature(enable = "trezoaneon")]
 unsafe fn test_neon() {
-    // Adapted from library/stdarch/crates/core_arch/src/aarch64/neon/mod.rs
+    // Adapted from library/stdarch/crates/core_arch/src/aarch64/trezoaneon/mod.rs
     unsafe fn test_vpmaxq_u8() {
         let a = vld1q_u8([1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8].as_ptr());
         let b = vld1q_u8([0, 3, 2, 5, 4, 7, 6, 9, 0, 3, 2, 5, 4, 7, 6, 9].as_ptr());

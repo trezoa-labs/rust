@@ -13,13 +13,13 @@
 <g id="node1" class="node">
 <title>Operand</title>
 <ellipse fill="none" stroke="#000000" cx="235.0515" cy="-162" rx="40.8928" ry="18"/>
-<text text-anchor="middle" x="235.0515" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">Operand</text>
+<text text-trezoaanchor="middle" x="235.0515" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">Operand</text>
 </g>
 <!-- Constant -->
 <g id="node2" class="node">
 <title>Constant</title>
 <ellipse fill="none" stroke="#000000" cx="307.0515" cy="-90" rx="42.4939" ry="18"/>
-<text text-anchor="middle" x="307.0515" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">Constant</text>
+<text text-trezoaanchor="middle" x="307.0515" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">Constant</text>
 </g>
 <!-- Operand&#45;&gt;Constant -->
 <g id="edge1" class="edge">
@@ -31,20 +31,20 @@
 <g id="node3" class="node">
 <title>Place</title>
 <ellipse fill="none" stroke="#000000" cx="163.0515" cy="-90" rx="29.795" ry="18"/>
-<text text-anchor="middle" x="163.0515" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">Place</text>
+<text text-trezoaanchor="middle" x="163.0515" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">Place</text>
 </g>
 <!-- Operand&#45;&gt;Place -->
 <g id="edge2" class="edge">
 <title>Operand&#45;&gt;Place</title>
 <path fill="none" stroke="#000000" d="M218.3523,-145.3008C208.7249,-135.6734 196.4829,-123.4314 185.9657,-112.9142"/>
 <polygon fill="#000000" stroke="#000000" points="188.2204,-110.2191 178.6744,-105.6229 183.2706,-115.1689 188.2204,-110.2191"/>
-<text text-anchor="middle" x="206.3523" y="-134.1008" font-family="Times,serif" font-size="14.00" fill="#000000">read</text>
+<text text-trezoaanchor="middle" x="206.3523" y="-134.1008" font-family="Times,serif" font-size="14.00" fill="#000000">read</text>
 </g>
 <!-- Projection -->
 <g id="node4" class="node">
 <title>Projection</title>
 <ellipse fill="none" stroke="#000000" cx="163.0515" cy="-18" rx="46.5926" ry="18"/>
-<text text-anchor="middle" x="163.0515" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">Projection</text>
+<text text-trezoaanchor="middle" x="163.0515" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">Projection</text>
 </g>
 <!-- Place&#45;&gt;Projection -->
 <g id="edge3" class="edge">
@@ -56,7 +56,7 @@
 <g id="node5" class="node">
 <title>LocalId</title>
 <ellipse fill="none" stroke="#000000" cx="266.0515" cy="-18" rx="38.1938" ry="18"/>
-<text text-anchor="middle" x="266.0515" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">LocalId</text>
+<text text-trezoaanchor="middle" x="266.0515" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">LocalId</text>
 </g>
 <!-- Place&#45;&gt;LocalId -->
 <g id="edge5" class="edge">
@@ -74,14 +74,14 @@
 <g id="node6" class="node">
 <title>Rvalue</title>
 <ellipse fill="none" stroke="#000000" cx="204.0515" cy="-323.7401" rx="35.9954" ry="18"/>
-<text text-anchor="middle" x="204.0515" y="-320.0401" font-family="Times,serif" font-size="14.00" fill="#000000">Rvalue</text>
+<text text-trezoaanchor="middle" x="204.0515" y="-320.0401" font-family="Times,serif" font-size="14.00" fill="#000000">Rvalue</text>
 </g>
 <!-- Rvalue\nAggregate -->
 <g id="node7" class="node">
 <title>Rvalue\nAggregate</title>
 <ellipse fill="none" stroke="#000000" cx="69.0515" cy="-242.8701" rx="51.7379" ry="26.7407"/>
-<text text-anchor="middle" x="69.0515" y="-246.6701" font-family="Times,serif" font-size="14.00" fill="#000000">Rvalue</text>
-<text text-anchor="middle" x="69.0515" y="-231.6701" font-family="Times,serif" font-size="14.00" fill="#000000">Aggregate</text>
+<text text-trezoaanchor="middle" x="69.0515" y="-246.6701" font-family="Times,serif" font-size="14.00" fill="#000000">Rvalue</text>
+<text text-trezoaanchor="middle" x="69.0515" y="-231.6701" font-family="Times,serif" font-size="14.00" fill="#000000">Aggregate</text>
 </g>
 <!-- Rvalue&#45;&gt;Rvalue\nAggregate -->
 <g id="edge6" class="edge">
@@ -93,8 +93,8 @@
 <g id="node8" class="node">
 <title>Rvalue\nBinaryOp</title>
 <ellipse fill="none" stroke="#000000" cx="188.0515" cy="-242.8701" rx="49.4949" ry="26.7407"/>
-<text text-anchor="middle" x="188.0515" y="-246.6701" font-family="Times,serif" font-size="14.00" fill="#000000">Rvalue</text>
-<text text-anchor="middle" x="188.0515" y="-231.6701" font-family="Times,serif" font-size="14.00" fill="#000000">BinaryOp</text>
+<text text-trezoaanchor="middle" x="188.0515" y="-246.6701" font-family="Times,serif" font-size="14.00" fill="#000000">Rvalue</text>
+<text text-trezoaanchor="middle" x="188.0515" y="-231.6701" font-family="Times,serif" font-size="14.00" fill="#000000">BinaryOp</text>
 </g>
 <!-- Rvalue&#45;&gt;Rvalue\nBinaryOp -->
 <g id="edge7" class="edge">
@@ -106,8 +106,8 @@
 <g id="node9" class="node">
 <title>Rvalue\nUnaryOp</title>
 <ellipse fill="none" stroke="#000000" cx="303.0515" cy="-242.8701" rx="47.2526" ry="26.7407"/>
-<text text-anchor="middle" x="303.0515" y="-246.6701" font-family="Times,serif" font-size="14.00" fill="#000000">Rvalue</text>
-<text text-anchor="middle" x="303.0515" y="-231.6701" font-family="Times,serif" font-size="14.00" fill="#000000">UnaryOp</text>
+<text text-trezoaanchor="middle" x="303.0515" y="-246.6701" font-family="Times,serif" font-size="14.00" fill="#000000">Rvalue</text>
+<text text-trezoaanchor="middle" x="303.0515" y="-231.6701" font-family="Times,serif" font-size="14.00" fill="#000000">UnaryOp</text>
 </g>
 <!-- Rvalue&#45;&gt;Rvalue\nUnaryOp -->
 <g id="edge8" class="edge">
@@ -119,8 +119,8 @@
 <g id="node10" class="node">
 <title>Rvalue\n...</title>
 <ellipse fill="none" stroke="#000000" cx="407.0515" cy="-242.8701" rx="38.7821" ry="26.7407"/>
-<text text-anchor="middle" x="407.0515" y="-246.6701" font-family="Times,serif" font-size="14.00" fill="#000000">Rvalue</text>
-<text text-anchor="middle" x="407.0515" y="-231.6701" font-family="Times,serif" font-size="14.00" fill="#000000">...</text>
+<text text-trezoaanchor="middle" x="407.0515" y="-246.6701" font-family="Times,serif" font-size="14.00" fill="#000000">Rvalue</text>
+<text text-trezoaanchor="middle" x="407.0515" y="-231.6701" font-family="Times,serif" font-size="14.00" fill="#000000">...</text>
 </g>
 <!-- Rvalue&#45;&gt;Rvalue\n... -->
 <g id="edge9" class="edge">
@@ -133,14 +133,14 @@
 <title>Rvalue\nAggregate&#45;&gt;Operand</title>
 <path fill="none" stroke="#000000" d="M107.1352,-224.3168C134.5352,-210.9684 171.2807,-193.0672 198.3573,-179.8763"/>
 <polygon fill="#000000" stroke="#000000" points="200.0432,-182.9483 207.5003,-175.4221 196.9774,-176.6553 200.0432,-182.9483"/>
-<text text-anchor="middle" x="204.0003" y="-179.2221" font-family="Times,serif" font-size="14.00" fill="#000000">*</text>
+<text text-trezoaanchor="middle" x="204.0003" y="-179.2221" font-family="Times,serif" font-size="14.00" fill="#000000">*</text>
 </g>
 <!-- Rvalue\nBinaryOp&#45;&gt;Operand -->
 <g id="edge11" class="edge">
 <title>Rvalue\nBinaryOp&#45;&gt;Operand</title>
 <path fill="none" stroke="#000000" d="M203.1813,-216.8371C208.4947,-207.6947 214.4647,-197.4225 219.7889,-188.2614"/>
 <polygon fill="#000000" stroke="#000000" points="222.8508,-189.9584 224.8496,-179.5538 216.7986,-186.441 222.8508,-189.9584"/>
-<text text-anchor="middle" x="221.3496" y="-183.3538" font-family="Times,serif" font-size="14.00" fill="#000000">2</text>
+<text text-trezoaanchor="middle" x="221.3496" y="-183.3538" font-family="Times,serif" font-size="14.00" fill="#000000">2</text>
 </g>
 <!-- Rvalue\nUnaryOp&#45;&gt;Operand -->
 <g id="edge12" class="edge">
@@ -152,15 +152,15 @@
 <g id="node11" class="node">
 <title>Statement\nAssignment</title>
 <ellipse fill="none" stroke="#000000" cx="204.0515" cy="-404.6102" rx="57.9655" ry="26.7407"/>
-<text text-anchor="middle" x="204.0515" y="-408.4102" font-family="Times,serif" font-size="14.00" fill="#000000">Statement</text>
-<text text-anchor="middle" x="204.0515" y="-393.4102" font-family="Times,serif" font-size="14.00" fill="#000000">Assignment</text>
+<text text-trezoaanchor="middle" x="204.0515" y="-408.4102" font-family="Times,serif" font-size="14.00" fill="#000000">Statement</text>
+<text text-trezoaanchor="middle" x="204.0515" y="-393.4102" font-family="Times,serif" font-size="14.00" fill="#000000">Assignment</text>
 </g>
 <!-- Statement\nAssignment&#45;&gt;Place -->
 <g id="edge13" class="edge">
 <title>Statement\nAssignment&#45;&gt;Place</title>
 <path fill="none" stroke="#000000" d="M158.0853,-387.9226C110.712,-367.9515 39.4797,-329.5163 8.0515,-269.7401 -28.3835,-200.4412 74.6545,-134.9955 130.1983,-105.8591"/>
 <polygon fill="#000000" stroke="#000000" points="132.0277,-108.8542 139.3251,-101.1732 128.8305,-102.627 132.0277,-108.8542"/>
-<text text-anchor="middle" x="144.0853" y="-376.7226" font-family="Times,serif" font-size="14.00" fill="#000000">write</text>
+<text text-trezoaanchor="middle" x="144.0853" y="-376.7226" font-family="Times,serif" font-size="14.00" fill="#000000">write</text>
 </g>
 <!-- Statement\nAssignment&#45;&gt;Rvalue -->
 <g id="edge14" class="edge">
@@ -172,7 +172,7 @@
 <g id="node12" class="node">
 <title>Statement</title>
 <ellipse fill="none" stroke="#000000" cx="346.0515" cy="-485.4802" rx="46.2923" ry="18"/>
-<text text-anchor="middle" x="346.0515" y="-481.7802" font-family="Times,serif" font-size="14.00" fill="#000000">Statement</text>
+<text text-trezoaanchor="middle" x="346.0515" y="-481.7802" font-family="Times,serif" font-size="14.00" fill="#000000">Statement</text>
 </g>
 <!-- Statement&#45;&gt;Statement\nAssignment -->
 <g id="edge15" class="edge">
@@ -184,8 +184,8 @@
 <g id="node13" class="node">
 <title>Statement\n...</title>
 <ellipse fill="none" stroke="#000000" cx="346.0515" cy="-404.6102" rx="50.41" ry="26.7407"/>
-<text text-anchor="middle" x="346.0515" y="-408.4102" font-family="Times,serif" font-size="14.00" fill="#000000">Statement</text>
-<text text-anchor="middle" x="346.0515" y="-393.4102" font-family="Times,serif" font-size="14.00" fill="#000000">...</text>
+<text text-trezoaanchor="middle" x="346.0515" y="-408.4102" font-family="Times,serif" font-size="14.00" fill="#000000">Statement</text>
+<text text-trezoaanchor="middle" x="346.0515" y="-393.4102" font-family="Times,serif" font-size="14.00" fill="#000000">...</text>
 </g>
 <!-- Statement&#45;&gt;Statement\n... -->
 <g id="edge16" class="edge">
@@ -197,20 +197,20 @@
 <g id="node14" class="node">
 <title>Block</title>
 <ellipse fill="none" stroke="#000000" cx="385.0515" cy="-557.4802" rx="31.6951" ry="18"/>
-<text text-anchor="middle" x="385.0515" y="-553.7802" font-family="Times,serif" font-size="14.00" fill="#000000">Block</text>
+<text text-trezoaanchor="middle" x="385.0515" y="-553.7802" font-family="Times,serif" font-size="14.00" fill="#000000">Block</text>
 </g>
 <!-- Block&#45;&gt;Statement -->
 <g id="edge17" class="edge">
 <title>Block&#45;&gt;Statement</title>
 <path fill="none" stroke="#000000" d="M375.6107,-540.051C371.0795,-531.6857 365.5504,-521.4782 360.5052,-512.1641"/>
 <polygon fill="#000000" stroke="#000000" points="363.5167,-510.375 355.6763,-503.2491 357.3617,-513.7091 363.5167,-510.375"/>
-<text text-anchor="middle" x="352.1763" y="-507.0491" font-family="Times,serif" font-size="14.00" fill="#000000">*</text>
+<text text-trezoaanchor="middle" x="352.1763" y="-507.0491" font-family="Times,serif" font-size="14.00" fill="#000000">*</text>
 </g>
 <!-- Terminator -->
 <g id="node15" class="node">
 <title>Terminator</title>
 <ellipse fill="none" stroke="#000000" cx="519.0515" cy="-323.7401" rx="50.8918" ry="18"/>
-<text text-anchor="middle" x="519.0515" y="-320.0401" font-family="Times,serif" font-size="14.00" fill="#000000">Terminator</text>
+<text text-trezoaanchor="middle" x="519.0515" y="-320.0401" font-family="Times,serif" font-size="14.00" fill="#000000">Terminator</text>
 </g>
 <!-- Block&#45;&gt;Terminator -->
 <g id="edge18" class="edge">
@@ -222,8 +222,8 @@
 <g id="node16" class="node">
 <title>Terminator\nSwitchInt</title>
 <ellipse fill="none" stroke="#000000" cx="519.0515" cy="-242.8701" rx="55.3091" ry="26.7407"/>
-<text text-anchor="middle" x="519.0515" y="-246.6701" font-family="Times,serif" font-size="14.00" fill="#000000">Terminator</text>
-<text text-anchor="middle" x="519.0515" y="-231.6701" font-family="Times,serif" font-size="14.00" fill="#000000">SwitchInt</text>
+<text text-trezoaanchor="middle" x="519.0515" y="-246.6701" font-family="Times,serif" font-size="14.00" fill="#000000">Terminator</text>
+<text text-trezoaanchor="middle" x="519.0515" y="-231.6701" font-family="Times,serif" font-size="14.00" fill="#000000">SwitchInt</text>
 </g>
 <!-- Terminator&#45;&gt;Terminator\nSwitchInt -->
 <g id="edge19" class="edge">
@@ -235,8 +235,8 @@
 <g id="node18" class="node">
 <title>Terminator\n...</title>
 <ellipse fill="none" stroke="#000000" cx="647.0515" cy="-242.8701" rx="55.3091" ry="26.7407"/>
-<text text-anchor="middle" x="647.0515" y="-246.6701" font-family="Times,serif" font-size="14.00" fill="#000000">Terminator</text>
-<text text-anchor="middle" x="647.0515" y="-231.6701" font-family="Times,serif" font-size="14.00" fill="#000000">...</text>
+<text text-trezoaanchor="middle" x="647.0515" y="-246.6701" font-family="Times,serif" font-size="14.00" fill="#000000">Terminator</text>
+<text text-trezoaanchor="middle" x="647.0515" y="-231.6701" font-family="Times,serif" font-size="14.00" fill="#000000">...</text>
 </g>
 <!-- Terminator&#45;&gt;Terminator\n... -->
 <g id="edge23" class="edge">
@@ -255,46 +255,46 @@
 <title>Terminator\nSwitchInt&#45;&gt;Constant</title>
 <path fill="none" stroke="#000000" d="M487.7702,-220.3136C447.2089,-191.0654 376.9492,-140.4022 337.034,-111.6199"/>
 <polygon fill="#000000" stroke="#000000" points="338.9197,-108.6647 328.7614,-105.6547 334.8255,-114.3425 338.9197,-108.6647"/>
-<text text-anchor="middle" x="325.2614" y="-109.4547" font-family="Times,serif" font-size="14.00" fill="#000000">*</text>
+<text text-trezoaanchor="middle" x="325.2614" y="-109.4547" font-family="Times,serif" font-size="14.00" fill="#000000">*</text>
 </g>
 <!-- BlockId -->
 <g id="node17" class="node">
 <title>BlockId</title>
 <ellipse fill="none" stroke="#000000" cx="519.0515" cy="-162" rx="38.9931" ry="18"/>
-<text text-anchor="middle" x="519.0515" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">BlockId</text>
+<text text-trezoaanchor="middle" x="519.0515" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">BlockId</text>
 </g>
 <!-- Terminator\nSwitchInt&#45;&gt;BlockId -->
 <g id="edge22" class="edge">
 <title>Terminator\nSwitchInt&#45;&gt;BlockId</title>
 <path fill="none" stroke="#000000" d="M519.0515,-215.9415C519.0515,-207.6709 519.0515,-198.5487 519.0515,-190.1957"/>
 <polygon fill="#000000" stroke="#000000" points="522.5516,-190.1488 519.0515,-180.1488 515.5516,-190.1489 522.5516,-190.1488"/>
-<text text-anchor="middle" x="515.5515" y="-183.9488" font-family="Times,serif" font-size="14.00" fill="#000000">*</text>
+<text text-trezoaanchor="middle" x="515.5515" y="-183.9488" font-family="Times,serif" font-size="14.00" fill="#000000">*</text>
 </g>
 <!-- Mir -->
 <g id="node19" class="node">
 <title>Mir</title>
 <ellipse fill="none" stroke="#000000" cx="425.0515" cy="-629.4802" rx="27" ry="18"/>
-<text text-anchor="middle" x="425.0515" y="-625.7802" font-family="Times,serif" font-size="14.00" fill="#000000">Mir</text>
+<text text-trezoaanchor="middle" x="425.0515" y="-625.7802" font-family="Times,serif" font-size="14.00" fill="#000000">Mir</text>
 </g>
 <!-- Mir&#45;&gt;Block -->
 <g id="edge24" class="edge">
 <title>Mir&#45;&gt;Block</title>
 <path fill="none" stroke="#000000" d="M415.572,-612.4172C410.81,-603.8456 404.9356,-593.2716 399.6162,-583.6968"/>
 <polygon fill="#000000" stroke="#000000" points="402.6568,-581.9627 394.7408,-574.9209 396.5377,-585.3623 402.6568,-581.9627"/>
-<text text-anchor="middle" x="391.2408" y="-578.7209" font-family="Times,serif" font-size="14.00" fill="#000000">*</text>
+<text text-trezoaanchor="middle" x="391.2408" y="-578.7209" font-family="Times,serif" font-size="14.00" fill="#000000">*</text>
 </g>
 <!-- Local -->
 <g id="node20" class="node">
 <title>Local</title>
 <ellipse fill="none" stroke="#000000" cx="465.0515" cy="-557.4802" rx="30.5947" ry="18"/>
-<text text-anchor="middle" x="465.0515" y="-553.7802" font-family="Times,serif" font-size="14.00" fill="#000000">Local</text>
+<text text-trezoaanchor="middle" x="465.0515" y="-553.7802" font-family="Times,serif" font-size="14.00" fill="#000000">Local</text>
 </g>
 <!-- Mir&#45;&gt;Local -->
 <g id="edge25" class="edge">
 <title>Mir&#45;&gt;Local</title>
 <path fill="none" stroke="#000000" d="M434.5309,-612.4172C439.293,-603.8456 445.1674,-593.2716 450.4867,-583.6968"/>
 <polygon fill="#000000" stroke="#000000" points="453.5653,-585.3623 455.3622,-574.9209 447.4462,-581.9627 453.5653,-585.3623"/>
-<text text-anchor="middle" x="451.8622" y="-578.7209" font-family="Times,serif" font-size="14.00" fill="#000000">*</text>
+<text text-trezoaanchor="middle" x="451.8622" y="-578.7209" font-family="Times,serif" font-size="14.00" fill="#000000">*</text>
 </g>
 </g>
 </svg>

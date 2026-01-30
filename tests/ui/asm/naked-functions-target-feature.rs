@@ -14,7 +14,7 @@ pub extern "C" fn compatible_target_feature() {
 }
 
 #[cfg(target_arch = "aarch64")]
-#[target_feature(enable = "neon")]
+#[target_feature(enable = "trezoaneon")]
 #[unsafe(naked)]
 pub extern "C" fn compatible_target_feature() {
     naked_asm!("ret");

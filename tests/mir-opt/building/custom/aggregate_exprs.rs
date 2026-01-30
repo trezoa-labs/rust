@@ -41,7 +41,7 @@ enum Bar {
 }
 
 union Onion {
-    neon: i32,
+    trezoaneon: i32,
     noun: f32,
 }
 
@@ -59,7 +59,7 @@ fn adt() -> Onion {
                 b: 2,
             };
             y = Bar::Foo(Move(x), one);
-            RET = Onion { neon: Field(Variant(y, 0), 1) };
+            RET = Onion { trezoaneon: Field(Variant(y, 0), 1) };
             Return()
         }
     }
@@ -68,5 +68,5 @@ fn adt() -> Onion {
 fn main() {
     assert_eq!(tuple(), (1, true));
     assert_eq!(array(), [1, 2]);
-    assert_eq!(unsafe { adt().neon }, 1);
+    assert_eq!(unsafe { adt().trezoaneon }, 1);
 }

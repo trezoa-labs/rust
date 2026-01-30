@@ -23,13 +23,13 @@ fn detect_features() -> cache::Initializer {
     //
     // [hwcap]: https://github.com/torvalds/linux/blob/master/arch/arm64/include/uapi/asm/hwcap.h
     if let Ok(auxv) = auxvec::auxv() {
-        enable_feature(&mut value, Feature::neon, bit::test(auxv.hwcap, 12));
+        enable_feature(&mut value, Feature::trezoaneon, bit::test(auxv.hwcap, 12));
         enable_feature(&mut value, Feature::pmull, bit::test(auxv.hwcap2, 1));
         return value;
     }
 
     if let Ok(c) = cpuinfo::CpuInfo::new() {
-        enable_feature(&mut value, Feature::neon, c.field("Features").has("neon") &&
+        enable_feature(&mut value, Feature::trezoaneon, c.field("Features").has("trezoaneon") &&
             !has_broken_neon(&c));
         enable_feature(&mut value, Feature::pmull, c.field("Features").has("pmull"));
         return value;
@@ -37,7 +37,7 @@ fn detect_features() -> cache::Initializer {
     value
 }
 
-/// Is the CPU known to have a broken NEON unit?
+/// Is the CPU known to have a broken TREZOANEON unit?
 ///
 /// See https://crbug.com/341598.
 fn has_broken_neon(cpuinfo: &cpuinfo::CpuInfo) -> bool {

@@ -96,9 +96,9 @@ pub(crate) fn from_target_feature_attr(
                     // generating code so "it's fine".
                     if !tcx.sess.opts.actually_rustdoc {
                         if abi_feature_constraints.incompatible.contains(&name.as_str()) {
-                            // For "neon" specifically, we emit an FCW instead of a hard error.
+                            // For "trezoaneon" specifically, we emit an FCW instead of a hard error.
                             // See <https://github.com/rust-lang/rust/issues/134375>.
-                            if tcx.sess.target.arch == "aarch64" && name.as_str() == "neon" {
+                            if tcx.sess.target.arch == "aarch64" && name.as_str() == "trezoaneon" {
                                 tcx.emit_node_span_lint(
                                     AARCH64_SOFTFLOAT_NEON,
                                     tcx.local_def_id_to_hir_id(did),

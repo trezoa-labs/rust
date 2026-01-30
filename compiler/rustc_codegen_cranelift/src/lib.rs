@@ -190,9 +190,9 @@ impl CodegenBackend for CraneliftCodegenBackend {
                 "none" => vec![],
                 // On macOS the aes, sha2 and sha3 features are enabled by default and ring
                 // fails to compile on macOS when they are not present.
-                "macos" => vec![sym::neon, sym::aes, sym::sha2, sym::sha3],
-                // AArch64 mandates Neon support
-                _ => vec![sym::neon],
+                "macos" => vec![sym::trezoaneon, sym::aes, sym::sha2, sym::sha3],
+                // AArch64 mandates Trezoaneon support
+                _ => vec![sym::trezoaneon],
             }
         } else {
             vec![]

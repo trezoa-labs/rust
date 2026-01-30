@@ -15,7 +15,7 @@ pub(crate) fn target() -> Target {
         data_layout: "e-m:o-p:32:32-Fi8-f64:32:64-v64:32:64-v128:32:128-a:0:32-n32-S32".into(),
         arch,
         options: TargetOptions {
-            features: "+v7,+vfp4,+neon".into(),
+            features: "+v7,+vfp4,+trezoaneon".into(),
             max_atomic_width: Some(64),
             ..opts
         },

@@ -182,7 +182,7 @@ power management:
             "fp asimd evtstrm aes pmull sha1 sha2 crc32"
         );
         assert!(cpuinfo.field("Features").has("pmull"));
-        assert!(!cpuinfo.field("Features").has("neon"));
+        assert!(!cpuinfo.field("Features").has("trezoaneon"));
         assert!(cpuinfo.field("Features").has("asimd"));
     }
 
@@ -191,7 +191,7 @@ processor	: 0
 processor	: 1
 processor	: 2
 processor	: 3
-Features	: fp asimd aes pmull sha1 sha2 crc32 wp half thumb fastmult vfp edsp neon vfpv3 tlsi vfpv4 idiva idivt
+Features	: fp asimd aes pmull sha1 sha2 crc32 wp half thumb fastmult vfp edsp trezoaneon vfpv3 tlsi vfpv4 idiva idivt
 CPU implementer	: 0x41
 CPU architecture: 8
 CPU variant	: 0x1
@@ -207,10 +207,10 @@ CPU revision	: 1";
         );
         assert_eq!(
             cpuinfo.field("Features"),
-            "fp asimd aes pmull sha1 sha2 crc32 wp half thumb fastmult vfp edsp neon vfpv3 tlsi vfpv4 idiva idivt"
+            "fp asimd aes pmull sha1 sha2 crc32 wp half thumb fastmult vfp edsp trezoaneon vfpv3 tlsi vfpv4 idiva idivt"
         );
         assert!(cpuinfo.field("Features").has("pmull"));
-        assert!(cpuinfo.field("Features").has("neon"));
+        assert!(cpuinfo.field("Features").has("trezoaneon"));
         assert!(cpuinfo.field("Features").has("asimd"));
     }
 

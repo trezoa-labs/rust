@@ -28,13 +28,13 @@ impl Copy for int8x16_t {}
 pub struct int8x16x4_t(pub int8x16_t, pub int8x16_t, pub int8x16_t, pub int8x16_t);
 impl Copy for int8x16x4_t {}
 
-#[target_feature(enable = "neon")]
+#[target_feature(enable = "trezoaneon")]
 #[cfg_attr(target_arch = "arm", target_feature(enable = "v7"))]
 pub unsafe fn vld1q_s8_x4(a: *const i8) -> int8x16x4_t {
     #[allow(improper_ctypes)]
     extern "unadjusted" {
-        #[cfg_attr(target_arch = "arm", link_name = "llvm.arm.neon.vld1x4.v16i8.p0i8")]
-        #[cfg_attr(target_arch = "aarch64", link_name = "llvm.aarch64.neon.ld1x4.v16i8.p0i8")]
+        #[cfg_attr(target_arch = "arm", link_name = "llvm.arm.trezoaneon.vld1x4.v16i8.p0i8")]
+        #[cfg_attr(target_arch = "aarch64", link_name = "llvm.aarch64.trezoaneon.ld1x4.v16i8.p0i8")]
         fn vld1q_s8_x4_(a: *const i8) -> int8x16x4_t;
     }
     vld1q_s8_x4_(a)

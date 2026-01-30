@@ -1,12 +1,12 @@
 //@ add-core-stubs
-//@ revisions: base d32 neon
+//@ revisions: base d32 trezoaneon
 //@ assembly-output: emit-asm
 //@ compile-flags: --target armv7-unknown-linux-gnueabihf
 //@ compile-flags: -C opt-level=0
 //@ compile-flags: -Zmerge-functions=disabled
 //@[d32] compile-flags: -C target-feature=+d32
-//@[neon] compile-flags: -C target-feature=+neon --cfg d32
-//@[neon] filecheck-flags: --check-prefix d32
+//@[trezoaneon] compile-flags: -C target-feature=+trezoaneon --cfg d32
+//@[trezoaneon] filecheck-flags: --check-prefix d32
 //@ needs-llvm-components: arm
 
 #![feature(no_core, repr_simd, f16)]
@@ -203,46 +203,46 @@ check!(dreg_i64 i64 dreg "vmov.f64");
 #[cfg(d32)]
 check!(dreg_f64 f64 dreg "vmov.f64");
 
-// neon-LABEL: dreg_i8x8:
-// neon: @APP
-// neon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: dreg_i8x8:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(dreg_i8x8 i8x8 dreg "vmov.f64");
 
-// neon-LABEL: dreg_i16x4:
-// neon: @APP
-// neon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: dreg_i16x4:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(dreg_i16x4 i16x4 dreg "vmov.f64");
 
-// neon-LABEL: dreg_i32x2:
-// neon: @APP
-// neon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: dreg_i32x2:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(dreg_i32x2 i32x2 dreg "vmov.f64");
 
-// neon-LABEL: dreg_i64x1:
-// neon: @APP
-// neon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: dreg_i64x1:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(dreg_i64x1 i64x1 dreg "vmov.f64");
 
-// neon-LABEL: dreg_f16x4:
-// neon: @APP
-// neon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: dreg_f16x4:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(dreg_f16x4 f16x4 dreg "vmov.f64");
 
-// neon-LABEL: dreg_f32x2:
-// neon: @APP
-// neon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: dreg_f32x2:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(dreg_f32x2 f32x2 dreg "vmov.f64");
 
 // CHECK-LABEL: dreg_low16_i64:
@@ -257,46 +257,46 @@ check!(dreg_low16_i64 i64 dreg_low16 "vmov.f64");
 // CHECK: @NO_APP
 check!(dreg_low16_f64 f64 dreg_low16 "vmov.f64");
 
-// neon-LABEL: dreg_low16_i8x8:
-// neon: @APP
-// neon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: dreg_low16_i8x8:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(dreg_low16_i8x8 i8x8 dreg_low16 "vmov.f64");
 
-// neon-LABEL: dreg_low16_i16x4:
-// neon: @APP
-// neon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: dreg_low16_i16x4:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(dreg_low16_i16x4 i16x4 dreg_low16 "vmov.f64");
 
-// neon-LABEL: dreg_low16_i32x2:
-// neon: @APP
-// neon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: dreg_low16_i32x2:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(dreg_low16_i32x2 i32x2 dreg_low16 "vmov.f64");
 
-// neon-LABEL: dreg_low16_i64x1:
-// neon: @APP
-// neon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: dreg_low16_i64x1:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(dreg_low16_i64x1 i64x1 dreg_low16 "vmov.f64");
 
-// neon-LABEL: dreg_low16_f16x4:
-// neon: @APP
-// neon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: dreg_low16_f16x4:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(dreg_low16_f16x4 f16x4 dreg_low16 "vmov.f64");
 
-// neon-LABEL: dreg_low16_f32x2:
-// neon: @APP
-// neon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: dreg_low16_f32x2:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(dreg_low16_f32x2 f32x2 dreg_low16 "vmov.f64");
 
 // CHECK-LABEL: dreg_low8_i64:
@@ -311,172 +311,172 @@ check!(dreg_low8_i64 i64 dreg_low8 "vmov.f64");
 // CHECK: @NO_APP
 check!(dreg_low8_f64 f64 dreg_low8 "vmov.f64");
 
-// neon-LABEL: dreg_low8_i8x8:
-// neon: @APP
-// neon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: dreg_low8_i8x8:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(dreg_low8_i8x8 i8x8 dreg_low8 "vmov.f64");
 
-// neon-LABEL: dreg_low8_i16x4:
-// neon: @APP
-// neon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: dreg_low8_i16x4:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(dreg_low8_i16x4 i16x4 dreg_low8 "vmov.f64");
 
-// neon-LABEL: dreg_low8_i32x2:
-// neon: @APP
-// neon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: dreg_low8_i32x2:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(dreg_low8_i32x2 i32x2 dreg_low8 "vmov.f64");
 
-// neon-LABEL: dreg_low8_i64x1:
-// neon: @APP
-// neon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: dreg_low8_i64x1:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(dreg_low8_i64x1 i64x1 dreg_low8 "vmov.f64");
 
-// neon-LABEL: dreg_low8_f16x4:
-// neon: @APP
-// neon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: dreg_low8_f16x4:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(dreg_low8_f16x4 f16x4 dreg_low8 "vmov.f64");
 
-// neon-LABEL: dreg_low8_f32x2:
-// neon: @APP
-// neon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: dreg_low8_f32x2:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d{{[0-9]+}}, d{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(dreg_low8_f32x2 f32x2 dreg_low8 "vmov.f64");
 
-// neon-LABEL: qreg_i8x16:
-// neon: @APP
-// neon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: qreg_i8x16:
+// trezoaneon: @APP
+// trezoaneon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(qreg_i8x16 i8x16 qreg "vmov");
 
-// neon-LABEL: qreg_i16x8:
-// neon: @APP
-// neon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: qreg_i16x8:
+// trezoaneon: @APP
+// trezoaneon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(qreg_i16x8 i16x8 qreg "vmov");
 
-// neon-LABEL: qreg_i32x4:
-// neon: @APP
-// neon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: qreg_i32x4:
+// trezoaneon: @APP
+// trezoaneon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(qreg_i32x4 i32x4 qreg "vmov");
 
-// neon-LABEL: qreg_i64x2:
-// neon: @APP
-// neon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: qreg_i64x2:
+// trezoaneon: @APP
+// trezoaneon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(qreg_i64x2 i64x2 qreg "vmov");
 
-// neon-LABEL: qreg_f16x8:
-// neon: @APP
-// neon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: qreg_f16x8:
+// trezoaneon: @APP
+// trezoaneon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(qreg_f16x8 f16x8 qreg "vmov");
 
-// neon-LABEL: qreg_f32x4:
-// neon: @APP
-// neon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: qreg_f32x4:
+// trezoaneon: @APP
+// trezoaneon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(qreg_f32x4 f32x4 qreg "vmov");
 
-// neon-LABEL: qreg_low8_i8x16:
-// neon: @APP
-// neon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: qreg_low8_i8x16:
+// trezoaneon: @APP
+// trezoaneon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(qreg_low8_i8x16 i8x16 qreg_low8 "vmov");
 
-// neon-LABEL: qreg_low8_i16x8:
-// neon: @APP
-// neon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: qreg_low8_i16x8:
+// trezoaneon: @APP
+// trezoaneon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(qreg_low8_i16x8 i16x8 qreg_low8 "vmov");
 
-// neon-LABEL: qreg_low8_i32x4:
-// neon: @APP
-// neon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: qreg_low8_i32x4:
+// trezoaneon: @APP
+// trezoaneon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(qreg_low8_i32x4 i32x4 qreg_low8 "vmov");
 
-// neon-LABEL: qreg_low8_i64x2:
-// neon: @APP
-// neon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: qreg_low8_i64x2:
+// trezoaneon: @APP
+// trezoaneon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(qreg_low8_i64x2 i64x2 qreg_low8 "vmov");
 
-// neon-LABEL: qreg_low8_f16x8:
-// neon: @APP
-// neon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: qreg_low8_f16x8:
+// trezoaneon: @APP
+// trezoaneon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(qreg_low8_f16x8 f16x8 qreg_low8 "vmov");
 
-// neon-LABEL: qreg_low8_f32x4:
-// neon: @APP
-// neon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: qreg_low8_f32x4:
+// trezoaneon: @APP
+// trezoaneon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(qreg_low8_f32x4 f32x4 qreg_low8 "vmov");
 
-// neon-LABEL: qreg_low4_i8x16:
-// neon: @APP
-// neon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: qreg_low4_i8x16:
+// trezoaneon: @APP
+// trezoaneon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(qreg_low4_i8x16 i8x16 qreg_low4 "vmov");
 
-// neon-LABEL: qreg_low4_i16x8:
-// neon: @APP
-// neon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: qreg_low4_i16x8:
+// trezoaneon: @APP
+// trezoaneon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(qreg_low4_i16x8 i16x8 qreg_low4 "vmov");
 
-// neon-LABEL: qreg_low4_i32x4:
-// neon: @APP
-// neon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: qreg_low4_i32x4:
+// trezoaneon: @APP
+// trezoaneon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(qreg_low4_i32x4 i32x4 qreg_low4 "vmov");
 
-// neon-LABEL: qreg_low4_i64x2:
-// neon: @APP
-// neon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: qreg_low4_i64x2:
+// trezoaneon: @APP
+// trezoaneon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(qreg_low4_i64x2 i64x2 qreg_low4 "vmov");
 
-// neon-LABEL: qreg_low4_f16x8:
-// neon: @APP
-// neon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: qreg_low4_f16x8:
+// trezoaneon: @APP
+// trezoaneon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(qreg_low4_f16x8 f16x8 qreg_low4 "vmov");
 
-// neon-LABEL: qreg_low4_f32x4:
-// neon: @APP
-// neon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: qreg_low4_f32x4:
+// trezoaneon: @APP
+// trezoaneon: vorr q{{[0-9]+}}, q{{[0-9]+}}, q{{[0-9]+}}
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check!(qreg_low4_f32x4 f32x4 qreg_low4 "vmov");
 
 // CHECK-LABEL: r0_i8:
@@ -554,86 +554,86 @@ check_reg!(d0_i64 i64 "d0" "vmov.f64");
 #[cfg(d32)]
 check_reg!(d0_f64 f64 "d0" "vmov.f64");
 
-// neon-LABEL: d0_i8x8:
-// neon: @APP
-// neon: vmov.f64 d0, d0
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: d0_i8x8:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d0, d0
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check_reg!(d0_i8x8 i8x8 "d0" "vmov.f64");
 
-// neon-LABEL: d0_i16x4:
-// neon: @APP
-// neon: vmov.f64 d0, d0
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: d0_i16x4:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d0, d0
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check_reg!(d0_i16x4 i16x4 "d0" "vmov.f64");
 
-// neon-LABEL: d0_i32x2:
-// neon: @APP
-// neon: vmov.f64 d0, d0
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: d0_i32x2:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d0, d0
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check_reg!(d0_i32x2 i32x2 "d0" "vmov.f64");
 
-// neon-LABEL: d0_i64x1:
-// neon: @APP
-// neon: vmov.f64 d0, d0
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: d0_i64x1:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d0, d0
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check_reg!(d0_i64x1 i64x1 "d0" "vmov.f64");
 
-// neon-LABEL: d0_f16x4:
-// neon: @APP
-// neon: vmov.f64 d0, d0
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: d0_f16x4:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d0, d0
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check_reg!(d0_f16x4 f16x4 "d0" "vmov.f64");
 
-// neon-LABEL: d0_f32x2:
-// neon: @APP
-// neon: vmov.f64 d0, d0
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: d0_f32x2:
+// trezoaneon: @APP
+// trezoaneon: vmov.f64 d0, d0
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check_reg!(d0_f32x2 f32x2 "d0" "vmov.f64");
 
-// neon-LABEL: q0_i8x16:
-// neon: @APP
-// neon: vorr q0, q0, q0
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: q0_i8x16:
+// trezoaneon: @APP
+// trezoaneon: vorr q0, q0, q0
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check_reg!(q0_i8x16 i8x16 "q0" "vmov");
 
-// neon-LABEL: q0_i16x8:
-// neon: @APP
-// neon: vorr q0, q0, q0
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: q0_i16x8:
+// trezoaneon: @APP
+// trezoaneon: vorr q0, q0, q0
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check_reg!(q0_i16x8 i16x8 "q0" "vmov");
 
-// neon-LABEL: q0_i32x4:
-// neon: @APP
-// neon: vorr q0, q0, q0
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: q0_i32x4:
+// trezoaneon: @APP
+// trezoaneon: vorr q0, q0, q0
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check_reg!(q0_i32x4 i32x4 "q0" "vmov");
 
-// neon-LABEL: q0_i64x2:
-// neon: @APP
-// neon: vorr q0, q0, q0
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: q0_i64x2:
+// trezoaneon: @APP
+// trezoaneon: vorr q0, q0, q0
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check_reg!(q0_i64x2 i64x2 "q0" "vmov");
 
-// neon-LABEL: q0_f16x8:
-// neon: @APP
-// neon: vorr q0, q0, q0
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: q0_f16x8:
+// trezoaneon: @APP
+// trezoaneon: vorr q0, q0, q0
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check_reg!(q0_f16x8 f16x8 "q0" "vmov");
 
-// neon-LABEL: q0_f32x4:
-// neon: @APP
-// neon: vorr q0, q0, q0
-// neon: @NO_APP
-#[cfg(neon)]
+// trezoaneon-LABEL: q0_f32x4:
+// trezoaneon: @APP
+// trezoaneon: vorr q0, q0, q0
+// trezoaneon: @NO_APP
+#[cfg(trezoaneon)]
 check_reg!(q0_f32x4 f32x4 "q0" "vmov");

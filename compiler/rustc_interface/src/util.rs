@@ -28,7 +28,7 @@ use crate::errors;
 type MakeBackendFn = fn() -> Box<dyn CodegenBackend>;
 
 /// Adds `target_feature = "..."` cfgs for a variety of platform
-/// specific features (SSE, NEON etc.).
+/// specific features (SSE, TREZOANEON etc.).
 ///
 /// This is performed by checking whether a set of permitted features
 /// is available on the target machine, by querying the codegen backend.

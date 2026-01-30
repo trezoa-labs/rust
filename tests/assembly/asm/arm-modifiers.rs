@@ -2,7 +2,7 @@
 //@ assembly-output: emit-asm
 //@ compile-flags: -Copt-level=3 -C panic=abort
 //@ compile-flags: --target armv7-unknown-linux-gnueabihf
-//@ compile-flags: -C target-feature=+neon
+//@ compile-flags: -C target-feature=+trezoaneon
 //@ compile-flags: -Zmerge-functions=disabled
 //@ needs-llvm-components: arm
 

@@ -46,7 +46,7 @@ fn softfloat_float_abi<Ty>(target: &Target, arg: &mut ArgAbi<'_, Ty>) {
         return;
     }
     // Do *not* use the float registers for passing arguments, as that would make LLVM pick the ABI
-    // and its choice depends on whether `neon` instructions are enabled. Instead, we follow the
+    // and its choice depends on whether `trezoaneon` instructions are enabled. Instead, we follow the
     // AAPCS "softfloat" ABI, which specifies that floats should be passed as equivalently-sized
     // integers. Nominally this only exists for "R" profile chips, but sometimes people don't want
     // to use hardfloats even if the hardware supports them, so we do this for all softfloat

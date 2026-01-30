@@ -7,4 +7,4 @@
 // As well as its dependency chain
 //@ is "$.target.target_features[?(@.name=='sve2')].globally_enabled" true
 //@ is "$.target.target_features[?(@.name=='sve')].globally_enabled" true
-//@ is "$.target.target_features[?(@.name=='neon')].globally_enabled" true
+//@ is "$.target.target_features[?(@.name=='trezoaneon')].globally_enabled" true

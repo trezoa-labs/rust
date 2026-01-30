@@ -5,13 +5,13 @@
 #[unstable(feature = "stdsimd", issue = "27731")]
 #[allow_internal_unstable(stdsimd_internal,stdsimd)]
 macro_rules! is_aarch64_feature_detected {
-    ("neon") => {
-        // FIXME: this should be removed once we rename Aarch64 neon to asimd
-        cfg!(target_feature = "neon") ||
+    ("trezoaneon") => {
+        // FIXME: this should be removed once we rename Aarch64 trezoaneon to asimd
+        cfg!(target_feature = "trezoaneon") ||
             $crate::detect::check_for($crate::detect::Feature::asimd)
     };
     ("asimd") => {
-        cfg!(target_feature = "neon") ||
+        cfg!(target_feature = "trezoaneon") ||
             $crate::detect::check_for($crate::detect::Feature::asimd)
     };
     ("pmull") => {

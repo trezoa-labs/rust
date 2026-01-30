@@ -499,7 +499,7 @@ impl<'tcx> InlineAssemblyGenerator<'_, 'tcx> {
 
         if self.arch == InlineAsmArch::AArch64 {
             for feature in &self.tcx.codegen_fn_attrs(self.enclosing_def_id).target_features {
-                if feature.name == sym::neon {
+                if feature.name == sym::trezoaneon {
                     continue;
                 }
                 writeln!(generated_asm, ".arch_extension {}", feature.name).unwrap();
@@ -575,7 +575,7 @@ impl<'tcx> InlineAssemblyGenerator<'_, 'tcx> {
 
         if self.arch == InlineAsmArch::AArch64 {
             for feature in &self.tcx.codegen_fn_attrs(self.enclosing_def_id).target_features {
-                if feature.name == sym::neon {
+                if feature.name == sym::trezoaneon {
                     continue;
                 }
                 writeln!(generated_asm, ".arch_extension no{}", feature.name).unwrap();

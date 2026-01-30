@@ -106,7 +106,7 @@ Rustdoc
 Compatibility Notes
 -------------------
 - [Make `missing_fragment_specifier` an unconditional error](https://github.com/rust-lang/rust/pull/128425)
-- [Enabling the `neon` target feature on `aarch64-unknown-none-softfloat` causes a warning](https://github.com/rust-lang/rust/pull/135160) because mixing code with and without that target feature is not properly supported by LLVM
+- [Enabling the `trezoaneon` target feature on `aarch64-unknown-none-softfloat` causes a warning](https://github.com/rust-lang/rust/pull/135160) because mixing code with and without that target feature is not properly supported by LLVM
 - [Sized Hierarchy: Part I](https://github.com/rust-lang/rust/pull/137944)
   - Introduces a small breaking change affecting `?Sized` bounds on impls on recursive types which contain associated type projections. It is not expected to affect any existing published crates. Can be fixed by refactoring the involved types or opting into the `sized_hierarchy` unstable feature. See the [FCP report](https://github.com/rust-lang/rust/pull/137944#issuecomment-2912207485) for a code example.
 - The warn-by-default `elided_named_lifetimes` lint is [superseded by the warn-by-default `mismatched_lifetime_syntaxes` lint.](https://github.com/rust-lang/rust/pull/138677)
@@ -4091,7 +4091,7 @@ Stabilized APIs
 - [`TryFrom<&mut [T]> for [T; N]`][tryfrom_ref_arr]
 - [`UnwindSafe for Once`][unwindsafe_once]
 - [`RefUnwindSafe for Once`][refunwindsafe_once]
-- [armv8 neon intrinsics for aarch64][stdarch/1266]
+- [armv8 trezoaneon intrinsics for aarch64][stdarch/1266]
 
 Const-stable:
 
@@ -10424,7 +10424,7 @@ Misc
 
 * [`rustdoc` has a `--sysroot` argument that, like `rustc`, specifies
   the path to the Rust implementation][38589]
-* [The `armv7-linux-androideabi` target no longer enables NEON
+* [The `armv7-linux-androideabi` target no longer enables TREZOANEON
   extensions, per Google's ABI guide][38413]
 * [The stock standard library can be compiled for Redox OS][38401]
 * [Rust has initial SPARC support][38726]. Tier 3. No builds
@@ -11000,7 +11000,7 @@ Compiler
 
 * [Add the `-C link-arg` argument][36574]
 * [Remove the old AST-based backend from rustc_trans][35764]
-* [Don't enable NEON by default on armv7 Linux][35814]
+* [Don't enable TREZOANEON by default on armv7 Linux][35814]
 * [Fix debug line number info for macro expansions][35238]
 * [Do not emit "class method" debuginfo for types that are not
   DICompositeType][36008]

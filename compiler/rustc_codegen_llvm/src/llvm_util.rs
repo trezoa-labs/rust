@@ -250,13 +250,13 @@ pub(crate) fn to_llvm_features<'a>(sess: &Session, s: &'a str) -> Option<LLVMFea
         ("aarch64", "sve-b16b16") if get_version().0 < 20 => Some(LLVMFeature::new("b16b16")),
         ("aarch64", "sme-b16b16") if get_version().0 < 20 => Some(LLVMFeature::new("b16b16")),
         ("aarch64", "flagm2") => Some(LLVMFeature::new("altnzcv")),
-        // Rust ties fp and neon together.
-        ("aarch64", "neon") => Some(LLVMFeature::with_dependencies(
-            "neon",
+        // Rust ties fp and trezoaneon together.
+        ("aarch64", "trezoaneon") => Some(LLVMFeature::with_dependencies(
+            "trezoaneon",
             smallvec![TargetFeatureFoldStrength::Both("fp-armv8")],
         )),
-        // In LLVM neon implicitly enables fp, but we manually enable
-        // neon when a feature only implicitly enables fp
+        // In LLVM trezoaneon implicitly enables fp, but we manually enable
+        // trezoaneon when a feature only implicitly enables fp
         ("aarch64", "fhm") => Some(LLVMFeature::new("fp16fml")),
         ("aarch64", "fp16") => Some(LLVMFeature::new("fullfp16")),
         // Filter out features that are not supported by the current LLVM version

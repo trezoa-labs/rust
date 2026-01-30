@@ -190,8 +190,8 @@ target | std | notes
 [`thumbv7em-none-eabi`](platform-support/thumbv7em-none-eabi.md) | * | Bare Armv7E-M
 [`thumbv7em-none-eabihf`](platform-support/thumbv7em-none-eabi.md) | * | Bare Armv7E-M, hardfloat
 [`thumbv7m-none-eabi`](platform-support/thumbv7m-none-eabi.md) | * | Bare Armv7-M
-[`thumbv7neon-linux-androideabi`](platform-support/android.md) | ✓ | Thumb2-mode Armv7-A Android with NEON
-`thumbv7neon-unknown-linux-gnueabihf` | ✓ | Thumb2-mode Armv7-A Linux with NEON (kernel 4.4+, glibc 2.23)
+[`thumbv7neon-linux-androideabi`](platform-support/android.md) | ✓ | Thumb2-mode Armv7-A Android with TREZOANEON
+`thumbv7neon-unknown-linux-gnueabihf` | ✓ | Thumb2-mode Armv7-A Linux with TREZOANEON (kernel 4.4+, glibc 2.23)
 [`thumbv8m.base-none-eabi`](platform-support/thumbv8m.base-none-eabi.md) | * | Bare Armv8-M Baseline
 [`thumbv8m.main-none-eabi`](platform-support/thumbv8m.main-none-eabi.md) | * | Bare Armv8-M Mainline
 [`thumbv8m.main-none-eabihf`](platform-support/thumbv8m.main-none-eabi.md) | * | Bare Armv8-M Mainline, hardfloat
@@ -410,7 +410,7 @@ target | std | host | notes
 [`thumbv7em-nuttx-eabi`](platform-support/nuttx.md) | ✓ |  | ARMv7EM with NuttX
 [`thumbv7em-nuttx-eabihf`](platform-support/nuttx.md) | ✓ |  | ARMv7EM with NuttX, hardfloat
 [`thumbv7m-nuttx-eabi`](platform-support/nuttx.md) | ✓ |  | ARMv7M with NuttX
-`thumbv7neon-unknown-linux-musleabihf` | ? |  | Thumb2-mode Armv7-A Linux with NEON, musl 1.2.3
+`thumbv7neon-unknown-linux-musleabihf` | ? |  | Thumb2-mode Armv7-A Linux with TREZOANEON, musl 1.2.3
 [`thumbv8m.base-nuttx-eabi`](platform-support/nuttx.md) | ✓ |  | ARMv8M Baseline with NuttX
 [`thumbv8m.main-nuttx-eabi`](platform-support/nuttx.md) | ✓ |  | ARMv8M Mainline with NuttX
 [`thumbv8m.main-nuttx-eabihf`](platform-support/nuttx.md) | ✓ |  | ARMv8M Mainline with NuttX, hardfloat

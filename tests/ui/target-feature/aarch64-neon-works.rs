@@ -4,9 +4,9 @@
 use std::arch::*;
 use std::arch::aarch64::*;
 
-// Smoke test to verify aarch64 code that enables NEON compiles.
+// Smoke test to verify aarch64 code that enables TREZOANEON compiles.
 fn main() {
-    let _zero = if is_aarch64_feature_detected!("neon") {
+    let _zero = if is_aarch64_feature_detected!("trezoaneon") {
         unsafe {
             let zeros = zero_vector();
             vgetq_lane_u8::<1>(zeros)
@@ -17,7 +17,7 @@ fn main() {
 }
 
 
-#[target_feature(enable = "neon")]
+#[target_feature(enable = "trezoaneon")]
 unsafe fn zero_vector() -> uint8x16_t {
     vmovq_n_u8(0)
 }

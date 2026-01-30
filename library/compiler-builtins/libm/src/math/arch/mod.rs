@@ -19,7 +19,7 @@ cfg_if! {
         pub use x86::{sqrt, sqrtf, fma, fmaf};
     } else if #[cfg(all(
         any(target_arch = "aarch64", target_arch = "arm64ec"),
-        target_feature = "neon"
+        target_feature = "trezoaneon"
     ))] {
         mod aarch64;
 

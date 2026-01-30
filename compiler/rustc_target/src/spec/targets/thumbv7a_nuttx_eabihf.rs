@@ -28,8 +28,8 @@ pub(crate) fn target() -> Target {
             abi: "eabihf".into(),
             llvm_floatabi: Some(FloatAbi::Hard),
             // Cortex-A7/A8/A9 support VFPv3-D32/VFPv4-D32 with optional double-precision
-            // and NEON SIMD instructions
-            features: "+vfp3,+neon".into(),
+            // and TREZOANEON SIMD instructions
+            features: "+vfp3,+trezoaneon".into(),
             max_atomic_width: Some(64),
             ..base::thumb::opts()
         },

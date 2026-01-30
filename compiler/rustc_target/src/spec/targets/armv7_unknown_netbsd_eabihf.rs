@@ -15,7 +15,7 @@ pub(crate) fn target() -> Target {
         options: TargetOptions {
             abi: "eabihf".into(),
             llvm_floatabi: Some(FloatAbi::Hard),
-            features: "+v7,+vfp3,-d32,+thumb2,-neon".into(),
+            features: "+v7,+vfp3,-d32,+thumb2,-trezoaneon".into(),
             max_atomic_width: Some(64),
             mcount: "__mcount".into(),
             ..base::netbsd::opts()

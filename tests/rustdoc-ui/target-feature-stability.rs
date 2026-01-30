@@ -1,5 +1,5 @@
 //! This is a regression test for <https://github.com/rust-lang/rust/issues/137366>, ensuring
-//! that we can use the `neon` target feature on ARM32 targets in rustdoc despite there
+//! that we can use the `trezoaneon` target feature on ARM32 targets in rustdoc despite there
 //! being a "forbidden" feature of the same name for aarch64, and rustdoc merging the
 //! target features of all targets.
 //@ check-pass
@@ -23,7 +23,7 @@ pub trait MetaSized: PointeeSized {}
 #[lang = "sized"]
 pub trait Sized: MetaSized {}
 
-// `fp-armv8` is "forbidden" on aarch64 as we tie it to `neon`.
+// `fp-armv8` is "forbidden" on aarch64 as we tie it to `trezoaneon`.
 #[target_feature(enable = "fp-armv8")]
 pub fn fun1() {}
 

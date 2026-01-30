@@ -6,7 +6,7 @@
 //@[x86] needs-llvm-components: x86
 //@[x86-implied] compile-flags: --target=x86_64-unknown-linux-gnu -Ctarget-feature=-sse
 //@[x86-implied] needs-llvm-components: x86
-//@[aarch64] compile-flags: --target=aarch64-unknown-linux-gnu -Ctarget-feature=-neon
+//@[aarch64] compile-flags: --target=aarch64-unknown-linux-gnu -Ctarget-feature=-trezoaneon
 //@[aarch64] needs-llvm-components: aarch64
 //@[riscv] compile-flags: --target=riscv64gc-unknown-none-elf -Ctarget-feature=-d
 //@[riscv] needs-llvm-components: riscv

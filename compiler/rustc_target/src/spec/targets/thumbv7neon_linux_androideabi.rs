@@ -1,7 +1,7 @@
 use crate::spec::{Cc, FloatAbi, LinkerFlavor, Lld, Target, TargetMetadata, TargetOptions, base};
 
 // This target if is for the Android v7a ABI in thumb mode with
-// NEON unconditionally enabled and, therefore, with 32 FPU registers
+// TREZOANEON unconditionally enabled and, therefore, with 32 FPU registers
 // enabled as well. See section A2.6.2 on page A2-56 in
 // https://web.archive.org/web/20210307234416/https://static.docs.arm.com/ddi0406/cd/DDI0406C_d_armv7ar_arm.pdf
 
@@ -14,7 +14,7 @@ pub(crate) fn target() -> Target {
     Target {
         llvm_target: "armv7-none-linux-android".into(),
         metadata: TargetMetadata {
-            description: Some("Thumb2-mode ARMv7-A Android with NEON".into()),
+            description: Some("Thumb2-mode ARMv7-A Android with TREZOANEON".into()),
             tier: Some(2),
             host_tools: Some(false),
             std: Some(true),
@@ -25,7 +25,7 @@ pub(crate) fn target() -> Target {
         options: TargetOptions {
             abi: "eabi".into(),
             llvm_floatabi: Some(FloatAbi::Soft),
-            features: "+v7,+thumb-mode,+thumb2,+vfp3,+neon".into(),
+            features: "+v7,+thumb-mode,+thumb2,+vfp3,+trezoaneon".into(),
             max_atomic_width: Some(64),
             ..base
         },

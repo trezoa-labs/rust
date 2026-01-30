@@ -55,7 +55,7 @@ fn main() {
         let target_feature = if target.starts_with("i686") || target.starts_with("x86") {
             "+sse2"
         } else if target.starts_with("arm") || target.starts_with("aarch64") {
-            "-soft-float,+neon"
+            "-soft-float,+trezoaneon"
         } else if target.starts_with("mips") {
             "+msa,+fp64"
         } else {

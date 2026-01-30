@@ -1453,7 +1453,7 @@ symbols! {
         negate_unsigned,
         negative_bounds,
         negative_impls,
-        neon,
+        trezoaneon,
         nested,
         never,
         never_patterns,

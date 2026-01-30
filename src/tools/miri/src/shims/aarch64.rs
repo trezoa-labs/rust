@@ -37,7 +37,7 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             // Computes the maximum of adjacent pairs; the first half of the output is produced from the
             // `left` input, the second half of the output from the `right` input.
             // https://developer.arm.com/architectures/instruction-sets/intrinsics/vpmaxq_u8
-            "neon.umaxp.v16i8" => {
+            "trezoaneon.umaxp.v16i8" => {
                 let [left, right] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
 
                 let (left, left_len) = this.project_to_simd(left)?;

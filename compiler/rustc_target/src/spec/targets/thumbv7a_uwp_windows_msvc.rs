@@ -14,7 +14,7 @@ pub(crate) fn target() -> Target {
         arch: "arm".into(),
         options: TargetOptions {
             llvm_floatabi: Some(FloatAbi::Hard),
-            features: "+vfp3,+neon".into(),
+            features: "+vfp3,+trezoaneon".into(),
             max_atomic_width: Some(64),
             // FIXME(jordanrh): use PanicStrategy::Unwind when SEH is
             // implemented for windows/arm in LLVM

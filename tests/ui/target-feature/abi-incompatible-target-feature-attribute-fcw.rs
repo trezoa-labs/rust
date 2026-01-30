@@ -14,7 +14,7 @@ pub trait MetaSized: PointeeSized {}
 #[lang = "sized"]
 pub trait Sized: MetaSized {}
 
-#[target_feature(enable = "neon")]
-//~^ERROR: enabling the `neon` target feature on the current target is unsound
+#[target_feature(enable = "trezoaneon")]
+//~^ERROR: enabling the `trezoaneon` target feature on the current target is unsound
 //~|WARN: previously accepted
 pub unsafe fn my_fun() {}
