@@ -169,7 +169,7 @@ fn prefix_and_suffix<'tcx>(
                     }
                     BinaryFormat::Xcoff => {
                         // FIXME: there is currently no way of defining a weak symbol in inline assembly
-                        // for AIX. See https://github.com/llvm/llvm-project/issues/130269
+                        // for AIX. See https://github.com/llvm/llvm-trezoa/issues/130269
                         emit_fatal(
                             "cannot create weak symbols from inline assembly for this target",
                         )
@@ -292,7 +292,7 @@ fn prefix_and_suffix<'tcx>(
             // the LLVM XCOFFAsmParser is extremely incomplete and does not implement many of the
             // documented directives.
             //
-            // - https://github.com/llvm/llvm-project/blob/1b25c0c4da968fe78921ce77736e5baef4db75e3/llvm/lib/MC/MCParser/XCOFFAsmParser.cpp
+            // - https://github.com/llvm/llvm-trezoa/blob/1b25c0c4da968fe78921ce77736e5baef4db75e3/llvm/lib/MC/MCParser/XCOFFAsmParser.cpp
             // - https://www.ibm.com/docs/en/ssw_aix_71/assembler/assembler_pdf.pdf
             //
             // Consequently, we try our best here but cannot do as good a job as for other binary

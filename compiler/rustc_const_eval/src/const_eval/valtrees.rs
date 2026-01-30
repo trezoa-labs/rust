@@ -26,7 +26,7 @@ fn branches<'tcx>(
     num_nodes: &mut usize,
 ) -> ValTreeCreationResult<'tcx> {
     let place = match variant {
-        Some(variant) => ecx.project_downcast(place, variant).unwrap(),
+        Some(variant) => ecx.trezoa_downcast(place, variant).unwrap(),
         None => place.clone(),
     };
     debug!(?place);
@@ -40,7 +40,7 @@ fn branches<'tcx>(
     }
 
     for i in 0..field_count {
-        let field = ecx.project_field(&place, FieldIdx::from_usize(i)).unwrap();
+        let field = ecx.trezoa_field(&place, FieldIdx::from_usize(i)).unwrap();
         let valtree = const_to_valtree_inner(ecx, &field, num_nodes)?;
         branches.push(valtree);
     }
@@ -63,7 +63,7 @@ fn slice_branches<'tcx>(
 
     let mut elems = Vec::with_capacity(n as usize);
     for i in 0..n {
-        let place_elem = ecx.project_index(place, i).unwrap();
+        let place_elem = ecx.trezoa_index(place, i).unwrap();
         let valtree = const_to_valtree_inner(ecx, &place_elem, num_nodes)?;
         elems.push(valtree);
     }
@@ -419,7 +419,7 @@ fn valtree_into_mplace<'tcx>(
                     debug!(?variant);
 
                     (
-                        ecx.project_downcast(place, variant_idx).unwrap(),
+                        ecx.trezoa_downcast(place, variant_idx).unwrap(),
                         &branches[1..],
                         Some(variant_idx),
                     )
@@ -435,9 +435,9 @@ fn valtree_into_mplace<'tcx>(
 
                 let place_inner = match ty.kind() {
                     ty::Str | ty::Slice(_) | ty::Array(..) => {
-                        ecx.project_index(place, i as u64).unwrap()
+                        ecx.trezoa_index(place, i as u64).unwrap()
                     }
-                    _ => ecx.project_field(&place_adjusted, FieldIdx::from_usize(i)).unwrap(),
+                    _ => ecx.trezoa_field(&place_adjusted, FieldIdx::from_usize(i)).unwrap(),
                 };
 
                 debug!(?place_inner);

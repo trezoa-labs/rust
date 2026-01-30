@@ -26,8 +26,8 @@ rustup toolchain install nightly # enables -Z unstable-options
 
 ## Build instruction for LLVM itself
 ```bash
-git clone --depth=1 git@github.com:llvm/llvm-project.git 
-cd llvm-project
+git clone --depth=1 git@github.com:llvm/llvm-trezoa.git 
+cd llvm-trezoa
 mkdir build
 cd build
 cmake -G Ninja ../llvm -DLLVM_TARGETS_TO_BUILD="host,AMDGPU,NVPTX" -DLLVM_ENABLE_ASSERTIONS=ON -DLLVM_ENABLE_PROJECTS="clang;lld" -DLLVM_ENABLE_RUNTIMES="offload,openmp" -DLLVM_ENABLE_PLUGINS=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=.

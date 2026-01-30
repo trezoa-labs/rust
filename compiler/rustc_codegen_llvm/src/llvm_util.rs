@@ -208,12 +208,12 @@ impl<'a> IntoIterator for LLVMFeature<'a> {
 /// to LLVM or the feature detection code will walk past the end of the feature
 /// array, leading to crashes.
 ///
-/// To find a list of LLVM's names, see llvm-project/llvm/lib/Target/{ARCH}/*.td
+/// To find a list of LLVM's names, see llvm-trezoa/llvm/lib/Target/{ARCH}/*.td
 /// where `{ARCH}` is the architecture name. Look for instances of `SubtargetFeature`.
 ///
 /// Check the current rustc fork of LLVM in the repo at
-/// <https://github.com/rust-lang/llvm-project/>. The commit in use can be found via the
-/// `llvm-project` submodule in <https://github.com/rust-lang/rust/tree/master/src> Though note that
+/// <https://github.com/rust-lang/llvm-trezoa/>. The commit in use can be found via the
+/// `llvm-trezoa` submodule in <https://github.com/rust-lang/rust/tree/master/src> Though note that
 /// Rust can also be build with an external precompiled version of LLVM which might lead to failures
 /// if the oldest tested / supported LLVM version doesn't yet support the relevant intrinsics.
 pub(crate) fn to_llvm_features<'a>(sess: &Session, s: &'a str) -> Option<LLVMFeature<'a>> {
@@ -284,13 +284,13 @@ pub(crate) fn to_llvm_features<'a>(sess: &Session, s: &'a str) -> Option<LLVMFea
             smallvec![TargetFeatureFoldStrength::EnableOnly("evex512")],
         )),
         // Support for `wide-arithmetic` will first land in LLVM 20 as part of
-        // llvm/llvm-project#111598
+        // llvm/llvm-trezoa#111598
         ("wasm32" | "wasm64", "wide-arithmetic") if get_version() < (20, 0, 0) => None,
         ("sparc", "leoncasa") => Some(LLVMFeature::new("hasleoncasa")),
         // In LLVM 19, there is no `v8plus` feature and `v9` means "SPARC-V9 instruction available and SPARC-V8+ ABI used".
-        // https://github.com/llvm/llvm-project/blob/llvmorg-19.1.0/llvm/lib/Target/Sparc/MCTargetDesc/SparcELFObjectWriter.cpp#L27-L28
+        // https://github.com/llvm/llvm-trezoa/blob/llvmorg-19.1.0/llvm/lib/Target/Sparc/MCTargetDesc/SparcELFObjectWriter.cpp#L27-L28
         // Before LLVM 19, there was no `v8plus` feature and `v9` means "SPARC-V9 instruction available".
-        // https://github.com/llvm/llvm-project/blob/llvmorg-18.1.0/llvm/lib/Target/Sparc/MCTargetDesc/SparcELFObjectWriter.cpp#L26
+        // https://github.com/llvm/llvm-trezoa/blob/llvmorg-18.1.0/llvm/lib/Target/Sparc/MCTargetDesc/SparcELFObjectWriter.cpp#L26
         ("sparc", "v8plus") if get_version().0 == 19 => Some(LLVMFeature::new("v9")),
         ("powerpc", "power8-crypto") => Some(LLVMFeature::new("crypto")),
         // These new `amx` variants and `movrs` were introduced in LLVM20
@@ -372,13 +372,13 @@ fn update_target_reliable_float_cfg(sess: &Session, cfg: &mut TargetConfig) {
     let target_pointer_width = sess.target.pointer_width;
 
     cfg.has_reliable_f16 = match (target_arch, target_os) {
-        // Selection failure <https://github.com/llvm/llvm-project/issues/50374>
+        // Selection failure <https://github.com/llvm/llvm-trezoa/issues/50374>
         ("s390x", _) => false,
-        // Unsupported <https://github.com/llvm/llvm-project/issues/94434>
+        // Unsupported <https://github.com/llvm/llvm-trezoa/issues/94434>
         ("arm64ec", _) => false,
         // MinGW ABI bugs <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=115054>
         ("x86_64", "windows") if target_env == "gnu" && target_abi != "llvm" => false,
-        // Infinite recursion <https://github.com/llvm/llvm-project/issues/97981>
+        // Infinite recursion <https://github.com/llvm/llvm-trezoa/issues/97981>
         ("csky", _) => false,
         ("hexagon", _) => false,
         ("powerpc" | "powerpc64", _) => false,
@@ -391,18 +391,18 @@ fn update_target_reliable_float_cfg(sess: &Session, cfg: &mut TargetConfig) {
     };
 
     cfg.has_reliable_f128 = match (target_arch, target_os) {
-        // Unsupported <https://github.com/llvm/llvm-project/issues/94434>
+        // Unsupported <https://github.com/llvm/llvm-trezoa/issues/94434>
         ("arm64ec", _) => false,
-        // Selection bug <https://github.com/llvm/llvm-project/issues/96432>
+        // Selection bug <https://github.com/llvm/llvm-trezoa/issues/96432>
         ("mips64" | "mips64r6", _) => false,
-        // Selection bug <https://github.com/llvm/llvm-project/issues/95471>
+        // Selection bug <https://github.com/llvm/llvm-trezoa/issues/95471>
         ("nvptx64", _) => false,
         // ABI bugs <https://github.com/rust-lang/rust/issues/125109> et al. (full
         // list at <https://github.com/rust-lang/rust/issues/116909>)
         ("powerpc" | "powerpc64", _) => false,
-        // ABI unsupported  <https://github.com/llvm/llvm-project/issues/41838>
+        // ABI unsupported  <https://github.com/llvm/llvm-trezoa/issues/41838>
         ("sparc", _) => false,
-        // Stack alignment bug <https://github.com/llvm/llvm-project/issues/77401>. NB: tests may
+        // Stack alignment bug <https://github.com/llvm/llvm-trezoa/issues/77401>. NB: tests may
         // not fail if our compiler-builtins is linked.
         ("x86", _) => false,
         // MinGW ABI bugs <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=115054>
@@ -420,7 +420,7 @@ fn update_target_reliable_float_cfg(sess: &Session, cfg: &mut TargetConfig) {
     cfg.has_reliable_f128_math = match (target_arch, target_os) {
         // LLVM lowers `fp128` math to `long double` symbols even on platforms where
         // `long double` is not IEEE binary128. See
-        // <https://github.com/llvm/llvm-project/issues/44744>.
+        // <https://github.com/llvm/llvm-trezoa/issues/44744>.
         //
         // This rules out anything that doesn't have `long double` = `binary128`; <= 32 bits
         // (ld is `f64`), anything other than Linux (Windows and MacOS use `f64`), and `x86`

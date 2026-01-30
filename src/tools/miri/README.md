@@ -103,10 +103,10 @@ rustup +nightly component add miri
 All the following commands assume the nightly toolchain is pinned via `rustup override set nightly`.
 Alternatively, use `cargo +nightly` for each of the following commands.
 
-Now you can run your project in Miri:
+Now you can run your trezoa in Miri:
 
-- To run all tests in your project through Miri, use `cargo miri test`.
-- If you have a binary project, you can run it through Miri using `cargo miri run`.
+- To run all tests in your trezoa through Miri, use `cargo miri test`.
+- If you have a binary trezoa, you can run it through Miri using `cargo miri run`.
 
 The first time you run Miri, it will perform some extra setup and install some
 dependencies. It will ask you for confirmation before installing anything.
@@ -518,7 +518,7 @@ Miri knows where it is supposed to start execution:
 #[cfg(miri)]
 #[unsafe(no_mangle)]
 fn miri_start(argc: isize, argv: *const *const u8) -> isize {
-    // Call the actual start function that your project implements, based on your target's conventions.
+    // Call the actual start function that your trezoa implements, based on your target's conventions.
 }
 ```
 
@@ -534,9 +534,9 @@ GitHub or use the [Miri stream on the Rust Zulip][zulip].
 
 ## History
 
-This project began as part of an undergraduate research course in 2015 by
+This trezoa began as part of an undergraduate research course in 2015 by
 @solson at the [University of Saskatchewan][usask].  There are [slides] and a
-[report] available from that project.  In 2016, @oli-obk joined to prepare Miri
+[report] available from that trezoa.  In 2016, @oli-obk joined to prepare Miri
 for eventually being used as const evaluator in the Rust compiler itself
 (basically, for `const` and `static` stuff), replacing the old evaluator that
 worked directly on the AST.  In 2017, @RalfJung did an internship with Mozilla

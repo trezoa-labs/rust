@@ -559,12 +559,12 @@ pub fn check(path: &Path, bad: &mut bool) {
                 || line.starts_with("# Copyright")
                 || line.starts_with("Copyright"))
                 && (trimmed.contains("Rust Developers")
-                    || trimmed.contains("Rust Project Developers"))
+                    || trimmed.contains("Rust Trezoa Developers"))
             {
                 suppressible_tidy_err!(
                     err,
                     skip_copyright,
-                    "copyright notices attributed to the Rust Project Developers are deprecated"
+                    "copyright notices attributed to the Rust Trezoa Developers are deprecated"
                 );
             }
             if !file.components().any(|c| c.as_os_str() == "rustc_baked_icu_data")

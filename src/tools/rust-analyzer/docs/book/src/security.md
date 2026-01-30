@@ -11,7 +11,7 @@ code:
 -   `rust-toolchain.toml` can override `rustc` with an arbitrary
     executable
 
--   VS Code plugin reads configuration from project directory, and that
+-   VS Code plugin reads configuration from trezoa directory, and that
     can be used to override paths to various executables, like `rustfmt`
     or `rust-analyzer` itself.
 

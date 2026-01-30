@@ -159,11 +159,11 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             1 => {
                 this.write_scalar(
                     Scalar::from_target_usize(name.len().to_u64(), this),
-                    &this.project_field(dest, FieldIdx::from_u32(0))?,
+                    &this.trezoa_field(dest, FieldIdx::from_u32(0))?,
                 )?;
                 this.write_scalar(
                     Scalar::from_target_usize(filename.len().to_u64(), this),
-                    &this.project_field(dest, FieldIdx::from_u32(1))?,
+                    &this.trezoa_field(dest, FieldIdx::from_u32(1))?,
                 )?;
             }
             _ => throw_unsup_format!("unknown `miri_resolve_frame` flags {}", flags),
@@ -171,17 +171,17 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
 
         this.write_scalar(
             Scalar::from_u32(lineno),
-            &this.project_field(dest, FieldIdx::from_u32(2))?,
+            &this.trezoa_field(dest, FieldIdx::from_u32(2))?,
         )?;
         this.write_scalar(
             Scalar::from_u32(colno),
-            &this.project_field(dest, FieldIdx::from_u32(3))?,
+            &this.trezoa_field(dest, FieldIdx::from_u32(3))?,
         )?;
 
         // Support a 4-field struct for now - this is deprecated
         // and slated for removal.
         if num_fields == 5 {
-            this.write_pointer(fn_ptr, &this.project_field(dest, FieldIdx::from_u32(4))?)?;
+            this.write_pointer(fn_ptr, &this.trezoa_field(dest, FieldIdx::from_u32(4))?)?;
         }
 
         interp_ok(())

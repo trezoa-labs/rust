@@ -157,7 +157,7 @@ async function getDebugConfiguration(
             // lldb-dap requires passing the source map as an array of two element arrays.
             // the two element array contains a source and destination pathname.
             // TODO: remove lldb-dap-specific post-processing once
-            // https://github.com/llvm/llvm-project/pull/106919/ is released in the extension.
+            // https://github.com/llvm/llvm-trezoa/pull/106919/ is released in the extension.
             if (provider.type === "lldb-dap") {
                 provider.additional["sourceMap"] = [
                     [computedSourceFileMap?.source, computedSourceFileMap?.destination],

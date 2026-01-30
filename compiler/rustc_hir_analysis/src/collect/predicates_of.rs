@@ -44,7 +44,7 @@ pub(super) fn predicates_of(tcx: TyCtxt<'_>, def_id: DefId) -> ty::GenericPredic
         // For traits, add `Self: Trait` predicate. This is
         // not part of the predicates that a user writes, but it
         // is something that one must prove in order to invoke a
-        // method or project an associated type.
+        // method or trezoa an associated type.
         //
         // In the chalk setup, this predicate is not part of the
         // "predicates" for a trait item. But it is useful in

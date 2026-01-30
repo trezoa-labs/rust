@@ -46,7 +46,7 @@ on how to setup a development and runtime environment.
 
 ## Building the target
 
-As a tier 2 target, the target is built by the Rust project.
+As a tier 2 target, the target is built by the Rust trezoa.
 
 You can configure bootstrap like so:
 

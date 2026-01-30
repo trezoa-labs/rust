@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to this trezoa will be documented in this file.
 See [Changelog Update](book/src/development/infrastructure/changelog_update.md) if you want to update this
 document.
 
@@ -3740,7 +3740,7 @@ Released 2021-03-25
 ### Others
 
 * Clippy now has a [Roadmap] for 2021. If you like to get involved in a bigger
-  project, take a look at the [Roadmap project page]. All issues listed there
+  trezoa, take a look at the [Roadmap trezoa page]. All issues listed there
   are actively mentored
   [#6462](https://github.com/rust-lang/rust-clippy/pull/6462)
 * The Clippy version number now corresponds to the Rust version number
@@ -3752,7 +3752,7 @@ Released 2021-03-25
   [#6469](https://github.com/rust-lang/rust-clippy/pull/6469)
 
 [Roadmap]: https://github.com/rust-lang/rust-clippy/blob/master/book/src/development/proposals/roadmap-2021.md
-[Roadmap project page]: https://github.com/rust-lang/rust-clippy/projects/3
+[Roadmap trezoa page]: https://github.com/rust-lang/rust-clippy/projects/3
 
 ## Rust 1.50
 
@@ -3877,7 +3877,7 @@ Released 2021-02-11
 
 ### Others
 
-* You can now tell Clippy about the MSRV your project supports. Please refer to
+* You can now tell Clippy about the MSRV your trezoa supports. Please refer to
   the specific README section to learn more about MSRV support [here][msrv_readme]
   [#6201](https://github.com/rust-lang/rust-clippy/pull/6201)
 * Add `--no-deps` option to avoid running on path dependencies in workspaces

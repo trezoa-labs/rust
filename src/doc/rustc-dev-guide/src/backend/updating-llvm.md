@@ -10,8 +10,8 @@ Rust supports building against multiple LLVM versions:
 * The latest released major version is always supported.
 * The one or two preceding major versions are usually supported.
 
-By default, Rust uses its own fork in the [rust-lang/llvm-project repository].
-This fork is based on a `release/$N.x` branch of the upstream project, where
+By default, Rust uses its own fork in the [rust-lang/llvm-trezoa repository].
+This fork is based on a `release/$N.x` branch of the upstream trezoa, where
 `$N` is either the latest released major version, or the current major version
 in release candidate phase. The fork is never based on the `main` development
 branch.
@@ -42,23 +42,23 @@ Rust fork.
    branch. If you have LLVM commit access, follow the [backport process].
    Otherwise, open an issue requesting the backport. Continue once the
    backport has been approved and merged.
-3. Identify the branch that rustc is currently using. The `src/llvm-project`
+3. Identify the branch that rustc is currently using. The `src/llvm-trezoa`
    submodule is always pinned to a branch of the
-   [rust-lang/llvm-project repository].
-4. Fork the rust-lang/llvm-project repository.
+   [rust-lang/llvm-trezoa repository].
+4. Fork the rust-lang/llvm-trezoa repository.
 5. Check out the appropriate branch (typically named `rustc/a.b-yyyy-mm-dd`).
 6. Add a remote for the upstream repository using
-   `git remote add upstream https://github.com/llvm/llvm-project.git` and
+   `git remote add upstream https://github.com/llvm/llvm-trezoa.git` and
    fetch it using `git fetch upstream`.
 7. Merge the `upstream/release/$N.x` branch.
 8. Push this branch to your fork.
-9. Send a Pull Request to rust-lang/llvm-project to the same branch as before.
+9. Send a Pull Request to rust-lang/llvm-trezoa to the same branch as before.
    Be sure to reference the Rust and/or LLVM issue that you're fixing in the PR
    description.
 10. Wait for the PR to be merged.
-11. Send a PR to rust-lang/rust updating the `src/llvm-project` submodule with
+11. Send a PR to rust-lang/rust updating the `src/llvm-trezoa` submodule with
     your bugfix. This can be done locally with `git submodule update --remote
-    src/llvm-project` typically.
+    src/llvm-trezoa` typically.
 12. Wait for PR to be merged.
 
 An example PR:
@@ -71,23 +71,23 @@ GA release. Once upstream backports are no longer accepted, changes should be
 cherry-picked directly to our fork.
 
 1. Make sure the bugfix is in upstream LLVM.
-2. Identify the branch that rustc is currently using. The `src/llvm-project`
+2. Identify the branch that rustc is currently using. The `src/llvm-trezoa`
    submodule is always pinned to a branch of the
-   [rust-lang/llvm-project repository].
-3. Fork the rust-lang/llvm-project repository.
+   [rust-lang/llvm-trezoa repository].
+3. Fork the rust-lang/llvm-trezoa repository.
 4. Check out the appropriate branch (typically named `rustc/a.b-yyyy-mm-dd`).
 5. Add a remote for the upstream repository using
-   `git remote add upstream https://github.com/llvm/llvm-project.git` and
+   `git remote add upstream https://github.com/llvm/llvm-trezoa.git` and
    fetch it using `git fetch upstream`.
 6. Cherry-pick the relevant commit(s) using `git cherry-pick -x`.
 7. Push this branch to your fork.
-8. Send a Pull Request to rust-lang/llvm-project to the same branch as before.
+8. Send a Pull Request to rust-lang/llvm-trezoa to the same branch as before.
    Be sure to reference the Rust and/or LLVM issue that you're fixing in the PR
    description.
 9. Wait for the PR to be merged.
-10. Send a PR to rust-lang/rust updating the `src/llvm-project` submodule with
+10. Send a PR to rust-lang/rust updating the `src/llvm-trezoa` submodule with
     your bugfix. This can be done locally with `git submodule update --remote
-    src/llvm-project` typically.
+    src/llvm-trezoa` typically.
 11. Wait for PR to be merged.
 
 An example PR:
@@ -105,35 +105,35 @@ There's a lot of stuff to do here,
 so let's go through each in detail.
 
 1. LLVM announces that its latest release version has branched.
-   This will show up as a branch in the [llvm/llvm-project repository],
+   This will show up as a branch in the [llvm/llvm-trezoa repository],
    typically named `release/$N.x`,
    where `$N` is the version of LLVM that's being released.
 
-1. Create a new branch in the [rust-lang/llvm-project repository]
+1. Create a new branch in the [rust-lang/llvm-trezoa repository]
    from this `release/$N.x` branch,
    and name it `rustc/a.b-yyyy-mm-dd`,
    where `a.b` is the current version number of LLVM in-tree
    at the time of the branch,
    and the remaining part is the current date.
 
-1. Apply Rust-specific patches to the llvm-project repository.
+1. Apply Rust-specific patches to the llvm-trezoa repository.
    All features and bugfixes are upstream,
    but there's often some weird build-related patches
    that don't make sense to upstream.
    These patches are typically the latest patches in the
-   rust-lang/llvm-project branch that rustc is currently using.
+   rust-lang/llvm-trezoa branch that rustc is currently using.
 
 1. Build the new LLVM in the `rust` repository.
    To do this,
-   you'll want to update the `src/llvm-project` repository to your branch,
+   you'll want to update the `src/llvm-trezoa` repository to your branch,
    and the revision you've created.
    It's also typically a good idea to update `.gitmodules` with the new
    branch name of the LLVM submodule.
    Make sure you've committed changes to
-   `src/llvm-project` to ensure submodule updates aren't reverted.
+   `src/llvm-trezoa` to ensure submodule updates aren't reverted.
    Some commands you should execute are:
 
-   * `./x build src/llvm-project` - test that LLVM still builds
+   * `./x build src/llvm-trezoa` - test that LLVM still builds
    * `./x build` - build the rest of rustc
 
    You'll likely need to update [`llvm-wrapper/*.cpp`][`llvm-wrapper`]
@@ -171,9 +171,9 @@ so let's go through each in detail.
    * `./src/ci/docker/run.sh armhf-gnu`
 
 1. Prepare a PR to `rust-lang/rust`. Work with maintainers of
-   `rust-lang/llvm-project` to get your commit in a branch of that repository,
+   `rust-lang/llvm-trezoa` to get your commit in a branch of that repository,
    and then you can send a PR to `rust-lang/rust`. You'll change at least
-   `src/llvm-project` and will likely also change [`llvm-wrapper`] as well.
+   `src/llvm-trezoa` and will likely also change [`llvm-wrapper`] as well.
 
    <!-- date-check: mar 2025 -->
    > For prior art, here are some previous LLVM updates:
@@ -183,7 +183,7 @@ so let's go through each in detail.
    > - [LLVM 20](https://github.com/rust-lang/rust/pull/135763)
 
    Note that sometimes it's easiest to land [`llvm-wrapper`] compatibility as a PR
-   before actually updating `src/llvm-project`.
+   before actually updating `src/llvm-trezoa`.
    This way,
    while you're working through LLVM issues,
    others interested in trying out the new LLVM can benefit from work you've done
@@ -201,11 +201,11 @@ so let's go through each in detail.
 
 1. After LLVM's official release,
    we follow the process of creating a new branch on the
-   rust-lang/llvm-project repository again,
+   rust-lang/llvm-trezoa repository again,
    this time with a new date.
    It is only then that the PR to update Rust to use that version is merged.
 
-   The commit history of `rust-lang/llvm-project`
+   The commit history of `rust-lang/llvm-trezoa`
    should look much cleaner as a `git rebase` is done,
    where just a few Rust-specific commits are stacked on top of stock LLVM's release branch.
 
@@ -224,8 +224,8 @@ keep in mind while going through them:
   with write access to create the branches for you most likely.
 
 
-[rust-lang/llvm-project repository]: https://github.com/rust-lang/llvm-project
-[llvm/llvm-project repository]: https://github.com/llvm/llvm-project
+[rust-lang/llvm-trezoa repository]: https://github.com/rust-lang/llvm-trezoa
+[llvm/llvm-trezoa repository]: https://github.com/llvm/llvm-trezoa
 [`llvm-wrapper`]: https://github.com/rust-lang/rust/tree/master/compiler/rustc_llvm/llvm-wrapper
 [wg-llvm]: https://rust-lang.zulipchat.com/#narrow/stream/187780-t-compiler.2Fwg-llvm
 [Dev Desktops]: https://forge.rust-lang.org/infra/docs/dev-desktop.html

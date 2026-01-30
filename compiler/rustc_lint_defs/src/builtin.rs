@@ -521,7 +521,7 @@ declare_lint! {
     /// automatically added in scope.
     ///
     /// This lint is "allow" by default because it can be noisy, and produce
-    /// false-positives. If a dependency is being removed from a project, it
+    /// false-positives. If a dependency is being removed from a trezoa, it
     /// is recommended to remove it from the build configuration (such as
     /// `Cargo.toml`) to ensure stale build entries aren't left behind.
     ///

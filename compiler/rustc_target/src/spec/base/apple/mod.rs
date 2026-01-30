@@ -64,7 +64,7 @@ impl Arch {
             Arm64_32 => "apple-s4",
             // Only macOS 10.12+ is supported, which means
             // all x86_64/x86 CPUs must be running at least penryn
-            // https://github.com/llvm/llvm-project/blob/01f924d0e37a5deae51df0d77e10a15b63aa0c0f/clang/lib/Driver/ToolChains/Arch/X86.cpp#L79-L82
+            // https://github.com/llvm/llvm-trezoa/blob/01f924d0e37a5deae51df0d77e10a15b63aa0c0f/clang/lib/Driver/ToolChains/Arch/X86.cpp#L79-L82
             I386 | I686 => "penryn",
             X86_64 => "penryn",
             // Note: `core-avx2` is slightly more advanced than `x86_64h`, see
@@ -122,7 +122,7 @@ pub(crate) fn base(
         binary_format: BinaryFormat::MachO,
         // LLVM notes that macOS 10.11+ and iOS 9+ default
         // to v4, so we do the same.
-        // https://github.com/llvm/llvm-project/blob/378778a0d10c2f8d5df8ceff81f95b6002984a4b/clang/lib/Driver/ToolChains/Darwin.cpp#L1203
+        // https://github.com/llvm/llvm-trezoa/blob/378778a0d10c2f8d5df8ceff81f95b6002984a4b/clang/lib/Driver/ToolChains/Darwin.cpp#L1203
         default_dwarf_version: 4,
         frame_pointer: match arch {
             // clang ignores `-fomit-frame-pointer` for Armv7, it only accepts `-momit-leaf-frame-pointer`
@@ -178,7 +178,7 @@ pub(crate) fn base(
 fn unversioned_llvm_target(os: &str, arch: Arch, abi: TargetAbi) -> StaticCow<str> {
     let arch = arch.target_name();
     // Convert to the "canonical" OS name used by LLVM:
-    // https://github.com/llvm/llvm-project/blob/llvmorg-18.1.8/llvm/lib/TargetParser/Triple.cpp#L236-L282
+    // https://github.com/llvm/llvm-trezoa/blob/llvmorg-18.1.8/llvm/lib/TargetParser/Triple.cpp#L236-L282
     let os = match os {
         "macos" => "macosx",
         "ios" => "ios",
@@ -307,7 +307,7 @@ impl OSVersion {
     /// to raise the minimum OS version.
     ///
     /// This matches what LLVM does, see in part:
-    /// <https://github.com/llvm/llvm-project/blob/llvmorg-18.1.8/llvm/lib/TargetParser/Triple.cpp#L1900-L1932>
+    /// <https://github.com/llvm/llvm-trezoa/blob/llvmorg-18.1.8/llvm/lib/TargetParser/Triple.cpp#L1900-L1932>
     pub fn minimum_deployment_target(target: &Target) -> Self {
         let (major, minor, patch) = match (&*target.os, &*target.arch, &*target.abi) {
             ("macos", "aarch64", _) => (11, 0, 0),

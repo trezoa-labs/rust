@@ -12,7 +12,7 @@ declare_clippy_lint! {
     ///
     /// ### Why restrict this?
     /// Making an `enum` exhaustive is a stability commitment: adding a variant is a breaking change.
-    /// A project may wish to ensure that there are no exhaustive enums or that every exhaustive
+    /// A trezoa may wish to ensure that there are no exhaustive enums or that every exhaustive
     /// `enum` is explicitly `#[allow]`ed.
     ///
     /// ### Example
@@ -42,7 +42,7 @@ declare_clippy_lint! {
     ///
     /// ### Why restrict this?
     /// Making a `struct` exhaustive is a stability commitment: adding a field is a breaking change.
-    /// A project may wish to ensure that there are no exhaustive structs or that every exhaustive
+    /// A trezoa may wish to ensure that there are no exhaustive structs or that every exhaustive
     /// `struct` is explicitly `#[allow]`ed.
     ///
     /// ### Example

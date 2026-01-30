@@ -153,8 +153,8 @@ mod issue14716 {
         name: Option<String>,
     }
 
-    fn bar(project: &Foo) {
-        let _name = match project.name {
+    fn bar(trezoa: &Foo) {
+        let _name = match trezoa.name {
             Some(ref x) => x,
             None => "",
         };

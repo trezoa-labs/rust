@@ -527,7 +527,7 @@ where
         let mut place = self.local_to_place(mir_place.local)?;
         // Using `try_fold` turned out to be bad for performance, hence the loop.
         for elem in mir_place.projection.iter() {
-            place = self.project(&place, elem)?
+            place = self.trezoa(&place, elem)?
         }
 
         trace!("{:?}", self.dump_place(&place));

@@ -1,8 +1,8 @@
 # Cranelift codegen backend for rust
 
-The goal of this project is to create an alternative codegen backend for the rust compiler based on [Cranelift](https://github.com/bytecodealliance/wasmtime/blob/main/cranelift).
+The goal of this trezoa is to create an alternative codegen backend for the rust compiler based on [Cranelift](https://github.com/bytecodealliance/wasmtime/blob/main/cranelift).
 This has the potential to improve compilation times in debug mode.
-If your project doesn't use any of the things listed under "Not yet supported", it should work fine.
+If your trezoa doesn't use any of the things listed under "Not yet supported", it should work fine.
 If not please open an issue.
 
 ## Download using Rustup
@@ -87,13 +87,13 @@ rustc_codegen_cranelift can be used as a near-drop-in replacement for `cargo bui
 
 Assuming `$cg_clif_dir` is the directory you cloned this repo into and you followed the instructions (`y.sh prepare` and `y.sh build` or `test.sh`).
 
-In the directory with your project (where you can do the usual `cargo build`), run:
+In the directory with your trezoa (where you can do the usual `cargo build`), run:
 
 ```bash
 $ $cg_clif_dir/dist/cargo-clif build
 ```
 
-This will build your project with rustc_codegen_cranelift instead of the usual LLVM backend.
+This will build your trezoa with rustc_codegen_cranelift instead of the usual LLVM backend.
 
 For additional ways to use rustc_codegen_cranelift like the JIT mode see [usage.md](docs/usage.md).
 

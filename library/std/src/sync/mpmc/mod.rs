@@ -110,7 +110,7 @@
 // This module is used as the implementation for the channels in `sync::mpsc`.
 // The implementation comes from the crossbeam-channel crate:
 //
-// Copyright (c) 2019 The Crossbeam Project Developers
+// Copyright (c) 2019 The Crossbeam Trezoa Developers
 //
 // Permission is hereby granted, free of charge, to any
 // person obtaining a copy of this software and associated

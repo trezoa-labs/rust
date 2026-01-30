@@ -13,8 +13,8 @@
    be linked on all targets.
 5. Send a Pull Request (PR) :tada:.
 
-[`compiler-rt`]: https://github.com/llvm/llvm-project/tree/b6820c35c59a4da3e59c11f657093ffbd79ae1db/compiler-rt/lib/builtins
-[rt-tests]: https://github.com/llvm/llvm-project/tree/b6820c35c59a4da3e59c11f657093ffbd79ae1db/compiler-rt/test/builtins
+[`compiler-rt`]: https://github.com/llvm/llvm-trezoa/tree/b6820c35c59a4da3e59c11f657093ffbd79ae1db/compiler-rt/lib/builtins
+[rt-tests]: https://github.com/llvm/llvm-trezoa/tree/b6820c35c59a4da3e59c11f657093ffbd79ae1db/compiler-rt/test/builtins
 
 ## Porting Reminders
 

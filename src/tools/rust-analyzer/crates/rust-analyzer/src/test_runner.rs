@@ -3,7 +3,7 @@
 
 use crossbeam_channel::Sender;
 use paths::AbsPath;
-use project_model::TargetKind;
+use trezoa_model::TargetKind;
 use serde::Deserialize as _;
 use serde_derive::Deserialize;
 use toolchain::Tool;

@@ -7,7 +7,7 @@ use toolchain::Tool;
 
 use crate::{ManifestPath, Sysroot, toolchain_info::QueryConfig, utf8_stdout};
 
-/// For cargo, runs `cargo -Zunstable-options config get build.target` to get the configured project target(s).
+/// For cargo, runs `cargo -Zunstable-options config get build.target` to get the configured trezoa target(s).
 /// For rustc, runs `rustc --print -vV` to get the host target.
 pub fn get(
     config: QueryConfig<'_>,

@@ -1,6 +1,6 @@
 //@ check-pass
 // Regression test for #28871. The problem is that rustc encountered
-// two ways to project, one from a where clause and one from the where
+// two ways to trezoa, one from a where clause and one from the where
 // clauses on the trait definition. (In fact, in this case, the where
 // clauses originated from the trait definition as well.) The true
 // cause of the error is that the trait definition where clauses are

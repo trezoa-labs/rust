@@ -13,7 +13,7 @@ declare_clippy_lint! {
     /// Checks that module layout uses only self named module files; bans `mod.rs` files.
     ///
     /// ### Why restrict this?
-    /// Having multiple module layout styles in a project can be confusing.
+    /// Having multiple module layout styles in a trezoa can be confusing.
     ///
     /// ### Example
     /// ```text
@@ -42,7 +42,7 @@ declare_clippy_lint! {
     /// Checks that module layout uses only `mod.rs` files.
     ///
     /// ### Why restrict this?
-    /// Having multiple module layout styles in a project can be confusing.
+    /// Having multiple module layout styles in a trezoa can be confusing.
     ///
     /// ### Example
     /// ```text

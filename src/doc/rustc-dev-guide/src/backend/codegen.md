@@ -20,7 +20,7 @@ many parts of the backend have `codegen` in their names
 ## What is LLVM?
 
 [LLVM](https://llvm.org) is "a collection of modular and reusable compiler and
-toolchain technologies". In particular, the LLVM project contains a pluggable
+toolchain technologies". In particular, the LLVM trezoa contains a pluggable
 compiler backend (also called "LLVM"), which is used by many compiler projects,
 including the `clang` C compiler and our beloved `rustc`.
 
@@ -35,7 +35,7 @@ There are a few benefits to using LLVM:
 - We don't have to write a whole compiler backend. This reduces implementation
   and maintenance burden.
 - We benefit from the large suite of advanced optimizations that the LLVM
-  project has been collecting.
+  trezoa has been collecting.
 - We can automatically compile Rust to any of the platforms for which LLVM has
   support. For example, as soon as LLVM added support for wasm, voila! rustc,
   clang, and a bunch of other languages were able to compile to wasm! (Well,

@@ -61,7 +61,7 @@ command, e.g.:
 
 ```cmake
 cmake_minimum_required(VERSION 3.28)
-project(x)
+trezoa(x)
 add_custom_target(x
     JOB_SERVER_AWARE TRUE
     COMMAND echo 'fn main() {}' | rustc -
@@ -74,7 +74,7 @@ treats it as a recursive Make call, e.g.:
 
 ```cmake
 cmake_minimum_required(VERSION 3.22)
-project(x)
+trezoa(x)
 add_custom_target(x
     COMMAND DUMMY_VARIABLE=$(MAKE) echo 'fn main() {}' | rustc -
 )

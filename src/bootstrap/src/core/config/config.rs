@@ -923,7 +923,7 @@ impl Config {
             config.git_info(config.omit_git_hash, &config.src.join("src/tools/rustfmt"));
         config.enzyme_info =
             config.git_info(config.omit_git_hash, &config.src.join("src/tools/enzyme"));
-        config.in_tree_llvm_info = config.git_info(false, &config.src.join("src/llvm-project"));
+        config.in_tree_llvm_info = config.git_info(false, &config.src.join("src/llvm-trezoa"));
         config.in_tree_gcc_info = config.git_info(false, &config.src.join("src/gcc"));
 
         config.vendor = vendor.unwrap_or(
@@ -1582,7 +1582,7 @@ impl Config {
         } else {
             channel::read_commit_info_file(&self.src)
                 .map(|info| info.sha.trim().to_owned())
-                .expect("git-commit-info is missing in the project root")
+                .expect("git-commit-info is missing in the trezoa root")
         };
 
         if debug_assertions_requested {
@@ -1619,9 +1619,9 @@ impl Config {
 
             // Fetching the LLVM submodule is unnecessary for self-tests.
             #[cfg(not(test))]
-            self.update_submodule("src/llvm-project");
+            self.update_submodule("src/llvm-trezoa");
 
-            // Check for untracked changes in `src/llvm-project` and other important places.
+            // Check for untracked changes in `src/llvm-trezoa` and other important places.
             let has_changes = self.has_changes_from_upstream(LLVM_INVALIDATION_PATHS);
 
             // Return false if there are untracked changes, otherwise check if CI LLVM is available.
@@ -1771,7 +1771,7 @@ impl Config {
                 let ci_llvm = self.llvm_from_ci && self.is_host_target(target);
                 !ci_llvm
             }
-            // We're building from the in-tree src/llvm-project sources.
+            // We're building from the in-tree src/llvm-trezoa sources.
             Some(Target { llvm_config: None, .. }) => false,
             None => false,
         }
@@ -1779,12 +1779,12 @@ impl Config {
 
     /// Returns `true` if this is our custom, patched, version of LLVM.
     ///
-    /// This does not necessarily imply that we're managing the `llvm-project` submodule.
+    /// This does not necessarily imply that we're managing the `llvm-trezoa` submodule.
     pub fn is_rust_llvm(&self, target: TargetSelection) -> bool {
         match self.target_config.get(&target) {
             // We're using a user-controlled version of LLVM. The user has explicitly told us whether the version has our patches.
             // (They might be wrong, but that's not a supported use-case.)
-            // In particular, this tries to support `submodules = false` and `patches = false`, for using a newer version of LLVM that's not through `rust-lang/llvm-project`.
+            // In particular, this tries to support `submodules = false` and `patches = false`, for using a newer version of LLVM that's not through `rust-lang/llvm-trezoa`.
             Some(Target { llvm_has_rust_patches: Some(patched), .. }) => *patched,
             // The user hasn't promised the patches match.
             // This only has our patches if it's downloaded from CI or built from source.

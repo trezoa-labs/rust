@@ -311,7 +311,7 @@ impl<'rt, 'tcx, M: Machine<'tcx>> ValidityVisitor<'rt, 'tcx, M> {
             ty::Closure(def_id, _) | ty::Coroutine(def_id, _) | ty::CoroutineClosure(def_id, _) => {
                 let mut name = None;
                 // FIXME this should be more descriptive i.e. CapturePlace instead of CapturedVar
-                // https://github.com/rust-lang/project-rfc-2229/issues/46
+                // https://github.com/rust-lang/trezoa-rfc-2229/issues/46
                 if let Some(local_def_id) = def_id.as_local() {
                     let captures = self.ecx.tcx.closure_captures(local_def_id);
                     if let Some(captured_place) = captures.get(field) {
@@ -1236,7 +1236,7 @@ impl<'rt, 'tcx, M: Machine<'tcx>> ValueVisitor<'tcx, M> for ValidityVisitor<'rt,
             ty::Array(tys, ..) | ty::Slice(tys) if self.ecx.layout_of(*tys)?.is_zst() => {
                 // Validate just the first element (if any).
                 if val.len(self.ecx)? > 0 {
-                    self.visit_field(val, 0, &self.ecx.project_index(val, 0)?)?;
+                    self.visit_field(val, 0, &self.ecx.trezoa_index(val, 0)?)?;
                 }
             }
             ty::Pat(base, pat) => {

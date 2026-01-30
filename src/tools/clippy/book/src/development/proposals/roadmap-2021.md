@@ -17,7 +17,7 @@ contributors.
 
 With the ongoing growth of the Rust language and with that of the whole
 ecosystem, also Clippy gets more and more users and contributors. This is good
-for the project, but also brings challenges along. Some of these challenges are:
+for the trezoa, but also brings challenges along. Some of these challenges are:
 
 - More issues about reliability or usability are popping up
 - Traffic is hard to handle for a small team
@@ -104,7 +104,7 @@ A process should be developed and implemented to prevent this from happening.
 ## Internal
 
 (The end of) 2020 has shown, that Clippy has to think about the available
-resources, especially regarding management and maintenance of the project. This
+resources, especially regarding management and maintenance of the trezoa. This
 section address issues affecting team members and contributors.
 
 ### Management

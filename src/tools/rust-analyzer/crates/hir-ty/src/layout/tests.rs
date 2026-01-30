@@ -1,7 +1,7 @@
 use chalk_ir::{AdtId, TyKind};
 use either::Either;
 use hir_def::db::DefDatabase;
-use project_model::{Sysroot, toolchain_info::QueryConfig};
+use trezoa_model::{Sysroot, toolchain_info::QueryConfig};
 use rustc_hash::FxHashMap;
 use syntax::ToSmolStr;
 use test_fixture::WithFixture;
@@ -17,7 +17,7 @@ use crate::{
 mod closure;
 
 fn current_machine_data_layout() -> String {
-    project_model::toolchain_info::target_data_layout::get(
+    trezoa_model::toolchain_info::target_data_layout::get(
         QueryConfig::Rustc(&Sysroot::empty(), &std::env::current_dir().unwrap()),
         None,
         &FxHashMap::default(),

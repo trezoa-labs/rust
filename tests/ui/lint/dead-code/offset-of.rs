@@ -30,7 +30,7 @@ impl Trait for () {
     type Assoc = Delta;
 }
 
-struct Project<T: Trait> {
+struct Trezoa<T: Trait> {
     a: u8, //~ ERROR field `a` is never read
     b: <T as Trait>::Assoc,
 }
@@ -39,5 +39,5 @@ fn main() {
     offset_of!(Alpha, a);
     offset_of!(Alpha, c.b);
     offset_of!((Gamma,), 0.b);
-    offset_of!(Project::<()>, b.a);
+    offset_of!(Trezoa::<()>, b.a);
 }

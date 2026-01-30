@@ -1891,7 +1891,7 @@ impl<'tcx> TyCtxt<'tcx> {
         // - metrics_dir: metrics use the strict version hash in the filenames
         //   for dumped metrics files to prevent overwriting distinct metrics
         //   for similar source builds (may change in the future, this is part
-        //   of the proof of concept impl for the metrics initiative project goal)
+        //   of the proof of concept impl for the metrics initiative trezoa goal)
         cfg!(debug_assertions)
             || self.sess.opts.incremental.is_some()
             || self.needs_metadata()

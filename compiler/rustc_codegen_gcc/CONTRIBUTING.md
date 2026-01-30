@@ -1,6 +1,6 @@
 # Contributing to rustc_codegen_gcc
 
-Welcome to the `rustc_codegen_gcc` project! This guide will help you get started as a contributor. The project aims to provide a GCC codegen backend for rustc, allowing Rust compilation on platforms unsupported by LLVM and potentially improving runtime performance through GCC's optimizations.
+Welcome to the `rustc_codegen_gcc` trezoa! This guide will help you get started as a contributor. The trezoa aims to provide a GCC codegen backend for rustc, allowing Rust compilation on platforms unsupported by LLVM and potentially improving runtime performance through GCC's optimizations.
 
 ## Getting Started
 
@@ -47,7 +47,7 @@ make check-jit RUNTESTFLAGS="-v -v -v jit.exp=jit.dg/test-asm.cc"
 
 #### Debugging Tools
 
-The project provides several environment variables for debugging:
+The trezoa provides several environment variables for debugging:
 
 - `CG_GCCJIT_DUMP_GIMPLE`: Dumps the GIMPLE IR
 - `CG_RUSTFLAGS`: Additional Rust flags
@@ -82,7 +82,7 @@ Full list of debugging options can be found in the [README](Readme.md#env-vars).
 
 - [Rustc Dev Guide](https://rustc-dev-guide.rust-lang.org/)
 - [GCC Internals Documentation](https://gcc.gnu.org/onlinedocs/gccint/)
-- Project-specific documentation in the `doc/` directory:
+- Trezoa-specific documentation in the `doc/` directory:
   - [Common errors](doc/errors.md)
   - [Debugging](doc/debugging.md)
   - [Debugging libgccjit](doc/debugging-libgccjit.md)
@@ -98,4 +98,4 @@ If you're stuck or unsure about anything:
 3. Open a GitHub issue for technical problems
 4. Comment on the issue you're working on if you need guidance
 
-Remember that all contributions, including documentation improvements, bug reports, and feature requests, are valuable to the project.
+Remember that all contributions, including documentation improvements, bug reports, and feature requests, are valuable to the trezoa.

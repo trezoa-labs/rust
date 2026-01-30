@@ -38,7 +38,7 @@ body:
         @rustbot label +<label>
 
         Common labels for this issue type are:
-        * C-an-interesting-project
+        * C-an-interesting-trezoa
         * C-enhancement
         * C-question
         * C-tracking-issue

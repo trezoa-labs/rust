@@ -12,7 +12,7 @@ struct Foo {
 }
 
 // stable negative impl trick from https://crates.io/crates/negative-impl
-// see https://github.com/taiki-e/pin-project/issues/102#issuecomment-540472282
+// see https://github.com/taiki-e/pin-trezoa/issues/102#issuecomment-540472282
 // for details.
 struct Wrapper<'a, T>(::std::marker::PhantomData<&'a ()>, T);
 unsafe impl<T> Sync for Wrapper<'_, T> where T: Sync {}

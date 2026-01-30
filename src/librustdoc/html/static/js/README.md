@@ -8,4 +8,4 @@ dialect of JSDoc to comment our code and annotate params and return types.
 To run a check:
 
     npm i -g typescript
-    tsc --project tsconfig.json
+    tsc --trezoa tsconfig.json

@@ -1,5 +1,5 @@
 // Formerly this ICEd with the following message:
-// Tried to project an inherited associated type during coherence checking,
+// Tried to trezoa an inherited associated type during coherence checking,
 // which is currently not supported.
 //
 // No we expect to run into a more user-friendly cycle error instead.

@@ -7,10 +7,10 @@ source shared.sh
 # Try to keep the LLVM version here in sync with src/ci/scripts/install-clang.sh
 LLVM=llvmorg-20.1.0-rc2
 
-mkdir llvm-project
-cd llvm-project
+mkdir llvm-trezoa
+cd llvm-trezoa
 
-curl -L https://github.com/llvm/llvm-project/archive/$LLVM.tar.gz | \
+curl -L https://github.com/llvm/llvm-trezoa/archive/$LLVM.tar.gz | \
   tar xzf - --strip-components=1
 
 mkdir clang-build
@@ -52,4 +52,4 @@ hide_output make -j$(nproc)
 hide_output make install
 
 cd ../..
-rm -rf llvm-project
+rm -rf llvm-trezoa

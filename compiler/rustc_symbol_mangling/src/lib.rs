@@ -277,7 +277,7 @@ fn compute_symbol_name<'tcx>(
     // If this is an instance of a generic function, we also hash in
     // the ID of the instantiating crate. This avoids symbol conflicts
     // in case the same instances is emitted in two crates of the same
-    // project.
+    // trezoa.
     let avoid_cross_crate_conflicts = is_generic(instance) || is_globally_shared_function;
 
     let instantiating_crate = avoid_cross_crate_conflicts.then(compute_instantiating_crate);

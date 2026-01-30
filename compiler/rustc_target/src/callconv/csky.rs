@@ -2,7 +2,7 @@
 // https://occ-oss-prod.oss-cn-hangzhou.aliyuncs.com/resource//1695027452256/T-HEAD_800_Series_ABI_Standards_Manual.pdf
 //
 // Reference: Clang CSKY lowering code
-// https://github.com/llvm/llvm-project/blob/4a074f32a6914f2a8d7215d78758c24942dddc3d/clang/lib/CodeGen/Targets/CSKY.cpp#L76-L162
+// https://github.com/llvm/llvm-trezoa/blob/4a074f32a6914f2a8d7215d78758c24942dddc3d/clang/lib/CodeGen/Targets/CSKY.cpp#L76-L162
 
 use crate::callconv::{ArgAbi, FnAbi, Reg, Uniform};
 

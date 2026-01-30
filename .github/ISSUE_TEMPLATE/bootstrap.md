@@ -51,7 +51,7 @@ Output of `git rev-parse HEAD` command, or content of the `git-commit-hash` file
 
 ### Additional context
 <!--
-Include any other relevant information (e.g., if you have custom patches or modifications on the project).
+Include any other relevant information (e.g., if you have custom patches or modifications on the trezoa).
 -->
 
 

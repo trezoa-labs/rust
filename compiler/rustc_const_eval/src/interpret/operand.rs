@@ -374,7 +374,7 @@ impl<'tcx, Prov: Provenance> ImmTy<'tcx, Prov> {
         // and bounds-checked.
         assert!(
             offset + layout.size <= self.layout.size,
-            "attempting to project to field at offset {} with size {} into immediate with layout {:#?}",
+            "attempting to trezoa to field at offset {} with size {} into immediate with layout {:#?}",
             offset.bytes(),
             layout.size.bytes(),
             self.layout,
@@ -777,7 +777,7 @@ impl<'tcx, M: Machine<'tcx>> InterpCx<'tcx, M> {
         let mut op = self.local_to_op(mir_place.local, layout)?;
         // Using `try_fold` turned out to be bad for performance, hence the loop.
         for elem in mir_place.projection.iter() {
-            op = self.project(&op, elem)?
+            op = self.trezoa(&op, elem)?
         }
 
         trace!("eval_place_to_op: got {:?}", op);

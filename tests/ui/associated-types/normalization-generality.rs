@@ -14,7 +14,7 @@ pub struct Yoke<Y: for<'a> Yokeable<'a>> {
 }
 
 impl<Y: for<'a> Yokeable<'a>> Yoke<Y> {
-    pub fn project<'this, P>(
+    pub fn trezoa<'this, P>(
         &'this self,
         _f: for<'a> fn(<Y as Yokeable<'a>>::Output, &'a ()) -> <P as Yokeable<'a>>::Output,
     ) -> Yoke<P>
@@ -26,7 +26,7 @@ impl<Y: for<'a> Yokeable<'a>> Yoke<Y> {
 }
 
 pub fn slice(y: Yoke<&'static ()>) -> Yoke<&'static ()> {
-    y.project(move |yk, _| yk)
+    y.trezoa(move |yk, _| yk)
 }
 
 impl<'a, T> Yokeable<'a> for &'static T {

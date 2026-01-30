@@ -759,7 +759,7 @@ impl<'tcx> Map<'tcx> {
         &self,
         root: PlaceIndex,
         value: O,
-        project: &mut impl FnMut(TrackElem, &O) -> Option<O>,
+        trezoa: &mut impl FnMut(TrackElem, &O) -> Option<O>,
         f: &mut impl FnMut(PlaceIndex, &O),
     ) {
         // Fast path is there is nothing to do.
@@ -773,8 +773,8 @@ impl<'tcx> Map<'tcx> {
 
         for child in self.children(root) {
             let elem = self.places[child].proj_elem.unwrap();
-            if let Some(value) = project(elem, &value) {
-                self.for_each_projection_value(child, value, project, f);
+            if let Some(value) = trezoa(elem, &value) {
+                self.for_each_projection_value(child, value, trezoa, f);
             }
         }
     }

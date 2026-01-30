@@ -60,7 +60,7 @@ impl Sysroot {
     pub fn is_rust_lib_src_empty(&self) -> bool {
         match &self.workspace {
             RustLibSrcWorkspace::Workspace(ws) => ws.packages().next().is_none(),
-            RustLibSrcWorkspace::Json(project_json) => project_json.n_crates() == 0,
+            RustLibSrcWorkspace::Json(trezoa_json) => trezoa_json.n_crates() == 0,
             RustLibSrcWorkspace::Stitched(stitched) => stitched.crates.is_empty(),
             RustLibSrcWorkspace::Empty => true,
         }
@@ -73,7 +73,7 @@ impl Sysroot {
     pub fn num_packages(&self) -> usize {
         match &self.workspace {
             RustLibSrcWorkspace::Workspace(ws) => ws.packages().count(),
-            RustLibSrcWorkspace::Json(project_json) => project_json.n_crates(),
+            RustLibSrcWorkspace::Json(trezoa_json) => trezoa_json.n_crates(),
             RustLibSrcWorkspace::Stitched(stitched) => stitched.crates.len(),
             RustLibSrcWorkspace::Empty => 0,
         }
@@ -255,8 +255,8 @@ impl Sysroot {
                 }
             }
             return Some(RustLibSrcWorkspace::Stitched(stitched));
-        } else if let RustSourceWorkspaceConfig::Json(project_json) = sysroot_source_config {
-            return Some(RustLibSrcWorkspace::Json(project_json.clone()));
+        } else if let RustSourceWorkspaceConfig::Json(trezoa_json) = sysroot_source_config {
+            return Some(RustLibSrcWorkspace::Json(trezoa_json.clone()));
         }
 
         None
@@ -270,7 +270,7 @@ impl Sysroot {
                     RustLibSrcWorkspace::Workspace(ws) => {
                         ws.packages().any(|p| ws[p].name == "core")
                     }
-                    RustLibSrcWorkspace::Json(project_json) => project_json
+                    RustLibSrcWorkspace::Json(trezoa_json) => trezoa_json
                         .crates()
                         .filter_map(|(_, krate)| krate.display_name.clone())
                         .any(|name| name.canonical_name().as_str() == "core"),
@@ -442,7 +442,7 @@ fn get_rust_lib_src(sysroot_path: &AbsPath) -> Option<AbsPathBuf> {
     if fs::metadata(&rust_lib_src).is_ok() { Some(rust_lib_src) } else { None }
 }
 
-// FIXME: Remove this, that will bump our project MSRV to 1.82
+// FIXME: Remove this, that will bump our trezoa MSRV to 1.82
 pub(crate) mod stitched {
     use std::ops;
 

@@ -35,7 +35,7 @@ impl Tr for usize {
 }
 
 fn main() {
-    // We don't check that the types project correctly because the cycle errors stop compilation
+    // We don't check that the types trezoa correctly because the cycle errors stop compilation
     // before `main` is type-checked.
     // `defaults-cyclic-pass-2.rs` does this.
 }

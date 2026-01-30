@@ -3,7 +3,7 @@
 Thank you for your interest in contributing to rust-analyzer! There are many ways to contribute
 and we appreciate all of them.
 
-To get a quick overview of the crates and structure of the project take a look at the
+To get a quick overview of the crates and structure of the trezoa take a look at the
 [Contributing](https://rust-analyzer.github.io/book/contributing) section of the manual.
 
 If you have any questions please ask them in the [rust-analyzer zulip stream](

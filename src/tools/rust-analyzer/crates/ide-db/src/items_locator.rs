@@ -1,6 +1,6 @@
-//! This module has the functionality to search the project and its dependencies for a certain item,
+//! This module has the functionality to search the trezoa and its dependencies for a certain item,
 //! by its name and a few criteria.
-//! The main reason for this module to exist is the fact that project's items and dependencies' items
+//! The main reason for this module to exist is the fact that trezoa's items and dependencies' items
 //! are located in different caches, with different APIs.
 use std::ops::ControlFlow;
 

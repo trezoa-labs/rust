@@ -55,10 +55,10 @@ The default option generates coverage for all functions, including unused (never
 
 With `cargo`, you can instrument your program binary _and_ dependencies at the same time.
 
-For example (if your project's Cargo.toml builds a binary by default):
+For example (if your trezoa's Cargo.toml builds a binary by default):
 
 ```shell
-$ cd your-project
+$ cd your-trezoa
 $ cargo clean
 $ RUSTFLAGS="-C instrument-coverage" cargo build
 ```
@@ -176,7 +176,7 @@ There are four statistics tracked in a coverage summary:
 -   Line coverage is the percentage of code lines that have been executed at least once. Only executable lines within function bodies are considered to be code lines.
 -   Region coverage is the percentage of code regions that have been executed at least once. A code region may span multiple lines: for example, in a large function body with no control flow. In other cases, a single line can contain multiple code regions: `return x || (y && z)` has countable code regions for `x` (which may resolve the expression, if `x` is `true`), `|| (y && z)` (executed only if `x` was `false`), and `return` (executed in either situation).
 
-Of these four statistics, function coverage is usually the least granular while region coverage is the most granular. The project-wide totals for each statistic are listed in the summary.
+Of these four statistics, function coverage is usually the least granular while region coverage is the most granular. The trezoa-wide totals for each statistic are listed in the summary.
 
 ## Test coverage
 

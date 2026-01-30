@@ -18,7 +18,7 @@
 
 * All debug configurations open a new `[Extension Development Host]` VSCode instance
 where **only** the `rust-analyzer` extension being debugged is enabled.
-* To activate the extension you need to open any Rust project folder in `[Extension Development Host]`.
+* To activate the extension you need to open any Rust trezoa folder in `[Extension Development Host]`.
 
 ## Debug TypeScript VSCode extension
 

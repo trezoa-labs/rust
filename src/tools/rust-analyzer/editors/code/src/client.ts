@@ -57,7 +57,7 @@ export async function createClient(
                         : diag.code?.value;
                 if (
                     // FIXME: We currently emit this diagnostic way too early, before we have
-                    // loaded the project fully
+                    // loaded the trezoa fully
                     // value === "unlinked-file" &&
                     value === "temporary-disabled" &&
                     !unlinkedFiles.includes(uri) &&
@@ -76,7 +76,7 @@ export async function createClient(
                                 const path = vscode.Uri.file(parent + pathSeparator + "Cargo.toml");
                                 void vscode.workspace.fs.stat(path).then(async () => {
                                     const choice = await vscode.window.showInformationMessage(
-                                        `This rust file does not belong to a loaded cargo project. It looks like it might belong to the workspace at ${path.path}, do you want to add it to the linked Projects?`,
+                                        `This rust file does not belong to a loaded cargo trezoa. It looks like it might belong to the workspace at ${path.path}, do you want to add it to the linked Projects?`,
                                         "Yes",
                                         "No",
                                         "Don't show this again",

@@ -348,9 +348,9 @@ impl<'a, 'tcx, Bx: BuilderMethods<'a, 'tcx>> FunctionCx<'a, 'tcx, Bx> {
             bx.cleanup_ret(funclet, None);
         } else {
             let slot = self.get_personality_slot(bx);
-            let exn0 = slot.project_field(bx, 0);
+            let exn0 = slot.trezoa_field(bx, 0);
             let exn0 = bx.load_operand(exn0).immediate();
-            let exn1 = slot.project_field(bx, 1);
+            let exn1 = slot.trezoa_field(bx, 1);
             let exn1 = bx.load_operand(exn1).immediate();
             slot.storage_dead(bx);
 
@@ -659,7 +659,7 @@ impl<'a, 'tcx, Bx: BuilderMethods<'a, 'tcx>> FunctionCx<'a, 'tcx, Bx> {
                 debug!("drop_fn = {:?}", drop_fn);
                 debug!("args = {:?}", args);
                 let fn_abi = bx.fn_abi_of_instance(virtual_drop, ty::List::empty());
-                let meta_ptr = place.project_field(bx, 1);
+                let meta_ptr = place.trezoa_field(bx, 1);
                 let meta = bx.load_operand(meta_ptr);
                 // Truncate vtable off of args list
                 args = &args[..1];
@@ -1117,8 +1117,8 @@ impl<'a, 'tcx, Bx: BuilderMethods<'a, 'tcx>> FunctionCx<'a, 'tcx, Bx> {
                             span_bug!(fn_span, "can't codegen a virtual call on {:#?}", op);
                         }
                         let place = op.deref(bx.cx());
-                        let data_place = place.project_field(bx, 0);
-                        let meta_place = place.project_field(bx, 1);
+                        let data_place = place.trezoa_field(bx, 0);
+                        let meta_place = place.trezoa_field(bx, 1);
                         let meta = bx.load_operand(meta_place);
                         llfn = Some(meth::VirtualIndex::from_index(idx).get_fn(
                             bx,
@@ -1656,7 +1656,7 @@ impl<'a, 'tcx, Bx: BuilderMethods<'a, 'tcx>> FunctionCx<'a, 'tcx, Bx> {
             }
             let tuple_ptr = place_val.with_type(tuple.layout);
             for i in 0..tuple.layout.fields.count() {
-                let field_ptr = tuple_ptr.project_field(bx, i);
+                let field_ptr = tuple_ptr.trezoa_field(bx, i);
                 let field = bx.load_operand(field_ptr);
                 self.codegen_argument(bx, field, llargs, &args[i], lifetime_ends_after_call);
             }

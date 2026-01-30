@@ -29,7 +29,7 @@ unsafe fn simd_gather<V, M, P>(values: V, mask: M, pointer: P) -> V;
 #[no_mangle]
 pub unsafe extern "C" fn gather_f64x4(mask: m64x4, ptrs: pf64x4) -> f64x4 {
     // FIXME: This should also get checked to generate a gather instruction for avx2.
-    // Currently llvm scalarizes this code, see https://github.com/llvm/llvm-project/issues/59789
+    // Currently llvm scalarizes this code, see https://github.com/llvm/llvm-trezoa/issues/59789
     //
     // x86-avx512-NOT: vpsllq
     // x86-avx512: vpmovq2m k1, ymm0

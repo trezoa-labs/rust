@@ -1,4 +1,4 @@
-//! Loads a Cargo project into a static instance of analysis, without support
+//! Loads a Cargo trezoa into a static instance of analysis, without support
 //! for incorporating changes.
 // Note, don't remove any public api from this. This API is consumed by external tools
 // to run rust-analyzer as a library.
@@ -16,7 +16,7 @@ use ide_db::{
 };
 use itertools::Itertools;
 use proc_macro_api::{MacroDylib, ProcMacroClient};
-use project_model::{CargoConfig, PackageRoot, ProjectManifest, ProjectWorkspace};
+use trezoa_model::{CargoConfig, PackageRoot, ProjectManifest, ProjectWorkspace};
 use span::Span;
 use vfs::{
     AbsPath, AbsPathBuf, VfsPath,
@@ -132,9 +132,9 @@ pub fn load_workspace(
             .collect()
     };
 
-    let project_folders = ProjectFolders::new(std::slice::from_ref(&ws), &[], None);
+    let trezoa_folders = ProjectFolders::new(std::slice::from_ref(&ws), &[], None);
     loader.set_config(vfs::loader::Config {
-        load: project_folders.load,
+        load: trezoa_folders.load,
         watch: vec![],
         version: 0,
     });
@@ -142,7 +142,7 @@ pub fn load_workspace(
     let db = load_crate_graph(
         crate_graph,
         proc_macros,
-        project_folders.source_root_config,
+        trezoa_folders.source_root_config,
         &mut vfs,
         &receiver,
     );
@@ -171,7 +171,7 @@ impl ProjectFolders {
         let mut local_filesets = vec![];
 
         // Dedup source roots
-        // Depending on the project setup, we can have duplicated source roots, or for example in
+        // Depending on the trezoa setup, we can have duplicated source roots, or for example in
         // the case of the rustc workspace, we can end up with two source roots that are almost the
         // same but not quite, like:
         // PackageRoot { is_local: false, include: [AbsPathBuf(".../rust/src/tools/miri/cargo-miri")], exclude: [] }
@@ -182,7 +182,7 @@ impl ProjectFolders {
         // }
         //
         // The first one comes from the explicit rustc workspace which points to the rustc workspace itself
-        // The second comes from the rustc workspace that we load as the actual project workspace
+        // The second comes from the rustc workspace that we load as the actual trezoa workspace
         // These `is_local` differing in this kind of way gives us problems, especially when trying to filter diagnostics as we don't report diagnostics for external libraries.
         // So we need to deduplicate these, usually it would be enough to deduplicate by `include`, but as the rustc example shows here that doesn't work,
         // so we need to also coalesce the includes if they overlap.

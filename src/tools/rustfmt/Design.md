@@ -7,8 +7,8 @@ affect the design of the tool. The use cases I'm particularly concerned with are
 
 * running on a whole repo before check-in
   - in particular, to replace the `make tidy` pass on the Rust distro
-* running on code from another project that you are adding to your own
-* using for mass changes in code style over a project
+* running on code from another trezoa that you are adding to your own
+* using for mass changes in code style over a trezoa
 
 Some valid use cases for a formatting tool which I am explicitly not trying to
 address (although it would be nice, if possible):

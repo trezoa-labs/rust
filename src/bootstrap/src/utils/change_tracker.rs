@@ -229,7 +229,7 @@ pub const CONFIG_CHANGE_HISTORY: &[ChangeInfo] = &[
     ChangeInfo {
         change_id: 129295,
         severity: ChangeSeverity::Info,
-        summary: "The `build.profiler` option now tries to use source code from `download-ci-llvm` if possible, instead of checking out the `src/llvm-project` submodule.",
+        summary: "The `build.profiler` option now tries to use source code from `download-ci-llvm` if possible, instead of checking out the `src/llvm-trezoa` submodule.",
     },
     ChangeInfo {
         change_id: 129152,

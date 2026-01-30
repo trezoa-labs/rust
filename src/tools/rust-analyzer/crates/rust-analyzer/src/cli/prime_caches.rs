@@ -1,4 +1,4 @@
-//! Load the project and run cache priming.
+//! Load the trezoa and run cache priming.
 //!
 //! Unlike `analysis-stats`, this command is intended to be used for
 //! benchmarking rust-analyzer's default startup configuration. It *does not*
@@ -7,7 +7,7 @@
 
 use load_cargo::{LoadCargoConfig, ProcMacroServerChoice, load_workspace};
 use profile::StopWatch;
-use project_model::{ProjectManifest, ProjectWorkspace};
+use trezoa_model::{ProjectManifest, ProjectWorkspace};
 use vfs::AbsPathBuf;
 
 use crate::cli::flags;

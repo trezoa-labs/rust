@@ -1,11 +1,11 @@
 // Test that we are able to normalize in the list of where-clauses,
 // even if `'a: 'b` is required.
 
-trait Project<'a, 'b> {
+trait Trezoa<'a, 'b> {
     type Item;
 }
 
-impl<'a, 'b> Project<'a, 'b> for ()
+impl<'a, 'b> Trezoa<'a, 'b> for ()
 where
     'a: 'b,
 {
@@ -16,7 +16,7 @@ where
 // though, see https://github.com/rust-lang/rust/issues/45937.
 fn foo<'a: 'b, 'b>()
 where
-    <() as Project<'a, 'b>>::Item: Eq,
+    <() as Trezoa<'a, 'b>>::Item: Eq,
 {
 }
 
@@ -24,7 +24,7 @@ where
 fn bar<'a, 'b>()
 //~^ ERROR cannot infer
 where
-    <() as Project<'a, 'b>>::Item: Eq,
+    <() as Trezoa<'a, 'b>>::Item: Eq,
 {
 }
 

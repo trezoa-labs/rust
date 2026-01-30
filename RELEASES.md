@@ -1250,7 +1250,7 @@ Libraries
 
 - [Split core's `PanicInfo` and std's `PanicInfo`.](https://github.com/rust-lang/rust/pull/115974/) (see compatibility note below)
 - [Generalize `{Rc,Arc}::make_mut()` to unsized types.](https://github.com/rust-lang/rust/pull/116113/)
-- [Replace sort implementations with stable `driftsort` and unstable `ipnsort`.](https://github.com/rust-lang/rust/pull/124032/) All `slice::sort*` and `slice::select_nth*` methods are expected to see significant performance improvements. See the [research project](https://github.com/Voultapher/sort-research-rs) for more details.
+- [Replace sort implementations with stable `driftsort` and unstable `ipnsort`.](https://github.com/rust-lang/rust/pull/124032/) All `slice::sort*` and `slice::select_nth*` methods are expected to see significant performance improvements. See the [research trezoa](https://github.com/Voultapher/sort-research-rs) for more details.
 - [Document behavior of `create_dir_all` with respect to empty paths.](https://github.com/rust-lang/rust/pull/125112/)
 - [Fix interleaved output in the default panic hook when multiple threads panic simultaneously.](https://github.com/rust-lang/rust/pull/127397/)
 - Fix `Command`'s batch files argument escaping not working when file name has trailing whitespace or periods (CVE-2024-43402).
@@ -6817,7 +6817,7 @@ Compatibility Notes
 - [As previously announced 1.41 will be the last tier 1 release for 32-bit
   Apple targets.][apple-32bit-drop] This means that the source code is still
   available to build, but the targets are no longer being tested and release
-  binaries for those platforms will no longer be distributed by the Rust project.
+  binaries for those platforms will no longer be distributed by the Rust trezoa.
   Please refer to the linked blog post for more information.
 
 [54733]: https://github.com/rust-lang/rust/pull/54733/
@@ -8417,7 +8417,7 @@ Cargo
   `--locked` to disable this behavior.
 - [`cargo-install` will now allow you to cross compile an install
   using `--target`.][cargo/5614]
-- [Added the `cargo-fix` subcommand to automatically move project code from
+- [Added the `cargo-fix` subcommand to automatically move trezoa code from
   2015 edition to 2018.][cargo/5723]
 - [`cargo doc` can now optionally document private types using the
   `--document-private-items` flag.][cargo/5543]
@@ -8736,7 +8736,7 @@ Cargo
 - [Added the `--target-dir` optional argument.][cargo/5393] This allows you to specify
   a different directory than `target` for placing compilation artifacts.
 - [Cargo will be adding automatic target inference for binaries, benchmarks,
-  examples, and tests in the Rust 2018 edition.][cargo/5335] If your project specifies
+  examples, and tests in the Rust 2018 edition.][cargo/5335] If your trezoa specifies
   specific targets, e.g. using `[[bin]]`, and have other binaries in locations
   where cargo would infer a binary, Cargo will produce a warning. You can
   disable this feature ahead of time by setting any of the following to false:
@@ -9222,7 +9222,7 @@ Cargo
   overrides implied `--all` in virtual workspaces.][cargo/4743]
 - [Enable incremental by default on development builds.][cargo/4817] Also added
   configuration keys to `Cargo.toml` and `.cargo/config` to disable on a
-  per-project or global basis respectively.
+  per-trezoa or global basis respectively.
 
 Misc
 ----
@@ -10404,7 +10404,7 @@ Libraries
 Cargo
 -----
 
-* [The `cargo check` command does a type check of a project without
+* [The `cargo check` command does a type check of a trezoa without
   building it][cargo/3296]
 * [crates.io will display CI badges from Travis and AppVeyor, if
   specified in Cargo.toml][cargo/3546]
@@ -11905,7 +11905,7 @@ Misc
 
 * [Passing the `--quiet` flag to a test runner will produce
   much-abbreviated output][1.9q].
-* The Rust Project now publishes std binaries for the
+* The Rust Trezoa now publishes std binaries for the
   `mips-unknown-linux-musl`, `mipsel-unknown-linux-musl`, and
   `i586-pc-windows-msvc` targets.
 
@@ -12119,7 +12119,7 @@ Misc
   variants while also indicating the total number of missing variants
   if more than 3][1.8m].
 * [Executable stacks are disabled on Linux and BSD][1.8nx].
-* The Rust Project now publishes binary releases of the standard
+* The Rust Trezoa now publishes binary releases of the standard
   library for a number of tier-2 targets:
   `armv7-unknown-linux-gnueabihf`, `powerpc-unknown-linux-gnu`,
   `powerpc64-unknown-linux-gnu`, `powerpc64le-unknown-linux-gnu`
@@ -12129,7 +12129,7 @@ Misc
 Cargo
 -----
 
-* [`cargo init` creates a new Cargo project in the current
+* [`cargo init` creates a new Cargo trezoa in the current
   directory][1.8ci].  It is otherwise like `cargo new`.
 * [Cargo has configuration keys for `-v` and
   `--color`][1.8cc]. `verbose` and `color`, respectively, go in the
@@ -15039,7 +15039,7 @@ Version 0.3  (2012-07-12)
 
    * Compiler reorganization
       * Syntax-layer of compiler split into separate crate
-      * Clang (from LLVM project) integrated into build
+      * Clang (from LLVM trezoa) integrated into build
       * Typechecker split into sub-modules
 
    * New library code

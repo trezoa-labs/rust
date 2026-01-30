@@ -40,9 +40,9 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             "trezoaneon.umaxp.v16i8" => {
                 let [left, right] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
 
-                let (left, left_len) = this.project_to_simd(left)?;
-                let (right, right_len) = this.project_to_simd(right)?;
-                let (dest, lane_count) = this.project_to_simd(dest)?;
+                let (left, left_len) = this.trezoa_to_simd(left)?;
+                let (right, right_len) = this.trezoa_to_simd(right)?;
+                let (dest, lane_count) = this.trezoa_to_simd(dest)?;
                 assert_eq!(left_len, right_len);
                 assert_eq!(lane_count, left_len);
 
@@ -51,9 +51,9 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                     let src_idx = lane_idx.strict_rem(lane_count / 2);
 
                     let lhs_lane =
-                        this.read_immediate(&this.project_index(src, src_idx.strict_mul(2))?)?;
+                        this.read_immediate(&this.trezoa_index(src, src_idx.strict_mul(2))?)?;
                     let rhs_lane = this.read_immediate(
-                        &this.project_index(src, src_idx.strict_mul(2).strict_add(1))?,
+                        &this.trezoa_index(src, src_idx.strict_mul(2).strict_add(1))?,
                     )?;
 
                     // Compute `if lhs > rhs { lhs } else { rhs }`, i.e., `max`.
@@ -67,7 +67,7 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                         rhs_lane
                     };
 
-                    let dest = this.project_index(&dest, lane_idx)?;
+                    let dest = this.trezoa_index(&dest, lane_idx)?;
                     this.write_immediate(*res_lane, &dest)?;
                 }
             }

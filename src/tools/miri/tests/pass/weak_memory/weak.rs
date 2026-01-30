@@ -99,7 +99,7 @@ fn initialization_write(add_fence: bool) -> bool {
 }
 
 fn faa_replaced_by_load() -> bool {
-    // Example from https://github.com/llvm/llvm-project/issues/56450#issuecomment-1183695905
+    // Example from https://github.com/llvm/llvm-trezoa/issues/56450#issuecomment-1183695905
     #[no_mangle]
     pub fn rdmw(storing: &AtomicUsize, sync: &AtomicUsize, loading: &AtomicUsize) -> usize {
         storing.store(1, Relaxed);

@@ -9,8 +9,8 @@ pub(crate) fn target() -> Target {
 
     // x86_64h is core2-avx without a few of the features which would otherwise
     // be guaranteed, so we need to disable those. This imitates clang's logic:
-    // - https://github.com/llvm/llvm-project/blob/bd1f7c417/clang/lib/Driver/ToolChains/Arch/X86.cpp#L77-L78
-    // - https://github.com/llvm/llvm-project/blob/bd1f7c417/clang/lib/Driver/ToolChains/Arch/X86.cpp#L133-L141
+    // - https://github.com/llvm/llvm-trezoa/blob/bd1f7c417/clang/lib/Driver/ToolChains/Arch/X86.cpp#L77-L78
+    // - https://github.com/llvm/llvm-trezoa/blob/bd1f7c417/clang/lib/Driver/ToolChains/Arch/X86.cpp#L133-L141
     //
     // FIXME: Sadly, turning these off here disables them in such a way that they
     // aren't re-enabled by `-Ctarget-cpu=native` (on a machine that has them).

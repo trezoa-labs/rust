@@ -1,4 +1,4 @@
-use crate::support::{Project, Server};
+use crate::support::{Trezoa, Server};
 use crate::testdir::TestDir;
 use lsp_types::{
     DidChangeTextDocumentParams, DidOpenTextDocumentParams, DidSaveTextDocumentParams,
@@ -36,17 +36,17 @@ impl RatomlTest {
 
         let full_fixture = fixtures.join("\n");
 
-        let mut project = Project::with_fixture(&full_fixture).tmp_dir(tmp_dir);
+        let mut trezoa = Trezoa::with_fixture(&full_fixture).tmp_dir(tmp_dir);
 
         for root in roots {
-            project = project.root(root);
+            trezoa = trezoa.root(root);
         }
 
         if let Some(client_config) = client_config {
-            project = project.with_config(client_config);
+            trezoa = trezoa.with_config(client_config);
         }
 
-        let server = project.server_with_lock(true).wait_until_workspace_is_loaded();
+        let server = trezoa.server_with_lock(true).wait_until_workspace_is_loaded();
 
         let mut case = Self { urls: vec![], server, tmp_path };
         let urls = fixtures.iter().map(|fixture| case.fixture_path(fixture)).collect::<Vec<_>>();

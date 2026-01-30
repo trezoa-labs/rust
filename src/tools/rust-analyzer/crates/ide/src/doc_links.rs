@@ -522,7 +522,7 @@ fn map_links<'e>(
 /// ```ignore
 /// https://doc.rust-lang.org/std/iter/trait.Iterator.html#tymethod.next
 /// ^^^^^^^^^^^^^^^^^^^^^^^^^^
-/// file:///project/root/target/doc/std/iter/trait.Iterator.html#tymethod.next
+/// file:///trezoa/root/target/doc/std/iter/trait.Iterator.html#tymethod.next
 /// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /// ```
 fn get_doc_base_urls(

@@ -47,7 +47,7 @@ bug reporting system.
 ## Requirements
 
 The `x86_64-unknown-netbsd` artifacts is being distributed by the
-rust project.
+rust trezoa.
 
 The other targets are built by the target maintainers (see above),
 and the targets are initially cross-compiled, but many if not most

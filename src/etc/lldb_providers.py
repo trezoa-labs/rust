@@ -43,7 +43,7 @@ if TYPE_CHECKING:
 # You can find more information and examples here:
 #   1. https://lldb.llvm.org/varformats.html
 #   2. https://lldb.llvm.org/use/python-reference.html
-#   3. https://github.com/llvm/llvm-project/blob/llvmorg-8.0.1/lldb/www/python_reference/lldb.formatters.cpp-pysrc.html
+#   3. https://github.com/llvm/llvm-trezoa/blob/llvmorg-8.0.1/lldb/www/python_reference/lldb.formatters.cpp-pysrc.html
 #   4. https://github.com/llvm-mirror/lldb/tree/master/examples/summaries/cocoa
 ####################################################################################################
 
@@ -1315,7 +1315,7 @@ def StdNonZeroNumberSummaryProvider(valobj: SBValue, _dict: LLDBOpaque) -> str:
     inner_inner = inner.GetChildAtIndex(0)
 
     # FIXME: Avoid printing as character literal,
-    #        see https://github.com/llvm/llvm-project/issues/65076.
+    #        see https://github.com/llvm/llvm-trezoa/issues/65076.
     if inner_inner.GetTypeName() in ["char", "unsigned char"]:
         return str(inner_inner.GetValueAsSigned())
     else:

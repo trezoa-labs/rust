@@ -163,7 +163,7 @@ pub fn local_string_addr_taken(f: fn(&String)) {
     // We should have a __security_check_cookie call in `all` and `strong` modes but
     // LLVM does not support generating stack protectors in functions with funclet
     // based EH personalities.
-    // https://github.com/llvm/llvm-project/blob/37fd3c96b917096d8a550038f6e61cdf0fc4174f/llvm/lib/CodeGen/StackProtector.cpp#L103C1-L109C4
+    // https://github.com/llvm/llvm-trezoa/blob/37fd3c96b917096d8a550038f6e61cdf0fc4174f/llvm/lib/CodeGen/StackProtector.cpp#L103C1-L109C4
     // all-NOT: __security_check_cookie
     // strong-NOT: __security_check_cookie
 
@@ -356,7 +356,7 @@ pub fn unsized_fn_param(s: [u8], l: bool, f: fn([u8])) {
     // We should have a __security_check_cookie call in `all` and `strong` modes but
     // LLVM does not support generating stack protectors in functions with funclet
     // based EH personalities.
-    // https://github.com/llvm/llvm-project/blob/37fd3c96b917096d8a550038f6e61cdf0fc4174f/llvm/lib/CodeGen/StackProtector.cpp#L103C1-L109C4
+    // https://github.com/llvm/llvm-trezoa/blob/37fd3c96b917096d8a550038f6e61cdf0fc4174f/llvm/lib/CodeGen/StackProtector.cpp#L103C1-L109C4
     // all-NOT: __security_check_cookie
     // strong-NOT: __security_check_cookie
 

@@ -99,7 +99,7 @@ pub(crate) enum ModuleFlagMergeBehavior {
 
 /// LLVM CallingConv::ID. Should we wrap this?
 ///
-/// See <https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/IR/CallingConv.h>
+/// See <https://github.com/llvm/llvm-trezoa/blob/main/llvm/include/llvm/IR/CallingConv.h>
 #[derive(Copy, Clone, PartialEq, Debug, TryFromU32)]
 #[repr(C)]
 pub(crate) enum CallConv {

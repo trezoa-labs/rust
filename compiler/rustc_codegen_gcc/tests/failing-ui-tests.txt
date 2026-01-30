@@ -30,7 +30,7 @@ tests/ui/async-await/deep-futures-are-freeze.rs
 tests/ui/coroutine/resume-after-return.rs
 tests/ui/simd/masked-load-store.rs
 tests/ui/simd/repr_packed.rs
-tests/ui/async-await/in-trait/dont-project-to-specializable-projection.rs
+tests/ui/async-await/in-trait/dont-trezoa-to-specializable-projection.rs
 tests/ui/consts/try-operator.rs
 tests/ui/coroutine/unwind-abort-mix.rs
 tests/ui/consts/issue-miri-1910.rs

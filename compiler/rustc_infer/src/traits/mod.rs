@@ -3,7 +3,7 @@
 //! [rustc-dev-guide]: https://rustc-dev-guide.rust-lang.org/traits/resolution.html
 
 mod engine;
-mod project;
+mod trezoa;
 mod structural_impls;
 pub mod util;
 
@@ -23,8 +23,8 @@ use thin_vec::ThinVec;
 pub use self::ImplSource::*;
 pub use self::SelectionError::*;
 pub use self::engine::{FromSolverError, ScrubbedTraitError, TraitEngine};
-pub(crate) use self::project::UndoLog;
-pub use self::project::{
+pub(crate) use self::trezoa::UndoLog;
+pub use self::trezoa::{
     MismatchedProjectionTypes, Normalized, NormalizedTerm, ProjectionCache, ProjectionCacheEntry,
     ProjectionCacheKey, ProjectionCacheStorage,
 };

@@ -5,8 +5,8 @@ use std::mem;
 use cfg::{CfgAtom, CfgExpr};
 use hir::sym;
 use ide::{Cancellable, Crate, FileId, RunnableKind, TestId};
-use project_model::project_json::Runnable;
-use project_model::{CargoFeatures, ManifestPath, TargetKind};
+use trezoa_model::trezoa_json::Runnable;
+use trezoa_model::{CargoFeatures, ManifestPath, TargetKind};
 use rustc_hash::FxHashSet;
 use vfs::AbsPathBuf;
 
@@ -38,7 +38,7 @@ impl TargetSpec {
     pub(crate) fn target_kind(&self) -> TargetKind {
         match self {
             TargetSpec::Cargo(cargo) => cargo.target_kind,
-            TargetSpec::ProjectJson(project_json) => project_json.target_kind,
+            TargetSpec::ProjectJson(trezoa_json) => trezoa_json.target_kind,
         }
     }
 }
@@ -72,7 +72,7 @@ impl ProjectJsonTargetSpec {
         match kind {
             RunnableKind::Bin => {
                 for runnable in &self.shell_runnables {
-                    if matches!(runnable.kind, project_model::project_json::RunnableKind::Run) {
+                    if matches!(runnable.kind, trezoa_model::trezoa_json::RunnableKind::Run) {
                         return Some(runnable.clone());
                     }
                 }
@@ -81,7 +81,7 @@ impl ProjectJsonTargetSpec {
             }
             RunnableKind::Test { test_id, .. } => {
                 for runnable in &self.shell_runnables {
-                    if matches!(runnable.kind, project_model::project_json::RunnableKind::TestOne) {
+                    if matches!(runnable.kind, trezoa_model::trezoa_json::RunnableKind::TestOne) {
                         let mut runnable = runnable.clone();
 
                         let replaced_args: Vec<_> = runnable

@@ -43,7 +43,7 @@ svg.external-link {
 </style>
 
 Welcome to an overview of the documentation provided by the [Rust
-project]. This page contains links to various helpful references,
+trezoa]. This page contains links to various helpful references,
 most of which are available offline (if opened with `rustup doc`). Many of these
 resources take the form of "books"; we collectively call these "The Rust
 Bookshelf." Some are large, some are small.
@@ -109,7 +109,7 @@ opens the sample in the playground.
 ### Your Personal Documentation
 
 Whenever you are working in a crate, `cargo doc --open` will generate
-documentation for your project _and_ all its dependencies in their correct
+documentation for your trezoa _and_ all its dependencies in their correct
 version, and open it in your browser. Add the flag `--document-private-items` to
 also show items not marked `pub`.
 
@@ -199,7 +199,7 @@ development and familiar with Rust, but have not used Rust for embedded
 development.
 
 [The Embedded Rust Book]: embedded-book/index.html
-[Rust project]: https://www.rust-lang.org
+[Rust trezoa]: https://www.rust-lang.org
 
 <script>
 // check if a given link is external

@@ -485,7 +485,7 @@ fn get_perf_data_filename(source_path: &Path) -> String {
     String::from("perf.data")
 }
 
-/// Returns the path to the Clippy project directory
+/// Returns the path to the Clippy trezoa directory
 #[must_use]
 fn clippy_project_root() -> &'static Path {
     Path::new(env!("CARGO_MANIFEST_DIR")).parent().unwrap()

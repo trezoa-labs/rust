@@ -39,9 +39,9 @@ Commands:
         rustc     : Compiles the program using the GCC compiler.
         clean     : Cleans the build directory, removing all compiled files and artifacts.
         prepare   : Prepares the environment for building, including fetching dependencies and setting up configurations.
-        build     : Compiles the project.
-        test      : Runs tests for the project.
-        info      : Displays information about the build environment and project configuration.
+        build     : Compiles the trezoa.
+        test      : Runs tests for the trezoa.
+        info      : Displays information about the build environment and trezoa configuration.
         clone-gcc : Clones the GCC compiler from a specified source.
         fmt       : Runs rustfmt
         fuzz      : Fuzzes `cg_gcc` using rustlantis"

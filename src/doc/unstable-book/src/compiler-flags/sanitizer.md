@@ -626,7 +626,7 @@ The LLVM Kernel Control Flow Integrity (CFI) support to the Rust compiler
 initially provides forward-edge control flow protection for operating systems
 kernels for Rust-compiled code only by aggregating function pointers in groups
 identified by their return and parameter types. (See [LLVM commit cff5bef "KCFI
-sanitizer"](https://github.com/llvm/llvm-project/commit/cff5bef948c91e4919de8a5fb9765e0edc13f3de).)
+sanitizer"](https://github.com/llvm/llvm-trezoa/commit/cff5bef948c91e4919de8a5fb9765e0edc13f3de).)
 
 Forward-edge control flow protection for C or C++ and Rust -compiled code "mixed
 binaries" (i.e., for when C or C++ and Rust -compiled code share the same
@@ -736,7 +736,7 @@ $ cargo run -Zbuild-std --target x86_64-unknown-linux-gnu
     #0 0x560c04f7488a in core::fmt::num::imp::fmt_u64::haa293b0b098501ca $RUST/build/x86_64-unknown-linux-gnu/stage1/lib/rustlib/src/rust/src/libcore/fmt/num.rs:202:16
 ...
   Uninitialized value was stored to memory at
-    #0 0x560c04ae898a in __msan_memcpy.part.0 $RUST/src/llvm-project/compiler-rt/lib/msan/msan_interceptors.cc:1558:3
+    #0 0x560c04ae898a in __msan_memcpy.part.0 $RUST/src/llvm-trezoa/compiler-rt/lib/msan/msan_interceptors.cc:1558:3
     #1 0x560c04b2bf88 in memory::main::hd2333c1899d997f5 $CWD/src/main.rs:6:16
 
   Uninitialized value was created by an allocation of 'a' in the stack frame of function '_ZN6memory4main17hd2333c1899d997f5E'
@@ -908,7 +908,7 @@ Sanitizers produce symbolized stacktraces when llvm-symbolizer binary is in `PAT
 
 # Additional Information
 
-* [Sanitizers project page](https://github.com/google/sanitizers/wiki/)
+* [Sanitizers trezoa page](https://github.com/google/sanitizers/wiki/)
 * [AddressSanitizer in Clang][clang-asan]
 * [ControlFlowIntegrity in Clang][clang-cfi]
 * [DataFlowSanitizer in Clang][clang-dataflow]

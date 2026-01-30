@@ -457,10 +457,10 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
         // The status block value and the returned value don't need to match - but
         // for the cases implemented by miri so far, we can choose to decide that they do.
         let io_status = {
-            let anon = this.project_field_named(&io_status_block, "Anonymous")?;
-            this.project_field_named(&anon, "Status")?
+            let anon = this.trezoa_field_named(&io_status_block, "Anonymous")?;
+            this.trezoa_field_named(&anon, "Status")?
         };
-        let io_status_info = this.project_field_named(&io_status_block, "Information")?;
+        let io_status_info = this.trezoa_field_named(&io_status_block, "Information")?;
 
         let finish = {
             let io_status = io_status.clone();
@@ -551,10 +551,10 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
 
         // See NtWriteFile above for commentary on this
         let io_status = {
-            let anon = this.project_field_named(&io_status_block, "Anonymous")?;
-            this.project_field_named(&anon, "Status")?
+            let anon = this.trezoa_field_named(&io_status_block, "Anonymous")?;
+            this.trezoa_field_named(&anon, "Status")?
         };
-        let io_status_info = this.project_field_named(&io_status_block, "Information")?;
+        let io_status_info = this.trezoa_field_named(&io_status_block, "Information")?;
 
         let finish = {
             let io_status = io_status.clone();
@@ -678,6 +678,6 @@ fn write_filetime_field<'tcx>(
 ) -> InterpResult<'tcx> {
     cx.write_int_fields_named(
         &[("dwLowDateTime", low.into()), ("dwHighDateTime", high.into())],
-        &cx.project_field_named(val, name)?,
+        &cx.trezoa_field_named(val, name)?,
     )
 }

@@ -47,7 +47,7 @@ A `dylib` is a platform-specific shared library. It includes the `rustc`
 ### rmeta
 
 An `rmeta` file is a custom binary format that contains the [metadata] for the
-crate. This file can be used for fast "checks" of a project by skipping all code
+crate. This file can be used for fast "checks" of a trezoa by skipping all code
 generation (as is done with `cargo check`), collecting enough information for
 documentation (as is done with `cargo doc`), or for [pipelining](#pipelining).
 This file is created if the [`--emit=metadata`][emit] CLI option is used.

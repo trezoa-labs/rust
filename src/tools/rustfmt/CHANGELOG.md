@@ -893,7 +893,7 @@ from formatting an attribute #3665
 ### Changed
 
 - `ignore` configuration option now only supports paths separated by `/`. Windows-style paths are not supported.
-- Running `cargo fmt` in a sub-directory of a project is now supported.
+- Running `cargo fmt` in a sub-directory of a trezoa is now supported.
 
 ### Fixed
 

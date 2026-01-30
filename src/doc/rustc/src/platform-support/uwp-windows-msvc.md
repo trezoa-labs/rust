@@ -32,7 +32,7 @@ these targets, you will either need to build Rust with the targets enabled (see
 "Building the targets" above), or build your own copy of `std` by using
 `build-std` or similar.
 
-Example of building a Rust project for x64 UWP using `build-std`:
+Example of building a Rust trezoa for x64 UWP using `build-std`:
 
 ```pwsh
 cargo build -Z build-std=std,panic_abort --target x86_64-uwp-windows-msvc

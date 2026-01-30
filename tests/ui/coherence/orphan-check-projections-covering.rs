@@ -8,15 +8,15 @@
 //@ aux-crate:foreign=parametrized-trait.rs
 //@ edition:2021
 
-trait Project { type Output; }
+trait Trezoa { type Output; }
 
-impl<T> Project for Wrapper<T> {
+impl<T> Trezoa for Wrapper<T> {
     type Output = Local;
 }
 
 struct Wrapper<T>(T);
 struct Local;
 
-impl<T> foreign::Trait1<Local, T> for <Wrapper<T> as Project>::Output {}
+impl<T> foreign::Trait1<Local, T> for <Wrapper<T> as Trezoa>::Output {}
 
 fn main() {}

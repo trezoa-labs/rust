@@ -357,7 +357,7 @@ mod c {
                 // FIXME(llvm20): Older GCCs on A64 fail to build with
                 // -Werror=implicit-function-declaration due to a compiler-rt bug.
                 // With a newer LLVM we should be able to enable the flag everywhere.
-                // https://github.com/llvm/llvm-project/commit/8aa9d6206ce55bdaaf422839c351fbd63f033b89
+                // https://github.com/llvm/llvm-trezoa/commit/8aa9d6206ce55bdaaf422839c351fbd63f033b89
             } else {
                 // Avoid implicitly creating references to undefined functions
                 cfg.flag("-Werror=implicit-function-declaration");
@@ -616,7 +616,7 @@ mod c {
 
         // When compiling the C code we require the user to tell us where the
         // source code is, and this is largely done so when we're compiling as
-        // part of rust-lang/rust we can use the same llvm-project repository as
+        // part of rust-lang/rust we can use the same llvm-trezoa repository as
         // rust-lang/rust.
         let root = match env::var_os("RUST_COMPILER_RT_ROOT") {
             Some(s) => PathBuf::from(s),

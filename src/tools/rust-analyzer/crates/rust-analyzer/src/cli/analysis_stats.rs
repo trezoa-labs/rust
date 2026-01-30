@@ -1,4 +1,4 @@
-//! Fully type-check project and print various stats, like the number of type
+//! Fully type-check trezoa and print various stats, like the number of type
 //! errors.
 
 use std::{
@@ -31,7 +31,7 @@ use itertools::Itertools;
 use load_cargo::{LoadCargoConfig, ProcMacroServerChoice, load_workspace};
 use oorandom::Rand32;
 use profile::StopWatch;
-use project_model::{CargoConfig, CfgOverrides, ProjectManifest, ProjectWorkspace, RustLibSource};
+use trezoa_model::{CargoConfig, CfgOverrides, ProjectManifest, ProjectWorkspace, RustLibSource};
 use rayon::prelude::*;
 use rustc_hash::{FxHashMap, FxHashSet};
 use syntax::AstNode;
@@ -138,7 +138,7 @@ impl flags::AnalysisStats {
             for file_id in source_root.iter() {
                 if let Some(p) = source_root.path_for_file(&file_id) {
                     if let Some((_, Some("rs"))) = p.name_and_extension() {
-                        // measure workspace/project code
+                        // measure workspace/trezoa code
                         if !source_root.is_library || self.with_deps {
                             let length = db.file_text(file_id).text(db).lines().count();
                             let item_stats = db

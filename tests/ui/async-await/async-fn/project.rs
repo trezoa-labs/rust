@@ -8,8 +8,8 @@
 
 use std::ops::AsyncFn;
 
-fn project<F: AsyncFn<()>>(_: F) -> Option<F::Output> { None }
+fn trezoa<F: AsyncFn<()>>(_: F) -> Option<F::Output> { None }
 
 fn main() {
-    let x: Option<i32> = project(|| async { 1i32 });
+    let x: Option<i32> = trezoa(|| async { 1i32 });
 }

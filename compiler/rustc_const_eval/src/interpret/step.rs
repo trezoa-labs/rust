@@ -302,7 +302,7 @@ impl<'tcx, M: Machine<'tcx>> InterpCx<'tcx, M> {
         self.write_uninit(dest)?; // make sure all the padding ends up as uninit
         let (variant_index, variant_dest, active_field_index) = match *kind {
             mir::AggregateKind::Adt(_, variant_index, _, _, active_field_index) => {
-                let variant_dest = self.project_downcast(dest, variant_index)?;
+                let variant_dest = self.trezoa_downcast(dest, variant_index)?;
                 (variant_index, variant_dest, active_field_index)
             }
             mir::AggregateKind::RawPtr(..) => {
@@ -333,7 +333,7 @@ impl<'tcx, M: Machine<'tcx>> InterpCx<'tcx, M> {
         }
         for (field_index, operand) in operands.iter_enumerated() {
             let field_index = active_field_index.unwrap_or(field_index);
-            let field_dest = self.project_field(&variant_dest, field_index)?;
+            let field_dest = self.trezoa_field(&variant_dest, field_index)?;
             let op = self.eval_operand(operand, Some(field_dest.layout))?;
             self.copy_op(&op, &field_dest)?;
         }
@@ -357,7 +357,7 @@ impl<'tcx, M: Machine<'tcx>> InterpCx<'tcx, M> {
             self.get_place_alloc_mut(&dest)?;
         } else {
             // Write the src to the first element.
-            let first = self.project_index(&dest, 0)?;
+            let first = self.trezoa_index(&dest, 0)?;
             self.copy_op(&src, &first)?;
 
             // This is performance-sensitive code for big static/const arrays! So we

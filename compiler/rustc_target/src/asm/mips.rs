@@ -45,7 +45,7 @@ impl MipsInlineAsmRegClass {
 }
 
 // The reserved registers are somewhat taken from
-// <https://github.com/llvm/llvm-project/blob/deb8f8bcf31540c657716ea5242183b0792702a1/llvm/lib/Target/Mips/MipsRegisterInfo.cpp#L150>.
+// <https://github.com/llvm/llvm-trezoa/blob/deb8f8bcf31540c657716ea5242183b0792702a1/llvm/lib/Target/Mips/MipsRegisterInfo.cpp#L150>.
 def_regs! {
     Mips MipsInlineAsmReg MipsInlineAsmRegClass {
         r2: reg = ["$2"],

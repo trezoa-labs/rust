@@ -98,7 +98,7 @@ impl NameToImport {
     }
 }
 
-/// A struct to find imports in the project, given a certain name (or its part) and the context.
+/// A struct to find imports in the trezoa, given a certain name (or its part) and the context.
 #[derive(Debug)]
 pub struct ImportAssets {
     import_candidate: ImportCandidate,

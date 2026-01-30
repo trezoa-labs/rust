@@ -194,7 +194,7 @@ That's why the `else_if_without_else` example uses the `register_early_pass` fun
 Clippy is following the [Rust triage procedure][triage] for issues and pull
 requests.
 
-However, we are a smaller project with all contributors being volunteers
+However, we are a smaller trezoa with all contributors being volunteers
 currently. Between writing new lints, fixing issues, reviewing pull requests and
 responding to issues there may not always be enough time to stay on top of it
 all.

@@ -36,7 +36,7 @@ declare_clippy_lint! {
     ///
     /// ### Default Ordering and Configuration
     ///
-    /// As there is no generally applicable rule, and each project may have
+    /// As there is no generally applicable rule, and each trezoa may have
     /// different requirements, the lint can be configured with high
     /// granularity. The configuration is split into two stages:
     ///
@@ -66,7 +66,7 @@ declare_clippy_lint! {
     /// | `lower_snake_case` | "fn"                 |
     ///
     /// The groups' names are arbitrary and can be changed to suit the
-    /// conventions that should be enforced for a specific project.
+    /// conventions that should be enforced for a specific trezoa.
     ///
     /// All item kinds must be accounted for to create an enforceable linting
     /// rule set. Following are some example configurations that may be useful.

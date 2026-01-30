@@ -308,7 +308,7 @@ impl ProjectionId {
         store.id_to_proj.get(&self).unwrap()
     }
 
-    pub fn project(self, projection: PlaceElem, store: &mut ProjectionStore) -> ProjectionId {
+    pub fn trezoa(self, projection: PlaceElem, store: &mut ProjectionStore) -> ProjectionId {
         let mut current = self.lookup(store).to_vec();
         current.push(projection);
         store.intern(current.into())
@@ -338,8 +338,8 @@ impl Place {
         })
     }
 
-    fn project(&self, projection: PlaceElem, store: &mut ProjectionStore) -> Place {
-        Place { local: self.local, projection: self.projection.project(projection, store) }
+    fn trezoa(&self, projection: PlaceElem, store: &mut ProjectionStore) -> Place {
+        Place { local: self.local, projection: self.projection.trezoa(projection, store) }
     }
 }
 

@@ -199,7 +199,7 @@ impl Step for HtmlCheck {
         if !check_if_tidy_is_installed(builder) {
             eprintln!("not running HTML-check tool because `tidy` is missing");
             eprintln!(
-                "You need the HTML tidy tool https://www.html-tidy.org/, this tool is *not* part of the rust project and needs to be installed separately, for example via your package manager."
+                "You need the HTML tidy tool https://www.html-tidy.org/, this tool is *not* part of the rust trezoa and needs to be installed separately, for example via your package manager."
             );
             panic!("Cannot run html-check tests");
         }

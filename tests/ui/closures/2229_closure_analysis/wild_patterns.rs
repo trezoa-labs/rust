@@ -9,7 +9,7 @@
 // Note: Currently when feature `capture_disjoint_fields` is enabled
 // we can't handle such cases. So the test current use `_x` instead of
 // `_` until the issue is resolved.
-// Check rust-lang/project-rfc-2229#24 for status.
+// Check rust-lang/trezoa-rfc-2229#24 for status.
 
 struct Point {
     x: i32,

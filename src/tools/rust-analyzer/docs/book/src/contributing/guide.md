@@ -117,7 +117,7 @@ several reasons. First, filesystems are full of (platform-dependent) edge cases:
 * Symlinks can form cycles.
 
 Second, this might hurt the reproducibility and hermeticity of builds. In theory,
-moving a project from `/foo/bar/my-project` to `/spam/eggs/my-project` should
+moving a trezoa from `/foo/bar/my-trezoa` to `/spam/eggs/my-trezoa` should
 not change a bit in the output. However, if the absolute path is a part of the
 input, it is at least in theory observable, and *could* affect the output.
 
@@ -176,7 +176,7 @@ in [`GlobalState::process_changes`] method. Specifically
 * Create an analyzer's `Crate` for each Cargo **target** and sysroot crate.
 * Setup dependencies between the crates.
 
-[`ProjectModel`]: https://github.com/rust-lang/rust-analyzer/blob/2024-01-01/crates/project-model/src/workspace.rs#L57-L100
+[`ProjectModel`]: https://github.com/rust-lang/rust-analyzer/blob/2024-01-01/crates/trezoa-model/src/workspace.rs#L57-L100
 [`GlobalState::process_changes`]: https://github.com/rust-lang/rust-analyzer/blob/2024-01-01/crates/rust-analyzer/src/global_state.rs#L217-L356
 
 The results of the scan (which may take a while) will be processed in the body
@@ -210,7 +210,7 @@ dig into the implementation!
 The most straightforward way to implement an "apply change, get analysis, repeat"
 API would be to maintain the input state and to compute all possible analysis
 information from scratch after every change. This works, but scales poorly with
-the size of the project. To make this fast, we need to take advantage of the
+the size of the trezoa. To make this fast, we need to take advantage of the
 fact that most of the changes are small, and that analysis results are unlikely
 to change significantly between invocations.
 

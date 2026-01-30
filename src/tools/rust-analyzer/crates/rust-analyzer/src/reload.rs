@@ -1,16 +1,16 @@
-//! Project loading & configuration updates.
+//! Trezoa loading & configuration updates.
 //!
 //! This is quite tricky. The main problem is time and changes -- there's no
-//! fixed "project" rust-analyzer is working with, "current project" is itself
+//! fixed "trezoa" rust-analyzer is working with, "current trezoa" is itself
 //! mutable state. For example, when the user edits `Cargo.toml` by adding a new
-//! dependency, project model changes. What's more, switching project model is
+//! dependency, trezoa model changes. What's more, switching trezoa model is
 //! not instantaneous -- it takes time to run `cargo metadata` and (for proc
 //! macros) `cargo check`.
 //!
 //! The main guiding principle here is, as elsewhere in rust-analyzer,
-//! robustness. We try not to assume that the project model exists or is
+//! robustness. We try not to assume that the trezoa model exists or is
 //! correct. Instead, we try to provide a best-effort service. Even if the
-//! project is currently loading and we don't have a full project model, we
+//! trezoa is currently loading and we don't have a full trezoa model, we
 //! still want to respond to various  requests.
 // FIXME: This is a mess that needs some untangling work
 use std::{iter, mem};
@@ -24,7 +24,7 @@ use itertools::Itertools;
 use load_cargo::{ProjectFolders, load_proc_macro};
 use lsp_types::FileSystemWatcher;
 use proc_macro_api::ProcMacroClient;
-use project_model::{ManifestPath, ProjectWorkspace, ProjectWorkspaceKind, WorkspaceBuildScripts};
+use trezoa_model::{ManifestPath, ProjectWorkspace, ProjectWorkspaceKind, WorkspaceBuildScripts};
 use stdx::{format_to, thread::ThreadIntent};
 use triomphe::Arc;
 use vfs::{AbsPath, AbsPathBuf, ChangeKind};
@@ -80,7 +80,7 @@ impl GlobalState {
     /// Is the server ready to respond to analysis dependent LSP requests?
     ///
     /// Unlike `is_quiescent`, this returns false when we're indexing
-    /// the project, because we're holding the salsa lock and cannot
+    /// the trezoa, because we're holding the salsa lock and cannot
     /// respond to LSP requests that depend on salsa data.
     fn is_fully_ready(&self) -> bool {
         self.is_quiescent() && !self.prime_caches_queue.op_in_progress()
@@ -167,12 +167,12 @@ impl GlobalState {
 
             if self.config.has_linked_projects() {
                 message.push_str(
-                    "`rust-analyzer.linkedProjects` have been specified, which may be incorrect. Specified project paths:\n",
+                    "`rust-analyzer.linkedProjects` have been specified, which may be incorrect. Specified trezoa paths:\n",
                 );
                 message
                     .push_str(&format!("    {}", self.config.linked_manifests().format("\n    ")));
                 if self.config.has_linked_project_jsons() {
-                    message.push_str("\nAdditionally, one or more project jsons are specified")
+                    message.push_str("\nAdditionally, one or more trezoa jsons are specified")
                 }
             }
             message.push_str("\n\n");
@@ -291,7 +291,7 @@ impl GlobalState {
                 sender.send(Task::FetchWorkspace(ProjectWorkspaceProgress::Begin)).unwrap();
 
                 if let (Some(_command), Some(path)) = (&discover_command, &path) {
-                    let build = linked_projects.iter().find_map(|project| match project {
+                    let build = linked_projects.iter().find_map(|trezoa| match trezoa {
                         LinkedProject::InlineProjectJson(it) => it.crate_by_buildfile(path),
                         _ => None,
                     });
@@ -308,18 +308,18 @@ impl GlobalState {
 
                 let mut workspaces = linked_projects
                     .iter()
-                    .map(|project| match project {
+                    .map(|trezoa| match trezoa {
                         LinkedProject::ProjectManifest(manifest) => {
-                            debug!(path = %manifest, "loading project from manifest");
+                            debug!(path = %manifest, "loading trezoa from manifest");
 
-                            project_model::ProjectWorkspace::load(
+                            trezoa_model::ProjectWorkspace::load(
                                 manifest.clone(),
                                 &cargo_config,
                                 &progress,
                             )
                         }
                         LinkedProject::InlineProjectJson(it) => {
-                            let workspace = project_model::ProjectWorkspace::load_inline(
+                            let workspace = trezoa_model::ProjectWorkspace::load_inline(
                                 it.clone(),
                                 &cargo_config,
                                 &progress,
@@ -344,7 +344,7 @@ impl GlobalState {
                 }
 
                 if !detached_files.is_empty() {
-                    workspaces.extend(project_model::ProjectWorkspace::load_detached_files(
+                    workspaces.extend(trezoa_model::ProjectWorkspace::load_detached_files(
                         detached_files,
                         &cargo_config,
                     ));
@@ -590,10 +590,10 @@ impl GlobalState {
                         .collect()
                 };
 
-            // Also explicitly watch any build files configured in JSON project files.
+            // Also explicitly watch any build files configured in JSON trezoa files.
             for ws in self.workspaces.iter() {
-                if let ProjectWorkspaceKind::Json(project_json) = &ws.kind {
-                    for (_, krate) in project_json.crates() {
+                if let ProjectWorkspaceKind::Json(trezoa_json) = &ws.kind {
+                    for (_, krate) in trezoa_json.crates() {
                         let Some(build) = &krate.build else {
                             continue;
                         };
@@ -631,7 +631,7 @@ impl GlobalState {
         }
 
         let files_config = self.config.files();
-        let project_folders = ProjectFolders::new(
+        let trezoa_folders = ProjectFolders::new(
             &self.workspaces,
             &files_config.exclude,
             Config::user_config_dir_path().as_deref(),
@@ -685,15 +685,15 @@ impl GlobalState {
 
         let watch = match files_config.watcher {
             FilesWatcher::Client => vec![],
-            FilesWatcher::Server => project_folders.watch,
+            FilesWatcher::Server => trezoa_folders.watch,
         };
         self.vfs_config_version += 1;
         self.loader.handle.set_config(vfs::loader::Config {
-            load: project_folders.load,
+            load: trezoa_folders.load,
             watch,
             version: self.vfs_config_version,
         });
-        self.source_root_config = project_folders.source_root_config;
+        self.source_root_config = trezoa_folders.source_root_config;
         self.local_roots_parent_map = Arc::new(self.source_root_config.source_root_parent_map());
 
         info!(?cause, "recreating the crate graph");
@@ -865,12 +865,12 @@ impl GlobalState {
                                     cargo: Some((cargo, _, _)),
                                     ..
                                 } => (cargo.workspace_root(), Some(cargo.manifest_path())),
-                                ProjectWorkspaceKind::Json(project) => {
+                                ProjectWorkspaceKind::Json(trezoa) => {
                                     // Enable flychecks for json projects if a custom flycheck command was supplied
                                     // in the workspace configuration.
                                     match config {
                                         FlycheckConfig::CustomCommand { .. } => {
-                                            (project.path(), None)
+                                            (trezoa.path(), None)
                                         }
                                         _ => return None,
                                     }

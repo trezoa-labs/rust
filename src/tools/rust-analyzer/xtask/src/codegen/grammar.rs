@@ -20,14 +20,14 @@ use ungrammar::{Grammar, Rule};
 
 use crate::{
     codegen::{add_preamble, ensure_file_contents, grammar::ast_src::generate_kind_src, reformat},
-    project_root,
+    trezoa_root,
 };
 
 mod ast_src;
 use self::ast_src::{AstEnumSrc, AstNodeSrc, AstSrc, Cardinality, Field, KindsSrc};
 
 pub(crate) fn generate(check: bool) {
-    let grammar = fs::read_to_string(project_root().join("crates/syntax/rust.ungram"))
+    let grammar = fs::read_to_string(trezoa_root().join("crates/syntax/rust.ungram"))
         .unwrap()
         .parse()
         .unwrap();
@@ -35,7 +35,7 @@ pub(crate) fn generate(check: bool) {
     let kinds_src = generate_kind_src(&ast.nodes, &ast.enums, &grammar);
 
     let syntax_kinds = generate_syntax_kinds(kinds_src);
-    let syntax_kinds_file = project_root().join("crates/parser/src/syntax_kind/generated.rs");
+    let syntax_kinds_file = trezoa_root().join("crates/parser/src/syntax_kind/generated.rs");
     ensure_file_contents(
         crate::flags::CodegenType::Grammar,
         syntax_kinds_file.as_path(),
@@ -44,7 +44,7 @@ pub(crate) fn generate(check: bool) {
     );
 
     let ast_tokens = generate_tokens(&ast);
-    let ast_tokens_file = project_root().join("crates/syntax/src/ast/generated/tokens.rs");
+    let ast_tokens_file = trezoa_root().join("crates/syntax/src/ast/generated/tokens.rs");
     ensure_file_contents(
         crate::flags::CodegenType::Grammar,
         ast_tokens_file.as_path(),
@@ -53,7 +53,7 @@ pub(crate) fn generate(check: bool) {
     );
 
     let ast_nodes = generate_nodes(kinds_src, &ast);
-    let ast_nodes_file = project_root().join("crates/syntax/src/ast/generated/nodes.rs");
+    let ast_nodes_file = trezoa_root().join("crates/syntax/src/ast/generated/nodes.rs");
     ensure_file_contents(
         crate::flags::CodegenType::Grammar,
         ast_nodes_file.as_path(),

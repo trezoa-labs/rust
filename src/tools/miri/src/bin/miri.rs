@@ -124,7 +124,7 @@ fn entry_fn(tcx: TyCtxt<'_>) -> (DefId, MiriEntryFnType) {
             #[cfg(miri)]\n\
             #[unsafe(no_mangle)]\n\
             fn miri_start(argc: isize, argv: *const *const u8) -> isize {\
-            \n    // Call the actual start function that your project implements, based on your target's conventions.\n\
+            \n    // Call the actual start function that your trezoa implements, based on your target's conventions.\n\
             }"
         );
     }

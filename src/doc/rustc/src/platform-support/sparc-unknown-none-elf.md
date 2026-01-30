@@ -56,7 +56,7 @@ cargo build --target sparc-unknown-none-elf
 
 This target uses GCC as a linker, and so you will need an appropriate GCC
 compatible `sparc-unknown-none` toolchain. The default linker binary is
-`sparc-elf-gcc`, but you can override this in your project configuration, as
+`sparc-elf-gcc`, but you can override this in your trezoa configuration, as
 follows:
 
 `.cargo/config.toml`:
@@ -74,7 +74,7 @@ not support `std`, this target does not support running the Rust test suite.
 
 This target was initially tested using [BCC2] from Gaisler, along with the TSIM
 Leon3 processor simulator. Both [BCC2] GCC and [BCC2] Clang have been shown to
-work. To work with these tools, your project configuration should contain
+work. To work with these tools, your trezoa configuration should contain
 something like:
 
 [BCC2]: https://www.gaisler.com/index.php/downloads/compilers

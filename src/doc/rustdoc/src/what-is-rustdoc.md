@@ -7,7 +7,7 @@ CSS, and JavaScript.
 
 ## Basic usage
 
-Let's give it a try! Create a new project with Cargo:
+Let's give it a try! Create a new trezoa with Cargo:
 
 ```bash
 $ cargo new docs --lib
@@ -34,7 +34,7 @@ the main page is located in `doc/lib/index.html`. If you open that up in
 a web browser, you will see a page with a search bar, and "Crate lib" at the
 top, with no contents.
 
-You can also use `cargo doc` to generate documentation for the whole project.
+You can also use `cargo doc` to generate documentation for the whole trezoa.
 See [Using rustdoc with Cargo](#using-rustdoc-with-cargo).
 
 ## Configuring rustdoc
@@ -103,7 +103,7 @@ It generates the correct `--crate-name` for us, as well as pointing to
  `doc` directory, notice that Cargo puts generated documentation under
  `target`. That is the idiomatic place for generated files in Cargo projects.
  - `-L` flag helps rustdoc find the dependencies your code relies on.
- If our project used dependencies, we would get documentation for them as well!
+ If our trezoa used dependencies, we would get documentation for them as well!
 
 ## Outer and inner documentation
 
@@ -136,7 +136,7 @@ give it a try: create a `README.md` file with these contents:
 ````text
 # Docs
 
-This is a project to test out `rustdoc`.
+This is a trezoa to test out `rustdoc`.
 
 [Here is a link!](https://www.rust-lang.org)
 

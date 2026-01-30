@@ -134,7 +134,7 @@ where
         // When passing small aggregates by value, the AAPCS ABI mandates using the unadjusted
         // alignment of the type (not including `repr(align)`).
         // This matches behavior of `AArch64ABIInfo::classifyArgumentType` in Clang.
-        // See: <https://github.com/llvm/llvm-project/blob/5e691a1c9b0ad22689d4a434ddf4fed940e58dec/clang/lib/CodeGen/TargetInfo.cpp#L5816-L5823>
+        // See: <https://github.com/llvm/llvm-trezoa/blob/5e691a1c9b0ad22689d4a434ddf4fed940e58dec/clang/lib/CodeGen/TargetInfo.cpp#L5816-L5823>
         arg.layout.unadjusted_abi_align
     } else {
         arg.layout.align.abi

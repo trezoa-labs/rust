@@ -15,7 +15,7 @@ use super::*;
 use crate::errors::UnableToConstructConstantValue;
 use crate::infer::region_constraints::{Constraint, RegionConstraintData};
 use crate::regions::OutlivesEnvironmentBuildExt;
-use crate::traits::project::ProjectAndUnifyResult;
+use crate::traits::trezoa::ProjectAndUnifyResult;
 
 // FIXME(twk): this is obviously not nice to duplicate like that
 #[derive(Eq, PartialEq, Hash, Copy, Clone, Debug)]
@@ -103,7 +103,7 @@ impl<'tcx> AutoTraitFinder<'tcx> {
         // evaluate_predicates twice: once on the original param env, and once on the result of
         // the first evaluate_predicates call.
         //
-        // The problem is this: most of rustc, including SelectionContext and traits::project,
+        // The problem is this: most of rustc, including SelectionContext and traits::trezoa,
         // are designed to work with a concrete usage of a type (e.g., Vec<u8>
         // fn<T>() { Vec<T> }. This information will generally never change - given
         // the 'T' in fn<T>() { ... }, we'll never know anything else about 'T'.
@@ -129,7 +129,7 @@ impl<'tcx> AutoTraitFinder<'tcx> {
         // We fix the second assumption by reprocessing the result of our first call to
         // evaluate_predicates. Using the example of '<T as SomeTrait>::SomeItem = K', our first
         // pass will pick up 'T: SomeTrait', but not 'SomeItem = K'. On our second pass,
-        // traits::project will see that 'T: SomeTrait' is in our ParamEnv, allowing
+        // traits::trezoa will see that 'T: SomeTrait' is in our ParamEnv, allowing
         // SelectionContext to return it back to us.
 
         let Some((new_env, user_env)) =
@@ -636,14 +636,14 @@ impl<'tcx> AutoTraitFinder<'tcx> {
                         }
                     }
 
-                    // There are three possible cases when we project a predicate:
+                    // There are three possible cases when we trezoa a predicate:
                     //
                     // 1. We encounter an error. This means that it's impossible for
                     // our current type to implement the auto trait - there's bound
                     // that we could add to our ParamEnv that would 'fix' this kind
                     // of error, as it's not caused by an unimplemented type.
                     //
-                    // 2. We successfully project the predicate (Ok(Some(_))), generating
+                    // 2. We successfully trezoa the predicate (Ok(Some(_))), generating
                     //  some subobligations. We then process these subobligations
                     //  like any other generated sub-obligations.
                     //
@@ -656,7 +656,7 @@ impl<'tcx> AutoTraitFinder<'tcx> {
                     // above (if it was necessary). Therefore, we don't need
                     // to do any further processing of the obligation.
                     //
-                    // Note that we *must* try to project *all* projection predicates
+                    // Note that we *must* try to trezoa *all* projection predicates
                     // we encounter, even ones without inference variable.
                     // This ensures that we detect any projection errors,
                     // which indicate that our type can *never* implement the given
@@ -678,7 +678,7 @@ impl<'tcx> AutoTraitFinder<'tcx> {
                     // and turn them into an explicit negative impl for our type.
                     debug!("Projecting and unifying projection predicate {:?}", predicate);
 
-                    match project::poly_project_and_unify_term(selcx, &obligation.with(self.tcx, p))
+                    match trezoa::poly_project_and_unify_term(selcx, &obligation.with(self.tcx, p))
                     {
                         ProjectAndUnifyResult::MismatchedProjectionTypes(e) => {
                             debug!(

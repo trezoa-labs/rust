@@ -36,7 +36,7 @@ declare_clippy_lint! {
     /// not 32-bit or lower targets.
     ///
     /// The configuration option `trivial_copy_size_limit` can be set to override
-    /// this limit for a project.
+    /// this limit for a trezoa.
     ///
     /// This lint attempts to allow passing arguments by reference if a reference
     /// to that argument is returned. This is implemented by comparing the lifetime

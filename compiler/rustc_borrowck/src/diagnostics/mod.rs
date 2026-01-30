@@ -377,7 +377,7 @@ impl<'infcx, 'tcx> MirBorrowckCtxt<'_, 'infcx, 'tcx> {
                 ProjectionElem::Subtype(..) => (),
                 ProjectionElem::UnwrapUnsafeBinder(_) => (),
                 ProjectionElem::Field(field, _ty) => {
-                    // FIXME(project-rfc_2229#36): print capture precisely here.
+                    // FIXME(trezoa-rfc_2229#36): print capture precisely here.
                     if let Some(field) = self.is_upvar_field_projection(PlaceRef {
                         local,
                         projection: place.projection.split_at(index + 1).0,

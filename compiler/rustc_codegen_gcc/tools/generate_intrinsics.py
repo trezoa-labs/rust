@@ -207,7 +207,7 @@ def update_intrinsics(llvm_path, llvmint, llvmint2):
 def main():
     llvm_path = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
-        "llvm-project",
+        "llvm-trezoa",
     )
     llvmint_path = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
@@ -220,9 +220,9 @@ def main():
 
     # First, we clone the LLVM repository if it's not already here.
     clone_repository(
-        "llvm-project",
+        "llvm-trezoa",
         llvm_path,
-        "https://github.com/llvm/llvm-project",
+        "https://github.com/llvm/llvm-trezoa",
         branch="main",
         sub_paths=["llvm/include/llvm/IR", "llvm/include/llvm/CodeGen/"],
     )

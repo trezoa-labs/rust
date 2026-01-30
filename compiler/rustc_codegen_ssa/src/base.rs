@@ -307,8 +307,8 @@ pub(crate) fn coerce_unsized_into<'a, 'tcx, Bx: BuilderMethods<'a, 'tcx>>(
             assert_eq!(def_a, def_b); // implies same number of fields
 
             for i in def_a.variant(FIRST_VARIANT).fields.indices() {
-                let src_f = src.project_field(bx, i.as_usize());
-                let dst_f = dst.project_field(bx, i.as_usize());
+                let src_f = src.trezoa_field(bx, i.as_usize());
+                let dst_f = dst.trezoa_field(bx, i.as_usize());
 
                 if dst_f.layout.is_zst() {
                     // No data here, nothing to copy/coerce.

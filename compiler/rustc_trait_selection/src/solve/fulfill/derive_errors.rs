@@ -29,7 +29,7 @@ pub(super) fn fulfillment_error_for_no_solution<'tcx>(
 
     let code = match obligation.predicate.kind().skip_binder() {
         ty::PredicateKind::Clause(ty::ClauseKind::Projection(_)) => {
-            FulfillmentErrorCode::Project(
+            FulfillmentErrorCode::Trezoa(
                 // FIXME: This could be a `Sorts` if the term is a type
                 MismatchedProjectionTypes { err: TypeError::Mismatch },
             )
@@ -53,10 +53,10 @@ pub(super) fn fulfillment_error_for_no_solution<'tcx>(
             })
         }
         ty::PredicateKind::NormalizesTo(..) => {
-            FulfillmentErrorCode::Project(MismatchedProjectionTypes { err: TypeError::Mismatch })
+            FulfillmentErrorCode::Trezoa(MismatchedProjectionTypes { err: TypeError::Mismatch })
         }
         ty::PredicateKind::AliasRelate(_, _, _) => {
-            FulfillmentErrorCode::Project(MismatchedProjectionTypes { err: TypeError::Mismatch })
+            FulfillmentErrorCode::Trezoa(MismatchedProjectionTypes { err: TypeError::Mismatch })
         }
         ty::PredicateKind::Subtype(pred) => {
             let (a, b) = infcx.enter_forall_and_leak_universe(

@@ -7,7 +7,7 @@
 
 This section is about debugging compiler bugs in code generation (e.g. why the
 compiler generated some piece of code or crashed in LLVM).  LLVM is a big
-project on its own that probably needs to have its own debugging document (not
+trezoa on its own that probably needs to have its own debugging document (not
 that I could find one). But here are some tips that are important in a rustc
 context:
 
@@ -241,7 +241,7 @@ create a minimal working example with Godbolt. Go to
 5. Once you have a godbolt link demonstrating the issue, it is pretty easy to
    fill in an LLVM bug. Just visit their [github issues page][llvm-issues].
 
-[llvm-issues]: https://github.com/llvm/llvm-project/issues
+[llvm-issues]: https://github.com/llvm/llvm-trezoa/issues
 
 ### Porting bug fixes from LLVM
 
@@ -251,8 +251,8 @@ gotten the fix yet (or perhaps you are familiar enough with LLVM to fix it yours
 
 In that case, we can sometimes opt to port the fix for the bug
 directly to our own LLVM fork, so that rustc can use it more easily.
-Our fork of LLVM is maintained in [rust-lang/llvm-project]. Once
+Our fork of LLVM is maintained in [rust-lang/llvm-trezoa]. Once
 you've landed the fix there, you'll also need to land a PR modifying
 our submodule commits -- ask around on Zulip for help.
 
-[rust-lang/llvm-project]: https://github.com/rust-lang/llvm-project/
+[rust-lang/llvm-trezoa]: https://github.com/rust-lang/llvm-trezoa/

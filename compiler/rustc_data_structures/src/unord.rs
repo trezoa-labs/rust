@@ -159,12 +159,12 @@ impl<T, I: Iterator<Item = T>> UnordItems<T, I> {
     }
 
     #[inline]
-    pub fn into_sorted_stable_ord_by_key<K, C>(self, project_to_key: C) -> Vec<T>
+    pub fn into_sorted_stable_ord_by_key<K, C>(self, trezoa_to_key: C) -> Vec<T>
     where
         K: StableCompare,
         C: for<'a> Fn(&'a T) -> &'a K,
     {
-        self.collect_stable_ord_by_key(project_to_key)
+        self.collect_stable_ord_by_key(trezoa_to_key)
     }
 
     #[inline]
@@ -188,7 +188,7 @@ impl<T, I: Iterator<Item = T>> UnordItems<T, I> {
     }
 
     #[inline]
-    pub fn collect_stable_ord_by_key<K, C, P>(self, project_to_key: P) -> C
+    pub fn collect_stable_ord_by_key<K, C, P>(self, trezoa_to_key: P) -> C
     where
         K: StableCompare,
         P: for<'a> Fn(&'a T) -> &'a K,
@@ -200,14 +200,14 @@ impl<T, I: Iterator<Item = T>> UnordItems<T, I> {
         if slice.len() > 1 {
             if !K::CAN_USE_UNSTABLE_SORT {
                 slice.sort_by(|a, b| {
-                    let a_key = project_to_key(a);
-                    let b_key = project_to_key(b);
+                    let a_key = trezoa_to_key(a);
+                    let b_key = trezoa_to_key(b);
                     a_key.stable_cmp(b_key)
                 });
             } else {
                 slice.sort_unstable_by(|a, b| {
-                    let a_key = project_to_key(a);
-                    let b_key = project_to_key(b);
+                    let a_key = trezoa_to_key(a);
+                    let b_key = trezoa_to_key(b);
                     a_key.stable_cmp(b_key)
                 });
             }

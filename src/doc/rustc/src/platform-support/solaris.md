@@ -26,7 +26,7 @@ Solaris CBE release is also available for GitHub CI:
 
   https://github.com/vmactions/solaris-vm
 
-Latest Solaris 11.4 SRU can be tested at Compile farm project:
+Latest Solaris 11.4 SRU can be tested at Compile farm trezoa:
 
   https://portal.cfarm.net/machines/list/ (cfarm215, cfarm215)
 

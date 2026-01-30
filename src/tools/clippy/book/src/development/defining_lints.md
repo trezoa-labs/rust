@@ -52,7 +52,7 @@ codebase. There are two ways to register a lint.
 
 If you believe that this new lint is a standalone lint (that doesn't belong to
 any specific [type](#lint-types) like `functions` or `loops`), you can run the
-following command in your Clippy project:
+following command in your Clippy trezoa:
 
 ```sh
 $ cargo dev new_lint --name=lint_name --pass=late --category=pedantic
@@ -101,7 +101,7 @@ Since our `foo_functions` lint is related to function calls, one could
 argue that we should put it into a group of lints that detect some behaviors
 of functions, we can put it in the `functions` group.
 
-Let's run the following command in your Clippy project:
+Let's run the following command in your Clippy trezoa:
 
 ```sh
 $ cargo dev new_lint --name=foo_functions --type=functions --category=pedantic

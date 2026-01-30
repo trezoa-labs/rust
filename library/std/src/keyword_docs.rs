@@ -273,10 +273,10 @@ mod continue_keyword {}
 /// ```rust ignore
 /// extern crate rand;
 /// extern crate my_crate as thing;
-/// extern crate std; // implicitly added to the root of every Rust project
+/// extern crate std; // implicitly added to the root of every Rust trezoa
 /// ```
 ///
-/// The `as` keyword can be used to change what the crate is referred to as in your project. If a
+/// The `as` keyword can be used to change what the crate is referred to as in your trezoa. If a
 /// crate name includes a dash, it is implicitly imported with the dashes replaced by underscores.
 ///
 /// `crate` can also be used as in conjunction with `pub` to signify that the item it's attached to
@@ -411,7 +411,7 @@ mod enum_keyword {}
 /// Link to or import external code.
 ///
 /// The `extern` keyword is used in two places in Rust. One is in conjunction with the [`crate`]
-/// keyword to make your Rust code aware of other Rust crates in your project, i.e., `extern crate
+/// keyword to make your Rust code aware of other Rust crates in your trezoa, i.e., `extern crate
 /// lazy_static;`. The other use is in foreign function interfaces (FFI).
 ///
 /// `extern` is used in two different contexts within FFI. The first is in the form of external

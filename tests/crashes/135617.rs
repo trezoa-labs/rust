@@ -1,13 +1,13 @@
 //@ known-bug: #135617
-trait Project {
+trait Trezoa {
     const ASSOC: usize;
 }
 
 fn foo()
 where
-    for<'a> (): Project,
+    for<'a> (): Trezoa,
 {
-    [(); <() as Project>::ASSOC];
+    [(); <() as Trezoa>::ASSOC];
 }
 
 pub fn main() {}

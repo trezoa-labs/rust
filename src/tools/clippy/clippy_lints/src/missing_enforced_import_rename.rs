@@ -20,7 +20,7 @@ declare_clippy_lint! {
     /// import renames are defined in the `clippy.toml` file.
     ///
     /// ### Why is this bad?
-    /// Consistency is important; if a project has defined import renames, then they should be
+    /// Consistency is important; if a trezoa has defined import renames, then they should be
     /// followed. More practically, some item names are too vague outside of their defining scope,
     /// in which case this can enforce a more meaningful naming.
     ///

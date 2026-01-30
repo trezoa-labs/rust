@@ -3170,7 +3170,7 @@ fn add_apple_link_args(cmd: &mut dyn Linker, sess: &Session, flavor: LinkerFlavo
         // support e.g. `-miphoneos-version-min`), so in those cases we can
         // fairly safely use `-target`. See also the following, where it is
         // made explicit that the recommendation by LLVM developers is to use
-        // `-target`: <https://github.com/llvm/llvm-project/issues/88271>
+        // `-target`: <https://github.com/llvm/llvm-trezoa/issues/88271>
         if target_os == "macos" {
             // `-arch` communicates the architecture.
             //
@@ -3236,7 +3236,7 @@ fn get_apple_sdk_root(sess: &Session) -> Option<PathBuf> {
         let p = PathBuf::from(&sdkroot);
 
         // Ignore invalid SDKs, similar to what clang does:
-        // https://github.com/llvm/llvm-project/blob/llvmorg-19.1.6/clang/lib/Driver/ToolChains/Darwin.cpp#L2212-L2229
+        // https://github.com/llvm/llvm-trezoa/blob/llvmorg-19.1.6/clang/lib/Driver/ToolChains/Darwin.cpp#L2212-L2229
         //
         // NOTE: Things are complicated here by the fact that `rustc` can be run by Cargo to compile
         // build scripts and proc-macros for the host, and thus we need to ignore SDKROOT if it's
@@ -3354,7 +3354,7 @@ fn add_lld_args(
         // Note that lld can detect some cases where this difference is relied on, and emits a
         // dedicated error to add this link arg. We could make use of this error to emit an FCW. As
         // of writing this, we don't do it, because lld is already enabled by default on nightly
-        // without this mitigation: no working project would see the FCW, so we do this to help
+        // without this mitigation: no working trezoa would see the FCW, so we do this to help
         // stabilization.
         //
         // FIXME: emit an FCW if linking fails due its absence, and then remove this link-arg in the

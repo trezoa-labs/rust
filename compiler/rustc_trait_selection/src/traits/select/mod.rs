@@ -36,18 +36,18 @@ use tracing::{debug, instrument, trace};
 use self::EvaluationResult::*;
 use self::SelectionCandidate::*;
 use super::coherence::{self, Conflict};
-use super::project::ProjectionTermObligation;
+use super::trezoa::ProjectionTermObligation;
 use super::util::closure_trait_ref_and_return_type;
 use super::{
     ImplDerivedCause, Normalized, Obligation, ObligationCause, ObligationCauseCode, Overflow,
     PolyTraitObligation, PredicateObligation, Selection, SelectionError, SelectionResult,
-    TraitQueryMode, const_evaluatable, project, util, wf,
+    TraitQueryMode, const_evaluatable, trezoa, util, wf,
 };
 use crate::error_reporting::InferCtxtErrorExt;
 use crate::infer::{InferCtxt, InferOk, TypeFreshener};
 use crate::solve::InferCtxtSelectExt as _;
 use crate::traits::normalize::{normalize_with_depth, normalize_with_depth_to};
-use crate::traits::project::{ProjectAndUnifyResult, ProjectionCacheKeyExt};
+use crate::traits::trezoa::{ProjectAndUnifyResult, ProjectionCacheKeyExt};
 use crate::traits::{
     EvaluateConstErr, ProjectionCacheKey, Unimplemented, effects, sizedness_fast_path,
 };
@@ -773,8 +773,8 @@ impl<'cx, 'tcx> SelectionContext<'cx, 'tcx> {
 
                 ty::PredicateKind::Clause(ty::ClauseKind::Projection(data)) => {
                     let data = bound_predicate.rebind(data);
-                    let project_obligation = obligation.with(self.tcx(), data);
-                    match project::poly_project_and_unify_term(self, &project_obligation) {
+                    let trezoa_obligation = obligation.with(self.tcx(), data);
+                    match trezoa::poly_project_and_unify_term(self, &trezoa_obligation) {
                         ProjectAndUnifyResult::Holds(mut subobligations) => {
                             'compute_res: {
                                 // If we've previously marked this projection as 'complete', then
@@ -784,7 +784,7 @@ impl<'cx, 'tcx> SelectionContext<'cx, 'tcx> {
                                 if let Some(key) =
                                     ProjectionCacheKey::from_poly_projection_obligation(
                                         self,
-                                        &project_obligation,
+                                        &trezoa_obligation,
                                     )
                                 {
                                     if let Some(cached_res) = self
@@ -816,7 +816,7 @@ impl<'cx, 'tcx> SelectionContext<'cx, 'tcx> {
                                     && let Some(key) =
                                         ProjectionCacheKey::from_poly_projection_obligation(
                                             self,
-                                            &project_obligation,
+                                            &trezoa_obligation,
                                         )
                                 {
                                     // If the result is something that we can cache, then mark this

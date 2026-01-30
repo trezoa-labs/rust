@@ -124,7 +124,7 @@ impl<'tcx> CapturedPlace<'tcx> {
                 // Ignore derefs for now, as they are likely caused by
                 // autoderefs that don't appear in the original code.
                 HirProjectionKind::Deref => {}
-                // Just change the type to the hidden type, so we can actually project.
+                // Just change the type to the hidden type, so we can actually trezoa.
                 HirProjectionKind::OpaqueCast => {}
                 proj => bug!("Unexpected projection {:?} in captured place", proj),
             }

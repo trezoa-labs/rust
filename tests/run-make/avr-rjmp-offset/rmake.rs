@@ -1,6 +1,6 @@
 //@ needs-llvm-components: avr
 //@ needs-rust-lld
-//! Regression test for #129301/llvm-project#106722 within `rustc`.
+//! Regression test for #129301/llvm-trezoa#106722 within `rustc`.
 //!
 //! Some LLVM-versions had wrong offsets in the local labels, causing the first
 //! loop instruction to be missed. This test therefore contains a simple loop

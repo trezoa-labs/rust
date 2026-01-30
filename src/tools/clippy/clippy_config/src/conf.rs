@@ -695,7 +695,7 @@ define_Conf! {
     #[lints(arbitrary_source_item_ordering)]
     module_items_ordered_within_groupings: SourceItemOrderingWithinModuleItemGroupings =
         SourceItemOrderingWithinModuleItemGroupings::None,
-    /// The minimum rust version that the project supports. Defaults to the `rust-version` field in `Cargo.toml`
+    /// The minimum rust version that the trezoa supports. Defaults to the `rust-version` field in `Cargo.toml`
     #[default_text = "current version"]
     #[lints(
         allow_attributes,

@@ -525,9 +525,9 @@ enum TestType {
 /// are `UnitTest`, `IntegrationTest` or `Unknown`.
 fn test_type(cx: &ExtCtxt<'_>) -> TestType {
     // Root path from context contains the topmost sources directory of the crate.
-    // I.e., for `project` with sources in `src` and tests in `tests` folders
+    // I.e., for `trezoa` with sources in `src` and tests in `tests` folders
     // (no matter how many nested folders lie inside),
-    // there will be two different root paths: `/project/src` and `/project/tests`.
+    // there will be two different root paths: `/trezoa/src` and `/trezoa/tests`.
     let crate_path = cx.root_path.as_path();
 
     if crate_path.ends_with("src") {

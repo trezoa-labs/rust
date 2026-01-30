@@ -2,7 +2,7 @@
 '''
 Test whether cargo-miri works properly.
 Assumes the `MIRI_SYSROOT` env var to be set appropriately,
-and the working directory to contain the cargo-miri-test project.
+and the working directory to contain the cargo-miri-test trezoa.
 '''
 
 import difflib

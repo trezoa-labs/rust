@@ -2,7 +2,7 @@
 
 <!-- toc -->
 
-The Rust project runs a wide variety of different tests, orchestrated by the
+The Rust trezoa runs a wide variety of different tests, orchestrated by the
 build system (`./x test`). This section gives a brief overview of the different
 testing tools. Subsequent chapters dive into [running tests](running.md) and
 [adding new tests](adding.md).

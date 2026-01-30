@@ -458,7 +458,7 @@ fn test_total_cmp() {
 
     // FIXME(f16_f128): Tests involving sNaN are disabled because without optimizations,
     // `total_cmp` is getting incorrectly lowered to code that includes a `extend`/`trunc` round
-    // trip, which quiets sNaNs. See: https://github.com/llvm/llvm-project/issues/104915
+    // trip, which quiets sNaNs. See: https://github.com/llvm/llvm-trezoa/issues/104915
     // fn s_nan() -> f16 {
     //     f16::from_bits((f16::NAN.to_bits() & !quiet_bit_mask()) + 42)
     // }

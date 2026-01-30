@@ -3,7 +3,7 @@ extend-exclude = [
     "*.rast",
     "bench_data/",
     "crates/parser/test_data/lexer/err/",
-    "crates/project-model/test_data/",
+    "crates/trezoa-model/test_data/",
 ]
 
 [default]

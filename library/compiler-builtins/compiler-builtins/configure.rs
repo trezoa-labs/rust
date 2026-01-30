@@ -89,11 +89,11 @@ pub fn configure_f16_f128(target: &Target) {
     // Original source of this list:
     // <https://github.com/rust-lang/compiler-builtins/pull/652#issuecomment-2266151350>
     let f16_enabled = match target.arch.as_str() {
-        // Unsupported <https://github.com/llvm/llvm-project/issues/94434>
+        // Unsupported <https://github.com/llvm/llvm-trezoa/issues/94434>
         "arm64ec" => false,
-        // Selection failure <https://github.com/llvm/llvm-project/issues/50374>
+        // Selection failure <https://github.com/llvm/llvm-trezoa/issues/50374>
         "s390x" => false,
-        // Infinite recursion <https://github.com/llvm/llvm-project/issues/97981>
+        // Infinite recursion <https://github.com/llvm/llvm-trezoa/issues/97981>
         "csky" => false,
         "hexagon" => false,
         "powerpc" | "powerpc64" => false,
@@ -104,17 +104,17 @@ pub fn configure_f16_f128(target: &Target) {
     };
 
     let f128_enabled = match target.arch.as_str() {
-        // Unsupported (libcall is not supported) <https://github.com/llvm/llvm-project/issues/121122>
+        // Unsupported (libcall is not supported) <https://github.com/llvm/llvm-trezoa/issues/121122>
         "amdgpu" => false,
-        // Unsupported <https://github.com/llvm/llvm-project/issues/94434>
+        // Unsupported <https://github.com/llvm/llvm-trezoa/issues/94434>
         "arm64ec" => false,
-        // FIXME(llvm20): fixed by <https://github.com/llvm/llvm-project/pull/117525>
+        // FIXME(llvm20): fixed by <https://github.com/llvm/llvm-trezoa/pull/117525>
         "mips64" | "mips64r6" => false,
-        // Selection failure <https://github.com/llvm/llvm-project/issues/95471>
+        // Selection failure <https://github.com/llvm/llvm-trezoa/issues/95471>
         "nvptx64" => false,
-        // Selection failure <https://github.com/llvm/llvm-project/issues/101545>
+        // Selection failure <https://github.com/llvm/llvm-trezoa/issues/101545>
         "powerpc64" if &target.os == "aix" => false,
-        // Selection failure <https://github.com/llvm/llvm-project/issues/41838>
+        // Selection failure <https://github.com/llvm/llvm-trezoa/issues/41838>
         "sparc" => false,
         // Most everything else works as of LLVM 19
         _ => true,

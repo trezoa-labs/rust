@@ -5,7 +5,7 @@
 A lot of work is put into improving the performance of the compiler and
 preventing performance regressions.
 
-The [rustc-perf](https://github.com/rust-lang/rustc-perf) project provides
+The [rustc-perf](https://github.com/rust-lang/rustc-perf) trezoa provides
 several services for testing and tracking performance. It provides hosted
 infrastructure for running benchmarks as a service. At this time, only
 `x86_64-unknown-linux-gnu` builds are tracked.

@@ -1,4 +1,4 @@
-Rustdoc will automatically scrape examples of documented items from a project's source code. These examples will be included within the generated documentation for that item. For example, if your library contains a public function:
+Rustdoc will automatically scrape examples of documented items from a trezoa's source code. These examples will be included within the generated documentation for that item. For example, if your library contains a public function:
 
 ```rust
 // src/lib.rs

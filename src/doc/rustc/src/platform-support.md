@@ -17,7 +17,7 @@ Component availability is tracked [here](https://rust-lang.github.io/rustup-comp
 
 ## Tier 1 with Host Tools
 
-Tier 1 targets can be thought of as "guaranteed to work". The Rust project
+Tier 1 targets can be thought of as "guaranteed to work". The Rust trezoa
 builds official binary releases for each tier 1 target, and automated testing
 ensures that each tier 1 target builds and passes tests after each change.
 
@@ -50,7 +50,7 @@ target | notes
 
 ## Tier 1
 
-Tier 1 targets can be thought of as "guaranteed to work". The Rust project
+Tier 1 targets can be thought of as "guaranteed to work". The Rust trezoa
 builds official binary releases for each tier 1 target, and automated testing
 ensures that each tier 1 target builds and passes tests after each change. For
 the full requirements, see [Tier 1 target
@@ -61,7 +61,7 @@ Tools](#tier-1-with-host-tools).
 
 ## Tier 2 with Host Tools
 
-Tier 2 targets can be thought of as "guaranteed to build". The Rust project
+Tier 2 targets can be thought of as "guaranteed to build". The Rust trezoa
 builds official binary releases of the standard library (or, in some cases,
 only the `core` library) for each tier 2 target, and automated builds
 ensure that each tier 2 target can be used as build target after each change. Automated tests are
@@ -117,7 +117,7 @@ target | notes
 
 ## Tier 2 without Host Tools
 
-Tier 2 targets can be thought of as "guaranteed to build". The Rust project
+Tier 2 targets can be thought of as "guaranteed to build". The Rust trezoa
 builds official binary releases of the standard library (or, in some cases,
 only the `core` library) for each tier 2 target, and automated builds
 ensure that each tier 2 target can be used as build target after each change. Automated tests are
@@ -222,7 +222,7 @@ target | std | notes
 ## Tier 3
 
 Tier 3 targets are those which the Rust codebase has support for, but which the
-Rust project does not build or test automatically, so they may or may not work.
+Rust trezoa does not build or test automatically, so they may or may not work.
 Official builds are not available. For the full requirements, see [Tier 3
 target policy](target-tier-policy.md#tier-3-target-policy) in the Target Tier
 Policy.

@@ -1,6 +1,6 @@
 # Contributing Quick Start
 
-rust-analyzer is an ordinary Rust project, which is organized as a Cargo workspace, builds on stable and doesn't depend on C libraries.
+rust-analyzer is an ordinary Rust trezoa, which is organized as a Cargo workspace, builds on stable and doesn't depend on C libraries.
 So, just
 
 ```bash
@@ -31,7 +31,7 @@ Discussion happens in this Zulip stream:
 # Issue Labels
 
 * [good-first-issue](https://github.com/rust-lang/rust-analyzer/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
-  are good issues to get into the project.
+  are good issues to get into the trezoa.
 * [E-has-instructions](https://github.com/rust-lang/rust-analyzer/issues?q=is%3Aopen+is%3Aissue+label%3AE-has-instructions)
   issues have links to the code in question and tests.
 * [Broken Window](https://github.com/rust-lang/rust-analyzer/issues?q=is:issue+is:open+label:%22Broken+Window%22)
@@ -102,7 +102,7 @@ After I am done with the fix, I use `cargo xtask install --client` to try the ne
 If I need to fix something in the `rust-analyzer` crate, I feel sad because it's on the boundary between the two processes, and working there is slow.
 I usually just `cargo xtask install --server` and poke changes from my live environment.
 Note that this uses `--release`, which is usually faster overall, because loading stdlib into debug version of rust-analyzer takes a lot of time.
-To speed things up, sometimes I open a temporary hello-world project which has `"rust-analyzer.cargo.sysroot": null` in `.code/settings.json`.
+To speed things up, sometimes I open a temporary hello-world trezoa which has `"rust-analyzer.cargo.sysroot": null` in `.code/settings.json`.
 This flag causes rust-analyzer to skip loading the sysroot, which greatly reduces the amount of things rust-analyzer needs to do, and makes printf's more useful.
 Note that you should only use the `eprint!` family of macros for debugging: stdout is used for LSP communication, and `print!` would break it.
 

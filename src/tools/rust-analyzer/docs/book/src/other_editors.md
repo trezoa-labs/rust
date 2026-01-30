@@ -115,7 +115,7 @@ are unlikely to be useful.
 1.  Install LanguageClient-neovim by following the instructions
     [here](https://github.com/autozimu/LanguageClient-neovim)
 
-    -   The GitHub project wiki has extra tips on configuration
+    -   The GitHub trezoa wiki has extra tips on configuration
 
 2.  Configure by adding this to your Vim/Neovim config file (replacing
     the existing Rust-specific line if it exists):
@@ -312,7 +312,7 @@ Client settings):
 }
 ```
 
-Then click on apply, and restart the LSP server for your rust project.
+Then click on apply, and restart the LSP server for your rust trezoa.
 
 ## juCi++
 

@@ -127,13 +127,13 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             | "ucomineq.ss" => {
                 let [left, right] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
 
-                let (left, left_len) = this.project_to_simd(left)?;
-                let (right, right_len) = this.project_to_simd(right)?;
+                let (left, left_len) = this.trezoa_to_simd(left)?;
+                let (right, right_len) = this.trezoa_to_simd(right)?;
 
                 assert_eq!(left_len, right_len);
 
-                let left = this.read_scalar(&this.project_index(&left, 0)?)?.to_f32()?;
-                let right = this.read_scalar(&this.project_index(&right, 0)?)?.to_f32()?;
+                let left = this.read_scalar(&this.trezoa_index(&left, 0)?)?.to_f32()?;
+                let right = this.read_scalar(&this.trezoa_index(&right, 0)?)?.to_f32()?;
                 // The difference between the com* and ucom* variants is signaling
                 // of exceptions when either argument is a quiet NaN. We do not
                 // support accessing the SSE status register from miri (or from Rust,
@@ -154,9 +154,9 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             // Converts the first component of `op` from f32 to i32/i64.
             "cvtss2si" | "cvttss2si" | "cvtss2si64" | "cvttss2si64" => {
                 let [op] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
-                let (op, _) = this.project_to_simd(op)?;
+                let (op, _) = this.trezoa_to_simd(op)?;
 
-                let op = this.read_immediate(&this.project_index(&op, 0)?)?;
+                let op = this.read_immediate(&this.trezoa_index(&op, 0)?)?;
 
                 let rnd = match unprefixed_name {
                     // "current SSE rounding mode", assume nearest
@@ -183,18 +183,18 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             "cvtsi2ss" | "cvtsi642ss" => {
                 let [left, right] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
 
-                let (left, left_len) = this.project_to_simd(left)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (left, left_len) = this.trezoa_to_simd(left)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(dest_len, left_len);
 
                 let right = this.read_immediate(right)?;
-                let dest0 = this.project_index(&dest, 0)?;
+                let dest0 = this.trezoa_index(&dest, 0)?;
                 let res0 = this.int_to_int_or_float(&right, dest0.layout)?;
                 this.write_immediate(*res0, &dest0)?;
 
                 for i in 1..dest_len {
-                    this.copy_op(&this.project_index(&left, i)?, &this.project_index(&dest, i)?)?;
+                    this.copy_op(&this.trezoa_index(&left, i)?, &this.trezoa_index(&dest, i)?)?;
                 }
             }
             _ => return interp_ok(EmulateItemResult::NotSupported),

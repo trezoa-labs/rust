@@ -57,13 +57,13 @@ fn dogfood() {
 }
 
 #[must_use]
-fn run_clippy_for_package(project: &str) -> bool {
+fn run_clippy_for_package(trezoa: &str) -> bool {
     let root_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
 
     let mut command = Command::new(&*test_utils::CARGO_CLIPPY_PATH);
 
     command
-        .current_dir(root_dir.join(project))
+        .current_dir(root_dir.join(trezoa))
         .env("CARGO_INCREMENTAL", "0")
         .arg("clippy")
         .arg("--all-targets")
@@ -89,7 +89,7 @@ fn run_clippy_for_package(project: &str) -> bool {
     }
 
     // Workaround for not being a workspace, add the crate's directory back to the path
-    command.args(["--remap-path-prefix", &format!("={project}")]);
+    command.args(["--remap-path-prefix", &format!("={trezoa}")]);
 
     command.status().unwrap().success()
 }

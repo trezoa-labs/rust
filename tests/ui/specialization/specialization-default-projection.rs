@@ -4,7 +4,7 @@
 
 #![feature(specialization)] //~ WARN the feature `specialization` is incomplete
 
-// Make sure we can't project defaulted associated types
+// Make sure we can't trezoa defaulted associated types
 
 trait Foo {
     type Assoc;
@@ -27,13 +27,13 @@ fn generic<T>() -> <T as Foo>::Assoc {
 
 fn monomorphic() -> () {
     // Even though we know that `()` is not specialized in a
-    // downstream crate, typeck refuses to project here.
+    // downstream crate, typeck refuses to trezoa here.
 
     generic::<()>() //~ ERROR mismatched types
 }
 
 fn main() {
-    // No error here, we CAN project from `u8`, as there is no `default`
+    // No error here, we CAN trezoa from `u8`, as there is no `default`
     // in that impl.
     let s: String = generic::<u8>();
     println!("{}", s); // bad news if this all compiles

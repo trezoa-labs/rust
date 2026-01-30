@@ -2,7 +2,7 @@
 
 <!-- toc -->
 
-The Rust project uses [Git] to manage its source code. In order to
+The Rust trezoa uses [Git] to manage its source code. In order to
 contribute, you'll need some familiarity with its features so that your changes
 can be incorporated into the compiler.
 
@@ -51,7 +51,7 @@ git remote add upstream git@github.com:rust-lang/rust.git
 if you're using SSH.
 
 **NOTE:** This page is dedicated to workflows for `rust-lang/rust`, but will likely be
-useful when contributing to other repositories in the Rust project.
+useful when contributing to other repositories in the Rust trezoa.
 
 
 ## Standard Process
@@ -251,7 +251,7 @@ Your branch is up to date with 'origin/master'.
 Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
   (use "git restore <file>..." to discard changes in working directory)
-	modified:   src/llvm-project (new commits)
+	modified:   src/llvm-trezoa (new commits)
 	modified:   src/tools/cargo (new commits)
 
 no changes added to commit (use "git add" and/or "git commit -a")
@@ -264,9 +264,9 @@ To get rid of those:
 git submodule update
 ```
 
-Some submodules are not actually needed; for example, `src/llvm-project` doesn't need to be checked
+Some submodules are not actually needed; for example, `src/llvm-trezoa` doesn't need to be checked
 out if you're using `download-ci-llvm`.  To avoid having to keep fetching its history, you can use
-`git submodule deinit -f src/llvm-project`, which will also avoid it showing as modified again.
+`git submodule deinit -f src/llvm-trezoa`, which will also avoid it showing as modified again.
 
 ## Rebasing and Conflicts
 
@@ -534,19 +534,19 @@ you might want to get used to the main concepts of Git before reading this secti
 
 The `rust-lang/rust` repository uses [Git submodules] as a way to use other
 Rust projects from within the `rust` repo. Examples include Rust's fork of
-`llvm-project`, `cargo`  and libraries like `stdarch` and `backtrace`.
+`llvm-trezoa`, `cargo`  and libraries like `stdarch` and `backtrace`.
 
 Those projects are developed and maintained in an separate Git (and GitHub)
 repository, and they have their own Git history/commits, issue tracker and PRs.
 Submodules allow us to create some sort of embedded sub-repository inside the
 `rust` repository and use them like they were directories in the `rust` repository.
 
-Take `llvm-project` for example. `llvm-project` is maintained in the [`rust-lang/llvm-project`]
+Take `llvm-trezoa` for example. `llvm-trezoa` is maintained in the [`rust-lang/llvm-trezoa`]
 repository, but it is used in `rust-lang/rust` by the compiler for code generation and
-optimization. We bring it in `rust` as a submodule, in the `src/llvm-project` folder.
+optimization. We bring it in `rust` as a submodule, in the `src/llvm-trezoa` folder.
 
 The contents of submodules are ignored by Git: submodules are in some sense isolated
-from the rest of the repository. However, if you try to `cd src/llvm-project` and then
+from the rest of the repository. However, if you try to `cd src/llvm-trezoa` and then
 run `git status`:
 
 ```console
@@ -554,20 +554,20 @@ HEAD detached at 9567f08afc943
 nothing to commit, working tree clean
 ```
 
-As far as git is concerned, you are no longer in the `rust` repo, but in the `llvm-project` repo.
+As far as git is concerned, you are no longer in the `rust` repo, but in the `llvm-trezoa` repo.
 You will notice that we are in "detached HEAD" state, i.e. not on a branch but on a
 particular commit.
 
 This is because, like any dependency, we want to be able to control which version to use.
 Submodules allow us to do just that: every submodule is "pinned" to a certain
 commit, which doesn't change unless modified manually. If you use `git checkout <commit>`
-in the `llvm-project` directory and go back to the `rust` directory, you can stage this
-change like any other, e.g. by running `git add src/llvm-project`. (Note that if
+in the `llvm-trezoa` directory and go back to the `rust` directory, you can stage this
+change like any other, e.g. by running `git add src/llvm-trezoa`. (Note that if
 you *don't* stage the change to commit, then you run the risk that running
 `x` will just undo your change by switching back to the previous commit when
 it automatically "updates" the submodules.)
 
-This version selection is usually done by the maintainers of the project, and
+This version selection is usually done by the maintainers of the trezoa, and
 looks like [this][llvm-update].
 
 Git submodules take some time to get used to, so don't worry if it isn't perfectly
@@ -585,7 +585,7 @@ Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
   (use "git restore <file>..." to discard changes in working directory)
   (commit or discard the untracked or modified content in submodules)
-        modified:   src/llvm-project (new commits, modified content)
+        modified:   src/llvm-trezoa (new commits, modified content)
 ```
 
 and when you try to run `git submodule update` it breaks horribly with errors like
@@ -596,7 +596,7 @@ error: 2782 bytes of body are still expected
 fetch-pack: unexpected disconnect while reading sideband packet
 fatal: early EOF
 fatal: fetch-pack: invalid index-pack output
-fatal: Fetched in submodule path 'src/llvm-project', but it did not contain 5a5152f653959d14d68613a3a8a033fb65eec021. Direct fetching of that commit failed.
+fatal: Fetched in submodule path 'src/llvm-trezoa', but it did not contain 5a5152f653959d14d68613a3a8a033fb65eec021. Direct fetching of that commit failed.
 ```
 
 If you see `(new commits, modified content)` you can run
@@ -650,5 +650,5 @@ Please include a comment for the commit that you add to `.git-blame-ignore-revs`
 easily figure out *why* a commit is ignored.
 
 [Git submodules]: https://git-scm.com/book/en/v2/Git-Tools-Submodules
-[`rust-lang/llvm-project`]: https://github.com/rust-lang/llvm-project
+[`rust-lang/llvm-trezoa`]: https://github.com/rust-lang/llvm-trezoa
 [llvm-update]: https://github.com/rust-lang/rust/pull/99464/files

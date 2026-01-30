@@ -197,7 +197,7 @@ fn test_single_thread() {
 }
 
 fn test_sync_through_rmw_and_fences() {
-    // Example from https://github.com/llvm/llvm-project/issues/56450#issuecomment-1183695905
+    // Example from https://github.com/llvm/llvm-trezoa/issues/56450#issuecomment-1183695905
     #[no_mangle]
     pub fn rdmw(storing: &AtomicI32, sync: &AtomicI32, loading: &AtomicI32) -> i32 {
         storing.store(1, Relaxed);

@@ -51,9 +51,9 @@ xflags::xflags! {
             optional --rainbow
         }
 
-        /// Batch typecheck project and print summary statistics
+        /// Batch typecheck trezoa and print summary statistics
         cmd analysis-stats {
-            /// Directory with Cargo.toml or rust-project.json.
+            /// Directory with Cargo.toml or rust-trezoa.json.
             required path: PathBuf
 
             optional --output format: OutputFormat
@@ -89,7 +89,7 @@ xflags::xflags! {
             /// Skip const evaluation
             optional --skip-const-eval
             /// Runs several IDE features after analysis, including semantics highlighting, diagnostics
-            /// and annotations. This is useful for benchmarking the memory usage on a project that has
+            /// and annotations. This is useful for benchmarking the memory usage on a trezoa that has
             /// been worked on for a bit in a longer running session.
             optional --run-all-ide-things
             /// Run term search on all the tail expressions (of functions, block, if statements etc.)
@@ -99,13 +99,13 @@ xflags::xflags! {
             optional --validate-term-search
         }
 
-        /// Run unit tests of the project using mir interpreter
+        /// Run unit tests of the trezoa using mir interpreter
         cmd run-tests {
-            /// Directory with Cargo.toml or rust-project.json.
+            /// Directory with Cargo.toml or rust-trezoa.json.
             required path: PathBuf
         }
 
-        /// Run unit tests of the project using mir interpreter
+        /// Run unit tests of the trezoa using mir interpreter
         cmd rustc-tests {
             /// Directory with Cargo.toml.
             required rustc_repo: PathBuf
@@ -115,7 +115,7 @@ xflags::xflags! {
         }
 
         cmd diagnostics {
-            /// Directory with Cargo.toml or rust-project.json.
+            /// Directory with Cargo.toml or rust-trezoa.json.
             required path: PathBuf
 
             /// Don't run build scripts or load `OUT_DIR` values by running `cargo check` before analysis.
@@ -128,7 +128,7 @@ xflags::xflags! {
 
         /// Report unresolved references
         cmd unresolved-references {
-            /// Directory with Cargo.toml or rust-project.json.
+            /// Directory with Cargo.toml or rust-trezoa.json.
             required path: PathBuf
 
             /// Don't run build scripts or load `OUT_DIR` values by running `cargo check` before analysis.
@@ -141,7 +141,7 @@ xflags::xflags! {
 
         /// Prime caches, as rust-analyzer does typically at startup in interactive sessions.
         cmd prime-caches {
-            /// Directory with Cargo.toml or rust-project.json.
+            /// Directory with Cargo.toml or rust-trezoa.json.
             required path: PathBuf
 
             /// Don't run build scripts or load `OUT_DIR` values by running `cargo check` before analysis.

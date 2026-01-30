@@ -776,7 +776,7 @@ impl<'a> FindUsages<'a> {
                 completed.insert(current_to_process);
 
                 total_files_searched += current_to_process_search_scope.entries.len();
-                // FIXME: Maybe this needs to be relative to the project size, or at least to the initial search scope?
+                // FIXME: Maybe this needs to be relative to the trezoa size, or at least to the initial search scope?
                 if total_files_searched > 20_000 && completed.len() > 100 {
                     // This case is extremely unlikely (even searching for `Vec::new()` on rust-analyzer does not enter
                     // here - it searches less than 10,000 files, and it does so in five seconds), but if we get here,

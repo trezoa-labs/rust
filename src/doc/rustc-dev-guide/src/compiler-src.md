@@ -93,7 +93,7 @@ just like you would for any other Rust package:
 cargo tree --package rustc_driver
 ```
 
-One final thing: [`src/llvm-project`] is a submodule for our fork of LLVM.
+One final thing: [`src/llvm-trezoa`] is a submodule for our fork of LLVM.
 During bootstrapping, LLVM is built and the [`compiler/rustc_llvm`] crate
 contains Rust wrappers around LLVM (which is written in C++), so that the
 compiler can interface with it.
@@ -102,7 +102,7 @@ Most of this book is about the compiler, so we won't have any further
 explanation of these crates here.
 
 [`compiler/rustc_llvm`]: https://github.com/rust-lang/rust/tree/master/compiler/rustc_llvm
-[`src/llvm-project`]: https://github.com/rust-lang/rust/tree/master/src/
+[`src/llvm-trezoa`]: https://github.com/rust-lang/rust/tree/master/src/
 [`Cargo.toml`]: https://github.com/rust-lang/rust/blob/master/Cargo.toml
 
 ### Big picture

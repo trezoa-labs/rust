@@ -444,7 +444,7 @@ impl f16 {
     ///
     /// ```
     /// #![feature(f16)]
-    /// # // FIXME(f16_f128): LLVM crashes on s390x, llvm/llvm-project#50374
+    /// # // FIXME(f16_f128): LLVM crashes on s390x, llvm/llvm-trezoa#50374
     /// # #[cfg(all(target_arch = "x86_64", target_os = "linux"))] {
     ///
     /// let f = 7.0_f16;
@@ -473,7 +473,7 @@ impl f16 {
     ///
     /// ```
     /// #![feature(f16)]
-    /// # // FIXME(f16_f128): LLVM crashes on s390x, llvm/llvm-project#50374
+    /// # // FIXME(f16_f128): LLVM crashes on s390x, llvm/llvm-trezoa#50374
     /// # #[cfg(all(target_arch = "x86_64", target_os = "linux"))] {
     ///
     /// let f = 7.0_f16;
@@ -948,7 +948,7 @@ impl f16 {
     ///
     /// ```
     /// #![feature(f16)]
-    /// # // FIXME(f16_f128): LLVM crashes on s390x, llvm/llvm-project#50374
+    /// # // FIXME(f16_f128): LLVM crashes on s390x, llvm/llvm-trezoa#50374
     /// # #[cfg(all(target_arch = "x86_64", target_os = "linux"))] {
     ///
     /// let bytes = 12.5f16.to_be_bytes();
@@ -972,7 +972,7 @@ impl f16 {
     ///
     /// ```
     /// #![feature(f16)]
-    /// # // FIXME(f16_f128): LLVM crashes on s390x, llvm/llvm-project#50374
+    /// # // FIXME(f16_f128): LLVM crashes on s390x, llvm/llvm-trezoa#50374
     /// # #[cfg(all(target_arch = "x86_64", target_os = "linux"))] {
     ///
     /// let bytes = 12.5f16.to_le_bytes();
@@ -1002,7 +1002,7 @@ impl f16 {
     ///
     /// ```
     /// #![feature(f16)]
-    /// # // FIXME(f16_f128): LLVM crashes on s390x, llvm/llvm-project#50374
+    /// # // FIXME(f16_f128): LLVM crashes on s390x, llvm/llvm-trezoa#50374
     /// # #[cfg(all(target_arch = "x86_64", target_os = "linux"))] {
     ///
     /// let bytes = 12.5f16.to_ne_bytes();

@@ -32,7 +32,7 @@ where
             cx.type_of(impl_def_id).instantiate(cx, impl_args),
         )?;
 
-        // Equate IAT with the RHS of the project goal
+        // Equate IAT with the RHS of the trezoa goal
         let inherent_args = inherent.rebase_inherent_args_onto_impl(impl_args, cx);
 
         // Check both where clauses on the impl and IAT

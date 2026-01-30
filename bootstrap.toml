@@ -496,7 +496,7 @@ lld = true
 # =============================================================================
 # Distribution options
 #
-# These options are related to distribution, mostly for the Rust project itself.
+# These options are related to distribution, mostly for the Rust trezoa itself.
 # You probably won't need to concern yourself with any of these options
 # =============================================================================
 [dist]

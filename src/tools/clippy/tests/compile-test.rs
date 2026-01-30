@@ -61,7 +61,7 @@ static TEST_DEPENDENCIES: &[&str] = &[
 ///
 /// The dependency files are located by parsing the depinfo file for this test
 /// module. This assumes the `-Z binary-dep-depinfo` flag is enabled. All test
-/// dependencies must be added to Cargo.toml at the project root. Test
+/// dependencies must be added to Cargo.toml at the trezoa root. Test
 /// dependencies that are not *directly* used by this test module require an
 /// `extern crate` declaration.
 fn extern_flags() -> Vec<String> {

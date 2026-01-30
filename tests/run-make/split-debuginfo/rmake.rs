@@ -46,10 +46,10 @@
 
 // NOTE: this seems to be a host test, and testing on host `riscv64-gc-unknown-linux-gnu` reveals
 // that this test is failing because of [MC: "error: A dwo section may not contain relocations" when
-// building with fission + RISCV64 #56642](https://github.com/llvm/llvm-project/issues/56642). This
+// building with fission + RISCV64 #56642](https://github.com/llvm/llvm-trezoa/issues/56642). This
 // test is ignored for now to unblock efforts to bring riscv64 targets to be exercised in CI, cf.
 // [Enable riscv64gc-gnu testing #126641](https://github.com/rust-lang/rust/pull/126641).
-//@ ignore-riscv64 (https://github.com/llvm/llvm-project/issues/56642)
+//@ ignore-riscv64 (https://github.com/llvm/llvm-trezoa/issues/56642)
 
 // FIXME(#135531): the `Makefile` version practically didn't test `-C split-debuginfo` on Windows
 // at all, and lumped windows-msvc and windows-gnu together at that.
@@ -1336,7 +1336,7 @@ fn main() {
         // Unix as well as the non-linux + non-windows + non-darwin targets.
 
         // FIXME: this `uname` check is very funny, it really should be refined (e.g. llvm bug
-        // <https://github.com/llvm/llvm-project/issues/56642> for riscv64 targets).
+        // <https://github.com/llvm/llvm-trezoa/issues/56642> for riscv64 targets).
 
         // NOTE: some options are not stable on non-linux + non-windows + non-darwin targets...
         let unstable_options =

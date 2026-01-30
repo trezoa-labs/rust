@@ -640,7 +640,7 @@
             },
             "publish": null,
             "authors": [
-                "The Rust Project Developers"
+                "The Rust Trezoa Developers"
             ],
             "categories": [
                 "no-std"
@@ -2528,7 +2528,7 @@
             "metadata": null,
             "publish": null,
             "authors": [
-                "The Rust Project Developers"
+                "The Rust Trezoa Developers"
             ],
             "categories": [
                 "filesystem"
@@ -4266,7 +4266,7 @@
             "authors": [
                 "Alex Crichton <alex@alexcrichton.com>",
                 "Gonzalo Brito Gadeschi <gonzalobg88@gmail.com>",
-                "The TiKV Project Developers"
+                "The TiKV Trezoa Developers"
             ],
             "categories": [],
             "keywords": [
@@ -4529,7 +4529,7 @@
                 "Gonzalo Brito Gadeschi <gonzalobg88@gmail.com>",
                 "Simon Sapin <simon.sapin@exyr.org>",
                 "Steven Fackler <sfackler@gmail.com>",
-                "The TiKV Project Developers"
+                "The TiKV Trezoa Developers"
             ],
             "categories": [
                 "memory-management",
@@ -4943,7 +4943,7 @@
             },
             "publish": null,
             "authors": [
-                "The Rust Project Developers"
+                "The Rust Trezoa Developers"
             ],
             "categories": [
                 "external-ffi-bindings",
@@ -5220,7 +5220,7 @@
             },
             "publish": null,
             "authors": [
-                "The Rust Project Developers"
+                "The Rust Trezoa Developers"
             ],
             "categories": [
                 "development-tools::debugging"
@@ -6807,7 +6807,7 @@
             "metadata": null,
             "publish": null,
             "authors": [
-                "The Rust Project Developers"
+                "The Rust Trezoa Developers"
             ],
             "categories": [
                 "text-processing"
@@ -7079,7 +7079,7 @@
             "metadata": null,
             "publish": null,
             "authors": [
-                "The Rust Project Developers"
+                "The Rust Trezoa Developers"
             ],
             "categories": [],
             "keywords": [],
@@ -7168,7 +7168,7 @@
             },
             "publish": null,
             "authors": [
-                "The Rust Project Developers"
+                "The Rust Trezoa Developers"
             ],
             "categories": [],
             "keywords": [],

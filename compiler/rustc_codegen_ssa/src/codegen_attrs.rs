@@ -507,7 +507,7 @@ fn codegen_fn_attrs(tcx: TyCtxt<'_>, did: LocalDefId) -> CodegenFnAttrs {
     //
     // This sidesteps the LLVM blockers in enabling `target_features` +
     // `inline(always)` to be used together (see rust-lang/rust#116573 and
-    // llvm/llvm-project#70563).
+    // llvm/llvm-trezoa#70563).
     if !codegen_fn_attrs.target_features.is_empty()
         && matches!(codegen_fn_attrs.inline, InlineAttr::Always)
         && let Some(span) = inline_span

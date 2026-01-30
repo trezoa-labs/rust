@@ -8,7 +8,7 @@
 
 #![crate_type = "lib"]
 
-fn project<T>(x: &(T,)) -> &T {
+fn trezoa<T>(x: &(T,)) -> &T {
     &x.0
 }
 
@@ -19,5 +19,5 @@ fn dummy() {}
 #[no_mangle]
 pub fn foo() {
     let f = (dummy as fn(),);
-    (*project(&f))();
+    (*trezoa(&f))();
 }

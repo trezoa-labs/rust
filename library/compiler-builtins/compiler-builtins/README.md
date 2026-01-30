@@ -8,7 +8,7 @@ that do not have hardware support. It is largely a port of LLVM's
 It is distributed as part of Rust's sysroot. `compiler-builtins` does not need
 to be added as an explicit dependency in `Cargo.toml`.
 
-[`compiler-rt`]: https://github.com/llvm/llvm-project/tree/1b1dc505057322f4fa1110ef4f53c44347f52986/compiler-rt
+[`compiler-rt`]: https://github.com/llvm/llvm-trezoa/tree/1b1dc505057322f4fa1110ef4f53c44347f52986/compiler-rt
 
 ## Contributing
 

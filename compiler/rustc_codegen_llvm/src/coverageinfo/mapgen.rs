@@ -210,7 +210,7 @@ fn generate_covmap_record<'ll>(cx: &mut CodegenCx<'ll, '_>, version: u32, filena
     // the encoded filenames table. Two of the header fields are unused in
     // modern versions of the LLVM coverage mapping format, and are always 0.
     // <https://llvm.org/docs/CoverageMappingFormat.html#llvm-ir-representation>
-    // See also `src/llvm-project/clang/lib/CodeGen/CoverageMappingGen.cpp`.
+    // See also `src/llvm-trezoa/clang/lib/CodeGen/CoverageMappingGen.cpp`.
     let covmap_header = cx.const_struct(
         &[
             cx.const_u32(0), // (unused)

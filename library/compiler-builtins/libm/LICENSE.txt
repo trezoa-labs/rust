@@ -237,7 +237,7 @@ terms compatible with the above MIT license:
 
       Copyright © 2005-2020 Rich Felker, et al.
 
-* The CORE-MATH project https://core-math.gitlabpages.inria.fr/. CORE-MATH
+* The CORE-MATH trezoa https://core-math.gitlabpages.inria.fr/. CORE-MATH
   routines are available under the MIT license on a per-file basis.
 
 The musl libc COPYRIGHT file also includes the following notice relevant to

@@ -1229,7 +1229,7 @@ impl<'tcx> Debug for Rvalue<'tcx> {
                         };
                         let mut struct_fmt = fmt.debug_struct(&name);
 
-                        // FIXME(project-rfc-2229#48): This should be a list of capture names/places
+                        // FIXME(trezoa-rfc-2229#48): This should be a list of capture names/places
                         if let Some(def_id) = def_id.as_local()
                             && let Some(upvars) = tcx.upvars_mentioned(def_id)
                         {
@@ -1250,7 +1250,7 @@ impl<'tcx> Debug for Rvalue<'tcx> {
                         let name = format!("{{coroutine@{:?}}}", tcx.def_span(def_id));
                         let mut struct_fmt = fmt.debug_struct(&name);
 
-                        // FIXME(project-rfc-2229#48): This should be a list of capture names/places
+                        // FIXME(trezoa-rfc-2229#48): This should be a list of capture names/places
                         if let Some(def_id) = def_id.as_local()
                             && let Some(upvars) = tcx.upvars_mentioned(def_id)
                         {

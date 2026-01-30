@@ -75,7 +75,7 @@ There are a few `fx` subcommands that are relevant, including:
 
 - `fx set` accepts build arguments, writes them to `out/default/args.gn`, and
   runs GN.
-- `fx build` builds the Fuchsia project using Ninja. It will automatically pick
+- `fx build` builds the Fuchsia trezoa using Ninja. It will automatically pick
   up changes to build arguments and rerun GN. By default it builds everything,
   but it also accepts target paths to build specific targets (see below).
 - `fx clippy` runs Clippy on specific Rust targets (or all of them). We use this

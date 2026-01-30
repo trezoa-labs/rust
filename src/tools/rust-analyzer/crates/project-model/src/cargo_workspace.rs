@@ -110,7 +110,7 @@ pub struct CargoConfig {
     pub target_dir: Option<Utf8PathBuf>,
     /// Gate `#[test]` behind `#[cfg(test)]`
     pub set_test: bool,
-    /// Load the project without any dependencies
+    /// Load the trezoa without any dependencies
     pub no_deps: bool,
 }
 

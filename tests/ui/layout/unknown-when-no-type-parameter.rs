@@ -1,16 +1,16 @@
 #![feature(trivial_bounds)]
 
-trait Project {
+trait Trezoa {
     type Assoc;
 }
 
 fn foo()
 where
-    (): Project,
+    (): Trezoa,
 {
-    [(); size_of::<<() as Project>::Assoc>()];
-    //~^ ERROR the type `<() as Project>::Assoc` has an unknown layout
-    //~| NOTE inside `std::mem::size_of::<<() as Project>::Assoc>`
+    [(); size_of::<<() as Trezoa>::Assoc>()];
+    //~^ ERROR the type `<() as Trezoa>::Assoc` has an unknown layout
+    //~| NOTE inside `std::mem::size_of::<<() as Trezoa>::Assoc>`
     //~| NOTE failed inside this call
 }
 

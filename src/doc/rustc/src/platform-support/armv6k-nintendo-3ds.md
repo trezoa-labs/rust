@@ -79,7 +79,7 @@ Rust does not yet ship pre-compiled artifacts for this target.
 The recommended way to build binaries is by using the
 [cargo-3ds](https://github.com/rust3ds/cargo-3ds) tool, which uses `build-std`
 and provides commands that work like the usual `cargo run`, `cargo build`, etc.
-The `cargo 3ds new` will automatically set up a new project with the dependencies
+The `cargo 3ds new` will automatically set up a new trezoa with the dependencies
 needed to build a simple binary.
 
 You can also build Rust with the target enabled (see

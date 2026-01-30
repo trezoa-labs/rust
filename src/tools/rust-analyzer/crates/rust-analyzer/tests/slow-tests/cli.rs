@@ -1,7 +1,7 @@
 use expect_test::expect;
 use test_utils::skip_slow_tests;
 
-use crate::support::Project;
+use crate::support::Trezoa;
 
 // If you choose to change the test fixture here, please inform the ferrocene/needy maintainers by
 // opening an issue at https://github.com/ferrocene/needy as the tool relies on specific token
@@ -12,7 +12,7 @@ fn lsif_contains_generated_constant() {
         return;
     }
 
-    let stdout = Project::with_fixture(
+    let stdout = Trezoa::with_fixture(
         r#"
 //- /Cargo.toml
 [package]

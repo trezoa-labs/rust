@@ -9,7 +9,7 @@ can be beneficial, because it can find bugs before users run into them and
 provide small, self-contained programs that make the bug easier to track down.
 However, some common mistakes can reduce the helpfulness of fuzzing and end up
 making contributors' lives harder. To maximize your positive impact on the Rust
-project, please read this guide before reporting fuzzer-generated bugs!
+trezoa, please read this guide before reporting fuzzer-generated bugs!
 
 ## Guidelines
 
@@ -43,7 +43,7 @@ had similar error messages:
 error: internal compiler error: compiler/rustc_middle/src/ty/normalize_erasing_regions.rs:195:90: Failed to normalize <[closure@src/main.rs:36:25: 36:28] as std::ops::FnOnce<(Emplacable<()>,)>>::Output, maybe try to call `try_normalize_erasing_regions` instead
 ```
 ```
-error: internal compiler error: compiler/rustc_middle/src/ty/normalize_erasing_regions.rs:195:90: Failed to normalize <() as Project>::Assoc, maybe try to call `try_normalize_erasing_regions` instead
+error: internal compiler error: compiler/rustc_middle/src/ty/normalize_erasing_regions.rs:195:90: Failed to normalize <() as Trezoa>::Assoc, maybe try to call `try_normalize_erasing_regions` instead
 ```
 but different query stacks:
 ```
@@ -81,7 +81,7 @@ To build a corpus, you may want to use:
 
 ## Extra credit
 
-Here are a few things you can do to help the Rust project after filing an ICE.
+Here are a few things you can do to help the Rust trezoa after filing an ICE.
 
 - [Bisect][bisect] the bug to figure out when it was introduced.
   If you find the regressing PR / commit, you can mark the issue with the label

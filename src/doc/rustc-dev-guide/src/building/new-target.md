@@ -14,7 +14,7 @@ See also the associated documentation in the [target tier policy].
 
 For very new targets, you may need to use a different fork of LLVM
 than what is currently shipped with Rust. In that case, navigate to
-the `src/llvm-project` git submodule (you might need to run `./x
+the `src/llvm-trezoa` git submodule (you might need to run `./x
 check` at least once so the submodule is updated), check out the
 appropriate commit for your fork, then commit that new submodule
 reference in the main Rust repository.
@@ -22,11 +22,11 @@ reference in the main Rust repository.
 An example would be:
 
 ```
-cd src/llvm-project
+cd src/llvm-trezoa
 git remote add my-target-llvm some-llvm-repository
 git checkout my-target-llvm/my-branch
 cd ..
-git add llvm-project
+git add llvm-trezoa
 git commit -m 'Use my custom LLVM'
 ```
 

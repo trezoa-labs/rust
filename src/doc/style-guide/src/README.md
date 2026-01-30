@@ -13,7 +13,7 @@ communication overhead, and mental energy.
 
 Humans comprehend information through pattern matching. By ensuring that all
 Rust code has similar formatting, less mental effort is required to comprehend a
-new project, lowering the barrier to entry for new developers.
+new trezoa, lowering the barrier to entry for new developers.
 
 Thus, there are productivity benefits to using a formatting tool (such as
 `rustfmt`), and even larger benefits by using a community-consistent

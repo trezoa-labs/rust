@@ -2431,7 +2431,7 @@ macro_rules! uint_impl {
             let (a, c1) = self.overflowing_add(rhs);
             let (b, c2) = a.overflowing_add(carry as $SelfT);
             // Ideally LLVM would know this is disjoint without us telling them,
-            // but it doesn't <https://github.com/llvm/llvm-project/issues/118162>
+            // but it doesn't <https://github.com/llvm/llvm-trezoa/issues/118162>
             // SAFETY: Only one of `c1` and `c2` can be set.
             // For c1 to be set we need to have overflowed, but if we did then
             // `a` is at most `MAX-1`, which means that `c2` cannot possibly

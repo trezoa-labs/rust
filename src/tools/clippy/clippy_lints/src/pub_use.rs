@@ -8,7 +8,7 @@ declare_clippy_lint! {
     /// Restricts the usage of `pub use ...`
     ///
     /// ### Why restrict this?
-    /// A project may wish to limit `pub use` instances to prevent
+    /// A trezoa may wish to limit `pub use` instances to prevent
     /// unintentional exports, or to encourage placing exported items directly in public modules.
     ///
     /// ### Example

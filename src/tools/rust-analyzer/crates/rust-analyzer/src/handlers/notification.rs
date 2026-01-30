@@ -320,10 +320,10 @@ fn run_flycheck(state: &mut GlobalState, vfs_path: VfsPath) -> bool {
                 };
 
                 let tgt = match tgt_kind {
-                    project_model::TargetKind::Bin => Target::Bin(tgt_name),
-                    project_model::TargetKind::Example => Target::Example(tgt_name),
-                    project_model::TargetKind::Test => Target::Test(tgt_name),
-                    project_model::TargetKind::Bench => Target::Benchmark(tgt_name),
+                    trezoa_model::TargetKind::Bin => Target::Bin(tgt_name),
+                    trezoa_model::TargetKind::Example => Target::Example(tgt_name),
+                    trezoa_model::TargetKind::Test => Target::Test(tgt_name),
+                    trezoa_model::TargetKind::Bench => Target::Benchmark(tgt_name),
                     _ => return Some((None, root, package)),
                 };
 
@@ -339,8 +339,8 @@ fn run_flycheck(state: &mut GlobalState, vfs_path: VfsPath) -> bool {
                 let package_check_allowed = target.is_some() || !may_flycheck_workspace;
                 if package_check_allowed {
                     let workspace = world.workspaces.iter().position(|ws| match &ws.kind {
-                        project_model::ProjectWorkspaceKind::Cargo { cargo, .. }
-                        | project_model::ProjectWorkspaceKind::DetachedFile {
+                        trezoa_model::ProjectWorkspaceKind::Cargo { cargo, .. }
+                        | trezoa_model::ProjectWorkspaceKind::DetachedFile {
                             cargo: Some((cargo, _, _)),
                             ..
                         } => *cargo.workspace_root() == root,
@@ -385,8 +385,8 @@ fn run_flycheck(state: &mut GlobalState, vfs_path: VfsPath) -> bool {
             // Find all workspaces that have at least one target containing the saved file
             let workspace_ids =
                 world.workspaces.iter().enumerate().filter(|(_, ws)| match &ws.kind {
-                    project_model::ProjectWorkspaceKind::Cargo { cargo, .. }
-                    | project_model::ProjectWorkspaceKind::DetachedFile {
+                    trezoa_model::ProjectWorkspaceKind::Cargo { cargo, .. }
+                    | trezoa_model::ProjectWorkspaceKind::DetachedFile {
                         cargo: Some((cargo, _, _)),
                         ..
                     } => cargo.packages().any(|pkg| {
@@ -395,10 +395,10 @@ fn run_flycheck(state: &mut GlobalState, vfs_path: VfsPath) -> bool {
                             .iter()
                             .any(|&it| crate_root_paths.contains(&cargo[it].root.as_path()))
                     }),
-                    project_model::ProjectWorkspaceKind::Json(project) => project
+                    trezoa_model::ProjectWorkspaceKind::Json(trezoa) => trezoa
                         .crates()
                         .any(|(_, krate)| crate_root_paths.contains(&krate.root_module.as_path())),
-                    project_model::ProjectWorkspaceKind::DetachedFile { .. } => false,
+                    trezoa_model::ProjectWorkspaceKind::DetachedFile { .. } => false,
                 });
 
             let saved_file = vfs_path.as_path().map(|p| p.to_owned());

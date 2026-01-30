@@ -1466,7 +1466,7 @@ rustc_data_structures::external_bitflags_debug! { SanitizerSet }
 
 impl SanitizerSet {
     // Taken from LLVM's sanitizer compatibility logic:
-    // https://github.com/llvm/llvm-project/blob/release/18.x/clang/lib/Driver/SanitizerArgs.cpp#L512
+    // https://github.com/llvm/llvm-trezoa/blob/release/18.x/clang/lib/Driver/SanitizerArgs.cpp#L512
     const MUTUALLY_EXCLUSIVE: &'static [(SanitizerSet, SanitizerSet)] = &[
         (SanitizerSet::ADDRESS, SanitizerSet::MEMORY),
         (SanitizerSet::ADDRESS, SanitizerSet::THREAD),
@@ -2197,7 +2197,7 @@ pub struct TargetMetadata {
     pub description: Option<StaticCow<str>>,
     /// The tier of the target. 1, 2 or 3.
     pub tier: Option<u64>,
-    /// Whether the Rust project ships host tools for a target.
+    /// Whether the Rust trezoa ships host tools for a target.
     pub host_tools: Option<bool>,
     /// Whether a target has the `std` library. This is usually true for targets running
     /// on an operating system.

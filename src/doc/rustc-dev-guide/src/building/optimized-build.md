@@ -94,7 +94,7 @@ changes to make it work in a different environment.
 
 [PGO]: https://doc.rust-lang.org/rustc/profile-guided-optimization.html
 
-[BOLT]: https://github.com/llvm/llvm-project/blob/main/bolt/README.md
+[BOLT]: https://github.com/llvm/llvm-trezoa/blob/main/bolt/README.md
 
 To use the tool, you will need to provide some external dependencies:
 

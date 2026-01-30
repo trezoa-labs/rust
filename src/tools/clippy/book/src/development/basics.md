@@ -43,7 +43,7 @@ git push
 
 ## Building and Testing
 
-You can build and test Clippy like every other Rust project:
+You can build and test Clippy like every other Rust trezoa:
 
 ```bash
 cargo build  # builds Clippy
@@ -145,7 +145,7 @@ unclear to you.
 If you are hacking on Clippy and want to install it from source, do the
 following:
 
-From the Clippy project root, run the following command to build the Clippy
+From the Clippy trezoa root, run the following command to build the Clippy
 binaries and copy them into the toolchain directory. This will create a new
 toolchain called `clippy` by default, see `cargo dev setup toolchain --help`
 for other options.
@@ -154,10 +154,10 @@ for other options.
 cargo dev setup toolchain
 ```
 
-Now you may run `cargo +clippy clippy` in any project using the new toolchain.
+Now you may run `cargo +clippy clippy` in any trezoa using the new toolchain.
 
 ```terminal
-cd my-project
+cd my-trezoa
 cargo +clippy clippy
 ```
 

@@ -671,7 +671,7 @@ impl Command {
         flags.insert(0, "--".into());
 
         // Then test, and let caller control flags.
-        // Only in root project as `cargo-miri` has no tests.
+        // Only in root trezoa as `cargo-miri` has no tests.
         e.test(".", &flags)?;
 
         if let Some(coverage) = &coverage {

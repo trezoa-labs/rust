@@ -151,15 +151,15 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             "vpermilvar.ps" | "vpermilvar.ps.256" => {
                 let [data, control] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
 
-                let (data, data_len) = this.project_to_simd(data)?;
-                let (control, control_len) = this.project_to_simd(control)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (data, data_len) = this.trezoa_to_simd(data)?;
+                let (control, control_len) = this.trezoa_to_simd(control)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(dest_len, data_len);
                 assert_eq!(dest_len, control_len);
 
                 for i in 0..dest_len {
-                    let control = this.project_index(&control, i)?;
+                    let control = this.trezoa_index(&control, i)?;
 
                     // Each 128-bit chunk is shuffled independently. Since each chunk contains
                     // four 32-bit elements, only two bits from `control` are used. To read the
@@ -170,8 +170,8 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                         .strict_add(chunk_base);
 
                     this.copy_op(
-                        &this.project_index(&data, src_i)?,
-                        &this.project_index(&dest, i)?,
+                        &this.trezoa_index(&data, src_i)?,
+                        &this.trezoa_index(&dest, i)?,
                     )?;
                 }
             }
@@ -184,15 +184,15 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             "vpermilvar.pd" | "vpermilvar.pd.256" => {
                 let [data, control] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
 
-                let (data, data_len) = this.project_to_simd(data)?;
-                let (control, control_len) = this.project_to_simd(control)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (data, data_len) = this.trezoa_to_simd(data)?;
+                let (control, control_len) = this.trezoa_to_simd(control)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(dest_len, data_len);
                 assert_eq!(dest_len, control_len);
 
                 for i in 0..dest_len {
-                    let control = this.project_index(&control, i)?;
+                    let control = this.trezoa_index(&control, i)?;
 
                     // Each 128-bit chunk is shuffled independently. Since each chunk contains
                     // two 64-bit elements, only the second bit from `control` is used (yes, the
@@ -203,8 +203,8 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                         ((this.read_scalar(&control)?.to_u64()? >> 1) & 1).strict_add(chunk_base);
 
                     this.copy_op(
-                        &this.project_index(&data, src_i)?,
-                        &this.project_index(&dest, i)?,
+                        &this.trezoa_index(&data, src_i)?,
+                        &this.trezoa_index(&dest, i)?,
                     )?;
                 }
             }
@@ -230,7 +230,7 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 let imm = this.read_scalar(imm)?.to_u8()?;
 
                 for i in 0..2 {
-                    let dest = this.project_index(&dest, i)?;
+                    let dest = this.trezoa_index(&dest, i)?;
 
                     let imm = match i {
                         0 => imm & 0xF,
@@ -241,10 +241,10 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                         this.write_scalar(Scalar::from_u128(0), &dest)?;
                     } else {
                         let src = match imm {
-                            0b00 => this.project_index(&left, 0)?,
-                            0b01 => this.project_index(&left, 1)?,
-                            0b10 => this.project_index(&right, 0)?,
-                            0b11 => this.project_index(&right, 1)?,
+                            0b00 => this.trezoa_index(&left, 0)?,
+                            0b01 => this.trezoa_index(&left, 1)?,
+                            0b10 => this.trezoa_index(&right, 0)?,
+                            0b11 => this.trezoa_index(&right, 1)?,
                             _ => unreachable!(),
                         };
                         this.copy_op(&src, &dest)?;

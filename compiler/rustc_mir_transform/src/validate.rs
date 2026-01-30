@@ -713,7 +713,7 @@ impl<'a, 'tcx> Visitor<'tcx> for TypeChecker<'a, 'tcx> {
                             self.fail(
                                 location,
                                 format!(
-                                    "You can't project to field {f:?} of `DynMetadata` because \
+                                    "You can't trezoa to field {f:?} of `DynMetadata` because \
                                      layout is weird and thinks it doesn't have fields."
                                 ),
                             );

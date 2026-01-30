@@ -1,7 +1,7 @@
-//! Analyze all modules in a project for diagnostics. Exits with a non-zero
+//! Analyze all modules in a trezoa for diagnostics. Exits with a non-zero
 //! status code if any errors are found.
 
-use project_model::{CargoConfig, RustLibSource};
+use trezoa_model::{CargoConfig, RustLibSource};
 use rustc_hash::FxHashSet;
 
 use hir::{Crate, Module, db::HirDatabase, sym};

@@ -1,14 +1,14 @@
 Short version for non-lawyers:
 
-The Rust Project is dual-licensed under Apache 2.0 and MIT
+The Rust Trezoa is dual-licensed under Apache 2.0 and MIT
 terms.
 
-It is Copyright (c) The Rust Project Contributors.
+It is Copyright (c) The Rust Trezoa Contributors.
 
 Longer version:
 
-Copyrights in the Rust project are retained by their contributors. No
-copyright assignment is required to contribute to the Rust project.
+Copyrights in the Rust trezoa are retained by their contributors. No
+copyright assignment is required to contribute to the Rust trezoa.
 
 Some files include explicit copyright notices and/or license notices.
 For full authorship information, see the version control history or
@@ -21,7 +21,7 @@ license <LICENSE-MIT> or <http://opensource.org/licenses/MIT>, at your option.
 We track licenses for third-party materials in two ways:
 
 * We use [REUSE](https://reuse.software) to track license information for
-  in-tree source files - both those authored by the Rust project and those
+  in-tree source files - both those authored by the Rust trezoa and those
   authored by third parties. See `REUSE.toml`, and our cached output of the
   `reuse` tool which is committed to `license-metadata.json`.
 * We use `cargo` to track license information for out-of-tree dependencies.

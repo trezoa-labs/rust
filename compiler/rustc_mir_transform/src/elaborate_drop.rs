@@ -1154,7 +1154,7 @@ where
                     .iter()
                     .rev()
                     .map(|p| {
-                        let (project, path) = match p {
+                        let (trezoa, path) = match p {
                             ProjectionKind::Drop(r) => (
                                 ProjectionElem::Subslice {
                                     from: r.start,
@@ -1172,7 +1172,7 @@ where
                                 Some(path),
                             ),
                         };
-                        (tcx.mk_place_elem(self.place, project), path)
+                        (tcx.mk_place_elem(self.place, trezoa), path)
                     })
                     .collect::<Vec<_>>();
                 let (succ, unwind, dropline) = self.drop_ladder_bottom();
@@ -1208,7 +1208,7 @@ where
 
         let array_place = mem::replace(
             &mut self.place,
-            Place::from(slice_ptr).project_deeper(&[PlaceElem::Deref], tcx),
+            Place::from(slice_ptr).trezoa_deeper(&[PlaceElem::Deref], tcx),
         );
         let slice_block = self.drop_loop_trio_for_slice(ety);
         self.place = array_place;

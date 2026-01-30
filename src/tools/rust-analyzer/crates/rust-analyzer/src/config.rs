@@ -21,7 +21,7 @@ use ide_db::{
 };
 use itertools::{Either, Itertools};
 use paths::{Utf8Path, Utf8PathBuf};
-use project_model::{
+use trezoa_model::{
     CargoConfig, CargoFeatures, ProjectJson, ProjectJsonData, ProjectJsonFromCommand,
     ProjectManifest, RustLibSource,
 };
@@ -78,7 +78,7 @@ config_data! {
     ///
     /// A config is searched for by traversing a "config tree" in a bottom up fashion. It is chosen by the nearest first principle.
     global: struct GlobalDefaultConfigData <- GlobalConfigInput -> {
-        /// Warm up caches on project load.
+        /// Warm up caches on trezoa load.
         cachePriming_enable: bool = true,
         /// How many worker threads to handle priming caches. The default `0` means to pick automatically.
         cachePriming_numThreads: NumThreads = NumThreads::Physical,
@@ -261,12 +261,12 @@ config_data! {
         /// `#rust-analyzer.lens.enable#` and `#rust-analyzer.lens.run.enable#` are set.
         lens_updateTest_enable: bool = true,
 
-        /// Disable project auto-discovery in favor of explicitly specified set
+        /// Disable trezoa auto-discovery in favor of explicitly specified set
         /// of projects.
         ///
         /// Elements must be paths pointing to `Cargo.toml`,
-        /// `rust-project.json`, `.rs` files (which will be treated as standalone files) or JSON
-        /// objects in `rust-project.json` format.
+        /// `rust-trezoa.json`, `.rs` files (which will be treated as standalone files) or JSON
+        /// objects in `rust-trezoa.json` format.
         linkedProjects: Vec<ManifestOrProjectJson> = vec![],
 
         /// Number of syntax trees rust-analyzer keeps in memory. Defaults to 128.
@@ -358,7 +358,7 @@ config_data! {
         /// ```json
         /// "rust-analyzer.workspace.discoverConfig": {
         ///     "command": [
-        ///         "rust-project",
+        ///         "rust-trezoa",
         ///         "develop-json"
         ///     ],
         ///     "progressLabel": "rust-analyzer",
@@ -380,7 +380,7 @@ config_data! {
         /// #[serde(tag = "kind")]
         /// #[serde(rename_all = "snake_case")]
         /// enum DiscoverProjectData {
-        ///     Finished { buildfile: Utf8PathBuf, project: ProjectJsonData },
+        ///     Finished { buildfile: Utf8PathBuf, trezoa: ProjectJsonData },
         ///     Error { error: String, source: Option<String> },
         ///     Progress { message: String },
         /// }
@@ -395,8 +395,8 @@ config_data! {
         ///     // the file used by a non-Cargo build system to define
         ///     // a package or target.
         ///     "buildfile": "rust-analyzer/BUILD",
-        ///     // the contents of a rust-project.json, elided for brevity
-        ///     "project": {
+        ///     // the contents of a rust-trezoa.json, elided for brevity
+        ///     "trezoa": {
         ///         "sysroot": "foo",
         ///         "crates": []
         ///     }
@@ -435,11 +435,11 @@ config_data! {
         /// }
         /// ```
         ///
-        /// `DiscoverArgument::Path` is used to find and generate a `rust-project.json`,
+        /// `DiscoverArgument::Path` is used to find and generate a `rust-trezoa.json`,
         /// and therefore, a workspace, whereas `DiscoverArgument::buildfile` is used to
         /// to update an existing workspace. As a reference for implementors,
-        /// buck2's `rust-project` will likely be useful:
-        /// https://github.com/facebook/buck2/tree/main/integrations/rust-project.
+        /// buck2's `rust-trezoa` will likely be useful:
+        /// https://github.com/facebook/buck2/tree/main/integrations/rust-trezoa.
         workspace_discoverConfig: Option<DiscoverWorkspaceConfig> = None,
     }
 }
@@ -556,7 +556,7 @@ config_data! {
     workspace: struct WorkspaceDefaultConfigData <- WorkspaceConfigInput -> {
         /// Pass `--all-targets` to cargo invocation.
         cargo_allTargets: bool           = true,
-        /// Automatically refresh project info via `cargo metadata` on
+        /// Automatically refresh trezoa info via `cargo metadata` on
         /// `Cargo.toml` or `.cargo/config.toml` changes.
         cargo_autoreload: bool           = true,
         /// Run build scripts (`build.rs`) for more precise code analysis.
@@ -564,7 +564,7 @@ config_data! {
         /// Specifies the invocation strategy to use when running the build scripts command.
         /// If `per_workspace` is set, the command will be executed for each Rust workspace with the
         /// workspace as the working directory.
-        /// If `once` is set, the command will be executed once with the opened project as the
+        /// If `once` is set, the command will be executed once with the opened trezoa as the
         /// working directory.
         /// This config only has an effect when `#rust-analyzer.cargo.buildScripts.overrideCommand#`
         /// is set.
@@ -736,7 +736,7 @@ config_data! {
         /// projects, or "discover" to try to automatically find it if the `rustc-dev` component
         /// is installed.
         ///
-        /// Any project which uses rust-analyzer with the rustcPrivate
+        /// Any trezoa which uses rust-analyzer with the rustcPrivate
         /// crates must set `[package.metadata.rust-analyzer] rustc_private=true` to use it.
         ///
         /// This option does not take effect until rust-analyzer is restarted.
@@ -806,7 +806,7 @@ struct ClientInfo {
 
 #[derive(Clone)]
 pub struct Config {
-    /// Projects that have a Cargo.toml or a rust-project.json in a
+    /// Projects that have a Cargo.toml or a rust-trezoa.json in a
     /// parent directory, so we can discover them by walking the
     /// file system.
     discovered_projects_from_filesystem: Vec<ProjectManifest>,
@@ -825,7 +825,7 @@ pub struct Config {
     /// by receiving a `lsp_types::notification::DidChangeConfiguration`.
     client_config: (FullConfigInput, ConfigErrors),
 
-    /// Config node whose values apply to **every** Rust project.
+    /// Config node whose values apply to **every** Rust trezoa.
     user_config: Option<(GlobalWorkspaceLocalConfigInput, ConfigErrors)>,
 
     ratoml_file: FxHashMap<SourceRootId, (RatomlFile, ConfigErrors)>,
@@ -1871,7 +1871,7 @@ impl Config {
                 ManifestOrProjectJson::Manifest(it) => {
                     let path = self.root_path.join(it);
                     ProjectManifest::from_manifest_file(path)
-                        .map_err(|e| tracing::error!("failed to load linked project: {}", e))
+                        .map_err(|e| tracing::error!("failed to load linked trezoa: {}", e))
                         .ok()
                         .map(Into::into)
                 }
@@ -2023,7 +2023,7 @@ impl Config {
             sysroot_src,
             rustc_source,
             extra_includes,
-            cfg_overrides: project_model::CfgOverrides {
+            cfg_overrides: trezoa_model::CfgOverrides {
                 global: {
                     let (enabled, disabled): (Vec<_>, Vec<_>) =
                         self.cargo_cfgs(source_root).iter().partition_map(|s| {
@@ -2057,8 +2057,8 @@ impl Config {
             },
             wrap_rustc_in_build_scripts: *self.cargo_buildScripts_useRustcWrapper(source_root),
             invocation_strategy: match self.cargo_buildScripts_invocationStrategy(source_root) {
-                InvocationStrategy::Once => project_model::InvocationStrategy::Once,
-                InvocationStrategy::PerWorkspace => project_model::InvocationStrategy::PerWorkspace,
+                InvocationStrategy::Once => trezoa_model::InvocationStrategy::Once,
+                InvocationStrategy::PerWorkspace => trezoa_model::InvocationStrategy::PerWorkspace,
             },
             run_build_script_command: self.cargo_buildScripts_overrideCommand(source_root).clone(),
             extra_args: self.cargo_extraArgs(source_root).clone(),
@@ -3489,7 +3489,7 @@ fn field_props(field: &str, ty: &str, doc: &[&str], default: &str) -> serde_json
             "enum": ["per_workspace", "once"],
             "enumDescriptions": [
                 "The command will be executed for each Rust workspace with the workspace as the working directory.",
-                "The command will be executed once with the opened project as the working directory."
+                "The command will be executed once with the opened trezoa as the working directory."
             ],
         },
         "Option<CheckOnSaveTargets>" => set! {
@@ -3706,7 +3706,7 @@ fn doc_comment_to_string(doc: &[&str]) -> String {
 mod tests {
     use std::fs;
 
-    use test_utils::{ensure_file_contents, project_root};
+    use test_utils::{ensure_file_contents, trezoa_root};
 
     use super::*;
 
@@ -3748,7 +3748,7 @@ mod tests {
             }
         }
 
-        let package_json_path = project_root().join("editors/code/package.json");
+        let package_json_path = trezoa_root().join("editors/code/package.json");
         let mut package_json = fs::read_to_string(&package_json_path).unwrap();
 
         let start_marker =
@@ -3769,7 +3769,7 @@ mod tests {
 
     #[test]
     fn generate_config_documentation() {
-        let docs_path = project_root().join("docs/book/src/configuration_generated.md");
+        let docs_path = trezoa_root().join("docs/book/src/configuration_generated.md");
         let expected = FullConfigInput::manual();
         ensure_file_contents(docs_path.as_std_path(), &expected);
     }
@@ -3781,7 +3781,7 @@ mod tests {
     #[test]
     fn proc_macro_srv_null() {
         let mut config =
-            Config::new(AbsPathBuf::assert(project_root()), Default::default(), vec![], None);
+            Config::new(AbsPathBuf::assert(trezoa_root()), Default::default(), vec![], None);
 
         let mut change = ConfigChange::default();
         change.change_client_config(serde_json::json!({
@@ -3796,21 +3796,21 @@ mod tests {
     #[test]
     fn proc_macro_srv_abs() {
         let mut config =
-            Config::new(AbsPathBuf::assert(project_root()), Default::default(), vec![], None);
+            Config::new(AbsPathBuf::assert(trezoa_root()), Default::default(), vec![], None);
         let mut change = ConfigChange::default();
         change.change_client_config(serde_json::json!({
         "procMacro" : {
-            "server": project_root().to_string(),
+            "server": trezoa_root().to_string(),
         }}));
 
         (config, _, _) = config.apply_change(change);
-        assert_eq!(config.proc_macro_srv(), Some(AbsPathBuf::assert(project_root())));
+        assert_eq!(config.proc_macro_srv(), Some(AbsPathBuf::assert(trezoa_root())));
     }
 
     #[test]
     fn proc_macro_srv_rel() {
         let mut config =
-            Config::new(AbsPathBuf::assert(project_root()), Default::default(), vec![], None);
+            Config::new(AbsPathBuf::assert(trezoa_root()), Default::default(), vec![], None);
 
         let mut change = ConfigChange::default();
 
@@ -3823,14 +3823,14 @@ mod tests {
 
         assert_eq!(
             config.proc_macro_srv(),
-            Some(AbsPathBuf::try_from(project_root().join("./server")).unwrap())
+            Some(AbsPathBuf::try_from(trezoa_root().join("./server")).unwrap())
         );
     }
 
     #[test]
     fn cargo_target_dir_unset() {
         let mut config =
-            Config::new(AbsPathBuf::assert(project_root()), Default::default(), vec![], None);
+            Config::new(AbsPathBuf::assert(trezoa_root()), Default::default(), vec![], None);
 
         let mut change = ConfigChange::default();
 
@@ -3848,7 +3848,7 @@ mod tests {
     #[test]
     fn cargo_target_dir_subdir() {
         let mut config =
-            Config::new(AbsPathBuf::assert(project_root()), Default::default(), vec![], None);
+            Config::new(AbsPathBuf::assert(trezoa_root()), Default::default(), vec![], None);
 
         let mut change = ConfigChange::default();
         change.change_client_config(serde_json::json!({
@@ -3868,7 +3868,7 @@ mod tests {
     #[test]
     fn cargo_target_dir_relative_dir() {
         let mut config =
-            Config::new(AbsPathBuf::assert(project_root()), Default::default(), vec![], None);
+            Config::new(AbsPathBuf::assert(trezoa_root()), Default::default(), vec![], None);
 
         let mut change = ConfigChange::default();
         change.change_client_config(serde_json::json!({

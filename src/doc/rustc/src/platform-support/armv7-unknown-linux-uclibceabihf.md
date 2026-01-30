@@ -43,7 +43,7 @@ cc = "/TOOLCHAIN_PATH/bin/arm-buildroot-linux-uclibcgnueabihf-gcc"
 
 ## Building and Running Rust Programs
 
-To test cross-compiled binaries on a `x86_64` system, you can use the `qemu-arm` [userspace emulation](https://qemu-project.gitlab.io/qemu/user/main.html) program.  This avoids having a full emulated ARM system by doing dynamic binary translation and dynamic system call translation.  It lets you run ARM programs directly on your `x86_64` kernel.  It's very convenient!
+To test cross-compiled binaries on a `x86_64` system, you can use the `qemu-arm` [userspace emulation](https://qemu-trezoa.gitlab.io/qemu/user/main.html) program.  This avoids having a full emulated ARM system by doing dynamic binary translation and dynamic system call translation.  It lets you run ARM programs directly on your `x86_64` kernel.  It's very convenient!
 
 To use:
 

@@ -208,7 +208,7 @@ impl<'a, 'tcx> FallibleTypeFolder<TyCtxt<'tcx>> for QueryNormalizer<'a, 'tcx> {
             }
         };
 
-        // See note in `rustc_trait_selection::traits::project` about why we
+        // See note in `rustc_trait_selection::traits::trezoa` about why we
         // wait to fold the args.
         let res = match kind {
             ty::Opaque => {
@@ -254,7 +254,7 @@ impl<'a, 'tcx> FallibleTypeFolder<TyCtxt<'tcx>> for QueryNormalizer<'a, 'tcx> {
             }
 
             ty::Projection | ty::Inherent | ty::Free => {
-                // See note in `rustc_trait_selection::traits::project`
+                // See note in `rustc_trait_selection::traits::trezoa`
 
                 let infcx = self.infcx;
                 let tcx = infcx.tcx;

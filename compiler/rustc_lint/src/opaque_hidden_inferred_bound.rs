@@ -164,7 +164,7 @@ impl<'tcx> LateLintPass<'tcx> for OpaqueHiddenInferredBound {
                     ));
 
                     // If that predicate doesn't hold modulo regions (but passed during type-check),
-                    // then we must've taken advantage of the hack in `project_and_unify_types` where
+                    // then we must've taken advantage of the hack in `trezoa_and_unify_types` where
                     // we replace opaques with inference vars. Emit a warning!
                     if !ocx.select_all_or_error().is_empty() {
                         // If it's a trait bound and an opaque that doesn't satisfy it,

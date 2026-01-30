@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT OR Apache-2.0
-// SPDX-FileCopyrightText: The Rust Project Developers (see https://thanks.rust-lang.org)
+// SPDX-FileCopyrightText: The Rust Trezoa Developers (see https://thanks.rust-lang.org)
 
 #![no_std]
 #![feature(allocator_api, rustc_private)]

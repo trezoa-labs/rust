@@ -262,7 +262,7 @@ Then just build using `x.py`:
 ./x.py build --target x86_64-unknown-uefi --stage 1
 ```
 Alternatively, it is possible to use the `build-std` feature. However, you must use a toolchain which has the UEFI std patches.
-Then just build the project using the following command:
+Then just build the trezoa using the following command:
 ```sh
 cargo build --target x86_64-unknown-uefi -Zbuild-std=std,panic_abort
 ```

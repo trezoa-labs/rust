@@ -44,7 +44,7 @@ pub enum TypingMode<I: Interner> {
     /// We only normalize opaque types which may get defined by the current body,
     /// which are stored in `defining_opaque_types`.
     ///
-    /// We also refuse to project any associated type that is marked `default`.
+    /// We also refuse to trezoa any associated type that is marked `default`.
     /// Non-`default` ("final") types are always projected. This is necessary in
     /// general for soundness of specialization. However, we *could* allow projections
     /// in fully-monomorphic cases. We choose not to, because we prefer for `default type`

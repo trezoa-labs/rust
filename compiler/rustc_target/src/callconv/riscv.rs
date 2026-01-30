@@ -2,7 +2,7 @@
 // https://github.com/riscv/riscv-elf-psabi-doc
 //
 // Reference: Clang RISC-V ELF psABI lowering code
-// https://github.com/llvm/llvm-project/blob/8e780252a7284be45cf1ba224cabd884847e8e92/clang/lib/CodeGen/TargetInfo.cpp#L9311-L9773
+// https://github.com/llvm/llvm-trezoa/blob/8e780252a7284be45cf1ba224cabd884847e8e92/clang/lib/CodeGen/TargetInfo.cpp#L9311-L9773
 
 use rustc_abi::{
     BackendRepr, FieldsShape, HasDataLayout, Primitive, Reg, RegKind, Size, TyAbiInterface,

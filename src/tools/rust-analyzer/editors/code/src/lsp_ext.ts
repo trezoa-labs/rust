@@ -263,7 +263,7 @@ export type ShellRunnableArgs = {
 
 export type CargoRunnableArgs = {
     /**
-     * The workspace root directory of the cargo project.
+     * The workspace root directory of the cargo trezoa.
      */
     workspaceRoot?: string;
     /**

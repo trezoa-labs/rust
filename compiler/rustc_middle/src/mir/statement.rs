@@ -139,7 +139,7 @@ impl<'tcx> PlaceTy<'tcx> {
                     .get(f.index())
                     .copied()
                     .unwrap_or_else(|| bug!("field {f:?} out of range: {self_ty:?}")),
-                _ => bug!("can't project out of {self_ty:?}"),
+                _ => bug!("can't trezoa out of {self_ty:?}"),
             }
         }
     }
@@ -361,12 +361,12 @@ impl<'tcx> Place<'tcx> {
 
     /// Generates a new place by appending `more_projections` to the existing ones
     /// and interning the result.
-    pub fn project_deeper(self, more_projections: &[PlaceElem<'tcx>], tcx: TyCtxt<'tcx>) -> Self {
+    pub fn trezoa_deeper(self, more_projections: &[PlaceElem<'tcx>], tcx: TyCtxt<'tcx>) -> Self {
         if more_projections.is_empty() {
             return self;
         }
 
-        self.as_ref().project_deeper(more_projections, tcx)
+        self.as_ref().trezoa_deeper(more_projections, tcx)
     }
 
     pub fn ty_from<D: ?Sized>(
@@ -471,7 +471,7 @@ impl<'tcx> PlaceRef<'tcx> {
 
     /// Generates a new place by appending `more_projections` to the existing ones
     /// and interning the result.
-    pub fn project_deeper(
+    pub fn trezoa_deeper(
         self,
         more_projections: &[PlaceElem<'tcx>],
         tcx: TyCtxt<'tcx>,

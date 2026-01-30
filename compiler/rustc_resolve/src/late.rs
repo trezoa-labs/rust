@@ -354,7 +354,7 @@ enum LifetimeRibKind {
     /// This rib forbids usage of generic parameters inside of const parameter types.
     ///
     /// While this is desirable to support eventually, it is difficult to do and so is
-    /// currently forbidden. See rust-lang/project-const-generics#28 for more info.
+    /// currently forbidden. See rust-lang/trezoa-const-generics#28 for more info.
     ConstParamTy,
 
     /// Usage of generic parameters is forbidden in various positions for anon consts:

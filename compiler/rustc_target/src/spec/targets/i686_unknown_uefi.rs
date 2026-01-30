@@ -39,7 +39,7 @@ pub(crate) fn target() -> Target {
     //   https://github.com/rust-lang-nursery/compiler-builtins.
     //   As result, rust-lld generates link error finally.
     // Root-cause:
-    //   In rust\src\llvm-project\llvm\lib\Target\X86\X86ISelLowering.cpp,
+    //   In rust\src\llvm-trezoa\llvm\lib\Target\X86\X86ISelLowering.cpp,
     //   we have below code to use MSVC intrinsics. It assumes MSVC target
     //   will link MSVC library. But that is NOT true in UEFI environment.
     //   UEFI does not link any MSVC or GCC standard library.

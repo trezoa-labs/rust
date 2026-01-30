@@ -13,7 +13,7 @@ pub struct Environment {
     /// Directory where the optimization artifacts (PGO/BOLT profiles, etc.)
     /// will be stored.
     artifact_dir: Utf8PathBuf,
-    /// Path to the host LLVM used to compile LLVM in `src/llvm-project`.
+    /// Path to the host LLVM used to compile LLVM in `src/llvm-trezoa`.
     host_llvm_dir: Utf8PathBuf,
     /// List of test paths that should be skipped when testing the optimized artifacts.
     skipped_tests: Vec<String>,

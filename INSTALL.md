@@ -5,7 +5,7 @@ This is _not recommended_ if you don't know what you're doing.
 If you just want to install Rust, check out the [README.md](README.md) instead.**
 
 The Rust build system uses a Python script called `x.py` to build the compiler,
-which manages the bootstrapping process. It lives at the root of the project.
+which manages the bootstrapping process. It lives at the root of the trezoa.
 It also uses a file named `bootstrap.toml` to determine various configuration
 settings for the build. You can see a full list of options in
 `bootstrap.example.toml`.
@@ -136,7 +136,7 @@ See [the rustc-dev-guide for more info][sysllvm].
 
 ### Configure and Make
 
-This project provides a configure script and makefile (the latter of which just
+This trezoa provides a configure script and makefile (the latter of which just
 invokes `x.py`). `./configure` is the recommended way to programmatically
 generate a `bootstrap.toml`. `make` is not recommended (we suggest using `x.py`
 directly), but it is supported and we try not to break it unnecessarily.

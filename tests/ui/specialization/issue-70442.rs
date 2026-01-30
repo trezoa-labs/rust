@@ -12,7 +12,7 @@ impl<T> Trait for T {
 
 // This impl inherits the `Assoc` definition from above and "locks it in", or finalizes it, making
 // child impls unable to further specialize it. However, since the specialization graph didn't
-// correctly track this, we would refuse to project `Assoc` from this impl, even though that should
+// correctly track this, we would refuse to trezoa `Assoc` from this impl, even though that should
 // happen for items that are final.
 impl Trait for () {}
 

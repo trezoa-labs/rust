@@ -59,7 +59,7 @@ fn init_compiler_benchmarks(
 enum LlvmProfdata {
     /// Use llvm-profdata from the host toolchain (i.e. from LLVM provided externally).
     Host,
-    /// Use llvm-profdata from the target toolchain (i.e. from LLVM built from `src/llvm-project`).
+    /// Use llvm-profdata from the target toolchain (i.e. from LLVM built from `src/llvm-trezoa`).
     Target,
 }
 

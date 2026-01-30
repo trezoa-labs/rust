@@ -148,7 +148,7 @@ impl<'a, 'tcx, V: CodegenObject> PlaceRef<'tcx, V> {
 
 impl<'a, 'tcx, V: CodegenObject> PlaceRef<'tcx, V> {
     /// Access a field, at a point when the value's case is known.
-    pub fn project_field<Bx: BuilderMethods<'a, 'tcx, Value = V>>(
+    pub fn trezoa_field<Bx: BuilderMethods<'a, 'tcx, Value = V>>(
         self,
         bx: &mut Bx,
         ix: usize,
@@ -250,7 +250,7 @@ impl<'a, 'tcx, V: CodegenObject> PlaceRef<'tcx, V> {
             Variants::Single { index } => assert_eq!(index, variant_index),
 
             Variants::Multiple { tag_encoding: TagEncoding::Direct, tag_field, .. } => {
-                let ptr = self.project_field(bx, tag_field.as_usize());
+                let ptr = self.trezoa_field(bx, tag_field.as_usize());
                 let to =
                     self.layout.ty.discriminant_for_variant(bx.tcx(), variant_index).unwrap().val;
                 bx.store_to_place(
@@ -265,7 +265,7 @@ impl<'a, 'tcx, V: CodegenObject> PlaceRef<'tcx, V> {
                 ..
             } => {
                 if variant_index != untagged_variant {
-                    let niche = self.project_field(bx, tag_field.as_usize());
+                    let niche = self.trezoa_field(bx, tag_field.as_usize());
                     let niche_llty = bx.cx().immediate_backend_type(niche.layout);
                     let BackendRepr::Scalar(scalar) = niche.layout.backend_repr else {
                         bug!("expected a scalar placeref for the niche");
@@ -289,7 +289,7 @@ impl<'a, 'tcx, V: CodegenObject> PlaceRef<'tcx, V> {
         }
     }
 
-    pub fn project_index<Bx: BuilderMethods<'a, 'tcx, Value = V>>(
+    pub fn trezoa_index<Bx: BuilderMethods<'a, 'tcx, Value = V>>(
         &self,
         bx: &mut Bx,
         llindex: V,
@@ -308,7 +308,7 @@ impl<'a, 'tcx, V: CodegenObject> PlaceRef<'tcx, V> {
         PlaceValue::new_sized(llval, align).with_type(layout)
     }
 
-    pub fn project_downcast<Bx: BuilderMethods<'a, 'tcx, Value = V>>(
+    pub fn trezoa_downcast<Bx: BuilderMethods<'a, 'tcx, Value = V>>(
         &self,
         bx: &mut Bx,
         variant_index: VariantIdx,
@@ -318,7 +318,7 @@ impl<'a, 'tcx, V: CodegenObject> PlaceRef<'tcx, V> {
         downcast
     }
 
-    pub fn project_type<Bx: BuilderMethods<'a, 'tcx, Value = V>>(
+    pub fn trezoa_type<Bx: BuilderMethods<'a, 'tcx, Value = V>>(
         &self,
         bx: &mut Bx,
         ty: Ty<'tcx>,
@@ -376,33 +376,33 @@ impl<'a, 'tcx, Bx: BuilderMethods<'a, 'tcx>> FunctionCx<'a, 'tcx, Bx> {
                         "Bad PlaceRef: destructing pointers should use cast/PtrMetadata, \
                          but tried to access field {field:?} of pointer {cg_base:?}",
                     );
-                    cg_base.project_field(bx, field.index())
+                    cg_base.trezoa_field(bx, field.index())
                 }
                 mir::ProjectionElem::OpaqueCast(ty) => {
                     bug!("encountered OpaqueCast({ty}) in codegen")
                 }
-                mir::ProjectionElem::Subtype(ty) => cg_base.project_type(bx, self.monomorphize(ty)),
+                mir::ProjectionElem::Subtype(ty) => cg_base.trezoa_type(bx, self.monomorphize(ty)),
                 mir::ProjectionElem::UnwrapUnsafeBinder(ty) => {
-                    cg_base.project_type(bx, self.monomorphize(ty))
+                    cg_base.trezoa_type(bx, self.monomorphize(ty))
                 }
                 mir::ProjectionElem::Index(index) => {
                     let index = &mir::Operand::Copy(mir::Place::from(index));
                     let index = self.codegen_operand(bx, index);
                     let llindex = index.immediate();
-                    cg_base.project_index(bx, llindex)
+                    cg_base.trezoa_index(bx, llindex)
                 }
                 mir::ProjectionElem::ConstantIndex { offset, from_end: false, min_length: _ } => {
                     let lloffset = bx.cx().const_usize(offset);
-                    cg_base.project_index(bx, lloffset)
+                    cg_base.trezoa_index(bx, lloffset)
                 }
                 mir::ProjectionElem::ConstantIndex { offset, from_end: true, min_length: _ } => {
                     let lloffset = bx.cx().const_usize(offset);
                     let lllen = cg_base.len(bx.cx());
                     let llindex = bx.sub(lllen, lloffset);
-                    cg_base.project_index(bx, llindex)
+                    cg_base.trezoa_index(bx, llindex)
                 }
                 mir::ProjectionElem::Subslice { from, to, from_end } => {
-                    let mut subslice = cg_base.project_index(bx, bx.cx().const_usize(from));
+                    let mut subslice = cg_base.trezoa_index(bx, bx.cx().const_usize(from));
                     let projected_ty =
                         PlaceTy::from_ty(cg_base.layout.ty).projection_ty(tcx, *elem).ty;
                     subslice.layout = bx.cx().layout_of(self.monomorphize(projected_ty));
@@ -416,7 +416,7 @@ impl<'a, 'tcx, Bx: BuilderMethods<'a, 'tcx>> FunctionCx<'a, 'tcx, Bx> {
 
                     subslice
                 }
-                mir::ProjectionElem::Downcast(_, v) => cg_base.project_downcast(bx, v),
+                mir::ProjectionElem::Downcast(_, v) => cg_base.trezoa_downcast(bx, v),
             };
         }
         debug!("codegen_place(place={:?}) => {:?}", place_ref, cg_base);

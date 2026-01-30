@@ -383,9 +383,9 @@ impl<'a, 'tcx, Bx: BuilderMethods<'a, 'tcx>> FunctionCx<'a, 'tcx, Bx> {
                 let val = bx.from_immediate(val);
                 let success = bx.from_immediate(success);
 
-                let dest = result.project_field(bx, 0);
+                let dest = result.trezoa_field(bx, 0);
                 bx.store_to_place(val, dest.val);
-                let dest = result.project_field(bx, 1);
+                let dest = result.trezoa_field(bx, 1);
                 bx.store_to_place(success, dest.val);
 
                 return Ok(());

@@ -310,7 +310,7 @@ impl MirLowerCtx<'_> {
                     }
                 }
                 for (i, &pat) in prefix.iter().enumerate() {
-                    let next_place = cond_place.project(
+                    let next_place = cond_place.trezoa(
                         ProjectionElem::ConstantIndex { offset: i as u64, from_end: false },
                         &mut self.result.projection_store,
                     );
@@ -320,7 +320,7 @@ impl MirLowerCtx<'_> {
                 if let &Some(slice) = slice {
                     if mode != MatchingMode::Check {
                         if let Pat::Bind { id, subpat: _ } = self.body[slice] {
-                            let next_place = cond_place.project(
+                            let next_place = cond_place.trezoa(
                                 ProjectionElem::Subslice {
                                     from: prefix.len() as u64,
                                     to: suffix.len() as u64,
@@ -340,7 +340,7 @@ impl MirLowerCtx<'_> {
                     }
                 }
                 for (i, &pat) in suffix.iter().enumerate() {
-                    let next_place = cond_place.project(
+                    let next_place = cond_place.trezoa(
                         ProjectionElem::ConstantIndex { offset: i as u64, from_end: true },
                         &mut self.result.projection_store,
                     );
@@ -482,7 +482,7 @@ impl MirLowerCtx<'_> {
             }
             Pat::Ref { pat, mutability: _ } => {
                 let cond_place =
-                    cond_place.project(ProjectionElem::Deref, &mut self.result.projection_store);
+                    cond_place.trezoa(ProjectionElem::Deref, &mut self.result.projection_store);
                 self.pattern_match_inner(current, current_else, cond_place, *pat, mode)?
             }
             &Pat::Expr(expr) => {
@@ -687,7 +687,7 @@ impl MirLowerCtx<'_> {
         mode: MatchingMode,
     ) -> Result<(BasicBlockId, Option<BasicBlockId>)> {
         for (proj, arg) in args {
-            let cond_place = cond_place.project(proj, &mut self.result.projection_store);
+            let cond_place = cond_place.trezoa(proj, &mut self.result.projection_store);
             (current, current_else) =
                 self.pattern_match_inner(current, current_else, cond_place, arg, mode)?;
         }

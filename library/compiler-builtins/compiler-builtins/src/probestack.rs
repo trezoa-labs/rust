@@ -1,4 +1,4 @@
-// Copyright 2017 The Rust Project Developers. See the COPYRIGHT
+// Copyright 2017 The Rust Trezoa Developers. See the COPYRIGHT
 // file at the top-level directory of this distribution and at
 // http://rust-lang.org/COPYRIGHT.
 //
@@ -304,7 +304,7 @@ core::arch::global_asm!(
 // So we need to sub %ax %sp in probestack when arch is x86.
 //
 // REF: Rust commit(74e80468347)
-// rust\src\llvm-project\llvm\lib\Target\X86\X86FrameLowering.cpp: 805
+// rust\src\llvm-trezoa\llvm\lib\Target\X86\X86FrameLowering.cpp: 805
 // Comments in LLVM:
 //   MSVC x32's _chkstk and cygwin/mingw's _alloca adjust %esp themselves.
 //   MSVC x64's __chkstk and cygwin/mingw's ___chkstk_ms do not adjust %rsp

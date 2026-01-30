@@ -1,8 +1,8 @@
 # Non-Cargo Based Projects
 
 rust-analyzer does not require Cargo. However, if you use some other
-build system, you’ll have to describe the structure of your project for
-rust-analyzer in the `rust-project.json` format:
+build system, you’ll have to describe the structure of your trezoa for
+rust-analyzer in the `rust-trezoa.json` format:
 
 ```typescript
 interface ProjectJson {
@@ -47,7 +47,7 @@ interface ProjectJson {
     /// the same format as `Crate.cfg`.
     cfg_groups?: { [key: string]: string[]; };
     /// The set of crates comprising the current
-    /// project. Must include all transitive
+    /// trezoa. Must include all transitive
     /// dependencies as well as sysroot crate (libstd,
     /// libcore and such).
     crates: Crate[];
@@ -168,7 +168,7 @@ interface BuildInfo {
     /// The name associated with this crate.
     ///
     /// This is determined by the build system that produced
-    /// the `rust-project.json` in question. For instance, if buck were used,
+    /// the `rust-trezoa.json` in question. For instance, if buck were used,
     /// the label might be something like `//ide/rust/rust-analyzer:rust-analyzer`.
     ///
     /// Do not attempt to parse the contents of this string; it is a build system-specific
@@ -208,13 +208,13 @@ interface Runnable {
 This format is provisional and subject to change. Specifically, the
 `roots` setup will be different eventually.
 
-There are three ways to feed `rust-project.json` to rust-analyzer:
+There are three ways to feed `rust-trezoa.json` to rust-analyzer:
 
--   Place `rust-project.json` file at the root of the project, and
+-   Place `rust-trezoa.json` file at the root of the trezoa, and
     rust-analyzer will discover it.
 
 -   Specify
-    `"rust-analyzer.linkedProjects": [ "path/to/rust-project.json" ]` in
+    `"rust-analyzer.linkedProjects": [ "path/to/rust-trezoa.json" ]` in
     the settings (and make sure that your LSP client sends settings as a
     part of initialize request).
 
@@ -222,14 +222,14 @@ There are three ways to feed `rust-project.json` to rust-analyzer:
     `"rust-analyzer.linkedProjects": [ { "roots": […​], "crates": […​] }]`
     inline.
 
-Relative paths are interpreted relative to `rust-project.json` file
+Relative paths are interpreted relative to `rust-trezoa.json` file
 location or (for inline JSON) relative to `rootUri`.
 
 You can set the `RA_LOG` environment variable to `rust_analyzer=info` to
-inspect how rust-analyzer handles config and project loading.
+inspect how rust-analyzer handles config and trezoa loading.
 
 Note that calls to `cargo check` are disabled when using
-`rust-project.json` by default, so compilation errors and warnings will
+`rust-trezoa.json` by default, so compilation errors and warnings will
 no longer be sent to your LSP client. To enable these compilation errors
 you will need to specify explicitly what command rust-analyzer should
 run to perform the checks using the

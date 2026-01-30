@@ -21,7 +21,7 @@ there aren't any significant regressions:
 ./x test src/tools/cargotest
 ```
 
-### Large OSS Project builders
+### Large OSS Trezoa builders
 
 We have CI jobs that build large open-source Rust projects that are used as
 regression tests in CI. Our integration jobs build the following projects:

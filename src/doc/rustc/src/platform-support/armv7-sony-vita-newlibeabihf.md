@@ -52,7 +52,7 @@ cargo install cargo-vita
 export VITASDK=/opt/vitasdk
 ```
 
-Add the following section to your project's `Cargo.toml`:
+Add the following section to your trezoa's `Cargo.toml`:
 
 
 ```toml

@@ -466,7 +466,7 @@ extern "C" LLVMTargetMachineRef LLVMRustCreateTargetMachine(
     // ...except for when targeting WebAssembly, because the NoTrapAfterNoreturn
     // option causes bugs in the LLVM WebAssembly backend. You should be able to
     // remove this check when Rust's minimum supported LLVM version is >= 18
-    // https://github.com/llvm/llvm-project/pull/65876
+    // https://github.com/llvm/llvm-trezoa/pull/65876
     if (!Trip.isWasm()) {
       Options.NoTrapAfterNoreturn = true;
     }

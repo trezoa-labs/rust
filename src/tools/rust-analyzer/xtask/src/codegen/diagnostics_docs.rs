@@ -4,7 +4,7 @@ use std::{fmt, fs, io, path::PathBuf};
 
 use crate::{
     codegen::{CommentBlock, Location, add_preamble},
-    project_root,
+    trezoa_root,
     util::list_rust_files,
 };
 
@@ -17,7 +17,7 @@ pub(crate) fn generate(check: bool) {
     let contents =
         diagnostics.into_iter().map(|it| it.to_string()).collect::<Vec<_>>().join("\n\n");
     let contents = add_preamble(crate::flags::CodegenType::DiagnosticsDocs, contents);
-    let dst = project_root().join("docs/book/src/diagnostics_generated.md");
+    let dst = trezoa_root().join("docs/book/src/diagnostics_generated.md");
     fs::write(dst, contents).unwrap();
 }
 
@@ -30,7 +30,7 @@ struct Diagnostic {
 
 impl Diagnostic {
     fn collect() -> io::Result<Vec<Diagnostic>> {
-        let handlers_dir = project_root().join("crates/ide-diagnostics/src/handlers");
+        let handlers_dir = trezoa_root().join("crates/ide-diagnostics/src/handlers");
 
         let mut res = Vec::new();
         for path in list_rust_files(&handlers_dir) {

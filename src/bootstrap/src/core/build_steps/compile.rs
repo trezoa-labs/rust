@@ -480,7 +480,7 @@ pub fn std_crates_for_run_make(run: &RunConfig<'_>) -> Vec<String> {
 
 /// Tries to find LLVM's `compiler-rt` source directory, for building `library/profiler_builtins`.
 ///
-/// Normally it lives in the `src/llvm-project` submodule, but if we will be using a
+/// Normally it lives in the `src/llvm-trezoa` submodule, but if we will be using a
 /// downloaded copy of CI LLVM, then we try to use the `compiler-rt` sources from
 /// there instead, which lets us avoid checking out the LLVM submodule.
 fn compiler_rt_for_profiler(builder: &Builder<'_>) -> PathBuf {
@@ -495,10 +495,10 @@ fn compiler_rt_for_profiler(builder: &Builder<'_>) -> PathBuf {
     }
 
     // Otherwise, fall back to requiring the LLVM submodule.
-    builder.require_submodule("src/llvm-project", {
+    builder.require_submodule("src/llvm-trezoa", {
         Some("The `build.profiler` config option requires `compiler-rt` sources from LLVM.")
     });
-    builder.src.join("src/llvm-project/compiler-rt")
+    builder.src.join("src/llvm-trezoa/compiler-rt")
 }
 
 /// Configure cargo to compile the standard library, adding appropriate env vars
@@ -582,13 +582,13 @@ pub fn std_cargo(builder: &Builder<'_>, target: TargetSelection, stage: u32, car
         // the compiler_builtins build script that makes me nervous, though:
         // https://github.com/rust-lang/compiler-builtins/blob/31ee4544dbe47903ce771270d6e3bea8654e9e50/build.rs#L575-L579
         builder.require_submodule(
-            "src/llvm-project",
+            "src/llvm-trezoa",
             Some(
                 "The `build.optimized-compiler-builtins` config option \
                  requires `compiler-rt` sources from LLVM.",
             ),
         );
-        let compiler_builtins_root = builder.src.join("src/llvm-project/compiler-rt");
+        let compiler_builtins_root = builder.src.join("src/llvm-trezoa/compiler-rt");
         assert!(compiler_builtins_root.exists());
         // The path to `compiler-rt` is also used by `profiler_builtins` (above),
         // so if you're changing something here please also change that as appropriate.
@@ -801,7 +801,7 @@ impl Step for StdLink {
             let sysroot = builder.out.join(compiler.host.triple).join("stage0-sysroot");
 
             if builder.local_rebuild {
-                // On local rebuilds this path might be a symlink to the project root,
+                // On local rebuilds this path might be a symlink to the trezoa root,
                 // which can be read-only (e.g., on CI). So remove it before copying
                 // the stage0 lib.
                 let _ = fs::remove_dir_all(sysroot.join("lib/rustlib/src/rust"));
@@ -1272,7 +1272,7 @@ pub fn rustc_cargo(
     //
     // -Wl,[link options] doesn't work on MSVC. However, /OPT:ICF (technically /OPT:REF,ICF)
     // is already on by default in MSVC optimized builds, which is interpreted as --icf=all:
-    // https://github.com/llvm/llvm-project/blob/3329cec2f79185bafd678f310fafadba2a8c76d2/lld/COFF/Driver.cpp#L1746
+    // https://github.com/llvm/llvm-trezoa/blob/3329cec2f79185bafd678f310fafadba2a8c76d2/lld/COFF/Driver.cpp#L1746
     // https://github.com/rust-lang/rust/blob/f22819bcce4abaff7d1246a56eec493418f9f4ee/compiler/rustc_codegen_ssa/src/back/linker.rs#L827
     if builder.config.lld_mode.is_used() && !build_compiler.host.is_msvc() {
         cargo.rustflag("-Clink-args=-Wl,--icf=all");

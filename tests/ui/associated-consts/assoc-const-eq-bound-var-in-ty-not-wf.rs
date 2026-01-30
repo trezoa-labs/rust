@@ -8,16 +8,16 @@ trait Trait<T> {
 
 fn take(
     _: impl Trait<
-        <<for<'a> fn(&'a str) -> &'a str as Project>::Out as Discard>::Out,
+        <<for<'a> fn(&'a str) -> &'a str as Trezoa>::Out as Discard>::Out,
         K = { () }
     >,
 ) {}
-//~^^^^^^ ERROR implementation of `Project` is not general enough
+//~^^^^^^ ERROR implementation of `Trezoa` is not general enough
 //~^^^^ ERROR higher-ranked subtype error
 //~| ERROR higher-ranked subtype error
 
-trait Project { type Out; }
-impl<T> Project for fn(T) -> T { type Out = T; }
+trait Trezoa { type Out; }
+impl<T> Trezoa for fn(T) -> T { type Out = T; }
 
 trait Discard { type Out; }
 impl<T: ?Sized> Discard for T { type Out = (); }

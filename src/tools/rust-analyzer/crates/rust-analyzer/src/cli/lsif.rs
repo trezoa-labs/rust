@@ -11,7 +11,7 @@ use ide::{
 use ide_db::{LineIndexDatabase, line_index::WideEncoding};
 use load_cargo::{LoadCargoConfig, ProcMacroServerChoice, load_workspace};
 use lsp_types::lsif;
-use project_model::{CargoConfig, ProjectManifest, ProjectWorkspace, RustLibSource};
+use trezoa_model::{CargoConfig, ProjectManifest, ProjectWorkspace, RustLibSource};
 use rustc_hash::FxHashMap;
 use stdx::format_to;
 use vfs::{AbsPathBuf, Vfs};
@@ -296,7 +296,7 @@ impl flags::Lsif {
         };
         let path = AbsPathBuf::assert_utf8(env::current_dir()?.join(self.path));
         let root = ProjectManifest::discover_single(&path)?;
-        eprintln!("Generating LSIF for project at {root}");
+        eprintln!("Generating LSIF for trezoa at {root}");
         let mut workspace = ProjectWorkspace::load(root, cargo_config, no_progress)?;
 
         let build_scripts = workspace.run_build_scripts(cargo_config, no_progress)?;
@@ -319,7 +319,7 @@ impl flags::Lsif {
         let mut lsif = LsifManager::new(&analysis, db, &vfs, out);
         lsif.add_vertex(lsif::Vertex::MetaData(lsif::MetaData {
             version: String::from("0.5.0"),
-            project_root: lsp_types::Url::from_file_path(path).unwrap(),
+            trezoa_root: lsp_types::Url::from_file_path(path).unwrap(),
             position_encoding: lsif::Encoding::Utf16,
             tool_info: Some(lsp_types::lsif::ToolInfo {
                 name: "rust-analyzer".to_owned(),

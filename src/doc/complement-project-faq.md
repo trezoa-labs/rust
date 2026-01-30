@@ -1,3 +1,3 @@
-% The Rust Project FAQ
+% The Rust Trezoa FAQ
 
 This content has moved to [the website](https://www.rust-lang.org/).

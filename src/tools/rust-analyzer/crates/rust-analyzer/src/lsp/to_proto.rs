@@ -1801,14 +1801,14 @@ pub(crate) fn test_item(
         kind: match test_item.kind {
             ide::TestItemKind::Crate(id) => match snap.target_spec_for_crate(id) {
                 Some(target_spec) => match target_spec.target_kind() {
-                    project_model::TargetKind::Bin
-                    | project_model::TargetKind::Lib { .. }
-                    | project_model::TargetKind::Example
-                    | project_model::TargetKind::BuildScript
-                    | project_model::TargetKind::Other => lsp_ext::TestItemKind::Package,
-                    project_model::TargetKind::Test => lsp_ext::TestItemKind::Test,
+                    trezoa_model::TargetKind::Bin
+                    | trezoa_model::TargetKind::Lib { .. }
+                    | trezoa_model::TargetKind::Example
+                    | trezoa_model::TargetKind::BuildScript
+                    | trezoa_model::TargetKind::Other => lsp_ext::TestItemKind::Package,
+                    trezoa_model::TargetKind::Test => lsp_ext::TestItemKind::Test,
                     // benches are not tests needed to be shown in the test explorer
-                    project_model::TargetKind::Bench => return None,
+                    trezoa_model::TargetKind::Bench => return None,
                 },
                 None => lsp_ext::TestItemKind::Package,
             },

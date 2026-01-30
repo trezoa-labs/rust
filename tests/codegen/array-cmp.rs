@@ -28,7 +28,7 @@ pub fn array_of_tuple_le(a: &[(i16, u16); 2], b: &[(i16, u16); 2]) -> bool {
     // (As opposed to, say, running a full `[su]cmp` as part of checking equality.)
 
     // This is written quite specifically because different library code was triggering
-    // <https://github.com/llvm/llvm-project/issues/132678> along the way, so this
+    // <https://github.com/llvm/llvm-trezoa/issues/132678> along the way, so this
     // has enough checks to make sure that's not happening. It doesn't need to be
     // *exactly* this IR, but be careful if you ever need to update these checks.
 

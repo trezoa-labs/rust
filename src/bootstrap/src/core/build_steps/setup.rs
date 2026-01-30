@@ -296,7 +296,7 @@ fn attempt_toolchain_link(builder: &Builder<'_>, stage_path: &str) {
 
     if try_link_toolchain(builder, stage_path) {
         println!(
-            "Added `stage1` rustup toolchain; try `cargo +stage1 build` on a separate rust project to run a newly-built toolchain"
+            "Added `stage1` rustup toolchain; try `cargo +stage1 build` on a separate rust trezoa to run a newly-built toolchain"
         );
     } else {
         eprintln!("`rustup` failed to link stage 1 build to `stage1` toolchain");
@@ -388,7 +388,7 @@ pub fn interactive_path() -> io::Result<Profile> {
         input.parse()
     }
 
-    println!("Welcome to the Rust project! What do you want to do with x.py?");
+    println!("Welcome to the Rust trezoa! What do you want to do with x.py?");
     for ((letter, _), profile) in abbrev_all() {
         println!("{}) {}: {}", letter, profile, profile.purpose());
     }

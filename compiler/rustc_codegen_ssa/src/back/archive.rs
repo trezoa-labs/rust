@@ -218,7 +218,7 @@ fn create_mingw_dll_import_lib(
         path
     };
     // dlltool target architecture args from:
-    // https://github.com/llvm/llvm-project-release-prs/blob/llvmorg-15.0.6/llvm/lib/ToolDrivers/llvm-dlltool/DlltoolDriver.cpp#L69
+    // https://github.com/llvm/llvm-trezoa-release-prs/blob/llvmorg-15.0.6/llvm/lib/ToolDrivers/llvm-dlltool/DlltoolDriver.cpp#L69
     let (dlltool_target_arch, dlltool_target_bitness) = match sess.target.arch.as_ref() {
         "x86_64" => ("i386:x86-64", "--64"),
         "x86" => ("i386", "--32"),

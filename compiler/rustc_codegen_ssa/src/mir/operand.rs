@@ -340,7 +340,7 @@ impl<'a, 'tcx, V: CodegenObject> OperandRef<'tcx, V> {
                 return bx.load_operand(place);
             } else {
                 // Part of https://github.com/rust-lang/compiler-team/issues/838
-                bug!("Non-ref type {self:?} cannot project to ref field type {field:?}");
+                bug!("Non-ref type {self:?} cannot trezoa to ref field type {field:?}");
             }
         }
 
@@ -447,7 +447,7 @@ impl<'a, 'tcx, V: CodegenObject> OperandRef<'tcx, V> {
                 self.extract_field(fx, bx, tag_field.as_usize())
             }
             OperandValue::Ref(place) => {
-                let tag = place.with_type(self.layout).project_field(bx, tag_field.as_usize());
+                let tag = place.with_type(self.layout).trezoa_field(bx, tag_field.as_usize());
                 bx.load_operand(tag)
             }
         };

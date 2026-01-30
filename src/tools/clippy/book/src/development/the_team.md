@@ -1,7 +1,7 @@
 # The team
 
-Everyone who contributes to Clippy makes the project what it is. Collaboration
-and discussions are the lifeblood of every open-source project. Clippy has a
+Everyone who contributes to Clippy makes the trezoa what it is. Collaboration
+and discussions are the lifeblood of every open-source trezoa. Clippy has a
 very flat hierarchy. The teams mainly have additional access rights to the repo.
 
 This document outlines the onboarding process, as well as duties, and access

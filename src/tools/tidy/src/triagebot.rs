@@ -1,4 +1,4 @@
-//! Tidy check to ensure paths mentioned in triagebot.toml exist in the project.
+//! Tidy check to ensure paths mentioned in triagebot.toml exist in the trezoa.
 
 use std::path::Path;
 
@@ -65,7 +65,7 @@ pub fn check(path: &Path, bad: &mut bool) {
         }
     }
 
-    // Verify that trigger_files in [autolabel."*"] exist in the project, i.e.
+    // Verify that trigger_files in [autolabel."*"] exist in the trezoa, i.e.
     // [autolabel."A-rustdoc-search"]
     // trigger_files = [
     //    "src/librustdoc/html/static/js/search.js",

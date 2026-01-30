@@ -24,7 +24,7 @@ use lsp_types::{
     SemanticTokensResult, SymbolInformation, SymbolTag, TextDocumentIdentifier, Url, WorkspaceEdit,
 };
 use paths::Utf8PathBuf;
-use project_model::{CargoWorkspace, ManifestPath, ProjectWorkspaceKind, TargetKind};
+use trezoa_model::{CargoWorkspace, ManifestPath, ProjectWorkspaceKind, TargetKind};
 use serde_json::json;
 use stdx::{format_to, never};
 use syntax::{TextRange, TextSize};
@@ -2367,7 +2367,7 @@ fn run_rustfmt(
             let extra_env = snap.config.extra_env(source_root_id);
             let mut cmd = match target_spec {
                 Some(TargetSpec::Cargo(_)) => {
-                    // approach: if the command name contains a path separator, join it with the project root.
+                    // approach: if the command name contains a path separator, join it with the trezoa root.
                     // however, if the path is absolute, joining will result in the absolute path being preserved.
                     // as a fallback, rely on $PATH-based discovery.
                     let cmd_path = if command.contains(std::path::MAIN_SEPARATOR)

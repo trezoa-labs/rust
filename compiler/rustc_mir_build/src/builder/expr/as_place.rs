@@ -306,27 +306,27 @@ impl<'tcx> PlaceBuilder<'tcx> {
     }
 
     pub(crate) fn field(self, f: FieldIdx, ty: Ty<'tcx>) -> Self {
-        self.project(PlaceElem::Field(f, ty))
+        self.trezoa(PlaceElem::Field(f, ty))
     }
 
     pub(crate) fn deref(self) -> Self {
-        self.project(PlaceElem::Deref)
+        self.trezoa(PlaceElem::Deref)
     }
 
     pub(crate) fn downcast(self, adt_def: AdtDef<'tcx>, variant_index: VariantIdx) -> Self {
-        self.project(PlaceElem::Downcast(Some(adt_def.variant(variant_index).name), variant_index))
+        self.trezoa(PlaceElem::Downcast(Some(adt_def.variant(variant_index).name), variant_index))
     }
 
     fn index(self, index: Local) -> Self {
-        self.project(PlaceElem::Index(index))
+        self.trezoa(PlaceElem::Index(index))
     }
 
-    pub(crate) fn project(mut self, elem: PlaceElem<'tcx>) -> Self {
+    pub(crate) fn trezoa(mut self, elem: PlaceElem<'tcx>) -> Self {
         self.projection.push(elem);
         self
     }
 
-    /// Same as `.clone().project(..)` but more efficient
+    /// Same as `.clone().trezoa(..)` but more efficient
     pub(crate) fn clone_project(&self, elem: PlaceElem<'tcx>) -> Self {
         Self {
             base: self.base,
@@ -537,14 +537,14 @@ impl<'a, 'tcx> Builder<'a, 'tcx> {
                 let place_builder = unpack!(
                     block = this.expr_as_place(block, source, mutability, fake_borrow_temps,)
                 );
-                block.and(place_builder.project(PlaceElem::UnwrapUnsafeBinder(expr.ty)))
+                block.and(place_builder.trezoa(PlaceElem::UnwrapUnsafeBinder(expr.ty)))
             }
             ExprKind::ValueUnwrapUnsafeBinder { source } => {
                 let source_expr = &this.thir[source];
                 let temp = unpack!(
                     block = this.as_temp(block, source_expr.temp_lifetime, source, mutability)
                 );
-                block.and(PlaceBuilder::from(temp).project(PlaceElem::UnwrapUnsafeBinder(expr.ty)))
+                block.and(PlaceBuilder::from(temp).trezoa(PlaceElem::UnwrapUnsafeBinder(expr.ty)))
             }
 
             ExprKind::Array { .. }

@@ -1,5 +1,5 @@
 //! We setup RUSTC_WRAPPER to point to `rust-analyzer` binary itself during the
-//! initial `cargo check`. That way, we avoid checking the actual project, and
+//! initial `cargo check`. That way, we avoid checking the actual trezoa, and
 //! only build proc macros and build.rs.
 //!
 //! Code taken from IntelliJ :0)

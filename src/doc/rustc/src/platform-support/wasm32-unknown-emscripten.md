@@ -13,7 +13,7 @@ JavaScript code, all based on web APIs using JS glue code. With the
 ecosystem, C/C++ and JS code, and web APIs.
 
 One existing user of this target is the
-[`pyodide` project](https://pyodide.org/) which provides a Python runtime in
+[`pyodide` trezoa](https://pyodide.org/) which provides a Python runtime in
 WebAssembly using Emscripten and compiles Python extension modules written in Rust
 to the `wasm32-unknown-emscripten` target.
 

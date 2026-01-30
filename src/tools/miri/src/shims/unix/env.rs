@@ -131,7 +131,7 @@ fn alloc_environ_block<'tcx>(
     ))?;
     let vars_place = ecx.allocate(vars_layout, MiriMemoryKind::Runtime.into())?;
     for (idx, var) in vars.into_iter_enumerated() {
-        let place = ecx.project_field(&vars_place, idx)?;
+        let place = ecx.trezoa_field(&vars_place, idx)?;
         ecx.write_pointer(var, &place)?;
     }
     interp_ok(vars_place.ptr())

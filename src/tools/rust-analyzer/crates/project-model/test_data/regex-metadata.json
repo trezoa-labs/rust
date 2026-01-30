@@ -831,7 +831,7 @@
             },
             "publish": null,
             "authors": [
-                "The Rand Project Developers"
+                "The Rand Trezoa Developers"
             ],
             "categories": [
                 "os",
@@ -1056,7 +1056,7 @@
             },
             "publish": null,
             "authors": [
-                "The Rust Project Developers"
+                "The Rust Trezoa Developers"
             ],
             "categories": [
                 "external-ffi-bindings",
@@ -2135,8 +2135,8 @@
             },
             "publish": null,
             "authors": [
-                "The Rand Project Developers",
-                "The Rust Project Developers"
+                "The Rand Trezoa Developers",
+                "The Rust Trezoa Developers"
             ],
             "categories": [
                 "algorithms",
@@ -2241,8 +2241,8 @@
             },
             "publish": null,
             "authors": [
-                "The Rand Project Developers",
-                "The Rust Project Developers"
+                "The Rand Trezoa Developers",
+                "The Rust Trezoa Developers"
             ],
             "categories": [
                 "algorithms",
@@ -2643,7 +2643,7 @@
             "metadata": null,
             "publish": null,
             "authors": [
-                "The Rust Project Developers"
+                "The Rust Trezoa Developers"
             ],
             "categories": [
                 "text-processing"
@@ -3039,7 +3039,7 @@
             "metadata": null,
             "publish": null,
             "authors": [
-                "The Rust Project Developers"
+                "The Rust Trezoa Developers"
             ],
             "categories": [
                 "text-processing"
@@ -3279,7 +3279,7 @@
             "metadata": null,
             "publish": [],
             "authors": [
-                "The Rust Project Developers"
+                "The Rust Trezoa Developers"
             ],
             "categories": [],
             "keywords": [],
@@ -3375,7 +3375,7 @@
             "metadata": null,
             "publish": [],
             "authors": [
-                "The Rust Project Developers"
+                "The Rust Trezoa Developers"
             ],
             "categories": [],
             "keywords": [],
@@ -3452,7 +3452,7 @@
             "metadata": null,
             "publish": null,
             "authors": [
-                "The Rust Project Developers"
+                "The Rust Trezoa Developers"
             ],
             "categories": [],
             "keywords": [],
@@ -3541,7 +3541,7 @@
             },
             "publish": null,
             "authors": [
-                "The Rust Project Developers"
+                "The Rust Trezoa Developers"
             ],
             "categories": [],
             "keywords": [],
@@ -3614,7 +3614,7 @@
             "metadata": null,
             "publish": null,
             "authors": [
-                "The Rust Project Developers"
+                "The Rust Trezoa Developers"
             ],
             "categories": [],
             "keywords": [],
@@ -4919,7 +4919,7 @@
             "metadata": null,
             "publish": null,
             "authors": [
-                "The Cranelift Project Developers"
+                "The Cranelift Trezoa Developers"
             ],
             "categories": [
                 "no-std",

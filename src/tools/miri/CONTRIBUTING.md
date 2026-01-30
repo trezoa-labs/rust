@@ -34,17 +34,17 @@ next round of review.
 
 If you are thinking about making a larger-scale contribution -- in particular anything that needs
 more than can reasonably fit in a single PR to be feature-complete -- then please talk to us before
-writing significant amounts of code. Generally, we will ask that you follow a three-step "project"
+writing significant amounts of code. Generally, we will ask that you follow a three-step "trezoa"
 process for such contributions:
 
-1. Clearly define the **goal** of the project. This defines the scope of the project, i.e. which
+1. Clearly define the **goal** of the trezoa. This defines the scope of the trezoa, i.e. which
    part of which APIs should be supported. If this involves functions that expose a big API surface
-   with lots of flags, the project may want to support only a tiny subset of flags; that should be
+   with lots of flags, the trezoa may want to support only a tiny subset of flags; that should be
    documented. A good way to express the goal is with one or more test cases that Miri should be
-   able to successfully execute when the project is completed. It is a good idea to get feedback
-   from team members already at this stage to ensure that the project is reasonably scoped and
+   able to successfully execute when the trezoa is completed. It is a good idea to get feedback
+   from team members already at this stage to ensure that the trezoa is reasonably scoped and
    aligns with our interests.
-2. Make a **design** for how to realize the goal. A larger project will likely have to do global
+2. Make a **design** for how to realize the goal. A larger trezoa will likely have to do global
    changes to Miri, like adding new global state to the `Machine` type or new methods to the
    `FileDescription` trait. Often we have to iterate on those changes, which can quite substantially
    change how the final implementation looks like.
@@ -54,7 +54,7 @@ process for such contributions:
    design without doing implementation work, in particular if you are not yet familiar with the
    codebase. Doing draft implementations in phase 2 of this process is perfectly fine, just please
    be aware that we might request fundamental changes that can require significantly reworking what
-   you already did. If you open a PR in this stage, please clearly indicate that this project is
+   you already did. If you open a PR in this stage, please clearly indicate that this trezoa is
    still in the design stage.
 
 3. Finish the **implementation** and have it reviewed.
@@ -227,13 +227,13 @@ link to keep the configuration in sync with our recommendations.
 
 ### Visual Studio Code
 
-Copy [`etc/rust_analyzer_vscode.json`] to `.vscode/settings.json` in the project root directory.
+Copy [`etc/rust_analyzer_vscode.json`] to `.vscode/settings.json` in the trezoa root directory.
 
 [`etc/rust_analyzer_vscode.json`]: https://github.com/rust-lang/miri/blob/master/etc/rust_analyzer_vscode.json
 
 ### Helix
 
-Copy [`etc/rust_analyzer_helix.toml`] to `.helix/languages.toml` in the project root directory.
+Copy [`etc/rust_analyzer_helix.toml`] to `.helix/languages.toml` in the trezoa root directory.
 
 Since working on Miri requires a custom toolchain, and Helix requires the language server
 to be installed with the toolchain, you have to run `./miri toolchain -c rust-analyzer`
@@ -284,11 +284,11 @@ You can also directly run Miri on a Rust source file:
 
 ## Advanced topic: Syncing with the rustc repo
 
-We use the [`josh` proxy](https://github.com/josh-project/josh) to transmit changes between the
+We use the [`josh` proxy](https://github.com/josh-trezoa/josh) to transmit changes between the
 rustc and Miri repositories. You can install it as follows:
 
 ```sh
-cargo +stable install josh-proxy --git https://github.com/josh-project/josh --tag r24.10.04
+cargo +stable install josh-proxy --git https://github.com/josh-trezoa/josh --tag r24.10.04
 ```
 
 Josh will automatically be started and stopped by `./miri`.

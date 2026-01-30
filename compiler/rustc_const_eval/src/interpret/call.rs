@@ -65,8 +65,8 @@ impl<'tcx, M: Machine<'tcx>> InterpCx<'tcx, M> {
         field: FieldIdx,
     ) -> InterpResult<'tcx, FnArg<'tcx, M::Provenance>> {
         interp_ok(match arg {
-            FnArg::Copy(op) => FnArg::Copy(self.project_field(op, field)?),
-            FnArg::InPlace(mplace) => FnArg::InPlace(self.project_field(mplace, field)?),
+            FnArg::Copy(op) => FnArg::Copy(self.trezoa_field(op, field)?),
+            FnArg::InPlace(mplace) => FnArg::InPlace(self.trezoa_field(mplace, field)?),
         })
     }
 
@@ -213,7 +213,7 @@ impl<'tcx, M: Machine<'tcx>> InterpCx<'tcx, M> {
         if let (Some(caller), Some(callee)) = (pointee_ty(caller.ty)?, pointee_ty(callee.ty)?) {
             // This is okay if they have the same metadata type.
             let meta_ty = |ty: Ty<'tcx>| {
-                // Even if `ty` is normalized, the search for the unsized tail will project
+                // Even if `ty` is normalized, the search for the unsized tail will trezoa
                 // to fields, which can yield non-normalized types. So we need to provide a
                 // normalization function.
                 let normalize = |ty| self.tcx.normalize_erasing_regions(self.typing_env, ty);
@@ -441,7 +441,7 @@ impl<'tcx, M: Machine<'tcx>> InterpCx<'tcx, M> {
                         span_bug!(self.cur_span(), "non-tuple type for `spread_arg`: {ty}")
                     };
                     for (i, field_ty) in fields.iter().enumerate() {
-                        let dest = dest.project_deeper(
+                        let dest = dest.trezoa_deeper(
                             &[mir::ProjectionElem::Field(FieldIdx::from_usize(i), field_ty)],
                             *self.tcx,
                         );
@@ -656,7 +656,7 @@ impl<'tcx, M: Machine<'tcx>> InterpCx<'tcx, M> {
                             let (idx, _) = receiver.layout.non_1zst_field(self).expect(
                                 "not exactly one non-1-ZST field in a `DispatchFromDyn` type",
                             );
-                            receiver = self.project_field(&receiver, idx)?;
+                            receiver = self.trezoa_field(&receiver, idx)?;
                         }
                     }
                 };

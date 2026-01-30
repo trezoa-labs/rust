@@ -75,7 +75,7 @@ impl<'a, 'tcx> MutVisitor<'tcx> for ElaborateBoxDerefVisitor<'a, 'tcx> {
                     CastKind::Transmute,
                     Operand::Copy(
                         Place::from(place.local)
-                            .project_deeper(&build_projection(unique_ty, nonnull_ty), tcx),
+                            .trezoa_deeper(&build_projection(unique_ty, nonnull_ty), tcx),
                     ),
                     ptr_ty,
                 ),
@@ -134,7 +134,7 @@ impl<'tcx> crate::MirPass<'tcx> for ElaborateBoxDerefs {
                             build_ptr_tys(tcx, boxed_ty, unique_did, nonnull_did);
 
                         new_projections.extend_from_slice(&build_projection(unique_ty, nonnull_ty));
-                        // While we can't project into `NonNull<_>` in a basic block
+                        // While we can't trezoa into `NonNull<_>` in a basic block
                         // due to MCP#807, this is debug info where it's fine.
                         new_projections.push(PlaceElem::Field(FieldIdx::ZERO, ptr_ty));
                         new_projections.push(PlaceElem::Deref);

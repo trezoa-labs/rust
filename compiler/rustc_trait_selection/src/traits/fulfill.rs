@@ -16,7 +16,7 @@ use thin_vec::ThinVec;
 use tracing::{debug, debug_span, instrument};
 
 use super::effects::{self, HostEffectObligation};
-use super::project::{self, ProjectAndUnifyResult};
+use super::trezoa::{self, ProjectAndUnifyResult};
 use super::select::SelectionContext;
 use super::{
     EvaluationResult, FulfillmentError, FulfillmentErrorCode, PredicateObligation,
@@ -25,7 +25,7 @@ use super::{
 use crate::error_reporting::InferCtxtErrorExt;
 use crate::infer::{InferCtxt, TyOrConstInferVar};
 use crate::traits::normalize::normalize_with_depth_to;
-use crate::traits::project::{PolyProjectionObligation, ProjectionCacheKeyExt as _};
+use crate::traits::trezoa::{PolyProjectionObligation, ProjectionCacheKeyExt as _};
 use crate::traits::query::evaluate_obligation::InferCtxtExt;
 use crate::traits::{EvaluateConstErr, sizedness_fast_path};
 
@@ -370,11 +370,11 @@ impl<'a, 'tcx> ObligationProcessor for FulfillProcessor<'a, 'tcx> {
                     )
                 }
                 ty::PredicateKind::Clause(ty::ClauseKind::Projection(data)) => {
-                    let project_obligation = obligation.with(infcx.tcx, binder.rebind(data));
+                    let trezoa_obligation = obligation.with(infcx.tcx, binder.rebind(data));
 
                     self.process_projection_obligation(
                         obligation,
-                        project_obligation,
+                        trezoa_obligation,
                         &mut pending_obligation.stalled_on,
                     )
                 }
@@ -445,11 +445,11 @@ impl<'a, 'tcx> ObligationProcessor for FulfillProcessor<'a, 'tcx> {
                 }
 
                 ty::PredicateKind::Clause(ty::ClauseKind::Projection(ref data)) => {
-                    let project_obligation = obligation.with(infcx.tcx, Binder::dummy(*data));
+                    let trezoa_obligation = obligation.with(infcx.tcx, Binder::dummy(*data));
 
                     self.process_projection_obligation(
                         obligation,
-                        project_obligation,
+                        trezoa_obligation,
                         &mut pending_obligation.stalled_on,
                     )
                 }
@@ -843,7 +843,7 @@ impl<'a, 'tcx> FulfillProcessor<'a, 'tcx> {
     fn process_projection_obligation(
         &mut self,
         obligation: &PredicateObligation<'tcx>,
-        project_obligation: PolyProjectionObligation<'tcx>,
+        trezoa_obligation: PolyProjectionObligation<'tcx>,
         stalled_on: &mut Vec<TyOrConstInferVar>,
     ) -> ProcessResult<PendingPredicateObligation<'tcx>, FulfillmentErrorCode<'tcx>> {
         let tcx = self.selcx.tcx();
@@ -855,7 +855,7 @@ impl<'a, 'tcx> FulfillProcessor<'a, 'tcx> {
             if infcx.predicate_must_hold_considering_regions(obligation) {
                 if let Some(key) = ProjectionCacheKey::from_poly_projection_obligation(
                     &mut self.selcx,
-                    &project_obligation,
+                    &trezoa_obligation,
                 ) {
                     // If `predicate_must_hold_considering_regions` succeeds, then we've
                     // evaluated all sub-obligations. We can therefore mark the 'root'
@@ -872,25 +872,25 @@ impl<'a, 'tcx> FulfillProcessor<'a, 'tcx> {
             }
         }
 
-        match project::poly_project_and_unify_term(&mut self.selcx, &project_obligation) {
+        match trezoa::poly_project_and_unify_term(&mut self.selcx, &trezoa_obligation) {
             ProjectAndUnifyResult::Holds(os) => ProcessResult::Changed(mk_pending(obligation, os)),
             ProjectAndUnifyResult::FailedNormalization => {
                 stalled_on.clear();
                 stalled_on.extend(args_infer_vars(
                     &self.selcx,
-                    project_obligation.predicate.map_bound(|pred| pred.projection_term.args),
+                    trezoa_obligation.predicate.map_bound(|pred| pred.projection_term.args),
                 ));
                 ProcessResult::Unchanged
             }
             // Let the caller handle the recursion
             ProjectAndUnifyResult::Recursive => {
                 let mut obligations = PredicateObligations::with_capacity(1);
-                obligations.push(project_obligation.with(tcx, project_obligation.predicate));
+                obligations.push(trezoa_obligation.with(tcx, trezoa_obligation.predicate));
 
                 ProcessResult::Changed(mk_pending(obligation, obligations))
             }
             ProjectAndUnifyResult::MismatchedProjectionTypes(e) => {
-                ProcessResult::Error(FulfillmentErrorCode::Project(e))
+                ProcessResult::Error(FulfillmentErrorCode::Trezoa(e))
             }
         }
     }
@@ -962,7 +962,7 @@ impl<'tcx> FromSolverError<'tcx, OldSolverError<'tcx>> for ScrubbedTraitError<'t
     fn from_solver_error(_infcx: &InferCtxt<'tcx>, error: OldSolverError<'tcx>) -> Self {
         match error.0.error {
             FulfillmentErrorCode::Select(_)
-            | FulfillmentErrorCode::Project(_)
+            | FulfillmentErrorCode::Trezoa(_)
             | FulfillmentErrorCode::Subtype(_, _)
             | FulfillmentErrorCode::ConstEquate(_, _) => ScrubbedTraitError::TrueError,
             FulfillmentErrorCode::Ambiguity { overflow: _ } => ScrubbedTraitError::Ambiguity,

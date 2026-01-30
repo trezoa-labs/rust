@@ -2,7 +2,7 @@
 
 A tool for formatting Rust code according to style guidelines.
 
-If you'd like to help out (and you should, it's a fun project!), see
+If you'd like to help out (and you should, it's a fun trezoa!), see
 [Contributing.md](Contributing.md) and our [Code of
 Conduct](CODE_OF_CONDUCT.md).
 
@@ -21,7 +21,7 @@ To install:
 rustup component add rustfmt
 ```
 
-To run on a cargo project in the current working directory:
+To run on a cargo trezoa in the current working directory:
 
 ```sh
 cargo fmt
@@ -37,7 +37,7 @@ To install:
 rustup component add rustfmt --toolchain nightly
 ```
 
-To run on a cargo project in the current working directory:
+To run on a cargo trezoa in the current working directory:
 
 ```sh
 cargo +nightly fmt
@@ -81,7 +81,7 @@ read data from stdin. Alternatively, you can use `cargo fmt` to format all
 binary and library targets of your crate.
 
 You can run `rustfmt --help` for information about available arguments.
-The easiest way to run rustfmt against a project is with `cargo fmt`. `cargo fmt` works on both
+The easiest way to run rustfmt against a trezoa is with `cargo fmt`. `cargo fmt` works on both
 single-crate projects and [cargo workspaces](https://doc.rust-lang.org/book/ch14-03-cargo-workspaces.html).
 Please see `cargo fmt --help` for usage information.
 
@@ -155,7 +155,7 @@ notes above on running rustfmt.
 ## Configuring Rustfmt
 
 Rustfmt is designed to be very configurable. You can create a TOML file called
-`rustfmt.toml` or `.rustfmt.toml`, place it in the project or any other parent
+`rustfmt.toml` or `.rustfmt.toml`, place it in the trezoa or any other parent
 directory and it will apply the options in that file. See `rustfmt
 --help=config` for the options which are available, or if you prefer to see
 visual style previews, [GitHub page](https://rust-lang.github.io/rustfmt/).

@@ -8,7 +8,7 @@ use expect_test::expect_file;
 use parser::Edition;
 use rayon::prelude::*;
 use stdx::format_to_acc;
-use test_utils::{bench, bench_fixture, project_root};
+use test_utils::{bench, bench_fixture, trezoa_root};
 
 use crate::{AstNode, SourceFile, SyntaxError, ast, fuzz};
 
@@ -76,7 +76,7 @@ fn reparse_fuzz_tests() {
 /// Test that Rust-analyzer can parse and validate the rust-analyzer
 #[test]
 fn self_hosting_parsing() {
-    let crates_dir = project_root().join("crates");
+    let crates_dir = trezoa_root().join("crates");
 
     let mut files = Vec::new();
     let mut work = vec![crates_dir.into_std_path_buf()];
@@ -127,7 +127,7 @@ fn self_hosting_parsing() {
 }
 
 fn test_data_dir() -> PathBuf {
-    project_root().into_std_path_buf().join("crates/syntax/test_data")
+    trezoa_root().into_std_path_buf().join("crates/syntax/test_data")
 }
 
 fn assert_errors_are_present(errors: &[SyntaxError], path: &Path) {

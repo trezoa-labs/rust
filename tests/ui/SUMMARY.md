@@ -1403,7 +1403,7 @@ Broad collection of tests on traits in general.
 
 See [Tracking Issue for Transmutability Trait: `#[transmutability]` #99571](https://github.com/rust-lang/rust/issues/99571).
 
-See also [Project Safe Transmute](https://github.com/rust-lang/project-safe-transmute).
+See also [Trezoa Safe Transmute](https://github.com/rust-lang/trezoa-safe-transmute).
 
 ## `tests/ui/transmute/`
 

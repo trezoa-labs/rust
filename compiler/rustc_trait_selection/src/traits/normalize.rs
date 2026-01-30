@@ -16,7 +16,7 @@ use rustc_middle::ty::{
 };
 use tracing::{debug, instrument};
 
-use super::{BoundVarReplacer, PlaceholderReplacer, SelectionContext, project};
+use super::{BoundVarReplacer, PlaceholderReplacer, SelectionContext, trezoa};
 use crate::error_reporting::InferCtxtErrorExt;
 use crate::error_reporting::traits::OverflowCause;
 use crate::solve::NextSolverError;
@@ -190,7 +190,7 @@ impl<'a, 'b, 'tcx> AssocTypeNormalizer<'a, 'b, 'tcx> {
             // Also, as an optimization: when we don't have escaping bound vars, we don't
             // need to replace them with placeholders (see branch below).
             let proj = proj.fold_with(self);
-            project::normalize_projection_term(
+            trezoa::normalize_projection_term(
                 self.selcx,
                 self.param_env,
                 proj,
@@ -201,7 +201,7 @@ impl<'a, 'b, 'tcx> AssocTypeNormalizer<'a, 'b, 'tcx> {
         } else {
             // If there are escaping bound vars, we temporarily replace the
             // bound vars with placeholders. Note though, that in the case
-            // that we still can't project for whatever reason (e.g. self
+            // that we still can't trezoa for whatever reason (e.g. self
             // type isn't known enough), we *can't* register an obligation
             // and return an inference variable (since then that obligation
             // would have bound vars and that's a can of worms). Instead,
@@ -214,7 +214,7 @@ impl<'a, 'b, 'tcx> AssocTypeNormalizer<'a, 'b, 'tcx> {
             let (proj, mapped_regions, mapped_types, mapped_consts) =
                 BoundVarReplacer::replace_bound_vars(infcx, &mut self.universes, proj);
             let proj = proj.fold_with(self);
-            let normalized_term = project::opt_normalize_projection_term(
+            let normalized_term = trezoa::opt_normalize_projection_term(
                 self.selcx,
                 self.param_env,
                 proj,
@@ -251,7 +251,7 @@ impl<'a, 'b, 'tcx> AssocTypeNormalizer<'a, 'b, 'tcx> {
             // need to replace them with placeholders (see branch below).
 
             let inherent = inherent.fold_with(self);
-            project::normalize_inherent_projection(
+            trezoa::normalize_inherent_projection(
                 self.selcx,
                 self.param_env,
                 inherent,
@@ -264,7 +264,7 @@ impl<'a, 'b, 'tcx> AssocTypeNormalizer<'a, 'b, 'tcx> {
             let (inherent, mapped_regions, mapped_types, mapped_consts) =
                 BoundVarReplacer::replace_bound_vars(infcx, &mut self.universes, inherent);
             let inherent = inherent.fold_with(self);
-            let inherent = project::normalize_inherent_projection(
+            let inherent = trezoa::normalize_inherent_projection(
                 self.selcx,
                 self.param_env,
                 inherent,
@@ -377,13 +377,13 @@ impl<'a, 'b, 'tcx> TypeFolder<TyCtxt<'tcx>> for AssocTypeNormalizer<'a, 'b, 'tcx
         // ```
         // We normalize the args on the projection before the projecting, but
         // if we're naive, we'll
-        //   replace bound vars on inner, project inner, replace placeholders on inner,
-        //   replace bound vars on outer, project outer, replace placeholders on outer
+        //   replace bound vars on inner, trezoa inner, replace placeholders on inner,
+        //   replace bound vars on outer, trezoa outer, replace placeholders on outer
         //
         // However, if we're a bit more clever, we can replace the bound vars
         // on the entire type before normalizing nested projections, meaning we
-        //   replace bound vars on outer, project inner,
-        //   project outer, replace placeholders on outer
+        //   replace bound vars on outer, trezoa inner,
+        //   trezoa outer, replace placeholders on outer
         //
         // This is possible because the inner `'a` will already be a placeholder
         // when we need to normalize the inner projection

@@ -157,7 +157,7 @@ pub(super) enum ProjectAndUnifyResult<'tcx> {
     /// The projection cannot be normalized due to ambiguity. Resolving some
     /// inference variables in the projection may fix this.
     FailedNormalization,
-    /// The project cannot be normalized because `poly_project_and_unify_type`
+    /// The trezoa cannot be normalized because `poly_project_and_unify_type`
     /// is called recursively while normalizing the same projection.
     Recursive,
     // the projection can be normalized, but is not equal to the expected type.
@@ -182,7 +182,7 @@ pub(super) fn poly_project_and_unify_term<'cx, 'tcx>(
         let placeholder_predicate = infcx.enter_forall_and_leak_universe(obligation.predicate);
 
         let placeholder_obligation = obligation.with(infcx.tcx, placeholder_predicate);
-        match project_and_unify_term(selcx, &placeholder_obligation) {
+        match trezoa_and_unify_term(selcx, &placeholder_obligation) {
             ProjectAndUnifyResult::MismatchedProjectionTypes(e) => Err(e),
             other => Ok(other),
         }
@@ -203,7 +203,7 @@ pub(super) fn poly_project_and_unify_term<'cx, 'tcx>(
 /// See [poly_project_and_unify_term] for an explanation of the return value.
 // FIXME(mgca): While this supports constants, it is only used for types by default right now
 #[instrument(level = "debug", skip(selcx))]
-fn project_and_unify_term<'cx, 'tcx>(
+fn trezoa_and_unify_term<'cx, 'tcx>(
     selcx: &mut SelectionContext<'cx, 'tcx>,
     obligation: &ProjectionObligation<'tcx>,
 ) -> ProjectAndUnifyResult<'tcx> {
@@ -222,7 +222,7 @@ fn project_and_unify_term<'cx, 'tcx>(
         Ok(None) => return ProjectAndUnifyResult::FailedNormalization,
         Err(InProgress) => return ProjectAndUnifyResult::Recursive,
     };
-    debug!(?normalized, ?obligations, "project_and_unify_type result");
+    debug!(?normalized, ?obligations, "trezoa_and_unify_type result");
     let actual = obligation.predicate.term;
     // For an example where this is necessary see tests/ui/impl-trait/nested-return-type2.rs
     // This allows users to omit re-mentioning all bounds on an associated type and just use an
@@ -373,7 +373,7 @@ pub(super) fn opt_normalize_projection_term<'a, 'b, 'tcx>(
     let obligation =
         Obligation::with_depth(selcx.tcx(), cause.clone(), depth, param_env, projection_term);
 
-    match project(selcx, &obligation) {
+    match trezoa(selcx, &obligation) {
         Ok(Projected::Progress(Progress {
             term: projected_term,
             obligations: mut projected_obligations,
@@ -648,7 +648,7 @@ impl<'tcx> Progress<'tcx> {
 /// - `obligation` must be fully normalized
 // FIXME(mgca): While this supports constants, it is only used for types by default right now
 #[instrument(level = "info", skip(selcx))]
-fn project<'cx, 'tcx>(
+fn trezoa<'cx, 'tcx>(
     selcx: &mut SelectionContext<'cx, 'tcx>,
     obligation: &ProjectionTermObligation<'tcx>,
 ) -> Result<Projected<'tcx>, ProjectionError<'tcx>> {
@@ -973,7 +973,7 @@ fn assemble_candidates_from_impls<'cx, 'tcx>(
                             }
                         }
                     }
-                    // Always project `ErrorGuaranteed`, since this will just help
+                    // Always trezoa `ErrorGuaranteed`, since this will just help
                     // us propagate `TyKind::Error` around which suppresses ICEs
                     // and spurious, unrelated inference errors.
                     Err(ErrorGuaranteed { .. }) => true,
@@ -1192,7 +1192,7 @@ fn assemble_candidates_from_impls<'cx, 'tcx>(
                 // These traits have no associated types.
                 selcx.tcx().dcx().span_delayed_bug(
                     obligation.cause.span,
-                    format!("Cannot project an associated type from `{impl_source:?}`"),
+                    format!("Cannot trezoa an associated type from `{impl_source:?}`"),
                 );
                 return Err(());
             }
@@ -1286,7 +1286,7 @@ fn confirm_select_candidate<'cx, 'tcx>(
             // we don't create Select candidates with this kind of resolution
             span_bug!(
                 obligation.cause.span,
-                "Cannot project an associated type from `{:?}`",
+                "Cannot trezoa an associated type from `{:?}`",
                 impl_source
             )
         }
@@ -1749,7 +1749,7 @@ fn confirm_async_closure_candidate<'cx, 'tcx>(
                         // generator's upvars. We do this using the `AsyncFnKindHelper`, which as a trait
                         // goal functions similarly to the old `ClosureKind` predicate, and ensures that
                         // the goal kind <= the closure kind. As a projection `AsyncFnKindHelper::Upvars`
-                        // will project to the right upvars for the generator, appending the inputs and
+                        // will trezoa to the right upvars for the generator, appending the inputs and
                         // coroutine upvars respecting the closure kind.
                         // N.B. No need to register a `AsyncFnKindHelper` goal here, it's already in `nested`.
                         let tupled_upvars_ty = Ty::new_projection(

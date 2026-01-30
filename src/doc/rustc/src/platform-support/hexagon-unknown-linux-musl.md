@@ -72,7 +72,7 @@ Currently there is no support to run the rustc test suite for this target.
 
 Download and install the hexagon open source toolchain from https://github.com/quic/toolchain_for_hexagon/releases
 
-The following `.cargo/config` is needed inside any project directory to build
+The following `.cargo/config` is needed inside any trezoa directory to build
 for the Hexagon Linux target:
 
 ```toml

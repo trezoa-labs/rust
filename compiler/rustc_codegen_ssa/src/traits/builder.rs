@@ -259,7 +259,7 @@ pub trait BuilderMethods<'a, 'tcx>:
 
         // Perhaps one day we'll be able to use assume operand bundles for this,
         // but for now this encoding with a single icmp+assume is best per
-        // <https://github.com/llvm/llvm-project/issues/123278#issuecomment-2597440158>
+        // <https://github.com/llvm/llvm-trezoa/issues/123278#issuecomment-2597440158>
         let shifted = if start == 0 {
             imm
         } else {

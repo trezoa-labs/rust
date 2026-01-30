@@ -1,11 +1,11 @@
-//! Infrastructure for lazy project discovery. Currently only support rust-project.json discovery
+//! Infrastructure for lazy trezoa discovery. Currently only support rust-trezoa.json discovery
 //! via a custom discover command.
 use std::{io, path::Path};
 
 use crossbeam_channel::Sender;
 use ide_db::FxHashMap;
 use paths::{AbsPathBuf, Utf8Path, Utf8PathBuf};
-use project_model::ProjectJsonData;
+use trezoa_model::ProjectJsonData;
 use serde::{Deserialize, Serialize};
 use tracing::{info_span, span::EnteredSpan};
 
@@ -13,9 +13,9 @@ use crate::command::{CargoParser, CommandHandle};
 
 pub(crate) const ARG_PLACEHOLDER: &str = "{arg}";
 
-/// A command wrapper for getting a `rust-project.json`.
+/// A command wrapper for getting a `rust-trezoa.json`.
 ///
-/// This is analogous to discovering a cargo project + running `cargo-metadata` on it, but for non-Cargo build systems.
+/// This is analogous to discovering a cargo trezoa + running `cargo-metadata` on it, but for non-Cargo build systems.
 pub(crate) struct DiscoverCommand {
     command: Vec<String>,
     sender: Sender<DiscoverProjectMessage>,
@@ -82,19 +82,19 @@ pub(crate) struct DiscoverHandle {
 }
 
 /// An enum containing either progress messages, an error,
-/// or the materialized `rust-project`.
+/// or the materialized `rust-trezoa`.
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(tag = "kind")]
 #[serde(rename_all = "snake_case")]
 enum DiscoverProjectData {
-    Finished { buildfile: Utf8PathBuf, project: ProjectJsonData },
+    Finished { buildfile: Utf8PathBuf, trezoa: ProjectJsonData },
     Error { error: String, source: Option<String> },
     Progress { message: String },
 }
 
 #[derive(Debug, PartialEq, Clone)]
 pub(crate) enum DiscoverProjectMessage {
-    Finished { project: ProjectJsonData, buildfile: AbsPathBuf },
+    Finished { trezoa: ProjectJsonData, buildfile: AbsPathBuf },
     Error { error: String, source: Option<String> },
     Progress { message: String },
 }
@@ -102,9 +102,9 @@ pub(crate) enum DiscoverProjectMessage {
 impl DiscoverProjectMessage {
     fn new(data: DiscoverProjectData) -> Self {
         match data {
-            DiscoverProjectData::Finished { project, buildfile, .. } => {
+            DiscoverProjectData::Finished { trezoa, buildfile, .. } => {
                 let buildfile = buildfile.try_into().expect("Unable to make path absolute");
-                DiscoverProjectMessage::Finished { project, buildfile }
+                DiscoverProjectMessage::Finished { trezoa, buildfile }
             }
             DiscoverProjectData::Error { error, source } => {
                 DiscoverProjectMessage::Error { error, source }
@@ -156,7 +156,7 @@ fn test_deserialization() {
     assert!(matches!(message, DiscoverProjectData::Error { .. }));
 
     let message = r#"
-    {"kind": "finished", "project": {"sysroot": "foo", "crates": [], "runnables": []}, "buildfile":"rust-analyzer/BUILD"}
+    {"kind": "finished", "trezoa": {"sysroot": "foo", "crates": [], "runnables": []}, "buildfile":"rust-analyzer/BUILD"}
     "#;
 
     let message: DiscoverProjectData =

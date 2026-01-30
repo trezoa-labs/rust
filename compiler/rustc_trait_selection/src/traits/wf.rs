@@ -499,7 +499,7 @@ impl<'a, 'tcx> WfPredicates<'a, 'tcx> {
         if !data.self_ty().has_escaping_bound_vars() {
             // FIXME(inherent_associated_types): Should this happen inside of a snapshot?
             // FIXME(inherent_associated_types): This is incompatible with the new solver and lazy norm!
-            let args = traits::project::compute_inherent_assoc_term_args(
+            let args = traits::trezoa::compute_inherent_assoc_term_args(
                 &mut traits::SelectionContext::new(self.infcx),
                 self.param_env,
                 data,

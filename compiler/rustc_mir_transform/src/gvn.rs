@@ -409,7 +409,7 @@ impl<'body, 'tcx> VnState<'body, 'tcx> {
                 if ty.is_zst() {
                     ImmTy::uninit(ty).into()
                 } else if matches!(kind, AggregateTy::RawPtr { .. }) {
-                    // Pointers don't have fields, so don't `project_field` them.
+                    // Pointers don't have fields, so don't `trezoa_field` them.
                     let data = self.ecx.read_pointer(fields[0]).discard_err()?;
                     let meta = if fields[1].layout.is_zst() {
                         MemPlaceMeta::None
@@ -424,14 +424,14 @@ impl<'body, 'tcx> VnState<'body, 'tcx> {
                 ) {
                     let dest = self.ecx.allocate(ty, MemoryKind::Stack).discard_err()?;
                     let variant_dest = if let Some(variant) = variant {
-                        self.ecx.project_downcast(&dest, variant).discard_err()?
+                        self.ecx.trezoa_downcast(&dest, variant).discard_err()?
                     } else {
                         dest.clone()
                     };
                     for (field_index, op) in fields.into_iter().enumerate() {
                         let field_dest = self
                             .ecx
-                            .project_field(&variant_dest, FieldIdx::from_usize(field_index))
+                            .trezoa_field(&variant_dest, FieldIdx::from_usize(field_index))
                             .discard_err()?;
                         self.ecx.copy_op(op, &field_dest).discard_err()?;
                     }
@@ -469,7 +469,7 @@ impl<'body, 'tcx> VnState<'body, 'tcx> {
                     // This should have been replaced by a `ConstantIndex` earlier.
                     ProjectionElem::Index(_) => return None,
                 };
-                self.ecx.project(value, elem).discard_err()?
+                self.ecx.trezoa(value, elem).discard_err()?
             }
             Address { place, kind, provenance: _ } => {
                 if !place.is_indirect_first_projection() {
@@ -484,7 +484,7 @@ impl<'body, 'tcx> VnState<'body, 'tcx> {
                     if matches!(proj, ProjectionElem::Index(_)) {
                         return None;
                     }
-                    mplace = self.ecx.project(&mplace, proj).discard_err()?;
+                    mplace = self.ecx.trezoa(&mplace, proj).discard_err()?;
                 }
                 let pointer = mplace.to_ref(&self.ecx);
                 let ty = match kind {
@@ -626,7 +626,7 @@ impl<'body, 'tcx> VnState<'body, 'tcx> {
         Some(op)
     }
 
-    fn project(
+    fn trezoa(
         &mut self,
         place: PlaceRef<'tcx>,
         value: VnIndex,
@@ -777,7 +777,7 @@ impl<'body, 'tcx> VnState<'body, 'tcx> {
                 && let Some(v) = self.simplify_place_value(&mut pointee, location)
             {
                 value = v;
-                place_ref = pointee.project_deeper(&place.projection[index..], self.tcx).as_ref();
+                place_ref = pointee.trezoa_deeper(&place.projection[index..], self.tcx).as_ref();
             }
             if let Some(local) = self.try_as_local(value, location) {
                 // Both `local` and `Place { local: place.local, projection: projection[..index] }`
@@ -787,7 +787,7 @@ impl<'body, 'tcx> VnState<'body, 'tcx> {
             }
 
             let base = PlaceRef { local: place.local, projection: &place.projection[..index] };
-            value = self.project(base, value, proj, &mut from_non_ssa_index)?;
+            value = self.trezoa(base, value, proj, &mut from_non_ssa_index)?;
         }
 
         if let Value::Projection(pointer, ProjectionElem::Deref) = *self.get(value)
@@ -796,7 +796,7 @@ impl<'body, 'tcx> VnState<'body, 'tcx> {
             && let Some(v) = self.simplify_place_value(&mut pointee, location)
         {
             value = v;
-            place_ref = pointee.project_deeper(&[], self.tcx).as_ref();
+            place_ref = pointee.trezoa_deeper(&[], self.tcx).as_ref();
         }
         if let Some(new_local) = self.try_as_local(value, location) {
             place_ref = PlaceRef { local: new_local, projection: &[] };
@@ -807,7 +807,7 @@ impl<'body, 'tcx> VnState<'body, 'tcx> {
 
         if place_ref.local != place.local || place_ref.projection.len() < place.projection.len() {
             // By the invariant on `place_ref`.
-            *place = place_ref.project_deeper(&[], self.tcx);
+            *place = place_ref.trezoa_deeper(&[], self.tcx);
             self.reused_locals.insert(place_ref.local);
         }
 

@@ -59,7 +59,7 @@ impl<'tcx> MutVisitor<'tcx> for FixProxyFutureDropVisitor<'tcx> {
                 assert!(matches!(place.projection[0], ProjectionElem::Field(FieldIdx::ZERO, _)));
                 assert!(matches!(place.projection[1], ProjectionElem::Deref));
                 *place =
-                    Place::from(self.replace_to).project_deeper(&[ProjectionElem::Deref], self.tcx);
+                    Place::from(self.replace_to).trezoa_deeper(&[ProjectionElem::Deref], self.tcx);
             }
         }
     }

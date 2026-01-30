@@ -327,7 +327,7 @@ impl<'a, 'tcx> ParseCtxt<'a, 'tcx> {
                 let field = FieldIdx::from_u32(self.parse_integer_literal(args[1])? as u32);
                 let field_ty = PlaceTy::field_ty(self.tcx, place_ty.ty, place_ty.variant_index, field);
                 let proj = PlaceElem::Field(field, field_ty);
-                let place = parent.project_deeper(&[proj], self.tcx);
+                let place = parent.trezoa_deeper(&[proj], self.tcx);
                 return Ok((place, PlaceTy::from_ty(field_ty)));
             },
             @call(mir_variant, args) => {
@@ -350,7 +350,7 @@ impl<'a, 'tcx> ParseCtxt<'a, 'tcx> {
             },
         );
         let (parent, ty) = self.parse_place_inner(parent)?;
-        let place = parent.project_deeper(&[proj], self.tcx);
+        let place = parent.trezoa_deeper(&[proj], self.tcx);
         let ty = ty.projection_ty(self.tcx, proj);
         Ok((place, ty))
     }

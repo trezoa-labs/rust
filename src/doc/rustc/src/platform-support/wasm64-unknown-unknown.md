@@ -89,7 +89,7 @@ Note that the following `cfg` directives are set for `wasm64-unknown-unknown`:
 ## Testing
 
 Currently testing is not well supported for `wasm64-unknown-unknown` and the
-Rust project doesn't run any tests for this target. Testing support sort of
+Rust trezoa doesn't run any tests for this target. Testing support sort of
 works but without `println!` it's not the most exciting tests to run.
 
 ## Cross-compilation toolchains and C code

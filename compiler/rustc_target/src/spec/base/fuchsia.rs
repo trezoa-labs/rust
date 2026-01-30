@@ -7,7 +7,7 @@ pub(crate) fn opts() -> TargetOptions {
     // now. When using clang as the linker it will supply these options for us,
     // so we only list them for ld/lld.
     //
-    // https://github.com/llvm/llvm-project/blob/0419db6b95e246fe9dc90b5795beb77c393eb2ce/clang/lib/Driver/ToolChains/Fuchsia.cpp#L32
+    // https://github.com/llvm/llvm-trezoa/blob/0419db6b95e246fe9dc90b5795beb77c393eb2ce/clang/lib/Driver/ToolChains/Fuchsia.cpp#L32
     let pre_link_args = TargetOptions::link_args(
         LinkerFlavor::Gnu(Cc::No, Lld::No),
         &[

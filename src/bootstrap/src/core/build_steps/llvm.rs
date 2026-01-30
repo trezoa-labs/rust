@@ -123,10 +123,10 @@ pub fn prebuilt_llvm_config(
 
     if handle_submodule_when_needed {
         // If submodules are disabled, this does nothing.
-        builder.config.update_submodule("src/llvm-project");
+        builder.config.update_submodule("src/llvm-trezoa");
     }
 
-    let root = "src/llvm-project/llvm";
+    let root = "src/llvm-trezoa/llvm";
     let out_dir = builder.llvm_out(target);
 
     let build_llvm_config = if let Some(build_llvm_config) = builder
@@ -149,7 +149,7 @@ pub fn prebuilt_llvm_config(
     let smart_stamp_hash = STAMP_HASH_MEMO.get_or_init(|| {
         generate_smart_stamp_hash(
             builder,
-            &builder.config.src.join("src/llvm-project"),
+            &builder.config.src.join("src/llvm-trezoa"),
             builder.in_tree_llvm_info.sha().unwrap_or_default(),
         )
     });
@@ -175,7 +175,7 @@ pub fn prebuilt_llvm_config(
 
 /// Paths whose changes invalidate LLVM downloads.
 pub const LLVM_INVALIDATION_PATHS: &[&str] = &[
-    "src/llvm-project",
+    "src/llvm-trezoa",
     "src/bootstrap/download-ci-llvm-stamp",
     // the LLVM shared object file is named `LLVM-<LLVM-version>-rust-{version}-nightly`
     "src/version",
@@ -255,7 +255,7 @@ impl Step for Llvm {
     const ONLY_HOSTS: bool = true;
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.path("src/llvm-project").path("src/llvm-project/llvm")
+        run.path("src/llvm-trezoa").path("src/llvm-trezoa/llvm")
     }
 
     fn make_run(run: RunConfig<'_>) {
@@ -763,7 +763,7 @@ fn configure_cmake(
     // our flags via `.cflag`/`.cxxflag` instead.
     //
     // Needs `suppressed_compiler_flag_prefixes` to be gone, and hence
-    // https://github.com/llvm/llvm-project/issues/88780 to be fixed.
+    // https://github.com/llvm/llvm-trezoa/issues/88780 to be fixed.
     let mut cflags: OsString = builder
         .cc_handled_clags(target, CLang::C)
         .into_iter()
@@ -1008,7 +1008,7 @@ impl Step for Lld {
     const ONLY_HOSTS: bool = true;
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.path("src/llvm-project/lld")
+        run.path("src/llvm-trezoa/lld")
     }
 
     fn make_run(run: RunConfig<'_>) {
@@ -1049,7 +1049,7 @@ impl Step for Lld {
         let _time = helpers::timeit(builder);
         t!(fs::create_dir_all(&out_dir));
 
-        let mut cfg = cmake::Config::new(builder.src.join("src/llvm-project/lld"));
+        let mut cfg = cmake::Config::new(builder.src.join("src/llvm-trezoa/lld"));
         let mut ldflags = LdFlags::default();
 
         // When building LLD as part of a build with instrumentation on windows, for example
@@ -1140,7 +1140,7 @@ impl Step for Sanitizers {
 
     /// Builds sanitizer runtime libraries.
     fn run(self, builder: &Builder<'_>) -> Self::Output {
-        let compiler_rt_dir = builder.src.join("src/llvm-project/compiler-rt");
+        let compiler_rt_dir = builder.src.join("src/llvm-trezoa/compiler-rt");
         if !compiler_rt_dir.exists() {
             return Vec::new();
         }
@@ -1159,7 +1159,7 @@ impl Step for Sanitizers {
         let smart_stamp_hash = STAMP_HASH_MEMO.get_or_init(|| {
             generate_smart_stamp_hash(
                 builder,
-                &builder.config.src.join("src/llvm-project/compiler-rt"),
+                &builder.config.src.join("src/llvm-trezoa/compiler-rt"),
                 builder.in_tree_llvm_info.sha().unwrap_or_default(),
             )
         });
@@ -1205,7 +1205,7 @@ impl Step for Sanitizers {
         // Since v1.0.86, the cc crate adds -mmacosx-version-min to the default
         // flags on MacOS. A long-standing bug in the CMake rules for compiler-rt
         // causes architecture detection to be skipped when this flag is present,
-        // and compilation fails. https://github.com/llvm/llvm-project/issues/88780
+        // and compilation fails. https://github.com/llvm/llvm-trezoa/issues/88780
         let suppressed_compiler_flag_prefixes: &[&str] =
             if self.target.contains("apple-darwin") { &["-mmacosx-version-min="] } else { &[] };
         configure_cmake(
@@ -1321,7 +1321,7 @@ impl Step for CrtBeginEnd {
     type Output = PathBuf;
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.path("src/llvm-project/compiler-rt/lib/crt")
+        run.path("src/llvm-trezoa/compiler-rt/lib/crt")
     }
 
     fn make_run(run: RunConfig<'_>) {
@@ -1333,7 +1333,7 @@ impl Step for CrtBeginEnd {
     /// Build crtbegin.o/crtend.o for musl target.
     fn run(self, builder: &Builder<'_>) -> Self::Output {
         builder.require_submodule(
-            "src/llvm-project",
+            "src/llvm-trezoa",
             Some("The LLVM sources are required for the CRT from `compiler-rt`."),
         );
 
@@ -1343,8 +1343,8 @@ impl Step for CrtBeginEnd {
             return out_dir;
         }
 
-        let crtbegin_src = builder.src.join("src/llvm-project/compiler-rt/lib/builtins/crtbegin.c");
-        let crtend_src = builder.src.join("src/llvm-project/compiler-rt/lib/builtins/crtend.c");
+        let crtbegin_src = builder.src.join("src/llvm-trezoa/compiler-rt/lib/builtins/crtbegin.c");
+        let crtend_src = builder.src.join("src/llvm-trezoa/compiler-rt/lib/builtins/crtend.c");
         if up_to_date(&crtbegin_src, &out_dir.join("crtbeginS.o"))
             && up_to_date(&crtend_src, &out_dir.join("crtendS.o"))
         {
@@ -1370,7 +1370,7 @@ impl Step for CrtBeginEnd {
             .file(crtbegin_src)
             .file(crtend_src);
 
-        // Those flags are defined in src/llvm-project/compiler-rt/lib/builtins/CMakeLists.txt
+        // Those flags are defined in src/llvm-trezoa/compiler-rt/lib/builtins/CMakeLists.txt
         // Currently only consumer of those objects is musl, which use .init_array/.fini_array
         // instead of .ctors/.dtors
         cfg.flag("-std=c11")
@@ -1399,7 +1399,7 @@ impl Step for Libunwind {
     type Output = PathBuf;
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.path("src/llvm-project/libunwind")
+        run.path("src/llvm-trezoa/libunwind")
     }
 
     fn make_run(run: RunConfig<'_>) {
@@ -1409,7 +1409,7 @@ impl Step for Libunwind {
     /// Build libunwind.a
     fn run(self, builder: &Builder<'_>) -> Self::Output {
         builder.require_submodule(
-            "src/llvm-project",
+            "src/llvm-trezoa",
             Some("The LLVM sources are required for libunwind."),
         );
 
@@ -1418,7 +1418,7 @@ impl Step for Libunwind {
         }
 
         let out_dir = builder.native_dir(self.target).join("libunwind");
-        let root = builder.src.join("src/llvm-project/libunwind");
+        let root = builder.src.join("src/llvm-trezoa/libunwind");
 
         if up_to_date(&root, &out_dir.join("libunwind.a")) {
             return out_dir;

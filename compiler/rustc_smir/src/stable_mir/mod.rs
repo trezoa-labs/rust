@@ -7,7 +7,7 @@
 
 //! The WIP stable interface to rustc internals.
 //!
-//! For more information see <https://github.com/rust-lang/project-stable-mir>
+//! For more information see <https://github.com/rust-lang/trezoa-stable-mir>
 //!
 //! # Note
 //!

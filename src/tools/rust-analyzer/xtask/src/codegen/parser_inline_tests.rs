@@ -14,12 +14,12 @@ use itertools::Itertools as _;
 
 use crate::{
     codegen::{CommentBlock, ensure_file_contents, reformat},
-    project_root,
+    trezoa_root,
     util::list_rust_files,
 };
 
 pub(crate) fn generate(check: bool) {
-    let parser_crate_root = project_root().join("crates/parser");
+    let parser_crate_root = trezoa_root().join("crates/parser");
     let parser_test_data = parser_crate_root.join("test_data");
     let parser_test_data_inline = parser_test_data.join("parser/inline");
 

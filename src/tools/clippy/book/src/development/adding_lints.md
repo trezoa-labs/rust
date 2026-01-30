@@ -72,7 +72,7 @@ lint falls into one, it would be best to add it to that type.
 
 ### Tests Location
 Both commands will create a file: `tests/ui/foo_functions.rs`. For cargo lints,
-two project hierarchies (fail/pass) will be created by default under `tests/ui-cargo`.
+two trezoa hierarchies (fail/pass) will be created by default under `tests/ui-cargo`.
 
 Next, we'll open up these files and add our lint!
 
@@ -191,10 +191,10 @@ your local modifications, run the following from the Clippy directory:
 cargo dev lint input.rs
 ```
 
-To run Clippy on an existing project rather than a single file you can use
+To run Clippy on an existing trezoa rather than a single file you can use
 
 ```bash
-cargo dev lint /path/to/project
+cargo dev lint /path/to/trezoa
 ```
 
 Or set up a rustup toolchain that points to the local Clippy binaries
@@ -202,7 +202,7 @@ Or set up a rustup toolchain that points to the local Clippy binaries
 ```bash
 cargo dev setup toolchain
 
-# Then in `/path/to/project` you can run
+# Then in `/path/to/trezoa` you can run
 cargo +clippy clippy
 ```
 
@@ -445,7 +445,7 @@ pass.
 Sometimes a lint makes suggestions that require a certain version of Rust. For
 example, the `manual_strip` lint suggests using `str::strip_prefix` and
 `str::strip_suffix` which is only available after Rust 1.45. In such cases, you
-need to ensure that the MSRV configured for the project is >= the MSRV of the
+need to ensure that the MSRV configured for the trezoa is >= the MSRV of the
 required Rust feature. If multiple features are required, just use the one with
 a lower MSRV.
 
@@ -459,7 +459,7 @@ msrv_aliases! {
 }
 ```
 
-In order to access the project-configured MSRV, you need to have an `msrv` field
+In order to access the trezoa-configured MSRV, you need to have an `msrv` field
 in the LintPass struct, and a constructor to initialize the field. The `msrv`
 value is passed to the constructor in `clippy_lints/lib.rs`.
 
@@ -475,7 +475,7 @@ impl ManualStrip {
 }
 ```
 
-The project's MSRV can then be matched against the feature MSRV in the LintPass
+The trezoa's MSRV can then be matched against the feature MSRV in the LintPass
 using the `Msrv::meets` method.
 
 ``` rust

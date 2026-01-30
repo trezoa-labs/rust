@@ -17,14 +17,14 @@ trait SubIndex<I>: Index<I> {}
 
 struct Param;
 
-trait Project {
+trait Trezoa {
     type Ty: ?Sized;
 }
-impl Project for () {
+impl Trezoa for () {
     type Ty = dyn SubIndex<Param, Output = ()>;
 }
 
-impl Index<Param> for <() as Project>::Ty {
+impl Index<Param> for <() as Trezoa>::Ty {
     type Output = ();
 
     fn index(&self, _: Param) -> &() {

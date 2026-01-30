@@ -3,16 +3,16 @@
 #![allow(warnings)]
 struct Wrapper<'a, T: ?Sized>(&'a T);
 
-trait Project {
+trait Trezoa {
     type Projected<'a> where Self: 'a;
-    fn project(this: Wrapper<'_, Self>) -> Self::Projected<'_>;
+    fn trezoa(this: Wrapper<'_, Self>) -> Self::Projected<'_>;
 }
 trait MyTrait {}
 trait ProjectedMyTrait {}
 
-impl<T> Project for Option<T> {
+impl<T> Trezoa for Option<T> {
     type Projected<'a> = Option<Wrapper<'a, T>> where T: 'a;
-    fn project(this: Wrapper<'_, Self>) -> Self::Projected<'_> {
+    fn trezoa(this: Wrapper<'_, Self>) -> Self::Projected<'_> {
         this.0.as_ref().map(Wrapper)
     }
 }
@@ -23,7 +23,7 @@ impl<T: ProjectedMyTrait> MyTrait for Wrapper<'_, T> {}
 
 impl<T> ProjectedMyTrait for T
     where
-        T: Project,
+        T: Trezoa,
         for<'a> T::Projected<'a>: MyTrait,
         //~^ NOTE due to current limitations in the borrow checker, this implies a `'static` lifetime
         //~| NOTE due to current limitations in the borrow checker, this implies a `'static` lifetime

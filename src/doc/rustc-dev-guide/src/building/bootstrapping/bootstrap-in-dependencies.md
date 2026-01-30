@@ -23,7 +23,7 @@ warning: unexpected `cfg` condition name: `bootstrap`
   = note: `#[warn(unexpected_cfgs)]` on by default
 ```
 
-This warning can be silenced by adding these lines to the project's `Cargo.toml`:
+This warning can be silenced by adding these lines to the trezoa's `Cargo.toml`:
 
 ```toml
 [lints.rust]

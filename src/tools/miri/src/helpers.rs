@@ -318,7 +318,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
         this.layout_of(array_ty).unwrap()
     }
 
-    /// Project to the given *named* field (which must be a struct or union type).
+    /// Trezoa to the given *named* field (which must be a struct or union type).
     fn try_project_field_named<P: Projectable<'tcx, Provenance>>(
         &self,
         base: &P,
@@ -328,14 +328,14 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
         let adt = base.layout().ty.ty_adt_def().unwrap();
         for (idx, field) in adt.non_enum_variant().fields.iter_enumerated() {
             if field.name.as_str() == name {
-                return interp_ok(Some(this.project_field(base, idx)?));
+                return interp_ok(Some(this.trezoa_field(base, idx)?));
             }
         }
         interp_ok(None)
     }
 
-    /// Project to the given *named* field (which must be a struct or union type).
-    fn project_field_named<P: Projectable<'tcx, Provenance>>(
+    /// Trezoa to the given *named* field (which must be a struct or union type).
+    fn trezoa_field_named<P: Projectable<'tcx, Provenance>>(
         &self,
         base: &P,
         name: &str,
@@ -377,7 +377,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
         let this = self.eval_context_mut();
         for (idx, &val) in values.iter().enumerate() {
             let idx = FieldIdx::from_usize(idx);
-            let field = this.project_field(dest, idx)?;
+            let field = this.trezoa_field(dest, idx)?;
             this.write_int(val, &field)?;
         }
         interp_ok(())
@@ -391,7 +391,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
     ) -> InterpResult<'tcx> {
         let this = self.eval_context_mut();
         for &(name, val) in values.iter() {
-            let field = this.project_field_named(dest, name)?;
+            let field = this.trezoa_field_named(dest, name)?;
             this.write_int(val, &field)?;
         }
         interp_ok(())
@@ -764,10 +764,10 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
     /// `EINVAL` in this case.
     fn read_timespec(&mut self, tp: &MPlaceTy<'tcx>) -> InterpResult<'tcx, Option<Duration>> {
         let this = self.eval_context_mut();
-        let seconds_place = this.project_field(tp, FieldIdx::ZERO)?;
+        let seconds_place = this.trezoa_field(tp, FieldIdx::ZERO)?;
         let seconds_scalar = this.read_scalar(&seconds_place)?;
         let seconds = seconds_scalar.to_target_isize(this)?;
-        let nanoseconds_place = this.project_field(tp, FieldIdx::ONE)?;
+        let nanoseconds_place = this.trezoa_field(tp, FieldIdx::ONE)?;
         let nanoseconds_scalar = this.read_scalar(&nanoseconds_place)?;
         let nanoseconds = nanoseconds_scalar.to_target_isize(this)?;
 

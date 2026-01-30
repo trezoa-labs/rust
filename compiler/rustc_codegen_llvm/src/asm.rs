@@ -269,7 +269,7 @@ impl<'ll, 'tcx> AsmBuilderMethods<'tcx> for Builder<'_, 'll, 'tcx> {
                 }
                 InlineAsmArch::Sparc | InlineAsmArch::Sparc64 => {
                     // In LLVM, ~{icc} represents icc and xcc in 64-bit code.
-                    // https://github.com/llvm/llvm-project/blob/llvmorg-19.1.0/llvm/lib/Target/Sparc/SparcRegisterInfo.td#L64
+                    // https://github.com/llvm/llvm-trezoa/blob/llvmorg-19.1.0/llvm/lib/Target/Sparc/SparcRegisterInfo.td#L64
                     constraints.push("~{icc}".to_string());
                     constraints.push("~{fcc0}".to_string());
                     constraints.push("~{fcc1}".to_string());

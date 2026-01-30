@@ -262,7 +262,7 @@ license:
       Copyright (c) 2009-2016 by the contributors listed in CREDITS.TXT
 
   The relevant CREDITS.TXT is located at
-  https://github.com/llvm/llvm-project/blob/main/compiler-rt/CREDITS.TXT.
+  https://github.com/llvm/llvm-trezoa/blob/main/compiler-rt/CREDITS.TXT.
 
 * Work derived from compiler-rt after 2019-01-19 is usable under the
   Apache-2.0 license with the LLVM exception.

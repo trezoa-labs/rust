@@ -50,7 +50,7 @@
 //! ```
 //!
 //! Metadata allows specifying all settings and variables
-//! that are available in a real rust project. See [`Fixture`]
+//! that are available in a real rust trezoa. See [`Fixture`]
 //! for the syntax.
 //!
 //! Example using some available metadata:

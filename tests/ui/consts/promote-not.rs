@@ -35,7 +35,7 @@ const TEST_UNION: () = {
     let _x: &'static i32 = &unsafe { U { x: 0 }.x }; //~ ERROR temporary value dropped while borrowed
 };
 
-// In a `const`, we do not promote things with interior mutability. Not even if we "project it away".
+// In a `const`, we do not promote things with interior mutability. Not even if we "trezoa it away".
 const TEST_INTERIOR_MUT: () = {
     // The "0." case is already ruled out by not permitting any interior mutability in `const`.
     let _val: &'static _ = &(Cell::new(1), 2).1; //~ ERROR temporary value dropped while borrowed
@@ -62,7 +62,7 @@ const Y: () = {
 };
 
 fn main() {
-    // We must not promote things with interior mutability. Not even if we "project it away".
+    // We must not promote things with interior mutability. Not even if we "trezoa it away".
     let _val: &'static _ = &(Cell::new(1), 2).0; //~ ERROR temporary value dropped while borrowed
     let _val: &'static _ = &(Cell::new(1), 2).1; //~ ERROR temporary value dropped while borrowed
 

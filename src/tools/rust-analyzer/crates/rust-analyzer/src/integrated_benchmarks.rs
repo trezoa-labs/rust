@@ -19,8 +19,8 @@ use ide_db::{
     SnippetCap,
     imports::insert_use::{ImportGranularity, InsertUseConfig},
 };
-use project_model::CargoConfig;
-use test_utils::project_root;
+use trezoa_model::CargoConfig;
+use test_utils::trezoa_root;
 use vfs::{AbsPathBuf, VfsPath};
 
 use load_cargo::{LoadCargoConfig, ProcMacroServerChoice, load_workspace_at};
@@ -40,11 +40,11 @@ fn integrated_highlighting_benchmark() {
     }
 
     // Load rust-analyzer itself.
-    let workspace_to_load = project_root();
+    let workspace_to_load = trezoa_root();
     let file = "./crates/rust-analyzer/src/config.rs";
 
     let cargo_config = CargoConfig {
-        sysroot: Some(project_model::RustLibSource::Discover),
+        sysroot: Some(trezoa_model::RustLibSource::Discover),
         all_targets: true,
         set_test: true,
         ..CargoConfig::default()
@@ -108,11 +108,11 @@ fn integrated_completion_benchmark() {
     }
 
     // Load rust-analyzer itself.
-    let workspace_to_load = project_root();
+    let workspace_to_load = trezoa_root();
     let file = "./crates/hir/src/lib.rs";
 
     let cargo_config = CargoConfig {
-        sysroot: Some(project_model::RustLibSource::Discover),
+        sysroot: Some(trezoa_model::RustLibSource::Discover),
         all_targets: true,
         set_test: true,
         ..CargoConfig::default()
@@ -306,11 +306,11 @@ fn integrated_diagnostics_benchmark() {
     }
 
     // Load rust-analyzer itself.
-    let workspace_to_load = project_root();
+    let workspace_to_load = trezoa_root();
     let file = "./crates/hir/src/lib.rs";
 
     let cargo_config = CargoConfig {
-        sysroot: Some(project_model::RustLibSource::Discover),
+        sysroot: Some(trezoa_model::RustLibSource::Discover),
         all_targets: true,
         set_test: true,
         ..CargoConfig::default()

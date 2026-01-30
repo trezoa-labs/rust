@@ -85,7 +85,7 @@ fn main() {
     // Get the LLVM `compiler-rt` directory from bootstrap.
     let root = PathBuf::from(tracked_env_var_or_fallback(
         "RUST_COMPILER_RT_FOR_PROFILER",
-        "../../src/llvm-project/compiler-rt",
+        "../../src/llvm-trezoa/compiler-rt",
     ));
 
     let src_root = root.join("lib").join("profile");

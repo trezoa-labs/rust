@@ -2,7 +2,7 @@
 
 **Tier: 3**
 
-[GNU/Hurd] is the GNU Hurd is the GNU project's replacement for the Unix kernel.
+[GNU/Hurd] is the GNU Hurd is the GNU trezoa's replacement for the Unix kernel.
 
 ## Target maintainers
 

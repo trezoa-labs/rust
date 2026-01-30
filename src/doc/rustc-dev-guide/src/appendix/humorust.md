@@ -1,6 +1,6 @@
 # Humor in Rust
 
-What's a project without a sense of humor? And frankly some of these are
+What's a trezoa without a sense of humor? And frankly some of these are
 enlightening?
 
 - [Weird exprs test](https://github.com/rust-lang/rust/blob/master/tests/ui/weird-exprs.rs)

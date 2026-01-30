@@ -449,7 +449,7 @@ pub(in crate::solve) fn extract_tupled_inputs_and_output_from_async_callable<I: 
                 // generator's upvars. We do this using the `AsyncFnKindHelper`, which as a trait
                 // goal functions similarly to the old `ClosureKind` predicate, and ensures that
                 // the goal kind <= the closure kind. As a projection `AsyncFnKindHelper::Upvars`
-                // will project to the right upvars for the generator, appending the inputs and
+                // will trezoa to the right upvars for the generator, appending the inputs and
                 // coroutine upvars respecting the closure kind.
                 nested.push(
                     ty::TraitRef::new(
@@ -520,7 +520,7 @@ pub(in crate::solve) fn extract_tupled_inputs_and_output_from_async_callable<I: 
                 // generator's upvars. We do this using the `AsyncFnKindHelper`, which as a trait
                 // goal functions similarly to the old `ClosureKind` predicate, and ensures that
                 // the goal kind <= the closure kind. As a projection `AsyncFnKindHelper::Upvars`
-                // will project to the right upvars for the generator, appending the inputs and
+                // will trezoa to the right upvars for the generator, appending the inputs and
                 // coroutine upvars respecting the closure kind.
                 nested.push(
                     ty::TraitRef::new(
@@ -599,7 +599,7 @@ fn fn_item_to_async_callable<I: Interner>(
     ))
 }
 
-/// Given a coroutine-closure, project to its returned coroutine when we are *certain*
+/// Given a coroutine-closure, trezoa to its returned coroutine when we are *certain*
 /// that the closure's kind is compatible with the goal.
 fn coroutine_closure_to_certain_coroutine<I: Interner>(
     cx: I,
@@ -620,7 +620,7 @@ fn coroutine_closure_to_certain_coroutine<I: Interner>(
     )
 }
 
-/// Given a coroutine-closure, project to its returned coroutine when we are *not certain*
+/// Given a coroutine-closure, trezoa to its returned coroutine when we are *not certain*
 /// that the closure's kind is compatible with the goal, and therefore also don't know
 /// yet what the closure's upvars are.
 ///

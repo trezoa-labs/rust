@@ -41,7 +41,7 @@ fn main() {
         // <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=115054>.
         || (target.os == "windows" && target.env == "gnu")
         // FIXME(llvm): There is an ABI incompatibility between GCC and Clang on 32-bit x86.
-        // See <https://github.com/llvm/llvm-project/issues/77401>.
+        // See <https://github.com/llvm/llvm-trezoa/issues/77401>.
         || target.arch == "x86"
         // 32-bit PowerPC and 64-bit LE gets code generated that Qemu cannot handle. See
         // <https://github.com/rust-lang/compiler-builtins/pull/606#issuecomment-2105635926>.
@@ -73,7 +73,7 @@ fn main() {
         || target.os == "windows"
         // Linking says "error: function signature mismatch: __extendhfsf2" and seems to
         // think the signature is either `(i32) -> f32` or `(f32) -> f32`. See
-        // <https://github.com/llvm/llvm-project/issues/96438>.
+        // <https://github.com/llvm/llvm-trezoa/issues/96438>.
         || target.arch == "wasm32"
         || target.arch == "wasm64"
     {

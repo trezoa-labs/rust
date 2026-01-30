@@ -24,7 +24,7 @@ use vfs::AbsPathBuf;
 
 use crate::testdir::TestDir;
 
-pub(crate) struct Project<'a> {
+pub(crate) struct Trezoa<'a> {
     fixture: &'a str,
     tmp_dir: Option<TestDir>,
     roots: Vec<Utf8PathBuf>,
@@ -32,9 +32,9 @@ pub(crate) struct Project<'a> {
     root_dir_contains_symlink: bool,
 }
 
-impl Project<'_> {
-    pub(crate) fn with_fixture(fixture: &str) -> Project<'_> {
-        Project {
+impl Trezoa<'_> {
+    pub(crate) fn with_fixture(fixture: &str) -> Trezoa<'_> {
+        Trezoa {
             fixture,
             tmp_dir: None,
             roots: vec![],
@@ -123,7 +123,7 @@ impl Project<'_> {
     }
 
     pub(crate) fn server(self) -> Server {
-        Project::server_with_lock(self, false)
+        Trezoa::server_with_lock(self, false)
     }
 
     /// `prelock` : Forcefully acquire a lock that will maintain the path to the config dir throughout the whole test.
@@ -276,8 +276,8 @@ impl Project<'_> {
     }
 }
 
-pub(crate) fn project(fixture: &str) -> Server {
-    Project::with_fixture(fixture).server()
+pub(crate) fn trezoa(fixture: &str) -> Server {
+    Trezoa::with_fixture(fixture).server()
 }
 
 pub(crate) struct Server {

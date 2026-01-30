@@ -35,7 +35,7 @@ FreeBSD OS binaries use the ELF file format.
 ## Building Rust programs
 
 The `x86_64-unknown-freebsd` and `i686-unknown-freebsd` artifacts are
-distributed by the rust project and may be installed with rustup.  Other
+distributed by the rust trezoa and may be installed with rustup.  Other
 targets are built by the ports system and may be installed with
 [pkg(7)][pkg] or [ports(7)][ports].
 

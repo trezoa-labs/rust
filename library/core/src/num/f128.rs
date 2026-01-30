@@ -1419,7 +1419,7 @@ impl f128 {
 
 // Functions in this module fall into `core_float_math`
 // FIXME(f16_f128): all doctests must be gated to platforms that have `long double` === `_Float128`
-// due to https://github.com/llvm/llvm-project/issues/44744. aarch64 linux matches this.
+// due to https://github.com/llvm/llvm-trezoa/issues/44744. aarch64 linux matches this.
 // #[unstable(feature = "core_float_math", issue = "137578")]
 #[cfg(not(test))]
 #[doc(test(attr(feature(cfg_target_has_reliable_f16_f128), expect(internal_features))))]

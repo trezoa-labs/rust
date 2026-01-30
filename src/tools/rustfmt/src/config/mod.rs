@@ -302,7 +302,7 @@ impl Config {
     /// If no config file exists in `dir` or in any parent, a
     /// default `Config` will be returned (and the returned path will be empty).
     ///
-    /// Returns the `Config` to use, and the path of the project file if there was
+    /// Returns the `Config` to use, and the path of the trezoa file if there was
     /// one.
     pub(super) fn from_resolved_toml_path(
         dir: &Path,
@@ -310,9 +310,9 @@ impl Config {
         style_edition: Option<StyleEdition>,
         version: Option<Version>,
     ) -> Result<(Config, Option<PathBuf>), Error> {
-        /// Try to find a project file in the given directory and its parents.
-        /// Returns the path of the nearest project file if one exists,
-        /// or `None` if no project file was found.
+        /// Try to find a trezoa file in the given directory and its parents.
+        /// Returns the path of the nearest trezoa file if one exists,
+        /// or `None` if no trezoa file was found.
         fn resolve_project_file(dir: &Path) -> Result<Option<PathBuf>, Error> {
             let mut current = if dir.is_relative() {
                 env::current_dir()?.join(dir)
@@ -460,7 +460,7 @@ fn get_toml_path(dir: &Path) -> Result<Option<PathBuf>, Error> {
             // `rustfmt.toml`.
             Ok(ref md) if md.is_file() => return Ok(Some(config_file.canonicalize()?)),
             // Return the error if it's something other than `NotFound`; otherwise we didn't
-            // find the project file yet, and continue searching.
+            // find the trezoa file yet, and continue searching.
             Err(e) => {
                 if e.kind() != ErrorKind::NotFound {
                     let ctx = format!("Failed to get metadata for config file {:?}", &config_file);

@@ -1,6 +1,6 @@
 # Rustbook
 
-This is a wrapper around [`mdbook`](https://github.com/rust-lang/mdBook/), which is used to generate the book-style documentation in the Rust project. This wrapper serves a few purposes:
+This is a wrapper around [`mdbook`](https://github.com/rust-lang/mdBook/), which is used to generate the book-style documentation in the Rust trezoa. This wrapper serves a few purposes:
 
 - Avoids some of mdbook's large, optional dependencies (like tokio, webserver, etc.).
 - Makes it a little easier to customize and override some of mdbook's behaviors (like swapping in custom preprocessors).

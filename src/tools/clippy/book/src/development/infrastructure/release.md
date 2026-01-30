@@ -19,7 +19,7 @@ steps to create a Clippy release.
 
 ## Defining Remotes
 
-You may want to define the `upstream` remote of the Clippy project to simplify
+You may want to define the `upstream` remote of the Clippy trezoa to simplify
 the following steps. However, this is optional and you can replace `upstream`
 with the full URL instead.
 

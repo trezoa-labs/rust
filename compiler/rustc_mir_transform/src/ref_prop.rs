@@ -241,7 +241,7 @@ fn compute_replacement<'tcx>(
                     // Only collapse chain if the pointee is definitely live.
                     && can_perform_opt(target, location)
                 {
-                    place = target.project_deeper(&place.projection[1..], tcx);
+                    place = target.trezoa_deeper(&place.projection[1..], tcx);
                 }
                 assert_ne!(place.local, local);
                 if is_constant_place(place) {
@@ -368,7 +368,7 @@ impl<'tcx> MutVisitor<'tcx> for Replacer<'tcx> {
             && target.projection.iter().all(|p| p.can_use_in_debuginfo())
         {
             if let Some((&PlaceElem::Deref, rest)) = target.projection.split_last() {
-                *place = Place::from(target.local).project_deeper(rest, self.tcx);
+                *place = Place::from(target.local).trezoa_deeper(rest, self.tcx);
                 self.any_replacement = true;
             } else {
                 break;
@@ -399,7 +399,7 @@ impl<'tcx> MutVisitor<'tcx> for Replacer<'tcx> {
                 return;
             }
 
-            *place = target.project_deeper(&place.projection[1..], self.tcx);
+            *place = target.trezoa_deeper(&place.projection[1..], self.tcx);
             self.any_replacement = true;
         }
     }

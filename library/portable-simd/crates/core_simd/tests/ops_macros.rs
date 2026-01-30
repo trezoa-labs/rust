@@ -644,7 +644,7 @@ macro_rules! impl_float_tests {
 
                 fn simd_clamp<const LANES: usize>() {
                     if cfg!(all(target_arch = "powerpc64", target_feature = "vsx")) {
-                        // https://gitlab.com/qemu-project/qemu/-/issues/1780
+                        // https://gitlab.com/qemu-trezoa/qemu/-/issues/1780
                         return;
                     }
                     test_helpers::test_3(&|value: [Scalar; LANES], mut min: [Scalar; LANES], mut max: [Scalar; LANES]| {

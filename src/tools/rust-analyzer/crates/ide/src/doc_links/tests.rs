@@ -129,7 +129,7 @@ fn external_docs_doc_builtin_type() {
 //- /main.rs crate:foo
 let x: u3$02 = 0;
 "#,
-        Some("/home/user/project"),
+        Some("/home/user/trezoa"),
         Some(expect![[r#"https://doc.rust-lang.org/nightly/core/primitive.u32.html"#]]),
         Some(expect![[r#"file:///sysroot/share/doc/rust/html/core/primitive.u32.html"#]]),
         Some("/sysroot"),
@@ -145,9 +145,9 @@ use foo$0::Foo;
 //- /lib.rs crate:foo
 pub struct Foo;
 "#,
-        Some("/home/user/project"),
+        Some("/home/user/trezoa"),
         Some(expect![[r#"https://docs.rs/foo/*/foo/index.html"#]]),
-        Some(expect![[r#"file:///home/user/project/doc/foo/index.html"#]]),
+        Some(expect![[r#"file:///home/user/trezoa/doc/foo/index.html"#]]),
         Some("/sysroot"),
     );
 }
@@ -159,7 +159,7 @@ fn external_docs_doc_url_std_crate() {
 //- /main.rs crate:std
 use self$0;
 "#,
-        Some("/home/user/project"),
+        Some("/home/user/trezoa"),
         Some(expect!["https://doc.rust-lang.org/stable/std/index.html"]),
         Some(expect!["file:///sysroot/share/doc/rust/html/std/index.html"]),
         Some("/sysroot"),
@@ -173,9 +173,9 @@ fn external_docs_doc_url_struct() {
 //- /main.rs crate:foo
 pub struct Fo$0o;
 "#,
-        Some("/home/user/project"),
+        Some("/home/user/trezoa"),
         Some(expect![[r#"https://docs.rs/foo/*/foo/struct.Foo.html"#]]),
-        Some(expect![[r#"file:///home/user/project/doc/foo/struct.Foo.html"#]]),
+        Some(expect![[r#"file:///home/user/trezoa/doc/foo/struct.Foo.html"#]]),
         Some("/sysroot"),
     );
 }
@@ -187,9 +187,9 @@ fn external_docs_doc_url_windows_backslash_path() {
 //- /main.rs crate:foo
 pub struct Fo$0o;
 "#,
-        Some(r"C:\Users\user\project"),
+        Some(r"C:\Users\user\trezoa"),
         Some(expect![[r#"https://docs.rs/foo/*/foo/struct.Foo.html"#]]),
-        Some(expect![[r#"file:///C:/Users/user/project/doc/foo/struct.Foo.html"#]]),
+        Some(expect![[r#"file:///C:/Users/user/trezoa/doc/foo/struct.Foo.html"#]]),
         Some("/sysroot"),
     );
 }
@@ -201,9 +201,9 @@ fn external_docs_doc_url_windows_slash_path() {
 //- /main.rs crate:foo
 pub struct Fo$0o;
 "#,
-        Some("C:/Users/user/project"),
+        Some("C:/Users/user/trezoa"),
         Some(expect![[r#"https://docs.rs/foo/*/foo/struct.Foo.html"#]]),
-        Some(expect![[r#"file:///C:/Users/user/project/doc/foo/struct.Foo.html"#]]),
+        Some(expect![[r#"file:///C:/Users/user/trezoa/doc/foo/struct.Foo.html"#]]),
         Some("/sysroot"),
     );
 }

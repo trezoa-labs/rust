@@ -30,7 +30,7 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             // We reverse the order because x86 is little endian but the copied implementation uses
             // big endian.
             for (i, dst) in res.iter_mut().rev().enumerate() {
-                let projected = &ecx.project_index(reg, i.try_into().unwrap())?;
+                let projected = &ecx.trezoa_index(reg, i.try_into().unwrap())?;
                 *dst = ecx.read_scalar(projected)?.to_u32()?
             }
             interp_ok(res)
@@ -44,7 +44,7 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             // We reverse the order because x86 is little endian but the copied implementation uses
             // big endian.
             for (i, part) in val.into_iter().rev().enumerate() {
-                let projected = &ecx.project_index(dest, i.to_u64())?;
+                let projected = &ecx.trezoa_index(dest, i.to_u64())?;
                 ecx.write_scalar(Scalar::from_u32(part), projected)?;
             }
             interp_ok(())
@@ -55,10 +55,10 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             "256rnds2" => {
                 let [a, b, k] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
 
-                let (a_reg, a_len) = this.project_to_simd(a)?;
-                let (b_reg, b_len) = this.project_to_simd(b)?;
-                let (k_reg, k_len) = this.project_to_simd(k)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (a_reg, a_len) = this.trezoa_to_simd(a)?;
+                let (b_reg, b_len) = this.trezoa_to_simd(b)?;
+                let (k_reg, k_len) = this.trezoa_to_simd(k)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(a_len, 4);
                 assert_eq!(b_len, 4);
@@ -76,9 +76,9 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             "256msg1" => {
                 let [a, b] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
 
-                let (a_reg, a_len) = this.project_to_simd(a)?;
-                let (b_reg, b_len) = this.project_to_simd(b)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (a_reg, a_len) = this.trezoa_to_simd(a)?;
+                let (b_reg, b_len) = this.trezoa_to_simd(b)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(a_len, 4);
                 assert_eq!(b_len, 4);
@@ -94,9 +94,9 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             "256msg2" => {
                 let [a, b] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
 
-                let (a_reg, a_len) = this.project_to_simd(a)?;
-                let (b_reg, b_len) = this.project_to_simd(b)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (a_reg, a_len) = this.trezoa_to_simd(a)?;
+                let (b_reg, b_len) = this.trezoa_to_simd(b)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(a_len, 4);
                 assert_eq!(b_len, 4);

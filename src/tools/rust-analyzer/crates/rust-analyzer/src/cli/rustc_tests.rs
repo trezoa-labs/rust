@@ -1,4 +1,4 @@
-//! Run all tests in a project, similar to `cargo test`, but using the mir interpreter.
+//! Run all tests in a trezoa, similar to `cargo test`, but using the mir interpreter.
 
 use std::convert::identity;
 use std::thread::Builder;
@@ -11,8 +11,8 @@ use ide_db::base_db;
 use itertools::Either;
 use paths::Utf8PathBuf;
 use profile::StopWatch;
-use project_model::toolchain_info::{QueryConfig, target_data_layout};
-use project_model::{
+use trezoa_model::toolchain_info::{QueryConfig, target_data_layout};
+use trezoa_model::{
     CargoConfig, ManifestPath, ProjectWorkspace, ProjectWorkspaceKind, RustLibSource,
     RustSourceWorkspaceConfig, Sysroot,
 };

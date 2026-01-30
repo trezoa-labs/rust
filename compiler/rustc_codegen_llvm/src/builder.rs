@@ -716,7 +716,7 @@ impl<'a, 'll, 'tcx> BuilderMethods<'a, 'tcx> for Builder<'a, 'll, 'tcx> {
         header_bx.cond_br(keep_going, body_bb, next_bb);
 
         let mut body_bx = Self::build(self.cx, body_bb);
-        let dest_elem = dest.project_index(&mut body_bx, i);
+        let dest_elem = dest.trezoa_index(&mut body_bx, i);
         cg_elem.val.store(&mut body_bx, dest_elem);
 
         let next = body_bx.unchecked_uadd(i, self.const_usize(1));
@@ -784,7 +784,7 @@ impl<'a, 'll, 'tcx> BuilderMethods<'a, 'tcx> for Builder<'a, 'll, 'tcx> {
                 // gets emitted after a sequence of movnt before any kind of synchronizing
                 // operation. But it's not clear how to do that with LLVM.)
                 // For more context, see <https://github.com/rust-lang/rust/issues/114582> and
-                // <https://github.com/llvm/llvm-project/issues/64521>.
+                // <https://github.com/llvm/llvm-trezoa/issues/64521>.
                 const WELL_BEHAVED_NONTEMPORAL_ARCHS: &[&str] =
                     &["aarch64", "arm", "riscv32", "riscv64"];
 
@@ -1818,7 +1818,7 @@ impl<'a, 'll, 'tcx> Builder<'a, 'll, 'tcx> {
     /// (See clang's [`CodeGenPGO::emitMCDCParameters`] for comparison.)
     ///
     /// [`CodeGenPGO::emitMCDCParameters`]:
-    ///     https://github.com/rust-lang/llvm-project/blob/5399a24/clang/lib/CodeGen/CodeGenPGO.cpp#L1124
+    ///     https://github.com/rust-lang/llvm-trezoa/blob/5399a24/clang/lib/CodeGen/CodeGenPGO.cpp#L1124
     #[instrument(level = "debug", skip(self))]
     pub(crate) fn mcdc_parameters(
         &mut self,

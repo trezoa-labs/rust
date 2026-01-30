@@ -6,7 +6,7 @@ use stdx::format_to_acc;
 
 use crate::{
     codegen::{CommentBlock, Location, add_preamble, ensure_file_contents, reformat},
-    project_root,
+    trezoa_root,
     util::list_rust_files,
 };
 
@@ -47,7 +47,7 @@ r#####"
         let buf = add_preamble(crate::flags::CodegenType::AssistsDocTests, reformat(buf));
         ensure_file_contents(
             crate::flags::CodegenType::AssistsDocTests,
-            &project_root().join("crates/ide-assists/src/tests/generated.rs"),
+            &trezoa_root().join("crates/ide-assists/src/tests/generated.rs"),
             &buf,
             check,
         );
@@ -67,7 +67,7 @@ r#####"
             crate::flags::CodegenType::AssistsDocTests,
             assists.into_iter().map(|it| it.to_string()).collect::<Vec<_>>().join("\n\n"),
         );
-        let dst = project_root().join("docs/book/src/assists_generated.md");
+        let dst = trezoa_root().join("docs/book/src/assists_generated.md");
         fs::write(dst, contents).unwrap();
     }
 }
@@ -88,7 +88,7 @@ struct Assist {
 
 impl Assist {
     fn collect() -> Vec<Assist> {
-        let handlers_dir = project_root().join("crates/ide-assists/src/handlers");
+        let handlers_dir = trezoa_root().join("crates/ide-assists/src/handlers");
 
         let mut res = Vec::new();
         for path in list_rust_files(&handlers_dir) {

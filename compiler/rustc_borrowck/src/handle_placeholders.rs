@@ -188,7 +188,7 @@ fn region_definitions<'tcx>(
 /// [`RegionTracker`] and its methods!
 ///
 /// This edge case used to be handled during constraint propagation.
-/// It was rewritten as part of the Polonius project with the goal of moving
+/// It was rewritten as part of the Polonius trezoa with the goal of moving
 /// higher-kindedness concerns out of the path of the borrow checker,
 /// for two reasons:
 ///

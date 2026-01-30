@@ -267,7 +267,7 @@ impl<'a, 'tcx> TypeErrCtxt<'a, 'tcx> {
         if matches!(
             error.code,
             FulfillmentErrorCode::Select(crate::traits::SelectionError::Unimplemented)
-                | FulfillmentErrorCode::Project(_)
+                | FulfillmentErrorCode::Trezoa(_)
         ) && self.apply_do_not_recommend(&mut error.obligation)
         {
             error.code = FulfillmentErrorCode::Select(SelectionError::Unimplemented);
@@ -279,7 +279,7 @@ impl<'a, 'tcx> TypeErrCtxt<'a, 'tcx> {
                 &error.root_obligation,
                 selection_error,
             ),
-            FulfillmentErrorCode::Project(ref e) => {
+            FulfillmentErrorCode::Trezoa(ref e) => {
                 self.report_projection_error(&error.obligation, e)
             }
             FulfillmentErrorCode::Ambiguity { overflow: None } => {

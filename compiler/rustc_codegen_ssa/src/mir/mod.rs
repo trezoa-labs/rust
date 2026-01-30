@@ -359,7 +359,7 @@ fn optimize_use_clone<'a, 'tcx, Bx: BuilderMethods<'a, 'tcx>>(
                 kind: mir::StatementKind::Assign(Box::new((
                     *destination,
                     mir::Rvalue::Use(mir::Operand::Copy(
-                        arg_place.project_deeper(&[mir::ProjectionElem::Deref], tcx),
+                        arg_place.trezoa_deeper(&[mir::ProjectionElem::Deref], tcx),
                     )),
                 ))),
             });
@@ -424,7 +424,7 @@ fn arg_local_refs<'a, 'tcx, Bx: BuilderMethods<'a, 'tcx>>(
                     if let PassMode::Cast { pad_i32: true, .. } = arg.mode {
                         llarg_idx += 1;
                     }
-                    let pr_field = place.project_field(bx, i);
+                    let pr_field = place.trezoa_field(bx, i);
                     bx.store_fn_arg(arg, &mut llarg_idx, pr_field);
                 }
                 assert_eq!(

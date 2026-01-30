@@ -244,7 +244,7 @@ but [you can read about those below](#promoted)).
 - **Places** are identified by the struct [`Place`]. There are a few
   fields:
   - Local variables like `_1`
-  - **Projections**, which are fields or other things that "project
+  - **Projections**, which are fields or other things that "trezoa
     out" from a base place. These are represented by the [newtype'd] type
     [`ProjectionElem`]. So e.g. the place `_1.f` is a projection,
     with `f` being the "projection element" and `_1` being the base

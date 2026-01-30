@@ -14,15 +14,15 @@
 //@ aux-crate:foreign=parametrized-trait.rs
 //@ edition:2021
 
-trait Project { type Output; }
+trait Trezoa { type Output; }
 
-impl<T> Project for T {
+impl<T> Trezoa for T {
     type Output = Local;
 }
 
 struct Local;
 
-impl<T> foreign::Trait1<Local, T> for <T as Project>::Output {}
+impl<T> foreign::Trait1<Local, T> for <T as Trezoa>::Output {}
 //~^ WARNING type parameter `T` must be covered by another type
 //~| WARNING this was previously accepted by the compiler
 

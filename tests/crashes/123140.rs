@@ -1,6 +1,6 @@
 //@ known-bug: #123140
-trait Project {
+trait Trezoa {
     const SELF: Self;
 }
 
-fn take1(_: Project<SELF = { loop {} }>) {}
+fn take1(_: Trezoa<SELF = { loop {} }>) {}

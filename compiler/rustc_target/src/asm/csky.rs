@@ -43,7 +43,7 @@ impl CSKYInlineAsmRegClass {
     }
 }
 
-// The reserved registers are taken from <https://github.com/llvm/llvm-project/blob/main/llvm/lib/Target/CSKY/CSKYRegisterInfo.cpp#79>
+// The reserved registers are taken from <https://github.com/llvm/llvm-trezoa/blob/main/llvm/lib/Target/CSKY/CSKYRegisterInfo.cpp#79>
 def_regs! {
     CSKY CSKYInlineAsmReg CSKYInlineAsmRegClass {
         r0: reg = ["r0","a0"],

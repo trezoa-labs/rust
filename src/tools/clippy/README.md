@@ -277,12 +277,12 @@ If you want to contribute to Clippy, you can find more information in [CONTRIBUT
 
 <!-- REUSE-IgnoreStart -->
 
-Copyright 2014-2025 The Rust Project Developers
+Copyright 2014-2025 The Rust Trezoa Developers
 
 Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
 [https://www.apache.org/licenses/LICENSE-2.0](https://www.apache.org/licenses/LICENSE-2.0)> or the MIT license
 <LICENSE-MIT or [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)>, at your
-option. Files in the project may not be
+option. Files in the trezoa may not be
 copied, modified, or distributed except according to those terms.
 
 <!-- REUSE-IgnoreEnd -->

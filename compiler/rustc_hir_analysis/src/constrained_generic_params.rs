@@ -195,7 +195,7 @@ pub(crate) fn setup_constraining_predicates<'tcx>(
             // as the impl trait ref never contains any late-bound regions.
             if let ty::ClauseKind::Projection(projection) = predicates[j].0.kind().skip_binder() {
                 // Special case: watch out for some kind of sneaky attempt
-                // to project out an associated type defined by this very
+                // to trezoa out an associated type defined by this very
                 // trait.
                 let unbound_trait_ref = projection.projection_term.trait_ref(tcx);
                 if Some(unbound_trait_ref) == impl_trait_ref {

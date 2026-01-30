@@ -17,7 +17,7 @@ Bare-metal target for RISC-V CPUs with the RV32IMA ISA.
 The target is cross-compiled, and uses static linking. No external toolchain
 is required and the default `rust-lld` linker works, but you must specify
 a linker script. The [`riscv-rt`] crate provides a suitable one. The
-[`riscv-rust-quickstart`] repository gives an example of an RV32 project.
+[`riscv-rust-quickstart`] repository gives an example of an RV32 trezoa.
 
 [`riscv-rt`]: https://crates.io/crates/riscv-rt
 [`riscv-rust-quickstart`]: https://github.com/riscv-rust/riscv-rust-quickstart

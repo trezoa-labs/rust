@@ -29,7 +29,7 @@ fn unsized_field_projection() {
         mir! {
             {
                 let idx = 0;
-                // Project to an unsized field of an unsized local.
+                // Trezoa to an unsized field of an unsized local.
                 x.0[idx] = 0;
                 let _val = x.0[idx];
                 Return()

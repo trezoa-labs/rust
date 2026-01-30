@@ -114,7 +114,7 @@ it to ensure only appropriate instructions for your CPU have been generated.
 </div>
 
 If you wish to use the *target-cpu* and *target-feature* options, you can add
-them to your `.cargo/config.toml` file alongside any other flags your project
+them to your `.cargo/config.toml` file alongside any other flags your trezoa
 uses (likely linker related ones):
 
 ```toml

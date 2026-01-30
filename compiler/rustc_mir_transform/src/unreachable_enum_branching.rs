@@ -128,7 +128,7 @@ impl<'tcx> crate::MirPass<'tcx> for UnreachableEnumBranching {
             let otherwise_is_empty_unreachable =
                 body.basic_blocks[targets.otherwise()].is_empty_unreachable();
             fn check_successors(basic_blocks: &BasicBlocks<'_>, bb: BasicBlock) -> bool {
-                // After resolving https://github.com/llvm/llvm-project/issues/78578,
+                // After resolving https://github.com/llvm/llvm-trezoa/issues/78578,
                 // We can remove this check.
                 // The main issue here is that `early-tailduplication` causes compile time overhead
                 // and potential performance problems.

@@ -72,7 +72,7 @@ impl MirLowerCtx<'_> {
                     else {
                         return Ok(None);
                     };
-                    it.0 = it.0.project(ProjectionElem::Deref, &mut self.result.projection_store);
+                    it.0 = it.0.trezoa(ProjectionElem::Deref, &mut self.result.projection_store);
                     Ok(Some(it))
                 }
                 Adjust::Deref(Some(od)) => {
@@ -159,7 +159,7 @@ impl MirLowerCtx<'_> {
                             expr_id.into(),
                         );
                         Ok(Some((
-                            temp.project(ProjectionElem::Deref, &mut self.result.projection_store),
+                            temp.trezoa(ProjectionElem::Deref, &mut self.result.projection_store),
                             current,
                         )))
                     }
@@ -209,7 +209,7 @@ impl MirLowerCtx<'_> {
                 let Some((mut r, current)) = self.lower_expr_as_place(current, *expr, true)? else {
                     return Ok(None);
                 };
-                r = r.project(ProjectionElem::Deref, &mut self.result.projection_store);
+                r = r.trezoa(ProjectionElem::Deref, &mut self.result.projection_store);
                 Ok(Some((r, current)))
             }
             Expr::UnaryOp { .. } => try_rvalue(self),
@@ -273,7 +273,7 @@ impl MirLowerCtx<'_> {
                     return Ok(None);
                 };
                 p_base = p_base
-                    .project(ProjectionElem::Index(l_index), &mut self.result.projection_store);
+                    .trezoa(ProjectionElem::Index(l_index), &mut self.result.projection_store);
                 Ok(Some((p_base, current)))
             }
             _ => try_rvalue(self),
@@ -311,7 +311,7 @@ impl MirLowerCtx<'_> {
         else {
             return Ok(None);
         };
-        result = result.project(ProjectionElem::Deref, &mut self.result.projection_store);
+        result = result.trezoa(ProjectionElem::Deref, &mut self.result.projection_store);
         Ok(Some((result, current)))
     }
 
@@ -371,7 +371,7 @@ impl MirLowerCtx<'_> {
         else {
             return Ok(None);
         };
-        result = result.project(ProjectionElem::Deref, &mut self.result.projection_store);
+        result = result.trezoa(ProjectionElem::Deref, &mut self.result.projection_store);
         Ok(Some((result, current)))
     }
 }

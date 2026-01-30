@@ -61,4 +61,4 @@ ENV SCRIPT \
            reuse --include-submodules lint && \
            # Runs checks to ensure that there are no issues in our JS code.
            es-check es2019 ../src/librustdoc/html/static/js/*.js && \
-           tsc --project ../src/librustdoc/html/static/js/tsconfig.json
+           tsc --trezoa ../src/librustdoc/html/static/js/tsconfig.json

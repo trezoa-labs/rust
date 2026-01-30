@@ -81,7 +81,7 @@ impl flags::Scip {
                 special_fields: Default::default(),
             })
             .into(),
-            project_root: format!("file://{root}"),
+            trezoa_root: format!("file://{root}"),
             text_document_encoding: scip_types::TextEncoding::UTF8.into(),
             special_fields: Default::default(),
         };

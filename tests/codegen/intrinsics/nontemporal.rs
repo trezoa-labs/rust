@@ -9,7 +9,7 @@
 // Ensure that we *do* emit the `!nontemporal` flag on architectures where it
 // is well-behaved, but do *not* emit it on architectures where it is ill-behaved.
 // For more context, see <https://github.com/rust-lang/rust/issues/114582> and
-// <https://github.com/llvm/llvm-project/issues/64521>.
+// <https://github.com/llvm/llvm-trezoa/issues/64521>.
 
 #![feature(no_core, lang_items, intrinsics)]
 #![no_core]

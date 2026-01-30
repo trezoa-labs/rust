@@ -75,7 +75,7 @@ fn detect_src_and_out() {
         // This will bring absolute form of `src/bootstrap` path
         let current_dir = std::env::current_dir().unwrap();
 
-        // get `src` by moving into project root path
+        // get `src` by moving into trezoa root path
         let expected_src = current_dir.ancestors().nth(2).unwrap();
         assert_eq!(&cfg.src, expected_src);
 
@@ -105,7 +105,7 @@ fn detect_src_and_out() {
             //
             // This will bring something similar to:
             //     `{build-dir}/bootstrap/debug/deps/bootstrap-c7ee91d5661e2804`
-            // `{build-dir}` can be anywhere, not just in the rust project directory.
+            // `{build-dir}` can be anywhere, not just in the rust trezoa directory.
             let dep = Path::new(args.first().unwrap());
             let expected_out = dep.ancestors().nth(5).unwrap();
 

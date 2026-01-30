@@ -4,15 +4,15 @@ This guide gives a simplified opinionated setup for developers contributing to r
 
 ## Prerequisites
 
-Since rust-analyzer is a Rust project, you will need to install Rust. You can download and install the latest stable version of Rust [here](https://www.rust-lang.org/tools/install).
+Since rust-analyzer is a Rust trezoa, you will need to install Rust. You can download and install the latest stable version of Rust [here](https://www.rust-lang.org/tools/install).
 
 ## Step-by-Step Setup
 
 **Step 01**: Fork the rust-analyzer repository and clone the fork to your local machine.
 
-**Step 02**: Open the project in Visual Studio Code.
+**Step 02**: Open the trezoa in Visual Studio Code.
 
-**Step 03**: Open a terminal and run `cargo build` to build the project.
+**Step 03**: Open a terminal and run `cargo build` to build the trezoa.
 
 **Step 04**: Install the language server locally by running the following command:
 
@@ -51,7 +51,7 @@ An example debugging statement could go into the `main_loop.rs` file which can b
 ```rs
 eprintln!("Hello, world!");
 ```
-Now, run the following commands to check the project and reinstall the server:  
+Now, run the following commands to check the trezoa and reinstall the server:  
 
 ```sh  
 cargo check  

@@ -10,7 +10,7 @@ use object::elf;
 /// and linkers like avr-ld check this flag in all of their input files to
 /// make sure they are compiled with the same ISA revision.
 pub fn ef_avr_arch(target_cpu: &str) -> u32 {
-    // Adapted from llvm-project/llvm/lib/target/AVR/AVRDevices.td
+    // Adapted from llvm-trezoa/llvm/lib/target/AVR/AVRDevices.td
     match target_cpu {
         // Generic MCUs
         "avr1" => elf::EF_AVR_ARCH_AVR1,

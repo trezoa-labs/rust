@@ -126,7 +126,7 @@ impl CompletionFieldsToResolve {
 // ```
 //
 // And the auto import completions, enabled with the `rust-analyzer.completion.autoimport.enable` setting and the corresponding LSP client capabilities.
-// Those are the additional completion options with automatic `use` import and options from all project importable items,
+// Those are the additional completion options with automatic `use` import and options from all trezoa importable items,
 // fuzzy matched against the completion input.
 //
 // ![Magic Completions](https://user-images.githubusercontent.com/48062697/113020667-b72ab880-917a-11eb-8778-716cf26a0eb3.gif)

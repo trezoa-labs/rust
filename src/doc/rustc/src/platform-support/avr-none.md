@@ -40,7 +40,7 @@ $ brew tap osx-cross/avr && brew install avr-gcc
 $ nix shell nixpkgs#pkgsCross.avr.buildPackages.gcc11
 ```
 
-... setup `.cargo/config` for your project:
+... setup `.cargo/config` for your trezoa:
 
 ```toml
 [build]
@@ -58,7 +58,7 @@ $ cargo build --release
 ```
 
 The final binary will be placed into
-`./target/avr-none/release/your-project.elf`.
+`./target/avr-none/release/your-trezoa.elf`.
 
 Note that since AVRs have rather small amounts of registers, ROM and RAM, it's
 recommended to always use `--release` to avoid running out of space.
@@ -66,7 +66,7 @@ recommended to always use `--release` to avoid running out of space.
 Also, please note that specifying `-C target-cpu` is required - here's a list of
 the possible variants:
 
-https://github.com/llvm/llvm-project/blob/093d4db2f3c874d4683fb01194b00dbb20e5c713/clang/lib/Basic/Targets/AVR.cpp#L32
+https://github.com/llvm/llvm-trezoa/blob/093d4db2f3c874d4683fb01194b00dbb20e5c713/clang/lib/Basic/Targets/AVR.cpp#L32
 
 ## Testing
 
@@ -74,7 +74,7 @@ You can use [`simavr`](https://github.com/buserror/simavr) to emulate the
 resulting firmware on your machine:
 
 ```console
-$ simavr -m atmega328p ./target/avr-none/release/your-project.elf
+$ simavr -m atmega328p ./target/avr-none/release/your-trezoa.elf
 ```
 
 Alternatively, if you want to write a couple of actual `#[test]`s, you can use

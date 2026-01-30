@@ -104,11 +104,11 @@ fn test_method_call<'a, 'b>(x: MyTy<()>) {
 fn test_struct_path<'a, 'b, 'c, 'd>() {
     struct Struct<T> { x: Option<T>, }
 
-    trait Project {
+    trait Trezoa {
         type Struct;
         type Enum;
     }
-    impl<T> Project for T {
+    impl<T> Trezoa for T {
         type Struct = Struct<()>;
         type Enum = MyTy<()>;
     }
@@ -116,13 +116,13 @@ fn test_struct_path<'a, 'b, 'c, 'd>() {
     // Resolves to enum variant
     MyTy::<Ty<'a>>::Struct {}; // without SelfTy
     //~^ ERROR lifetime may not live long enough
-    <Ty<'b> as Project>::Enum::Struct {}; // with SelfTy
+    <Ty<'b> as Trezoa>::Enum::Struct {}; // with SelfTy
     //~^ ERROR lifetime may not live long enough
 
     // Resolves to struct and associated type respectively
     Struct::<Ty<'c>> { x: None, }; // without SelfTy
     //~^ ERROR lifetime may not live long enough
-    <Ty<'d> as Project>::Struct { x: None, }; // with SelfTy
+    <Ty<'d> as Trezoa>::Struct { x: None, }; // with SelfTy
     //~^ ERROR lifetime may not live long enough
 }
 

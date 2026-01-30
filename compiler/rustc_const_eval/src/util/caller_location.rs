@@ -44,12 +44,12 @@ fn alloc_caller_location<'tcx>(
     // Initialize fields.
     ecx.write_immediate(
         file_wide_ptr,
-        &ecx.project_field(&location, FieldIdx::from_u32(0)).unwrap(),
+        &ecx.trezoa_field(&location, FieldIdx::from_u32(0)).unwrap(),
     )
     .expect("writing to memory we just allocated cannot fail");
-    ecx.write_scalar(line, &ecx.project_field(&location, FieldIdx::from_u32(1)).unwrap())
+    ecx.write_scalar(line, &ecx.trezoa_field(&location, FieldIdx::from_u32(1)).unwrap())
         .expect("writing to memory we just allocated cannot fail");
-    ecx.write_scalar(col, &ecx.project_field(&location, FieldIdx::from_u32(2)).unwrap())
+    ecx.write_scalar(col, &ecx.trezoa_field(&location, FieldIdx::from_u32(2)).unwrap())
         .expect("writing to memory we just allocated cannot fail");
 
     location

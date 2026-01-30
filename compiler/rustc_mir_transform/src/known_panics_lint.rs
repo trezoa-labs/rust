@@ -88,7 +88,7 @@ impl<'tcx> From<ImmTy<'tcx>> for Value<'tcx> {
 }
 
 impl<'tcx> Value<'tcx> {
-    fn project(
+    fn trezoa(
         &self,
         proj: &[PlaceElem<'tcx>],
         prop: &ConstPropagator<'_, 'tcx>,
@@ -120,7 +120,7 @@ impl<'tcx> Value<'tcx> {
         Some(this)
     }
 
-    fn project_mut(&mut self, proj: &[PlaceElem<'_>]) -> Option<&mut Value<'tcx>> {
+    fn trezoa_mut(&mut self, proj: &[PlaceElem<'_>]) -> Option<&mut Value<'tcx>> {
         let mut this = self;
         for proj in proj {
             this = match (proj, this) {
@@ -130,7 +130,7 @@ impl<'tcx> Value<'tcx> {
                 (PlaceElem::Field(..), val @ Value::Uninit) => {
                     *val =
                         Value::Aggregate { variant: VariantIdx::ZERO, fields: Default::default() };
-                    val.project_mut(&[*proj])?
+                    val.trezoa_mut(&[*proj])?
                 }
                 _ => return None,
             };
@@ -203,7 +203,7 @@ impl<'mir, 'tcx> ConstPropagator<'mir, 'tcx> {
     }
 
     fn get_const(&self, place: Place<'tcx>) -> Option<&Value<'tcx>> {
-        self.locals[place.local].project(&place.projection, self)
+        self.locals[place.local].trezoa(&place.projection, self)
     }
 
     /// Remove `local` from the pool of `Locals`. Allows writing to them,
@@ -221,7 +221,7 @@ impl<'mir, 'tcx> ConstPropagator<'mir, 'tcx> {
             }
             ConstPropMode::FullConstProp => {}
         }
-        self.locals[place.local].project_mut(place.projection)
+        self.locals[place.local].trezoa_mut(place.projection)
     }
 
     fn lint_root(&self, source_info: SourceInfo) -> Option<HirId> {

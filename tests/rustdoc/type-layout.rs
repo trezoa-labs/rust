@@ -93,8 +93,8 @@ pub enum Uninhabited {}
 //@ hasraw - '8 bytes (<a href="{{channel}}/reference/glossary.html#uninhabited">uninhabited</a>)'
 pub struct Uninhabited2(std::convert::Infallible, u64);
 
-pub trait Project { type Assoc; }
+pub trait Trezoa { type Assoc; }
 // We can't compute layout. A `LayoutError::Unknown` is returned.
 //@ hasraw type_layout/struct.Unknown.html 'Unable to compute type layout.'
 //@ !hasraw - 'Size: '
-pub struct Unknown(<() as Project>::Assoc) where for<'a> (): Project;
+pub struct Unknown(<() as Trezoa>::Assoc) where for<'a> (): Trezoa;

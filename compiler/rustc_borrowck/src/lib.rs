@@ -1800,7 +1800,7 @@ impl<'a, 'tcx> MirBorrowckCtxt<'a, '_, 'tcx> {
                             place,
                             location,
                             BorrowedContent {
-                                target_place: place_ref.project_deeper(&[elem], tcx),
+                                target_place: place_ref.trezoa_deeper(&[elem], tcx),
                             },
                         ));
                         return;

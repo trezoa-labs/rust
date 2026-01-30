@@ -485,8 +485,8 @@ impl<'tcx, M: Machine<'tcx>> InterpCx<'tcx, M> {
                 for i in 0..src.layout.fields.count() {
                     let cast_ty_field = cast_ty.field(self, i);
                     let i = FieldIdx::from_usize(i);
-                    let src_field = self.project_field(src, i)?;
-                    let dst_field = self.project_field(dest, i)?;
+                    let src_field = self.trezoa_field(src, i)?;
+                    let dst_field = self.trezoa_field(dest, i)?;
                     if src_field.layout.is_1zst() && cast_ty_field.is_1zst() {
                         // Skip 1-ZST fields.
                     } else if src_field.layout.ty == cast_ty_field.ty {

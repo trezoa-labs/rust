@@ -1,5 +1,5 @@
 //! Handles lowering of build-system specific workspace information (`cargo
-//! metadata` or `rust-project.json`) into representation stored in the salsa
+//! metadata` or `rust-trezoa.json`) into representation stored in the salsa
 //! database -- `CrateGraph`.
 
 use std::{collections::VecDeque, fmt, fs, iter, ops::Deref, sync, thread};
@@ -26,7 +26,7 @@ use crate::{
     build_dependencies::BuildScriptOutput,
     cargo_workspace::{CargoMetadataConfig, DepKind, PackageData, RustLibSource},
     env::{cargo_config_env, inject_cargo_env, inject_cargo_package_env, inject_rustc_tool_env},
-    project_json::{Crate, CrateArrayIdx},
+    trezoa_json::{Crate, CrateArrayIdx},
     sysroot::RustLibSrcWorkspace,
     toolchain_info::{QueryConfig, rustc_cfg, target_data_layout, target_tuple, version},
 };
@@ -72,7 +72,7 @@ pub struct ProjectWorkspace {
 #[derive(Clone)]
 #[allow(clippy::large_enum_variant)]
 pub enum ProjectWorkspaceKind {
-    /// Project workspace was discovered by running `cargo metadata` and `rustc --print sysroot`.
+    /// Trezoa workspace was discovered by running `cargo metadata` and `rustc --print sysroot`.
     Cargo {
         /// The workspace as returned by `cargo metadata`.
         cargo: CargoWorkspace,
@@ -84,7 +84,7 @@ pub enum ProjectWorkspaceKind {
         /// disabled or was otherwise not requested.
         rustc: Result<Box<(CargoWorkspace, WorkspaceBuildScripts)>, Option<String>>,
     },
-    /// Project workspace was specified using a `rust-project.json` file.
+    /// Trezoa workspace was specified using a `rust-trezoa.json` file.
     Json(ProjectJson),
     // FIXME: The primary limitation of this approach is that the set of detached files needs to be fixed at the beginning.
     // That's not the end user experience we should strive for.
@@ -94,7 +94,7 @@ pub enum ProjectWorkspaceKind {
     // Then, we need to hide the graph behind the queries such that most queries look only at the proper crate graph, and fall back to ad hoc roots only if there's no results.
     // After this, we should be able to tweak the logic in reload.rs to add newly opened files, which don't belong to any existing crates, to the set of the detached files.
     // //
-    /// Project with a set of disjoint files, not belonging to any particular workspace.
+    /// Trezoa with a set of disjoint files, not belonging to any particular workspace.
     /// Backed by basic sysroot crates for basic completion and highlighting.
     DetachedFile {
         /// The file in question.
@@ -135,10 +135,10 @@ impl fmt::Debug for ProjectWorkspace {
                 .field("set_test", set_test)
                 .field("build_scripts", &build_scripts.error().unwrap_or("ok"))
                 .finish(),
-            ProjectWorkspaceKind::Json(project) => {
+            ProjectWorkspaceKind::Json(trezoa) => {
                 let mut debug_struct = f.debug_struct("Json");
                 debug_struct
-                    .field("n_crates", &project.n_crates())
+                    .field("n_crates", &trezoa.n_crates())
                     .field("n_sysroot_crates", &sysroot.num_packages())
                     .field("n_rustc_cfg", &rustc_cfg.len())
                     .field("toolchain", &toolchain)
@@ -173,7 +173,7 @@ impl ProjectWorkspace {
         progress: &dyn Fn(String),
     ) -> anyhow::Result<ProjectWorkspace> {
         ProjectWorkspace::load_inner(&manifest, config, progress)
-            .with_context(|| format!("Failed to load the project at {manifest}"))
+            .with_context(|| format!("Failed to load the trezoa at {manifest}"))
     }
 
     fn load_inner(
@@ -182,15 +182,15 @@ impl ProjectWorkspace {
         progress: &dyn Fn(String),
     ) -> anyhow::Result<ProjectWorkspace> {
         let res = match manifest {
-            ProjectManifest::ProjectJson(project_json) => {
-                let file = fs::read_to_string(project_json)
-                    .with_context(|| format!("Failed to read json file {project_json}"))?;
+            ProjectManifest::ProjectJson(trezoa_json) => {
+                let file = fs::read_to_string(trezoa_json)
+                    .with_context(|| format!("Failed to read json file {trezoa_json}"))?;
                 let data = serde_json::from_str(&file)
-                    .with_context(|| format!("Failed to deserialize json file {project_json}"))?;
-                let project_location = project_json.parent().to_path_buf();
-                let project_json: ProjectJson =
-                    ProjectJson::new(Some(project_json.clone()), &project_location, data);
-                ProjectWorkspace::load_inline(project_json, config, progress)
+                    .with_context(|| format!("Failed to deserialize json file {trezoa_json}"))?;
+                let trezoa_location = trezoa_json.parent().to_path_buf();
+                let trezoa_json: ProjectJson =
+                    ProjectJson::new(Some(trezoa_json.clone()), &trezoa_location, data);
+                ProjectWorkspace::load_inline(trezoa_json, config, progress)
             }
             ProjectManifest::CargoScript(rust_file) => {
                 ProjectWorkspace::load_detached_file(rust_file, config)?
@@ -244,7 +244,7 @@ impl ProjectWorkspace {
         };
 
         tracing::info!(workspace = %cargo_toml, src_root = ?sysroot.rust_lib_src_root(), root = ?sysroot.root(), "Using sysroot");
-        progress("Querying project metadata".to_owned());
+        progress("Querying trezoa metadata".to_owned());
         let toolchain_config = QueryConfig::Cargo(&sysroot, cargo_toml);
         let targets =
             target_tuple::get(toolchain_config, target.as_deref(), extra_env).unwrap_or_default();
@@ -409,18 +409,18 @@ impl ProjectWorkspace {
     }
 
     pub fn load_inline(
-        mut project_json: ProjectJson,
+        mut trezoa_json: ProjectJson,
         config: &CargoConfig,
         progress: &dyn Fn(String),
     ) -> ProjectWorkspace {
         progress("Discovering sysroot".to_owned());
         let mut sysroot =
-            Sysroot::new(project_json.sysroot.clone(), project_json.sysroot_src.clone());
+            Sysroot::new(trezoa_json.sysroot.clone(), trezoa_json.sysroot_src.clone());
 
-        tracing::info!(workspace = %project_json.manifest_or_root(), src_root = ?sysroot.rust_lib_src_root(), root = ?sysroot.root(), "Using sysroot");
-        progress("Querying project metadata".to_owned());
-        let sysroot_project = project_json.sysroot_project.take();
-        let query_config = QueryConfig::Rustc(&sysroot, project_json.path().as_ref());
+        tracing::info!(workspace = %trezoa_json.manifest_or_root(), src_root = ?sysroot.rust_lib_src_root(), root = ?sysroot.root(), "Using sysroot");
+        progress("Querying trezoa metadata".to_owned());
+        let sysroot_project = trezoa_json.sysroot_project.take();
+        let query_config = QueryConfig::Rustc(&sysroot, trezoa_json.path().as_ref());
         let targets = target_tuple::get(query_config, config.target.as_deref(), &config.extra_env)
             .unwrap_or_default();
 
@@ -469,7 +469,7 @@ impl ProjectWorkspace {
         }
 
         ProjectWorkspace {
-            kind: ProjectWorkspaceKind::Json(project_json),
+            kind: ProjectWorkspaceKind::Json(trezoa_json),
             sysroot,
             rustc_cfg,
             toolchain,
@@ -570,7 +570,7 @@ impl ProjectWorkspace {
     }
 
     /// Runs the build scripts for the given [`ProjectWorkspace`]s. Depending on the invocation
-    /// strategy this may run a single build process for all project workspaces.
+    /// strategy this may run a single build process for all trezoa workspaces.
     pub fn run_all_build_scripts(
         workspaces: &[ProjectWorkspace],
         config: &CargoConfig,
@@ -628,7 +628,7 @@ impl ProjectWorkspace {
     pub fn manifest_or_root(&self) -> &AbsPath {
         match &self.kind {
             ProjectWorkspaceKind::Cargo { cargo, .. } => cargo.manifest_path(),
-            ProjectWorkspaceKind::Json(project) => project.manifest_or_root(),
+            ProjectWorkspaceKind::Json(trezoa) => trezoa.manifest_or_root(),
             ProjectWorkspaceKind::DetachedFile { file, .. } => file,
         }
     }
@@ -636,7 +636,7 @@ impl ProjectWorkspace {
     pub fn workspace_root(&self) -> &AbsPath {
         match &self.kind {
             ProjectWorkspaceKind::Cargo { cargo, .. } => cargo.workspace_root(),
-            ProjectWorkspaceKind::Json(project) => project.project_root(),
+            ProjectWorkspaceKind::Json(trezoa) => trezoa.trezoa_root(),
             ProjectWorkspaceKind::DetachedFile { file, .. } => file.parent(),
         }
     }
@@ -644,7 +644,7 @@ impl ProjectWorkspace {
     pub fn manifest(&self) -> Option<&ManifestPath> {
         match &self.kind {
             ProjectWorkspaceKind::Cargo { cargo, .. } => Some(cargo.manifest_path()),
-            ProjectWorkspaceKind::Json(project) => project.manifest(),
+            ProjectWorkspaceKind::Json(trezoa) => trezoa.manifest(),
             ProjectWorkspaceKind::DetachedFile { cargo, .. } => {
                 Some(cargo.as_ref()?.0.manifest_path())
             }
@@ -653,7 +653,7 @@ impl ProjectWorkspace {
 
     pub fn buildfiles(&self) -> Vec<AbsPathBuf> {
         match &self.kind {
-            ProjectWorkspaceKind::Json(project) => project
+            ProjectWorkspaceKind::Json(trezoa) => trezoa
                 .crates()
                 .filter_map(|(_, krate)| krate.build.as_ref().map(|build| build.build_file.clone()))
                 .map(|build_file| self.workspace_root().join(build_file))
@@ -693,7 +693,7 @@ impl ProjectWorkspace {
                         Some(PackageRoot { is_local: false, include, exclude })
                     })
                     .collect(),
-                RustLibSrcWorkspace::Json(project_json) => project_json
+                RustLibSrcWorkspace::Json(trezoa_json) => trezoa_json
                     .crates()
                     .map(|(_, krate)| PackageRoot {
                         is_local: false,
@@ -718,7 +718,7 @@ impl ProjectWorkspace {
             r
         };
         match &self.kind {
-            ProjectWorkspaceKind::Json(project) => project
+            ProjectWorkspaceKind::Json(trezoa) => trezoa
                 .crates()
                 .map(|(_, krate)| PackageRoot {
                     is_local: krate.is_workspace_member,
@@ -840,7 +840,7 @@ impl ProjectWorkspace {
     pub fn n_packages(&self) -> usize {
         let sysroot_package_len = self.sysroot.num_packages();
         match &self.kind {
-            ProjectWorkspaceKind::Json(project) => sysroot_package_len + project.n_crates(),
+            ProjectWorkspaceKind::Json(trezoa) => sysroot_package_len + trezoa.n_crates(),
             ProjectWorkspaceKind::Cargo { cargo, rustc, .. } => {
                 let rustc_package_len =
                     rustc.as_ref().map(|a| a.as_ref()).map_or(0, |(it, _)| it.packages().len());
@@ -866,10 +866,10 @@ impl ProjectWorkspace {
             data_layout: self.target_layout.clone(),
         });
         let (crate_graph, proc_macros) = match kind {
-            ProjectWorkspaceKind::Json(project) => project_json_to_crate_graph(
+            ProjectWorkspaceKind::Json(trezoa) => trezoa_json_to_crate_graph(
                 rustc_cfg.clone(),
                 load,
-                project,
+                trezoa,
                 sysroot,
                 extra_env,
                 cfg_overrides,
@@ -941,8 +941,8 @@ impl ProjectWorkspace {
                     error: _,
                 },
             ) => cargo == o_cargo && rustc == o_rustc,
-            (ProjectWorkspaceKind::Json(project), ProjectWorkspaceKind::Json(o_project)) => {
-                project == o_project
+            (ProjectWorkspaceKind::Json(trezoa), ProjectWorkspaceKind::Json(o_project)) => {
+                trezoa == o_project
             }
             (
                 ProjectWorkspaceKind::DetachedFile { file, cargo: Some((cargo_script, _, _)) },
@@ -959,7 +959,7 @@ impl ProjectWorkspace {
             && cfg_overrides == o_cfg_overrides
     }
 
-    /// Returns `true` if the project workspace is [`Json`].
+    /// Returns `true` if the trezoa workspace is [`Json`].
     ///
     /// [`Json`]: ProjectWorkspace::Json
     #[must_use]
@@ -969,10 +969,10 @@ impl ProjectWorkspace {
 }
 
 #[instrument(skip_all)]
-fn project_json_to_crate_graph(
+fn trezoa_json_to_crate_graph(
     rustc_cfg: Vec<CfgAtom>,
     load: FileLoader<'_>,
-    project: &ProjectJson,
+    trezoa: &ProjectJson,
     sysroot: &Sysroot,
     extra_env: &FxHashMap<String, Option<String>>,
     override_cfg: &CfgOverrides,
@@ -992,9 +992,9 @@ fn project_json_to_crate_graph(
     );
 
     let mut cfg_cache: FxHashMap<&str, Vec<CfgAtom>> = FxHashMap::default();
-    let project_root = Arc::new(project.project_root().to_path_buf());
+    let trezoa_root = Arc::new(trezoa.trezoa_root().to_path_buf());
 
-    let idx_to_crate_id: FxHashMap<CrateArrayIdx, _> = project
+    let idx_to_crate_id: FxHashMap<CrateArrayIdx, _> = trezoa
         .crates()
         .filter_map(|(idx, krate)| Some((idx, krate, load(&krate.root_module)?)))
         .map(
@@ -1021,7 +1021,7 @@ fn project_json_to_crate_graph(
                 let target_cfgs = match target.as_deref() {
                     Some(target) => cfg_cache.entry(target).or_insert_with(|| {
                         rustc_cfg::get(
-                            QueryConfig::Rustc(sysroot, project.project_root().as_ref()),
+                            QueryConfig::Rustc(sysroot, trezoa.trezoa_root().as_ref()),
                             Some(target),
                             extra_env,
                         )
@@ -1074,7 +1074,7 @@ fn project_json_to_crate_graph(
                     *is_proc_macro,
                     match proc_macro_cwd {
                         Some(path) => Arc::new(path.clone()),
-                        None => project_root.clone(),
+                        None => trezoa_root.clone(),
                     },
                     crate_ws_data.clone(),
                 );
@@ -1101,7 +1101,7 @@ fn project_json_to_crate_graph(
         .collect();
 
     debug!(map = ?idx_to_crate_id);
-    for (from_idx, krate) in project.crates() {
+    for (from_idx, krate) in trezoa.crates() {
         if let Some(&from) = idx_to_crate_id.get(&from_idx) {
             public_deps.add_to_crate_graph(crate_graph, from);
             if let Some(proc_macro) = libproc_macro {
@@ -1313,7 +1313,7 @@ fn cargo_to_crate_graph(
                 &pkg_crates,
                 &cfg_options,
                 override_cfg,
-                // FIXME: Remove this once rustc switched over to rust-project.json
+                // FIXME: Remove this once rustc switched over to rust-trezoa.json
                 if rustc_workspace.workspace_root() == cargo.workspace_root() {
                     // the rustc workspace does not use the installed toolchain's proc-macro server
                     // so we need to make sure we don't use the pre compiled proc-macros there either
@@ -1678,11 +1678,11 @@ fn sysroot_to_crate_graph(
 
             extend_crate_graph_with_sysroot(crate_graph, sysroot_cg, sysroot_pm)
         }
-        RustLibSrcWorkspace::Json(project_json) => {
-            let (sysroot_cg, sysroot_pm) = project_json_to_crate_graph(
+        RustLibSrcWorkspace::Json(trezoa_json) => {
+            let (sysroot_cg, sysroot_pm) = trezoa_json_to_crate_graph(
                 rustc_cfg,
                 load,
-                project_json,
+                trezoa_json,
                 &Sysroot::empty(),
                 &FxHashMap::default(),
                 &CfgOverrides {

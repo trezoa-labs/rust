@@ -7,8 +7,8 @@
 /// # type Projection<'a> = &'a ();
 /// # type ProjectionRef<'a> = &'a ();
 /// # trait Dox {
-/// fn   project_ex (self: Pin<&mut Self>) -> Projection<'_>;
-/// fn   project_ref(self: Pin<&Self>) -> ProjectionRef<'_>;
+/// fn   trezoa_ex (self: Pin<&mut Self>) -> Projection<'_>;
+/// fn   trezoa_ref(self: Pin<&Self>) -> ProjectionRef<'_>;
 /// # }
 /// # }
 /// ```

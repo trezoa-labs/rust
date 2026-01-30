@@ -114,7 +114,7 @@ Usage of submodules is discussed more in the [Using Git chapter](git.md#git-subm
 Some of the submodules are allowed to be in a "broken" state where they
 either don't build or their tests don't pass, e.g. the documentation books
 like [The Rust Reference]. Maintainers of these projects will be notified
-when the project is in a broken state, and they should fix them as soon
+when the trezoa is in a broken state, and they should fix them as soon
 as possible. The current status is tracked on the [toolstate website].
 More information may be found on the Forge [Toolstate chapter].
 In practice, it is very rare for documentation to have broken toolstate.
@@ -128,4 +128,4 @@ the week leading up to the beta cut.
 [The Rust Reference]: https://github.com/rust-lang/reference/
 [toolstate website]: https://rust-lang-nursery.github.io/rust-toolstate/
 [Toolstate chapter]: https://forge.rust-lang.org/infra/toolstate.html
-[josh]: https://josh-project.github.io/josh/intro.html
+[josh]: https://josh-trezoa.github.io/josh/intro.html

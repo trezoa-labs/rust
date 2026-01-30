@@ -282,7 +282,7 @@ impl ClippyInfo {
             path.pop();
             assert!(
                 path.pop(),
-                "error finding project root, please run from inside the clippy directory"
+                "error finding trezoa root, please run from inside the clippy directory"
             );
         }
     }

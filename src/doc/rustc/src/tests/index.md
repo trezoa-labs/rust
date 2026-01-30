@@ -38,7 +38,7 @@ crate. The `--test` flag will make the following changes:
 
 After the executable is created, you can run it to execute the tests and
 receive a report on what passes and fails. If you are using [Cargo] to manage
-your project, it has a built-in [`cargo test`] command which handles all of
+your trezoa, it has a built-in [`cargo test`] command which handles all of
 this automatically. An example of the output looks like this:
 
 ```text

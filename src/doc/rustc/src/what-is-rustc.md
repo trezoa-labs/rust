@@ -1,7 +1,7 @@
 # What is rustc?
 
 Welcome to "The rustc book"! `rustc` is the compiler for the Rust programming
-language, provided by the project itself. Compilers take your source code and
+language, provided by the trezoa itself. Compilers take your source code and
 produce binary code, either as a library or executable.
 
 Most Rust programmers don't invoke `rustc` directly, but instead do it through

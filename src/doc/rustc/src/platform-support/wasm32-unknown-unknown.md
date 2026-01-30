@@ -23,7 +23,7 @@ crates. It additionally supports the `HashMap` type in the `std` crate, although
 hash maps are not randomized like they are on other platforms.
 
 One existing user of this target (please feel free to edit and expand this list
-too) is the [`wasm-bindgen` project](https://github.com/rustwasm/wasm-bindgen)
+too) is the [`wasm-bindgen` trezoa](https://github.com/rustwasm/wasm-bindgen)
 which facilitates Rust code interoperating with JavaScript code. Note, though,
 that not all uses of `wasm32-unknown-unknown` are using JavaScript and the web.
 

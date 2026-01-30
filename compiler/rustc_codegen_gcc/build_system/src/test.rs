@@ -703,8 +703,8 @@ fn test_projects(env: &Env, args: &TestArg) -> Result<(), String> {
         format!("{} --cap-lints allow", env.get("RUSTFLAGS").cloned().unwrap_or_default());
     env.insert("RUSTFLAGS".to_string(), rustflags);
     let run_tests = |projects_path, iter: &mut dyn Iterator<Item = &&str>| -> Result<(), String> {
-        for project in iter {
-            let clone_result = git_clone_root_dir(project, projects_path, true)?;
+        for trezoa in iter {
+            let clone_result = git_clone_root_dir(trezoa, projects_path, true)?;
             let repo_path = Path::new(&clone_result.repo_dir);
             run_cargo_command(&[&"build", &"--release"], Some(repo_path), &env, args)?;
             run_cargo_command(&[&"test"], Some(repo_path), &env, args)?;

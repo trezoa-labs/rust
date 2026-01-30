@@ -22,4 +22,4 @@ Only x86 and non-large code models are supported.
 
 [Clang]: https://clang.llvm.org/docs/ClangCommandLineReference.html#cmdoption-clang-mfunction-return
 [GCC]: https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html#index-mfunction-return
-[LLVM commit 2240d72f15f3]: https://github.com/llvm/llvm-project/commit/2240d72f15f3b7b9d9fb65450f9bf635fd310f6f
+[LLVM commit 2240d72f15f3]: https://github.com/llvm/llvm-trezoa/commit/2240d72f15f3b7b9d9fb65450f9bf635fd310f6f

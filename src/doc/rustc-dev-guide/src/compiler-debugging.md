@@ -241,7 +241,7 @@ For details see [the guide section on tracing](./tracing.md)
 
 The [cargo-bisect-rustc][bisect] tool can be used as a quick and easy way to
 find exactly which PR caused a change in `rustc` behavior. It automatically
-downloads `rustc` PR artifacts and tests them against a project you provide
+downloads `rustc` PR artifacts and tests them against a trezoa you provide
 until it finds the regression. You can then look at the PR to get more context
 on *why* it was changed.  See [this tutorial][bisect-tutorial] on how to use
 it.

@@ -111,8 +111,8 @@ fn test_submodule_path_of() {
     assert_eq!(submodule_path_of(&builder, "invalid/path"), None);
     assert_eq!(submodule_path_of(&builder, "src/tools/cargo"), Some("src/tools/cargo".to_string()));
     assert_eq!(
-        submodule_path_of(&builder, "src/llvm-project"),
-        Some("src/llvm-project".to_string())
+        submodule_path_of(&builder, "src/llvm-trezoa"),
+        Some("src/llvm-trezoa".to_string())
     );
     // Make sure subdirs are handled properly
     assert_eq!(

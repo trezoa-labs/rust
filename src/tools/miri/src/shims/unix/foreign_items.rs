@@ -1226,7 +1226,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 #[allow(deprecated)]
                 let home_dir = std::env::home_dir().unwrap();
                 let (written, _) = this.write_path_to_c_str(&home_dir, buf, buflen)?;
-                let pw_dir = this.project_field_named(&pwd, "pw_dir")?;
+                let pw_dir = this.trezoa_field_named(&pwd, "pw_dir")?;
                 this.write_pointer(buf, &pw_dir)?;
 
                 if written {

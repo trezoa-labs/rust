@@ -9,7 +9,7 @@ use directories::ProjectDirs;
 use stdx::JodChild;
 use xshell::{Shell, cmd};
 
-use crate::{date_iso, flags, is_release_tag, project_root};
+use crate::{date_iso, flags, is_release_tag, trezoa_root};
 
 impl flags::Release {
     pub(crate) fn run(self, sh: &Shell) -> anyhow::Result<()> {
@@ -29,7 +29,7 @@ impl flags::Release {
             cmd!(sh, "git push --force").run()?;
         }
 
-        let website_root = project_root().join("../rust-analyzer.github.io");
+        let website_root = trezoa_root().join("../rust-analyzer.github.io");
         {
             let _dir = sh.push_dir(&website_root);
             cmd!(sh, "git switch src").run()?;
@@ -63,7 +63,7 @@ impl flags::Release {
 // git sync implementation adapted from https://github.com/rust-lang/miri/blob/62039ac/miri-script/src/commands.rs
 impl flags::RustcPull {
     pub(crate) fn run(self, sh: &Shell) -> anyhow::Result<()> {
-        sh.change_dir(project_root());
+        sh.change_dir(trezoa_root());
         let commit = self.commit.map(Result::Ok).unwrap_or_else(|| {
             let rust_repo_head =
                 cmd!(sh, "git ls-remote https://github.com/rust-lang/rust/ HEAD").read()?;
@@ -131,7 +131,7 @@ impl flags::RustcPush {
         let rust_path = self.rust_path;
         let rust_fork = self.rust_fork;
 
-        sh.change_dir(project_root());
+        sh.change_dir(trezoa_root());
         let base = sh.read_file("rust-version")?.trim().to_owned();
         // Make sure the repo is clean.
         if !cmd!(sh, "git status --untracked-files=no --porcelain").read()?.is_empty() {
@@ -164,7 +164,7 @@ impl flags::RustcPush {
         println!();
 
         // Do the actual push.
-        sh.change_dir(project_root());
+        sh.change_dir(trezoa_root());
         println!("Pushing rust-analyzer changes...");
         cmd!(
             sh,

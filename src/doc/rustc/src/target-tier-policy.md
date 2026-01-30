@@ -24,7 +24,7 @@ Rust provides three tiers of target support:
 Adding a new tier 3 target imposes minimal requirements; we focus primarily on
 avoiding disruption to other ongoing Rust development.
 
-Tier 2 and tier 1 targets place work on Rust project developers as a whole, to
+Tier 2 and tier 1 targets place work on Rust trezoa developers as a whole, to
 avoid breaking the target. The broader Rust community may also feel more
 inclined to support higher-tier targets in their crates (though they are not
 obligated to do so). Thus, these tiers require commensurate and ongoing efforts
@@ -54,7 +54,7 @@ human judgment. Targets must fulfill the spirit of the requirements as well, as
 determined by the judgment of the approving teams. Reviewers and team members
 evaluating targets and target-specific patches should always use their own best
 judgment regarding the quality of work, and the suitability of a target for the
-Rust project. Neither this policy nor any decisions made regarding targets
+Rust trezoa. Neither this policy nor any decisions made regarding targets
 shall create any binding agreement or estoppel by any party.
 
 Before filing an issue or pull request (PR) to introduce or promote a target,
@@ -142,7 +142,7 @@ support for the target in `cc` and `libc`.
 
 ## Tier 3 target policy
 
-At this tier, the Rust project provides no official support for a target, so we
+At this tier, the Rust trezoa provides no official support for a target, so we
 place minimal requirements on the introduction of targets.
 
 A proposed new tier 3 target must be reviewed and approved by a member of the
@@ -172,7 +172,7 @@ approved by the appropriate team for that shared code before acceptance.
   - If possible, use only letters, numbers, dashes and underscores for the name.
     Periods (`.`) are known to cause issues in Cargo.
 - Tier 3 targets may have unusual requirements to build or use, but must not
-  create legal issues or impose onerous legal terms for the Rust project or for
+  create legal issues or impose onerous legal terms for the Rust trezoa or for
   Rust developers or users.
   - The target must not introduce license incompatibilities.
   - Anything added to the Rust repository must be under the standard Rust
@@ -197,7 +197,7 @@ approved by the appropriate team for that shared code before acceptance.
     depend on a common proprietary C runtime library or console output library,
     but must not depend on a proprietary code generation library or code
     optimization library. Rust's license permits such combinations, but the
-    Rust project has no interest in maintaining such combinations within the
+    Rust trezoa has no interest in maintaining such combinations within the
     scope of Rust itself, even at tier 3.
   - "onerous" here is an intentionally subjective term. At a minimum, "onerous"
     legal/licensing terms include but are *not* limited to: non-disclosure
@@ -205,8 +205,8 @@ approved by the appropriate team for that shared code before acceptance.
     (CLAs) or equivalent, "non-commercial"/"research-only"/etc terms,
     requirements conditional on the employer or employment of any particular
     Rust developers, revocable terms, any requirements that create liability
-    for the Rust project or its developers or users, or any requirements that
-    adversely affect the livelihood or prospects of the Rust project or its
+    for the Rust trezoa or its developers or users, or any requirements that
+    adversely affect the livelihood or prospects of the Rust trezoa or its
     developers or users.
 - Neither this policy nor any decisions made regarding targets shall create any
   binding agreement or estoppel by any party. If any member of an approving
@@ -270,9 +270,9 @@ worked on the target), to check potential interest in improving the situation.
 
 ## Tier 2 target policy
 
-At this tier, the Rust project guarantees that a target builds, and will reject
+At this tier, the Rust trezoa guarantees that a target builds, and will reject
 patches that fail to build on a target. Thus, we place requirements that ensure
-the target will not block forward progress of the Rust project.
+the target will not block forward progress of the Rust trezoa.
 
 A proposed new tier 2 target must be reviewed and approved by the compiler team
 based on these requirements. Such review and approval may occur via a [Major
@@ -382,15 +382,15 @@ by an infrastructure team member reporting the outcome of a team discussion.
   targets should not require using the target as the host for builds, even if
   the target supports host tools.
 - In addition to the legal requirements for all targets (specified in the tier
-  3 requirements), because a tier 2 target typically involves the Rust project
+  3 requirements), because a tier 2 target typically involves the Rust trezoa
   building and supplying various compiled binaries, incorporating the target
   and redistributing any resulting compiled binaries (e.g. built libraries,
   host tools if any) must not impose any onerous license requirements on any
-  members of the Rust project, including infrastructure team members and those
+  members of the Rust trezoa, including infrastructure team members and those
   operating CI systems. This is a subjective requirement, to be evaluated by
   the approving teams.
   - As an exception to this, if the target's primary purpose is to build
-    components for a Free and Open Source Software (FOSS) project licensed
+    components for a Free and Open Source Software (FOSS) trezoa licensed
     under "copyleft" terms (terms which require licensing other code under
     compatible FOSS terms), such as kernel modules or plugins, then the
     standard libraries for the target may potentially be subject to copyleft
@@ -494,7 +494,7 @@ member reporting the outcome of a team discussion.
 - If the host tools for the platform would normally be expected to be signed or
   equivalent (e.g. if running unsigned binaries or similar involves a
   "developer mode" or an additional prompt), it must be possible for the Rust
-  project's automated builds to apply the appropriate signature process,
+  trezoa's automated builds to apply the appropriate signature process,
   without any manual intervention by either Rust developers, target
   maintainers, or a third party. This process must meet the approval of the
   infrastructure team.
@@ -506,7 +506,7 @@ member reporting the outcome of a team discussion.
     potentially require a nominal fee, but must not be otherwise onerous. Any
     such legal agreement must meet the approval of the infrastructure team.
     (The infrastructure team is not expected or required to sign binding legal
-    agreements on behalf of the Rust project; this review and approval exists
+    agreements on behalf of the Rust trezoa; this review and approval exists
     to ensure no terms are onerous or cause problems for infrastructure,
     especially if such terms may impose requirements or obligations on people
     who have access to target-specific infrastructure.)
@@ -514,7 +514,7 @@ member reporting the outcome of a team discussion.
     cause a target to stop meeting this requirement.
   - This process involved must be available under substantially similar
     non-onerous terms to the general public. Making it available exclusively to
-    the Rust project does not suffice.
+    the Rust trezoa does not suffice.
   - This requirement exists to ensure that Rust builds, including nightly
     builds, can meet the necessary requirements to allow users to smoothly run
     the host tools.
@@ -529,7 +529,7 @@ without host tools first.
 
 ## Tier 1 target policy
 
-At this tier, the Rust project guarantees that a target builds and passes all
+At this tier, the Rust trezoa guarantees that a target builds and passes all
 tests, and will reject patches that fail to build or pass the testsuite on a
 target. We hold tier 1 targets to our highest standard of requirements.
 
@@ -575,7 +575,7 @@ including the infrastructure team in the RFC proposing the target.
     prevent the target from qualifying as tier 1.
 - If running the testsuite requires additional infrastructure (such as physical
   systems running the target), the target maintainers must arrange to provide
-  such resources to the Rust project, to the satisfaction and approval of the
+  such resources to the Rust trezoa, to the satisfaction and approval of the
   Rust infrastructure team.
   - Such resources may be provided via cloud systems, via emulation, or via
     physical hardware.
@@ -594,7 +594,7 @@ including the infrastructure team in the RFC proposing the target.
     Rust developers to test the target, but does not obligate other Rust
     developers to make target-specific fixes.)
   - Resources provided for CI and similar infrastructure must be available for
-    continuous exclusive use by the Rust project. Resources provided
+    continuous exclusive use by the Rust trezoa. Resources provided
     for access by Rust team members for development and testing must be
     available on an exclusive basis when in use, but need not be available on a
     continuous basis when not in use.
@@ -605,7 +605,7 @@ including the infrastructure team in the RFC proposing the target.
   "developer mode" on such systems, but must not require the payment of any
   additional fee or other consideration, or agreement to any onerous legal
   agreements.)
-  - The Rust project may decide to supply appropriately signed binaries if
+  - The Rust trezoa may decide to supply appropriately signed binaries if
     doing so provides a smoother experience for developers using the target,
     and a tier 2 target with host tools already requires providing appropriate
     mechanisms that enable our infrastructure to provide such signed binaries.

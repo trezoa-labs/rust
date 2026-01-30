@@ -577,7 +577,7 @@ trigger_files = [
 
 [autolabel."A-LLVM"]
 trigger_files = [
-    "src/llvm-project",
+    "src/llvm-trezoa",
     "compiler/rustc_llvm",
     "compiler/rustc_codegen_llvm",
 ]
@@ -763,7 +763,7 @@ labels = ["has-merge-commits", "S-waiting-on-author"]
 
 [github-releases]
 format = "rustc"
-project-name = "Rust"
+trezoa-name = "Rust"
 changelog-path = "RELEASES.md"
 changelog-branch = "master"
 
@@ -1082,28 +1082,28 @@ cc = ["@nnethercote"]
 cc = ["@rcvalle"]
 
 [mentions."src/doc/rustc/src/exploit-mitigations.md"]
-cc = ["@rust-lang/project-exploit-mitigations", "@rcvalle"]
+cc = ["@rust-lang/trezoa-exploit-mitigations", "@rcvalle"]
 
 [mentions."src/doc/unstable-book/src/compiler-flags/branch-protection.md"]
-cc = ["@rust-lang/project-exploit-mitigations", "@rcvalle"]
+cc = ["@rust-lang/trezoa-exploit-mitigations", "@rcvalle"]
 
 [mentions."src/doc/unstable-book/src/compiler-flags/cf-protection.md"]
-cc = ["@rust-lang/project-exploit-mitigations", "@rcvalle"]
+cc = ["@rust-lang/trezoa-exploit-mitigations", "@rcvalle"]
 
 [mentions."src/doc/unstable-book/src/compiler-flags/control-flow-guard.md"]
-cc = ["@rust-lang/project-exploit-mitigations", "@rcvalle"]
+cc = ["@rust-lang/trezoa-exploit-mitigations", "@rcvalle"]
 
 [mentions."src/doc/unstable-book/src/compiler-flags/sanitizer.md"]
-cc = ["@rust-lang/project-exploit-mitigations", "@rcvalle"]
+cc = ["@rust-lang/trezoa-exploit-mitigations", "@rcvalle"]
 
 [mentions."src/doc/unstable-book/src/language-features/cfg-sanitize.md"]
-cc = ["@rust-lang/project-exploit-mitigations", "@rcvalle"]
+cc = ["@rust-lang/trezoa-exploit-mitigations", "@rcvalle"]
 
 [mentions."src/doc/unstable-book/src/language-features/cfi-encoding.md"]
-cc = ["@rust-lang/project-exploit-mitigations", "@rcvalle"]
+cc = ["@rust-lang/trezoa-exploit-mitigations", "@rcvalle"]
 
 [mentions."src/doc/unstable-book/src/language-features/no-sanitize.md"]
-cc = ["@rust-lang/project-exploit-mitigations", "@rcvalle"]
+cc = ["@rust-lang/trezoa-exploit-mitigations", "@rcvalle"]
 
 [mentions."src/doc/rustc/src/check-cfg.md"]
 cc = ["@Urgau"]
@@ -1118,19 +1118,19 @@ cc = ["@Noratrieb"]
 cc = ["@rcvalle"]
 
 [mentions."tests/codegen/split-lto-unit.rs"]
-cc = ["@rust-lang/project-exploit-mitigations", "@rcvalle"]
+cc = ["@rust-lang/trezoa-exploit-mitigations", "@rcvalle"]
 
 [mentions."tests/codegen/stack-probes-inline.rs"]
-cc = ["@rust-lang/project-exploit-mitigations", "@rcvalle"]
+cc = ["@rust-lang/trezoa-exploit-mitigations", "@rcvalle"]
 
 [mentions."tests/codegen/stack-protector.rs"]
-cc = ["@rust-lang/project-exploit-mitigations", "@rcvalle"]
+cc = ["@rust-lang/trezoa-exploit-mitigations", "@rcvalle"]
 
 [mentions."tests/ui/sanitizer"]
 cc = ["@rcvalle"]
 
 [mentions."tests/ui/stack-protector"]
-cc = ["@rust-lang/project-exploit-mitigations", "@rcvalle"]
+cc = ["@rust-lang/trezoa-exploit-mitigations", "@rcvalle"]
 
 [mentions."compiler/rustc_middle/src/mir/coverage.rs"]
 message = "Some changes occurred in coverage instrumentation."
@@ -1332,18 +1332,18 @@ style-team = [
     "@joshtriplett",
     "@yaahc",
 ]
-project-const-traits = [
+trezoa-const-traits = [
     "@compiler-errors",
     "@fee1-dead",
     "@fmease",
     "@oli-obk",
 ]
-project-stable-mir = [
+trezoa-stable-mir = [
     "@celinval",
     "@oli-obk",
     "@scottmcm",
 ]
-project-exploit-mitigations = [
+trezoa-exploit-mitigations = [
     "@cuviper",
     "@rcvalle",
 ]
@@ -1374,7 +1374,7 @@ compiletest = [
 "/compiler/rustc_const_eval/src/interpret" =             ["compiler", "mir"]
 "/compiler/rustc_mir_build/src/builder" =                ["compiler", "mir"]
 "/compiler/rustc_mir_transform" =                        ["compiler", "mir", "mir-opt"]
-"/compiler/rustc_smir" =                                 ["project-stable-mir"]
+"/compiler/rustc_smir" =                                 ["trezoa-stable-mir"]
 "/compiler/rustc_parse" =                                ["compiler", "parser"]
 "/compiler/rustc_parse/src/lexer" =                      ["compiler", "lexer"]
 "/compiler/rustc_query_impl" =                           ["compiler", "query-system"]
@@ -1384,7 +1384,7 @@ compiletest = [
 "/compiler/rustc_trait_selection" =                      ["compiler", "types"]
 "/compiler/rustc_traits" =                               ["compiler", "types"]
 "/compiler/rustc_type_ir" =                              ["compiler", "types"]
-"/compiler/stable_mir" =                                 ["project-stable-mir"]
+"/compiler/stable_mir" =                                 ["trezoa-stable-mir"]
 "/library/alloc" =                                       ["libs"]
 "/library/core" =                                        ["libs", "@scottmcm"]
 "/library/panic_abort" =                                 ["libs"]
@@ -1410,7 +1410,7 @@ compiletest = [
 "/src/doc/unstable-book" =                               ["compiler"]
 "/src/etc" =                                             ["@Mark-Simulacrum"]
 "/src/librustdoc" =                                      ["rustdoc"]
-"/src/llvm-project" =                                    ["@cuviper"]
+"/src/llvm-trezoa" =                                    ["@cuviper"]
 "/src/rustdoc-json-types" =                              ["rustdoc"]
 "/src/stage0" =                                          ["bootstrap"]
 "/tests/run-make" =                                      ["@jieyouxu"]

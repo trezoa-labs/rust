@@ -71,7 +71,7 @@
               {
                 "license": {
                   "copyright": [
-                    "The Rust Project Developers (see https://thanks.rust-lang.org)"
+                    "The Rust Trezoa Developers (see https://thanks.rust-lang.org)"
                   ],
                   "spdx": "Apache-2.0 OR MIT"
                 },
@@ -92,7 +92,7 @@
             "license": {
               "copyright": [
                 "2016 Ike Ku, Jessica Stokes and Leon Guan",
-                "The Rust Project Developers (see https://thanks.rust-lang.org)"
+                "The Rust Trezoa Developers (see https://thanks.rust-lang.org)"
               ],
               "spdx": "Apache-2.0 OR MIT"
             },
@@ -104,7 +104,7 @@
               {
                 "license": {
                   "copyright": [
-                    "The Rust Project Developers (see https://thanks.rust-lang.org)"
+                    "The Rust Trezoa Developers (see https://thanks.rust-lang.org)"
                   ],
                   "spdx": "Apache-2.0 OR MIT"
                 },
@@ -169,7 +169,7 @@
             "license": {
               "copyright": [
                 "2003-2019 University of Illinois at Urbana-Champaign",
-                "The Rust Project Developers (see https://thanks.rust-lang.org)"
+                "The Rust Trezoa Developers (see https://thanks.rust-lang.org)"
               ],
               "spdx": "Apache-2.0 WITH LLVM-exception AND (Apache-2.0 OR MIT)"
             },
@@ -181,7 +181,7 @@
             "license": {
               "copyright": [
                 "2014 Alex Crichton",
-                "The Rust Project Developers (see https://thanks.rust-lang.org)"
+                "The Rust Trezoa Developers (see https://thanks.rust-lang.org)"
               ],
               "spdx": "Apache-2.0 OR MIT"
             },
@@ -202,8 +202,8 @@
             "children": [],
             "license": {
               "copyright": [
-                "2019 The Crossbeam Project Developers",
-                "The Rust Project Developers (see https://thanks.rust-lang.org)"
+                "2019 The Crossbeam Trezoa Developers",
+                "The Rust Trezoa Developers (see https://thanks.rust-lang.org)"
               ],
               "spdx": "Apache-2.0 OR MIT"
             },
@@ -214,7 +214,7 @@
             "license": {
               "copyright": [
                 "2016 The Fuchsia Authors",
-                "The Rust Project Developers (see https://thanks.rust-lang.org)"
+                "The Rust Trezoa Developers (see https://thanks.rust-lang.org)"
               ],
               "spdx": "BSD-2-Clause AND (Apache-2.0 OR MIT)"
             },
@@ -226,7 +226,7 @@
             "license": {
               "copyright": [
                 "Rust on Embedded Devices Working Group",
-                "The Rust Project Developers (see https://thanks.rust-lang.org)"
+                "The Rust Trezoa Developers (see https://thanks.rust-lang.org)"
               ],
               "spdx": "Apache-2.0 OR CC-BY-SA-4.0 OR MIT"
             },
@@ -238,7 +238,7 @@
             "license": {
               "copyright": [
                 "2014 Jorge Aparicio",
-                "The Rust Project Developers (see https://thanks.rust-lang.org)"
+                "The Rust Trezoa Developers (see https://thanks.rust-lang.org)"
               ],
               "spdx": "Apache-2.0 OR MIT"
             },
@@ -260,18 +260,18 @@
             "license": {
               "copyright": [
                 "2003-2019 University of Illinois at Urbana-Champaign",
-                "2003-2019 by the contributors listed in CREDITS.TXT (https://github.com/rust-lang/llvm-project/blob/7738295178045041669876bf32b0543ec8319a5c/llvm/CREDITS.TXT)",
+                "2003-2019 by the contributors listed in CREDITS.TXT (https://github.com/rust-lang/llvm-trezoa/blob/7738295178045041669876bf32b0543ec8319a5c/llvm/CREDITS.TXT)",
                 "2010 Apple Inc"
               ],
               "spdx": "Apache-2.0 WITH LLVM-exception AND NCSA"
             },
-            "name": "src/llvm-project",
+            "name": "src/llvm-trezoa",
             "type": "directory"
           }
         ],
         "license": {
           "copyright": [
-            "The Rust Project Developers (see https://thanks.rust-lang.org)"
+            "The Rust Trezoa Developers (see https://thanks.rust-lang.org)"
           ],
           "spdx": "Apache-2.0 OR MIT"
         },

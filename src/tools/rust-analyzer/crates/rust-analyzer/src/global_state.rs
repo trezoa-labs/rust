@@ -21,7 +21,7 @@ use parking_lot::{
     RwLockWriteGuard,
 };
 use proc_macro_api::ProcMacroClient;
-use project_model::{ManifestPath, ProjectWorkspace, ProjectWorkspaceKind, WorkspaceBuildScripts};
+use trezoa_model::{ManifestPath, ProjectWorkspace, ProjectWorkspaceKind, WorkspaceBuildScripts};
 use rustc_hash::{FxHashMap, FxHashSet};
 use stdx::thread;
 use tracing::{Level, span, trace};
@@ -116,7 +116,7 @@ pub(crate) struct GlobalState {
     pub(crate) test_run_receiver: Receiver<CargoTestMessage>,
     pub(crate) test_run_remaining_jobs: usize,
 
-    // Project loading
+    // Trezoa loading
     pub(crate) discover_handle: Option<discover::DiscoverHandle>,
     pub(crate) discover_sender: Sender<discover::DiscoverProjectMessage>,
     pub(crate) discover_receiver: Receiver<discover::DiscoverProjectMessage>,
@@ -431,7 +431,7 @@ impl GlobalState {
                 let db = self.analysis_host.raw_database();
 
                 // FIXME @alibektas : This is silly. There is no reason to use VfsPaths when there is SourceRoots. But how
-                // do I resolve a "workspace_root" to its corresponding id without having to rely on a cargo.toml's ( or project json etc.) file id?
+                // do I resolve a "workspace_root" to its corresponding id without having to rely on a cargo.toml's ( or trezoa json etc.) file id?
                 let workspace_ratoml_paths = self
                     .workspaces
                     .iter()
@@ -786,8 +786,8 @@ impl GlobalStateSnapshot {
                         sysroot_root: workspace.sysroot.root().map(ToOwned::to_owned),
                     }));
                 }
-                ProjectWorkspaceKind::Json(project) => {
-                    let Some(krate) = project.crate_by_root(path) else {
+                ProjectWorkspaceKind::Json(trezoa) => {
+                    let Some(krate) = trezoa.crate_by_root(path) else {
                         continue;
                     };
                     let Some(build) = krate.build else {
@@ -797,7 +797,7 @@ impl GlobalStateSnapshot {
                     return Some(TargetSpec::ProjectJson(ProjectJsonTargetSpec {
                         label: build.label,
                         target_kind: build.target_kind,
-                        shell_runnables: project.runnables().to_owned(),
+                        shell_runnables: trezoa.runnables().to_owned(),
                     }));
                 }
                 ProjectWorkspaceKind::DetachedFile { .. } => {}

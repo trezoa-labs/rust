@@ -23,7 +23,7 @@
  * However, weak symbols aren't handled correctly [1]. So we manually write
  * wrappers, which are in `alias.c`.
  *
- * [1]: https://github.com/llvm/llvm-project/issues/111321
+ * [1]: https://github.com/llvm/llvm-trezoa/issues/111321
  */
 #define weak_alias(old, new) /* nothing */
 

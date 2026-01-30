@@ -35,20 +35,20 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             "pshuf.b.128" => {
                 let [left, right] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
 
-                let (left, left_len) = this.project_to_simd(left)?;
-                let (right, right_len) = this.project_to_simd(right)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (left, left_len) = this.trezoa_to_simd(left)?;
+                let (right, right_len) = this.trezoa_to_simd(right)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(dest_len, left_len);
                 assert_eq!(dest_len, right_len);
 
                 for i in 0..dest_len {
-                    let right = this.read_scalar(&this.project_index(&right, i)?)?.to_u8()?;
-                    let dest = this.project_index(&dest, i)?;
+                    let right = this.read_scalar(&this.trezoa_index(&right, i)?)?.to_u8()?;
+                    let dest = this.trezoa_index(&dest, i)?;
 
                     let res = if right & 0x80 == 0 {
                         let j = right % 16; // index wraps around
-                        this.read_scalar(&this.project_index(&left, j.into())?)?
+                        this.read_scalar(&this.trezoa_index(&left, j.into())?)?
                     } else {
                         // If the highest bit in `right` is 1, write zero.
                         Scalar::from_u8(0)
@@ -83,23 +83,23 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             "pmadd.ub.sw.128" => {
                 let [left, right] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
 
-                let (left, left_len) = this.project_to_simd(left)?;
-                let (right, right_len) = this.project_to_simd(right)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (left, left_len) = this.trezoa_to_simd(left)?;
+                let (right, right_len) = this.trezoa_to_simd(right)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(left_len, right_len);
                 assert_eq!(dest_len.strict_mul(2), left_len);
 
                 for i in 0..dest_len {
                     let j1 = i.strict_mul(2);
-                    let left1 = this.read_scalar(&this.project_index(&left, j1)?)?.to_u8()?;
-                    let right1 = this.read_scalar(&this.project_index(&right, j1)?)?.to_i8()?;
+                    let left1 = this.read_scalar(&this.trezoa_index(&left, j1)?)?.to_u8()?;
+                    let right1 = this.read_scalar(&this.trezoa_index(&right, j1)?)?.to_i8()?;
 
                     let j2 = j1.strict_add(1);
-                    let left2 = this.read_scalar(&this.project_index(&left, j2)?)?.to_u8()?;
-                    let right2 = this.read_scalar(&this.project_index(&right, j2)?)?.to_i8()?;
+                    let left2 = this.read_scalar(&this.trezoa_index(&left, j2)?)?.to_u8()?;
+                    let right2 = this.read_scalar(&this.trezoa_index(&right, j2)?)?.to_i8()?;
 
-                    let dest = this.project_index(&dest, i)?;
+                    let dest = this.trezoa_index(&dest, i)?;
 
                     // Multiplication of a u8 and an i8 into an i16 cannot overflow.
                     let mul1 = i16::from(left1).strict_mul(right1.into());

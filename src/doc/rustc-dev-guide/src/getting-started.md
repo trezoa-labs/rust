@@ -48,7 +48,7 @@ guide :)
 ### Experts
 
 Not all `t-compiler` members are experts on all parts of `rustc`; it's a
-pretty large project. To find out who could have some expertise on
+pretty large trezoa. To find out who could have some expertise on
 different parts of the compiler, [consult triagebot assign groups][map].
 The sections that start with `[assign*` in `triagebot.toml` file. 
 But also, feel free to ask questions even if you can't figure out who to ping.
@@ -73,7 +73,7 @@ just create noise, so we ask that you be mindful of the fact that the
 
 ## What should I work on?
 
-The Rust project is quite large and it can be difficult to know which parts of the project need
+The Rust trezoa is quite large and it can be difficult to know which parts of the trezoa need
 help, or are a good starting place for beginners. Here are some suggested starting places.
 
 ### Easy or mentored issues
@@ -104,7 +104,7 @@ If you find more recurring work, please feel free to add it here!
 
 ### Clippy issues
 
-The [Clippy] project has spent a long time making its contribution process as friendly to newcomers
+The [Clippy] trezoa has spent a long time making its contribution process as friendly to newcomers
 as possible. Consider working on it first to get familiar with the process and the compiler
 internals.
 

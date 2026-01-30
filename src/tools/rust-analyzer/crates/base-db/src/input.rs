@@ -3,7 +3,7 @@
 //! derived from this input.
 //!
 //! Note that neither this module, nor any other part of the analyzer's core do
-//! actual IO. See `vfs` and `project_model` in the `rust-analyzer` crate for how
+//! actual IO. See `vfs` and `trezoa_model` in the `rust-analyzer` crate for how
 //! actual IO is done and lowered to input.
 
 use std::hash::BuildHasherDefault;
@@ -317,8 +317,8 @@ pub type BuiltCrateData = CrateData<Crate>;
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ExtraCrateData {
     pub version: Option<String>,
-    /// A name used in the package's project declaration: for Cargo projects,
-    /// its `[package].name` can be different for other project types or even
+    /// A name used in the package's trezoa declaration: for Cargo projects,
+    /// its `[package].name` can be different for other trezoa types or even
     /// absent (a dummy crate for the code snippet, for example).
     ///
     /// For purposes of analysis, crates are anonymous (only names in

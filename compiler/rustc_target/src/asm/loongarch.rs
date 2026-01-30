@@ -47,7 +47,7 @@ impl LoongArchInlineAsmRegClass {
     }
 }
 
-// The reserved registers are taken from <https://github.com/llvm/llvm-project/blob/main/llvm/lib/Target/LoongArch/LoongArchRegisterInfo.cpp#79>
+// The reserved registers are taken from <https://github.com/llvm/llvm-trezoa/blob/main/llvm/lib/Target/LoongArch/LoongArchRegisterInfo.cpp#79>
 def_regs! {
     LoongArch LoongArchInlineAsmReg LoongArchInlineAsmRegClass {
         r1: reg = ["$r1","$ra"],

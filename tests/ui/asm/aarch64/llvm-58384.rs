@@ -3,7 +3,7 @@
 //@ needs-asm-support
 
 // Test that we properly work around this LLVM issue:
-// https://github.com/llvm/llvm-project/issues/58384
+// https://github.com/llvm/llvm-trezoa/issues/58384
 
 use std::arch::asm;
 

@@ -244,7 +244,7 @@ pub fn parallel_prime_caches(
                     // This primes the cache for `ide_db::symbol_index::world_symbols()`.
                     //
                     // We do this for workspace crates only (members of local_roots), because doing it
-                    // for all dependencies could be *very* unnecessarily slow in a large project.
+                    // for all dependencies could be *very* unnecessarily slow in a large trezoa.
                     //
                     // FIXME: We should do it unconditionally if the configuration is set to default to
                     // searching dependencies (rust-analyzer.workspace.symbol.search.scope), but we

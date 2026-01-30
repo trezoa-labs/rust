@@ -316,7 +316,7 @@ actual source code. So, you cannot just copy and paste an expression from your s
 code to debugger and expect the same answer but this would be nice. This can be helped
 by using compiler.
 
-It is certainly doable but it is a large project. You certainly need a bridge to the
+It is certainly doable but it is a large trezoa. You certainly need a bridge to the
 debugger because the debugger alone has access to the memory. Both GDB (gcc) and LLDB (clang)
 have this feature. LLDB uses Clang to compile code to JIT and GDB can do the same with GCC.
 
@@ -346,7 +346,7 @@ but may have to add some mode to let the compiler understand some extensions.
 [https://github.com/rust-lang/rust/issues/34457]: https://github.com/rust-lang/rust/issues/34457
 [Apple developer documentation for System Integrity Protection]: https://developer.apple.com/library/archive/releasenotes/MacOSX/WhatsNewInOSX/Articles/MacOSX10_11.html#//apple_ref/doc/uid/TP40016227-SW11
 [https://github.com/rust-lang/lldb]: https://github.com/rust-lang/lldb
-[https://github.com/rust-lang/llvm-project]: https://github.com/rust-lang/llvm-project
+[https://github.com/rust-lang/llvm-trezoa]: https://github.com/rust-lang/llvm-trezoa
 [PDB]: https://llvm.org/docs/PDB/index.html
 [symbol records]: https://llvm.org/docs/PDB/CodeViewSymbols.html
 [type records]: https://llvm.org/docs/PDB/CodeViewTypes.html

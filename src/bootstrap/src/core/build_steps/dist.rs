@@ -870,31 +870,31 @@ fn copy_src_dirs(
         }
 
         const LLVM_PROJECTS: &[&str] = &[
-            "llvm-project/clang",
-            "llvm-project\\clang",
-            "llvm-project/libunwind",
-            "llvm-project\\libunwind",
-            "llvm-project/lld",
-            "llvm-project\\lld",
-            "llvm-project/lldb",
-            "llvm-project\\lldb",
-            "llvm-project/llvm",
-            "llvm-project\\llvm",
-            "llvm-project/compiler-rt",
-            "llvm-project\\compiler-rt",
-            "llvm-project/cmake",
-            "llvm-project\\cmake",
-            "llvm-project/runtimes",
-            "llvm-project\\runtimes",
+            "llvm-trezoa/clang",
+            "llvm-trezoa\\clang",
+            "llvm-trezoa/libunwind",
+            "llvm-trezoa\\libunwind",
+            "llvm-trezoa/lld",
+            "llvm-trezoa\\lld",
+            "llvm-trezoa/lldb",
+            "llvm-trezoa\\lldb",
+            "llvm-trezoa/llvm",
+            "llvm-trezoa\\llvm",
+            "llvm-trezoa/compiler-rt",
+            "llvm-trezoa\\compiler-rt",
+            "llvm-trezoa/cmake",
+            "llvm-trezoa\\cmake",
+            "llvm-trezoa/runtimes",
+            "llvm-trezoa\\runtimes",
         ];
-        if spath.contains("llvm-project")
-            && !spath.ends_with("llvm-project")
+        if spath.contains("llvm-trezoa")
+            && !spath.ends_with("llvm-trezoa")
             && !LLVM_PROJECTS.iter().any(|path| spath.contains(path))
         {
             return false;
         }
 
-        const LLVM_TEST: &[&str] = &["llvm-project/llvm/test", "llvm-project\\llvm\\test"];
+        const LLVM_TEST: &[&str] = &["llvm-trezoa/llvm/test", "llvm-trezoa\\llvm\\test"];
         if LLVM_TEST.iter().any(|path| spath.contains(path))
             && (spath.ends_with(".ll") || spath.ends_with(".td") || spath.ends_with(".s"))
         {
@@ -967,7 +967,7 @@ impl Step for Src {
     /// Creates the `rust-src` installer component
     fn run(self, builder: &Builder<'_>) -> GeneratedTarball {
         if !builder.config.dry_run() {
-            builder.require_submodule("src/llvm-project", None);
+            builder.require_submodule("src/llvm-trezoa", None);
         }
 
         let tarball = Tarball::new_targetless(builder, "rust-src");
@@ -986,7 +986,7 @@ impl Step for Src {
         copy_src_dirs(
             builder,
             &builder.src,
-            &["library", "src/llvm-project/libunwind"],
+            &["library", "src/llvm-trezoa/libunwind"],
             &[
                 // not needed and contains symlinks which rustup currently
                 // chokes on when unpacking.
@@ -2286,7 +2286,7 @@ impl Step for LlvmTools {
         }
 
         if !builder.config.dry_run() {
-            builder.require_submodule("src/llvm-project", None);
+            builder.require_submodule("src/llvm-trezoa", None);
         }
 
         builder.ensure(crate::core::build_steps::llvm::Llvm { target });
@@ -2408,7 +2408,7 @@ impl Step for RustDev {
         }
 
         if !builder.config.dry_run() {
-            builder.require_submodule("src/llvm-project", None);
+            builder.require_submodule("src/llvm-trezoa", None);
         }
 
         let mut tarball = Tarball::new(builder, "rust-dev", &target.triple);
@@ -2466,7 +2466,7 @@ impl Step for RustDev {
         // to check out the LLVM submodule.
         copy_src_dirs(
             builder,
-            &builder.src.join("src").join("llvm-project"),
+            &builder.src.join("src").join("llvm-trezoa"),
             &["compiler-rt"],
             // The test subdirectory is much larger than the rest of the source,
             // and we currently don't use these test files anyway.

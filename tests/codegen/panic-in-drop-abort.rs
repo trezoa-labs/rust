@@ -6,7 +6,7 @@
 
 // This test uses ignore-msvc, because the expected optimization does not happen on targets using
 // SEH exceptions with the new LLVM pass manager anymore, see
-// https://github.com/llvm/llvm-project/issues/51311.
+// https://github.com/llvm/llvm-trezoa/issues/51311.
 
 // CHECK-NOT: {{(call|invoke).*}}should_not_appear_in_output
 

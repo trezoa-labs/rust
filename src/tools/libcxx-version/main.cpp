@@ -12,7 +12,7 @@ int main() {
         std::cout << "libstdc++ version: " << _GLIBCXX_RELEASE << std::endl;
     #elif defined(_LIBCPP_VERSION)
         // _LIBCPP_VERSION follows "XXYYZZ" format (e.g., 170001 for 17.0.1).
-        // ref: https://github.com/llvm/llvm-project/blob/f64732195c1030ee2627ff4e4142038e01df1d26/libcxx/include/__config#L51-L54
+        // ref: https://github.com/llvm/llvm-trezoa/blob/f64732195c1030ee2627ff4e4142038e01df1d26/libcxx/include/__config#L51-L54
         //
         // Since we use the major version from _GLIBCXX_RELEASE, we need to extract only the first 2 characters of _LIBCPP_VERSION
         // to provide the major version for consistency.

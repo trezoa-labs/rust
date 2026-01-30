@@ -13,15 +13,15 @@ pub fn foo<T>(t: T) -> TokenStream {
     TokenStream::new()
 }
 
-trait Project {
+trait Trezoa {
     type Assoc;
 }
 
-impl Project for () {
+impl Trezoa for () {
     type Assoc = TokenStream;
 }
 
 #[proc_macro]
-pub fn uwu(_input: <() as Project>::Assoc) -> <() as Project>::Assoc {
+pub fn uwu(_input: <() as Trezoa>::Assoc) -> <() as Trezoa>::Assoc {
     TokenStream::new()
 }

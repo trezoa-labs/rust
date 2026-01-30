@@ -2837,7 +2837,7 @@ declare_lint! {
     ///   |
     ///   = help: start numbering with `2` instead
     ///   = note: an LLVM bug makes these labels ambiguous with a binary literal number on x86
-    ///   = note: see <https://github.com/llvm/llvm-project/issues/99547> for more information
+    ///   = note: see <https://github.com/llvm/llvm-trezoa/issues/99547> for more information
     ///   = note: `#[deny(binary_asm_labels)]` on by default
     /// ```
     ///
@@ -2851,7 +2851,7 @@ declare_lint! {
     ///
     /// See the explanation in [Rust By Example] for more details.
     ///
-    /// [LLVM bug]: https://github.com/llvm/llvm-project/issues/99547
+    /// [LLVM bug]: https://github.com/llvm/llvm-trezoa/issues/99547
     /// [Rust By Example]: https://doc.rust-lang.org/nightly/rust-by-example/unsafe/asm.html#labels
     pub BINARY_ASM_LABELS,
     Deny,

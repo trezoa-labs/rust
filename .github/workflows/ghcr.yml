@@ -1,4 +1,4 @@
-# Mirror DockerHub images used by the Rust project to ghcr.io.
+# Mirror DockerHub images used by the Rust trezoa to ghcr.io.
 # Images are available at https://github.com/orgs/rust-lang/packages.
 #
 # In some CI jobs, we pull images from ghcr.io instead of Docker Hub because

@@ -173,7 +173,7 @@ impl<'db, DB: ?Sized> ops::Deref for Semantics<'db, DB> {
 }
 
 // Note: while this variant of `Semantics<'_, _>` might seem unused, as it does not
-// find actual use within the rust-analyzer project itself, it exists to enable the use
+// find actual use within the rust-analyzer trezoa itself, it exists to enable the use
 // within e.g. tracked salsa functions in third-party crates that build upon `ra_ap_hir`.
 impl Semantics<'_, dyn HirDatabase> {
     /// Creates an instance that's weakly coupled to its underlying database type.

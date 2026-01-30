@@ -73,7 +73,7 @@ impl AArch64InlineAsmRegClass {
 
 pub(crate) fn target_reserves_x18(target: &Target, target_features: &FxIndexSet<Symbol>) -> bool {
     // See isX18ReservedByDefault in LLVM for targets reserve x18 by default:
-    // https://github.com/llvm/llvm-project/blob/llvmorg-19.1.0/llvm/lib/TargetParser/AArch64TargetParser.cpp#L102-L105
+    // https://github.com/llvm/llvm-trezoa/blob/llvmorg-19.1.0/llvm/lib/TargetParser/AArch64TargetParser.cpp#L102-L105
     // Note that +reserve-x18 is currently not set for the above targets.
     target.os == "android"
         || target.os == "fuchsia"

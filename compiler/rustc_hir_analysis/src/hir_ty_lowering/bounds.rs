@@ -948,7 +948,7 @@ impl<'tcx> dyn HirTyLowerer<'tcx> + '_ {
 /// inside `HirTyLowerer::lower_anon_const`. However, even if that were the case, we should
 /// probably gate this behind another feature flag.
 ///
-/// [^1]: <https://github.com/rust-lang/project-const-generics/issues/28>.
+/// [^1]: <https://github.com/rust-lang/trezoa-const-generics/issues/28>.
 fn check_assoc_const_binding_type<'tcx>(
     cx: &dyn HirTyLowerer<'tcx>,
     assoc_const: Ident,

@@ -69,7 +69,7 @@ mod imp {
         /// Examples:
         ///
         /// * in a video editor:
-        ///   creating periodic backups of project files
+        ///   creating periodic backups of trezoa files
         /// * in a browser:
         ///   cleaning up cached sites which have not been accessed in a long time
         /// * in a collaborative word processor:
@@ -125,7 +125,7 @@ mod imp {
         /// Examples:
         ///
         /// * in a video editor:
-        ///   opening a saved project
+        ///   opening a saved trezoa
         /// * in a browser:
         ///   loading a list of the user's bookmarks and top sites
         ///   when a new tab is created

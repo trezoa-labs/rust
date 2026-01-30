@@ -138,7 +138,7 @@ This target can be cross-compiled from any hosts.
 ## Testing
 
 Currently testing is not well supported for `wasm32-wasip1-threads` and the
-Rust project doesn't run any tests for this target. However the UI testsuite can be run
+Rust trezoa doesn't run any tests for this target. However the UI testsuite can be run
 manually following this instructions:
 
 0. Ensure [wamr](https://github.com/bytecodealliance/wasm-micro-runtime), [wasmtime](https://github.com/bytecodealliance/wasmtime)

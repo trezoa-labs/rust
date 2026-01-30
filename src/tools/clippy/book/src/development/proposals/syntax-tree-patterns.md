@@ -822,7 +822,7 @@ most lints. The current implementation simply returns the first match it finds.
 
 #### Implement rest of Rust Syntax
 
-The current project only implements a small part of the Rust syntax. In the
+The current trezoa only implements a small part of the Rust syntax. In the
 future, this should incrementally be extended to more syntax to allow
 implementing more lints. Implementing more of the Rust syntax requires extending
 the `PatternTree` and `IsMatch` implementations, but should be relatively

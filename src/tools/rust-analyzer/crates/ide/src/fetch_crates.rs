@@ -12,7 +12,7 @@ pub struct CrateInfo {
 
 // Feature: Show Dependency Tree
 //
-// Shows a view tree with all the dependencies of this project
+// Shows a view tree with all the dependencies of this trezoa
 //
 // | Editor  | Panel Name |
 // |---------|------------|

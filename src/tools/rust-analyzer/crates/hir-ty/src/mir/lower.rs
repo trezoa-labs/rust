@@ -879,7 +879,7 @@ impl<'ctx> MirLowerCtx<'ctx> {
                                     .map(|(i, it)| match it {
                                         Some(it) => it,
                                         None => {
-                                            let p = sp.project(
+                                            let p = sp.trezoa(
                                                 ProjectionElem::Field(Either::Left(FieldId {
                                                     parent: variant_id,
                                                     local_id: LocalFieldId::from_raw(RawIdx::from(
@@ -906,7 +906,7 @@ impl<'ctx> MirLowerCtx<'ctx> {
                         };
                         let local_id =
                             variant_fields.field(name).ok_or(MirLowerError::UnresolvedField)?;
-                        let place = place.project(
+                        let place = place.trezoa(
                             PlaceElem::Field(Either::Left(FieldId {
                                 parent: union_id.into(),
                                 local_id,
@@ -976,7 +976,7 @@ impl<'ctx> MirLowerCtx<'ctx> {
                 else {
                     return Ok(None);
                 };
-                let p = place.project(ProjectionElem::Deref, &mut self.result.projection_store);
+                let p = place.trezoa(ProjectionElem::Deref, &mut self.result.projection_store);
                 self.push_assignment(current, p, operand.into(), expr_id.into());
                 Ok(Some(current))
             }
@@ -1355,7 +1355,7 @@ impl<'ctx> MirLowerCtx<'ctx> {
                 let index =
                     name.as_tuple_index().ok_or(MirLowerError::TypeError("named field on tuple"))?
                         as u32;
-                *place = place.project(
+                *place = place.trezoa(
                     ProjectionElem::Field(Either::Right(TupleFieldId {
                         tuple: TupleId(!0), // dummy as its unused
                         index,
@@ -1366,7 +1366,7 @@ impl<'ctx> MirLowerCtx<'ctx> {
                 let field =
                     self.infer.field_resolution(expr_id).ok_or(MirLowerError::UnresolvedField)?;
                 *place =
-                    place.project(ProjectionElem::Field(field), &mut self.result.projection_store);
+                    place.trezoa(ProjectionElem::Field(field), &mut self.result.projection_store);
             }
         } else {
             not_supported!("")

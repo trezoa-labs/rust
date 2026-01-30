@@ -106,7 +106,7 @@ The guidelines for reviewers are as follows:
       PR before it lands, perhaps because it touches a particularly
       sensitive part of the code.
 - Always be polite when reviewing: you are a representative of the
-  Rust project, so it is expected that you will go above and beyond
+  Rust trezoa, so it is expected that you will go above and beyond
   when it comes to the [Code of Conduct].
 
 [Code of Conduct]: https://www.rust-lang.org/policies/code-of-conduct

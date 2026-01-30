@@ -658,7 +658,7 @@ pub fn convert_while_ascii(s: &str, convert: fn(&u8) -> u8) -> (String, &str) {
 
         // Auto-vectorization for this check is a bit fragile, sum and comparing against the chunk
         // size gives the best result, specifically a pmovmsk instruction on x86.
-        // See https://github.com/llvm/llvm-project/issues/96395 for why llvm currently does not
+        // See https://github.com/llvm/llvm-trezoa/issues/96395 for why llvm currently does not
         // currently recognize other similar idioms.
         if is_ascii.iter().map(|x| *x as u8).sum::<u8>() as usize != N {
             break;

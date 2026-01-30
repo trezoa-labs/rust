@@ -247,7 +247,7 @@ impl<'a, 'tcx, F: Fn(Ty<'tcx>) -> bool> MoveDataBuilder<'a, 'tcx, F> {
                             &mut data.path_map,
                             &mut data.init_path_map,
                             Some(base),
-                            place_ref.project_deeper(&[elem], tcx),
+                            place_ref.trezoa_deeper(&[elem], tcx),
                         )
                     })
             }

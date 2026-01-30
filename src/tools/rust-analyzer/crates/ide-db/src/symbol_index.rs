@@ -160,7 +160,7 @@ pub fn crate_symbols(db: &dyn SymbolsDatabase, krate: Crate) -> Box<[Arc<SymbolI
 // Feature: Workspace Symbol
 //
 // Uses fuzzy-search to find types, modules and functions by name across your
-// project and dependencies. This is **the** most useful feature, which improves code
+// trezoa and dependencies. This is **the** most useful feature, which improves code
 // navigation tremendously. It mostly works on top of the built-in LSP
 // functionality, however `#` and `*` symbols can be used to narrow down the
 // search. Specifically,

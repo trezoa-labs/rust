@@ -1225,7 +1225,7 @@ class RustBuild(object):
                 eprint(
                     "       Once you have the source downloaded, place the vendor directory"
                 )
-                eprint("       from the archive in the root of the rust project.")
+                eprint("       from the archive in the root of the rust trezoa.")
                 raise Exception("{} not found".format(vendor_dir))
 
             if not os.path.exists(cargo_dir):

@@ -2236,7 +2236,7 @@ impl<'a, T> From<&'a mut Option<T>> for Option<&'a mut T> {
 }
 
 // Ideally, LLVM should be able to optimize our derive code to this.
-// Once https://github.com/llvm/llvm-project/issues/52622 is fixed, we can
+// Once https://github.com/llvm/llvm-trezoa/issues/52622 is fixed, we can
 // go back to deriving `PartialEq`.
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<T> crate::marker::StructuralPartialEq for Option<T> {}

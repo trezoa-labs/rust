@@ -237,7 +237,7 @@ fn build_adrop_for_coroutine_shim<'tcx>(
         let mut idx: usize = 0;
         // _proxy = _1.0 : Pin<&ProxyLayout> ==> &ProxyLayout
         let proxy_ref_place = Place::from(pin_proxy_layout_local)
-            .project_deeper(&[PlaceElem::Field(FieldIdx::ZERO, proxy_ref)], tcx);
+            .trezoa_deeper(&[PlaceElem::Field(FieldIdx::ZERO, proxy_ref)], tcx);
         body.basic_blocks_mut()[START_BLOCK].statements.insert(
             idx,
             Statement {
@@ -253,7 +253,7 @@ fn build_adrop_for_coroutine_shim<'tcx>(
         proxy_ty.find_async_drop_impl_coroutine(tcx, |ty| {
             if ty != proxy_ty {
                 let ty_ptr = Ty::new_mut_ptr(tcx, ty);
-                let impl_ptr_place = Place::from(cor_ptr_local).project_deeper(
+                let impl_ptr_place = Place::from(cor_ptr_local).trezoa_deeper(
                     &[PlaceElem::Deref, PlaceElem::Field(FieldIdx::ZERO, ty_ptr)],
                     tcx,
                 );
@@ -304,7 +304,7 @@ fn build_adrop_for_adrop_shim<'tcx>(
     // taking _1.0 (impl from Pin)
     let pin_proxy_layout_local = Local::new(1);
     let proxy_ref_place = Place::from(pin_proxy_layout_local)
-        .project_deeper(&[PlaceElem::Field(FieldIdx::ZERO, proxy_ref)], tcx);
+        .trezoa_deeper(&[PlaceElem::Field(FieldIdx::ZERO, proxy_ref)], tcx);
     let cor_ref = Ty::new_mut_ref(tcx, tcx.lifetimes.re_erased, impl_ty);
 
     // ret_ty = `Poll<()>`
@@ -347,7 +347,7 @@ fn build_adrop_for_adrop_shim<'tcx>(
         if ty != proxy_ty {
             let ty_ptr = Ty::new_mut_ptr(tcx, ty);
             let impl_ptr_place = Place::from(cor_ptr_local)
-                .project_deeper(&[PlaceElem::Deref, PlaceElem::Field(FieldIdx::ZERO, ty_ptr)], tcx);
+                .trezoa_deeper(&[PlaceElem::Deref, PlaceElem::Field(FieldIdx::ZERO, ty_ptr)], tcx);
             cor_ptr_local = locals.push(LocalDecl::new(ty_ptr, span));
             // _cor_ptr = _proxy.0.0 (... .0)
             statements.push(Statement {

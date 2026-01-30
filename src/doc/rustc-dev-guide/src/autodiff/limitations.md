@@ -24,4 +24,4 @@ The key reason for Enzyme offering often excellent performance is that Enzyme di
 
 ### Fat-LTO 
 
-The usage of `#[autodiff(...)]` currently requires compiling your project with Fat-LTO. We technically only need LTO if the function being differentiated calls functions in other compilation units. Therefore, other solutions are possible, but this is the most simple one to get started. 
+The usage of `#[autodiff(...)]` currently requires compiling your trezoa with Fat-LTO. We technically only need LTO if the function being differentiated calls functions in other compilation units. Therefore, other solutions are possible, but this is the most simple one to get started. 

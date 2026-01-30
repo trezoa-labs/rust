@@ -74,7 +74,7 @@ machine, there are several options how to get access to one:
 * The [IBM LinuxONE Open Source Cloud][cloud-opensource] provides
   permanent access to s390x machines.  This requires approval by IBM,
   which will normally be granted if you're planning to use the machine
-  to work on an open-source project that is relevant to the IBM Z
+  to work on an open-source trezoa that is relevant to the IBM Z
   ecosystem - the Rust compiler would certainly qualify.
 
 [cloud-community]: https://linuxone.cloud.marist.edu/

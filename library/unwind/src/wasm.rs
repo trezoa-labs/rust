@@ -53,7 +53,7 @@ pub unsafe fn _Unwind_RaiseException(exception: *mut _Unwind_Exception) -> _Unwi
         // the user explicitly opts in to wasm exceptions, via -Zbuild-std with -Cpanic=unwind.
         if #[cfg(panic = "unwind")] {
             // corresponds with llvm::WebAssembly::Tag::CPP_EXCEPTION
-            //     in llvm-project/llvm/include/llvm/CodeGen/WasmEHFuncInfo.h
+            //     in llvm-trezoa/llvm/include/llvm/CodeGen/WasmEHFuncInfo.h
             const CPP_EXCEPTION_TAG: i32 = 0;
             core::arch::wasm::throw::<CPP_EXCEPTION_TAG>(exception.cast())
         } else {

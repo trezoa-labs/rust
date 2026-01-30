@@ -42,7 +42,7 @@ impl Msp430InlineAsmRegClass {
 }
 
 // The reserved registers are taken from:
-// https://github.com/llvm/llvm-project/blob/36cb29cbbe1b22dcd298ad65e1fabe899b7d7249/llvm/lib/Target/MSP430/MSP430RegisterInfo.cpp#L73.
+// https://github.com/llvm/llvm-trezoa/blob/36cb29cbbe1b22dcd298ad65e1fabe899b7d7249/llvm/lib/Target/MSP430/MSP430RegisterInfo.cpp#L73.
 def_regs! {
     Msp430 Msp430InlineAsmReg Msp430InlineAsmRegClass {
         r5: reg = ["r5"],

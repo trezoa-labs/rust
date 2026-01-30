@@ -287,8 +287,8 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
         if op == epoll_ctl_add || op == epoll_ctl_mod {
             // Read event bitmask and data from epoll_event passed by caller.
             let mut events =
-                this.read_scalar(&this.project_field(&event, FieldIdx::ZERO)?)?.to_u32()?;
-            let data = this.read_scalar(&this.project_field(&event, FieldIdx::ONE)?)?.to_u64()?;
+                this.read_scalar(&this.trezoa_field(&event, FieldIdx::ZERO)?)?.to_u32()?;
+            let data = this.read_scalar(&this.trezoa_field(&event, FieldIdx::ONE)?)?.to_u64()?;
 
             // Unset the flag we support to discover if any unsupported flags are used.
             let mut flags = events;
@@ -627,7 +627,7 @@ fn return_ready_list<'tcx>(
 ) -> InterpResult<'tcx> {
     let mut ready_list = epfd.ready_list.mapping.borrow_mut();
     let mut num_of_events: i32 = 0;
-    let mut array_iter = ecx.project_array_fields(events)?;
+    let mut array_iter = ecx.trezoa_array_fields(events)?;
 
     while let Some(des) = array_iter.next(ecx)? {
         if let Some(epoll_event_instance) = ready_list_next(ecx, &mut ready_list) {

@@ -55,7 +55,7 @@ expect-test = "1.5.1"
 tracing.workspace = true
 tracing-subscriber.workspace = true
 tracing-tree.workspace = true
-project-model.workspace = true
+trezoa-model.workspace = true
 
 # local deps
 test-utils.workspace = true

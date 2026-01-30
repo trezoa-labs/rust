@@ -3,7 +3,7 @@ use std::fmt;
 use rustc_middle::ty;
 
 use crate::traits;
-use crate::traits::project::Normalized;
+use crate::traits::trezoa::Normalized;
 
 // Structural impls for the structs in `traits`.
 

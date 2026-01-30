@@ -462,7 +462,7 @@ impl<'a, 'tcx> TypeChecker<'a, 'tcx> {
                 && let ty::Alias(ty::Opaque, ..) = curr_projected_ty.ty.kind()
             {
                 // There is nothing that we can compare here if we go through an opaque type.
-                // We're always in its defining scope as we can otherwise not project through
+                // We're always in its defining scope as we can otherwise not trezoa through
                 // it, so we're constraining it anyways.
                 return Ok(());
             }

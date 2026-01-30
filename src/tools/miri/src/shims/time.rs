@@ -204,7 +204,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             let tm_zone_ptr = this.allocate_bytes_dedup(tm_zone.as_bytes())?;
 
             // Write the timezone pointer and offset into the result structure.
-            this.write_pointer(tm_zone_ptr, &this.project_field_named(&result, "tm_zone")?)?;
+            this.write_pointer(tm_zone_ptr, &this.trezoa_field_named(&result, "tm_zone")?)?;
             this.write_int_fields_named(&[("tm_gmtoff", tm_gmtoff.into())], &result)?;
         }
         interp_ok(result.ptr())

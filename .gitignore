@@ -18,7 +18,7 @@ Session.vim
 .idea
 *.iml
 .vscode
-.project
+.trezoa
 .vim/
 .helix/
 .zed/

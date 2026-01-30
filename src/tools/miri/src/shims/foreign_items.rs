@@ -973,20 +973,20 @@ trait EvalContextExtPriv<'tcx>: crate::MiriInterpCxExt<'tcx> {
             name if name.starts_with("llvm.ctpop.v") => {
                 let [op] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
 
-                let (op, op_len) = this.project_to_simd(op)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (op, op_len) = this.trezoa_to_simd(op)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(dest_len, op_len);
 
                 for i in 0..dest_len {
-                    let op = this.read_immediate(&this.project_index(&op, i)?)?;
+                    let op = this.read_immediate(&this.trezoa_index(&op, i)?)?;
                     // Use `to_uint` to get a zero-extended `u128`. Those
                     // extra zeros will not affect `count_ones`.
                     let res = op.to_scalar().to_uint(op.layout.size)?.count_ones();
 
                     this.write_scalar(
                         Scalar::from_uint(res, op.layout.size),
-                        &this.project_index(&dest, i)?,
+                        &this.trezoa_index(&dest, i)?,
                     )?;
                 }
             }

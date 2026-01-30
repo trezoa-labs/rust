@@ -49,11 +49,11 @@ target = ["wasm32-wali-linux-musl"]
 
 [target.wasm32-wali-linux-musl]
 musl-root = "<WALI>/wali-musl/sysroot"
-llvm-config = "<WALI>/llvm-project/build/bin/llvm-config"
-cc = "<WALI>/llvm-project/build/bin/clang-18"
-cxx = "<WALI>/llvm-project/build/bin/clang-18"
-ar = "<WALI>/llvm-project/build/bin/llvm-ar"
-ranlib = "<WALI>/llvm-project/build/bin/llvm-ranlib"
+llvm-config = "<WALI>/llvm-trezoa/build/bin/llvm-config"
+cc = "<WALI>/llvm-trezoa/build/bin/clang-18"
+cxx = "<WALI>/llvm-trezoa/build/bin/clang-18"
+ar = "<WALI>/llvm-trezoa/build/bin/llvm-ar"
+ranlib = "<WALI>/llvm-trezoa/build/bin/llvm-ranlib"
 llvm-libunwind = "system"
 crt-static = true
 ```
@@ -71,7 +71,7 @@ Rust program builds can use this target normally. Currently, linking WALI progra
 
 ```toml
 [target.wasm32-wali-linux-musl]
-linker = "<WALI>/llvm-project/build/bin/lld"
+linker = "<WALI>/llvm-trezoa/build/bin/lld"
 ```
 
 Note that the following `cfg` directives are set for `wasm32-wali-linux-*`:
@@ -88,7 +88,7 @@ Hardware or platform-specific support, besides `syscall` is mostly unsupported i
 
 ## Testing
 
-Currently testing is not supported for `wali` targets and the Rust project doesn't run any tests for this target.
+Currently testing is not supported for `wali` targets and the Rust trezoa doesn't run any tests for this target.
 
 However, standard ISA-agnostic tests for Linux should be thereotically reusable for WALI targets and minor changes. Testing integration will be continually incorporated as support evolves.
 

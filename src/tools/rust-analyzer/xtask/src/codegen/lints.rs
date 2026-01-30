@@ -15,7 +15,7 @@ use xshell::{Shell, cmd};
 
 use crate::{
     codegen::{add_preamble, ensure_file_contents, reformat},
-    project_root,
+    trezoa_root,
     util::list_files,
 };
 
@@ -25,7 +25,7 @@ const DESTINATION: &str = "crates/ide-db/src/generated/lints.rs";
 pub(crate) fn generate(check: bool) {
     let sh = &Shell::new().unwrap();
 
-    let rust_repo = project_root().join("./target/rust");
+    let rust_repo = trezoa_root().join("./target/rust");
     if rust_repo.exists() {
         cmd!(sh, "git -C {rust_repo} pull --rebase").run().unwrap();
     } else {
@@ -69,7 +69,7 @@ pub struct LintGroup {
     contents.push('\n');
 
     let cargo = std::env::var("CARGO").unwrap_or_else(|_| "cargo".to_owned());
-    let unstable_book = project_root().join("./target/unstable-book-gen");
+    let unstable_book = trezoa_root().join("./target/unstable-book-gen");
     cmd!(
         sh,
         "{cargo} run --manifest-path {rust_repo}/src/tools/unstable-book-gen/Cargo.toml --
@@ -80,7 +80,7 @@ pub struct LintGroup {
     generate_feature_descriptor(&mut contents, &unstable_book.join("src"));
     contents.push('\n');
 
-    let lints_json = project_root().join("./target/clippy_lints.json");
+    let lints_json = trezoa_root().join("./target/clippy_lints.json");
     cmd!(
         sh,
         "curl https://rust-lang.github.io/rust-clippy/stable/lints.json --output {lints_json}"
@@ -91,7 +91,7 @@ pub struct LintGroup {
 
     let contents = add_preamble(crate::flags::CodegenType::LintDefinitions, reformat(contents));
 
-    let destination = project_root().join(DESTINATION);
+    let destination = trezoa_root().join(DESTINATION);
     ensure_file_contents(
         crate::flags::CodegenType::LintDefinitions,
         destination.as_path(),

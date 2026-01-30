@@ -209,8 +209,8 @@ pub(crate) fn generate_covfun_record<'tcx>(
     // A covfun record consists of four target-endian integers, followed by the
     // encoded mapping data in bytes. Note that the length field is 32 bits.
     // <https://llvm.org/docs/CoverageMappingFormat.html#llvm-ir-representation>
-    // See also `src/llvm-project/clang/lib/CodeGen/CoverageMappingGen.cpp` and
-    // `COVMAP_V3` in `src/llvm-project/llvm/include/llvm/ProfileData/InstrProfData.inc`.
+    // See also `src/llvm-trezoa/clang/lib/CodeGen/CoverageMappingGen.cpp` and
+    // `COVMAP_V3` in `src/llvm-trezoa/llvm/include/llvm/ProfileData/InstrProfData.inc`.
     let func_name_hash = llvm_cov::hash_bytes(mangled_function_name.as_bytes());
     let covfun_record = cx.const_struct(
         &[

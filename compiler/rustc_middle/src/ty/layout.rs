@@ -748,7 +748,7 @@ where
             Variants::Single { .. } | Variants::Empty => {
                 // Single-variant and no-variant enums *can* have other variants, but those are
                 // uninhabited. Produce a layout that has the right fields for that variant, so that
-                // the rest of the compiler can project fields etc as usual.
+                // the rest of the compiler can trezoa fields etc as usual.
 
                 let tcx = cx.tcx();
                 let typing_env = cx.typing_env();

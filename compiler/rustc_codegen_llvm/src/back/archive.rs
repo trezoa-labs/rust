@@ -134,7 +134,7 @@ fn get_llvm_object_symbols(
     } else {
         let error = unsafe { *Box::from_raw(err as *mut io::Error) };
         // These are the magic constants for LLVM bitcode files:
-        // https://github.com/llvm/llvm-project/blob/7eadc1960d199676f04add402bb0aa6f65b7b234/llvm/lib/BinaryFormat/Magic.cpp#L90-L97
+        // https://github.com/llvm/llvm-trezoa/blob/7eadc1960d199676f04add402bb0aa6f65b7b234/llvm/lib/BinaryFormat/Magic.cpp#L90-L97
         if buf.starts_with(&[0xDE, 0xCE, 0x17, 0x0B]) || buf.starts_with(&[b'B', b'C', 0xC0, 0xDE])
         {
             // For LLVM bitcode, failure to read the symbols is not fatal. The bitcode may have been
@@ -144,7 +144,7 @@ fn get_llvm_object_symbols(
             // newer linkers like lld, mold and wild ignore the symbol table anyway, so if they link
             // against a new enough LLVM it will work out in the end.
             // LLVM's archive writer also has this same behavior of only warning about invalid
-            // bitcode since https://github.com/llvm/llvm-project/pull/96848
+            // bitcode since https://github.com/llvm/llvm-trezoa/pull/96848
 
             // We don't have access to the DiagCtxt here to produce a nice warning in the correct format.
             eprintln!("warning: Failed to read symbol table from LLVM bitcode: {}", error);

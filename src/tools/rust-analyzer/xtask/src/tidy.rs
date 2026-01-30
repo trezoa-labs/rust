@@ -9,7 +9,7 @@ use xshell::Shell;
 
 use xshell::cmd;
 
-use crate::{flags::Tidy, project_root, util::list_files};
+use crate::{flags::Tidy, trezoa_root, util::list_files};
 
 impl Tidy {
     pub(crate) fn run(&self, sh: &Shell) -> anyhow::Result<()> {
@@ -23,13 +23,13 @@ impl Tidy {
 fn check_lsp_extensions_docs(sh: &Shell) {
     let expected_hash = {
         let lsp_ext_rs =
-            sh.read_file(project_root().join("crates/rust-analyzer/src/lsp/ext.rs")).unwrap();
+            sh.read_file(trezoa_root().join("crates/rust-analyzer/src/lsp/ext.rs")).unwrap();
         stable_hash(lsp_ext_rs.as_str())
     };
 
     let actual_hash = {
         let lsp_extensions_md = sh
-            .read_file(project_root().join("docs/book/src/contributing/lsp-extensions.md"))
+            .read_file(trezoa_root().join("docs/book/src/contributing/lsp-extensions.md"))
             .unwrap();
         let text = lsp_extensions_md
             .lines()
@@ -54,7 +54,7 @@ Please adjust docs/book/src/contributing/lsp-extensions.md.
 }
 
 fn files_are_tidy(sh: &Shell) {
-    let files = list_files(&project_root().join("crates"));
+    let files = list_files(&trezoa_root().join("crates"));
 
     let mut tidy_docs = TidyDocs::default();
     let mut tidy_marks = TidyMarks::default();
@@ -281,7 +281,7 @@ impl TidyDocs {
 }
 
 fn is_exclude_dir(p: &Path, dirs_to_exclude: &[&str]) -> bool {
-    p.strip_prefix(project_root())
+    p.strip_prefix(trezoa_root())
         .unwrap()
         .components()
         .rev()

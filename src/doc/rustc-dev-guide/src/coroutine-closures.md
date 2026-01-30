@@ -172,7 +172,7 @@ This seems a bit roundabout and complex, and I admit that it is. But let's think
 ```rust!
 let c = async || -> String { .. };
 let s = c().await;
-// ^^^ If we can't project `<{c} as AsyncFn>::call()` to a coroutine, then the `IntoFuture::into_future` call inside of the `.await` stalls, and the type of `s` is left unconstrained as an infer var.
+// ^^^ If we can't trezoa `<{c} as AsyncFn>::call()` to a coroutine, then the `IntoFuture::into_future` call inside of the `.await` stalls, and the type of `s` is left unconstrained as an infer var.
 s.as_bytes();
 // ^^^ That means we can't call any methods on the awaited return of a coroutine-closure, like... at all!
 ```

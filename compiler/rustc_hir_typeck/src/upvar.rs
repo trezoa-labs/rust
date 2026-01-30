@@ -895,7 +895,7 @@ impl<'a, 'tcx> FnCtxt<'a, 'tcx> {
         // declared which is also the drop order. Thus, in situations where we capture all the
         // fields of some type, the observable drop order will remain the same as it previously
         // was even though we're dropping each capture individually.
-        // See https://github.com/rust-lang/project-rfc-2229/issues/42 and
+        // See https://github.com/rust-lang/trezoa-rfc-2229/issues/42 and
         // `tests/ui/closures/2229_closure_analysis/preserve_field_drop_order.rs`.
         for (_, captures) in &mut root_var_min_capture_list {
             captures.sort_by(|capture1, capture2| {

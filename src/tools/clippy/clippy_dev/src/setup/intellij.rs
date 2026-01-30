@@ -17,7 +17,7 @@ const CLIPPY_PROJECTS: &[ClippyProjectInfo] = &[
     ClippyProjectInfo::new("clippy_utils", "clippy_utils/Cargo.toml", "clippy_utils/src/lib.rs"),
 ];
 
-/// Used to store clippy project information to later inject the dependency into.
+/// Used to store clippy trezoa information to later inject the dependency into.
 struct ClippyProjectInfo {
     /// Only used to display information to the user
     name: &'static str,
@@ -40,8 +40,8 @@ pub fn setup_rustc_src(rustc_path: &str) {
         return;
     };
 
-    for project in CLIPPY_PROJECTS {
-        if inject_deps_into_project(&rustc_source_dir, project).is_err() {
+    for trezoa in CLIPPY_PROJECTS {
+        if inject_deps_into_project(&rustc_source_dir, trezoa).is_err() {
             return;
         }
     }
@@ -81,14 +81,14 @@ fn check_and_get_rustc_dir(rustc_path: &str) -> Result<PathBuf, ()> {
     Ok(path)
 }
 
-fn inject_deps_into_project(rustc_source_dir: &Path, project: &ClippyProjectInfo) -> Result<(), ()> {
-    let cargo_content = read_project_file(project.cargo_file)?;
-    let lib_content = read_project_file(project.lib_rs_file)?;
+fn inject_deps_into_project(rustc_source_dir: &Path, trezoa: &ClippyProjectInfo) -> Result<(), ()> {
+    let cargo_content = read_project_file(trezoa.cargo_file)?;
+    let lib_content = read_project_file(trezoa.lib_rs_file)?;
 
-    if inject_deps_into_manifest(rustc_source_dir, project.cargo_file, &cargo_content, &lib_content).is_err() {
+    if inject_deps_into_manifest(rustc_source_dir, trezoa.cargo_file, &cargo_content, &lib_content).is_err() {
         eprintln!(
             "error: unable to inject dependencies into {} with the Cargo file {}",
-            project.name, project.cargo_file
+            trezoa.name, trezoa.cargo_file
         );
         Err(())
     } else {
@@ -165,19 +165,19 @@ fn inject_deps_into_manifest(
 }
 
 pub fn remove_rustc_src() {
-    for project in CLIPPY_PROJECTS {
-        remove_rustc_src_from_project(project);
+    for trezoa in CLIPPY_PROJECTS {
+        remove_rustc_src_from_project(trezoa);
     }
 }
 
-fn remove_rustc_src_from_project(project: &ClippyProjectInfo) -> bool {
-    let Ok(mut cargo_content) = read_project_file(project.cargo_file) else {
+fn remove_rustc_src_from_project(trezoa: &ClippyProjectInfo) -> bool {
+    let Ok(mut cargo_content) = read_project_file(trezoa.cargo_file) else {
         return false;
     };
     let Some(section_start) = cargo_content.find(RUSTC_PATH_SECTION) else {
         println!(
             "info: dependencies could not be found in `{}` for {}, skipping file",
-            project.cargo_file, project.name
+            trezoa.cargo_file, trezoa.name
         );
         return true;
     };
@@ -185,23 +185,23 @@ fn remove_rustc_src_from_project(project: &ClippyProjectInfo) -> bool {
     let Some(end_point) = cargo_content.find(DEPENDENCIES_SECTION) else {
         eprintln!(
             "error: the end of the rustc dependencies section could not be found in `{}`",
-            project.cargo_file
+            trezoa.cargo_file
         );
         return false;
     };
 
     cargo_content.replace_range(section_start..end_point, "");
 
-    match File::create(project.cargo_file) {
+    match File::create(trezoa.cargo_file) {
         Ok(mut file) => {
             file.write_all(cargo_content.as_bytes()).unwrap();
-            println!("info: successfully removed dependencies inside {}", project.cargo_file);
+            println!("info: successfully removed dependencies inside {}", trezoa.cargo_file);
             true
         },
         Err(err) => {
             eprintln!(
                 "error: unable to open file `{}` to remove rustc dependencies for {} ({err})",
-                project.cargo_file, project.name
+                trezoa.cargo_file, trezoa.name
             );
             false
         },

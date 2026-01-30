@@ -67,7 +67,7 @@ For this reason, bootstrap has a flag called `--skip-std-check-if-no-download-ru
 with `rust-analyzer`, you can add the `--skip-std-check-if-no-download-rustc` flag to your `./x check` command in
 the `rust-analyzer` configuration.
 
-### Project-local rust-analyzer setup
+### Trezoa-local rust-analyzer setup
 
 `rust-analyzer` can help you check and format your code whenever you save a
 file. By default, `rust-analyzer` runs the `cargo check` and `rustfmt` commands,
@@ -82,7 +82,7 @@ checking time. For example, if you are working on the compiler, you can override
 the command to `x check compiler --json-output` to only check the compiler part.
 You can run `x check --help --verbose` to see the available parts.
 
-Running `./x setup editor` will prompt you to create a project-local LSP config
+Running `./x setup editor` will prompt you to create a trezoa-local LSP config
 file for one of the supported editors. You can also create the config file as a
 step of running `./x setup`.
 
@@ -144,7 +144,7 @@ Task] instead:
 
 For Neovim users, there are a few options. The
 easiest way is by using [neoconf.nvim](https://github.com/folke/neoconf.nvim/),
-which allows for project-local configuration files with the native LSP. The
+which allows for trezoa-local configuration files with the native LSP. The
 steps for how to use it are below. Note that they require rust-analyzer to
 already be configured with Neovim. Steps for this can be [found
 here](https://rust-analyzer.github.io/manual.html#nvim-lsp).
@@ -153,7 +153,7 @@ here](https://rust-analyzer.github.io/manual.html#nvim-lsp).
    README.
 2. Run `./x setup editor`, and select `vscode` to create a
    `.vscode/settings.json` file. `neoconf` is able to read and update
-   rust-analyzer settings automatically when the project is opened when this
+   rust-analyzer settings automatically when the trezoa is opened when this
    file is detected.
 
 If you're using `coc.nvim`, you can run `./x setup editor` and select `vim` to
@@ -225,7 +225,7 @@ and follow the same instructions as above.
 
 ### Emacs
 
-Emacs provides support for rust-analyzer with project-local configuration
+Emacs provides support for rust-analyzer with trezoa-local configuration
 through [Eglot](https://www.gnu.org/software/emacs/manual/html_node/eglot/).
 Steps for setting up Eglot with rust-analyzer can be [found
 here](https://rust-analyzer.github.io/manual.html#eglot).
@@ -233,7 +233,7 @@ Having set up Emacs & Eglot for Rust development in general, you can run
 `./x setup editor` and select `emacs`, which will prompt you to create
 `.dir-locals.el` with the recommended configuration for Eglot.
 The recommended settings live at [`src/etc/rust_analyzer_eglot.el`].
-For more information on project-specific Eglot configuration, consult [the
+For more information on trezoa-specific Eglot configuration, consult [the
 manual](https://www.gnu.org/software/emacs/manual/html_node/eglot/Project_002dspecific-configuration.html).
 
 ### Helix

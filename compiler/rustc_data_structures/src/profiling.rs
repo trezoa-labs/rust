@@ -9,7 +9,7 @@
 //! Internally this module uses the custom tailored [measureme][mm] crate for
 //! efficiently recording events to disk in a compact format that can be
 //! post-processed and analyzed by the suite of tools in the `measureme`
-//! project. The highest priority for the tracing framework is on incurring as
+//! trezoa. The highest priority for the tracing framework is on incurring as
 //! little overhead as possible.
 //!
 //!

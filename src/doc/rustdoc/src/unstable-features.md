@@ -213,7 +213,7 @@ mod empty_mod {}
 
 ### Use the Rust logo as the crate logo
 
-This is for official Rust project use only.
+This is for official Rust trezoa use only.
 
 Internal Rustdoc pages like settings.html and scrape-examples-help.html show the Rust logo.
 This logo is tracked as a static resource. The attribute `#![doc(rust_logo)]` makes this same

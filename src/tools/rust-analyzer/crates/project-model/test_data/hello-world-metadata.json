@@ -180,7 +180,7 @@
             "metadata": null,
             "publish": null,
             "authors": [
-                "The Rust Project Developers"
+                "The Rust Trezoa Developers"
             ],
             "categories": [
                 "external-ffi-bindings",

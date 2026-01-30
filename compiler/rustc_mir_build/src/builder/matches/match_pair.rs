@@ -115,7 +115,7 @@ impl<'tcx> MatchPairTree<'tcx> {
                 _ => true,
             };
             if may_need_cast {
-                place_builder = place_builder.project(ProjectionElem::OpaqueCast(pattern.ty));
+                place_builder = place_builder.trezoa(ProjectionElem::OpaqueCast(pattern.ty));
             }
         }
 

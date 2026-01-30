@@ -16,17 +16,17 @@ use crate::{
 };
 
 fn load_cargo(file: &str) -> (CrateGraphBuilder, ProcMacroPaths) {
-    let project_workspace = load_workspace_from_metadata(file);
-    to_crate_graph(project_workspace, &mut Default::default())
+    let trezoa_workspace = load_workspace_from_metadata(file);
+    to_crate_graph(trezoa_workspace, &mut Default::default())
 }
 
 fn load_cargo_with_overrides(
     file: &str,
     cfg_overrides: CfgOverrides,
 ) -> (CrateGraphBuilder, ProcMacroPaths) {
-    let project_workspace =
+    let trezoa_workspace =
         ProjectWorkspace { cfg_overrides, ..load_workspace_from_metadata(file) };
-    to_crate_graph(project_workspace, &mut Default::default())
+    to_crate_graph(trezoa_workspace, &mut Default::default())
 }
 
 fn load_workspace_from_metadata(file: &str) -> ProjectWorkspace {
@@ -53,10 +53,10 @@ fn load_workspace_from_metadata(file: &str) -> ProjectWorkspace {
 
 fn load_rust_project(file: &str) -> (CrateGraphBuilder, ProcMacroPaths) {
     let data = get_test_json_file(file);
-    let project = rooted_project_json(data);
+    let trezoa = rooted_project_json(data);
     let sysroot = Sysroot::empty();
-    let project_workspace = ProjectWorkspace {
-        kind: ProjectWorkspaceKind::Json(project),
+    let trezoa_workspace = ProjectWorkspace {
+        kind: ProjectWorkspaceKind::Json(trezoa),
         sysroot,
         rustc_cfg: Vec::new(),
         toolchain: None,
@@ -65,7 +65,7 @@ fn load_rust_project(file: &str) -> (CrateGraphBuilder, ProcMacroPaths) {
         extra_includes: Vec::new(),
         set_test: true,
     };
-    to_crate_graph(project_workspace, &mut Default::default())
+    to_crate_graph(trezoa_workspace, &mut Default::default())
 }
 
 fn get_test_json_file<T: DeserializeOwned>(file: &str) -> T {
@@ -115,10 +115,10 @@ fn rooted_project_json(data: ProjectJsonData) -> ProjectJson {
 }
 
 fn to_crate_graph(
-    project_workspace: ProjectWorkspace,
+    trezoa_workspace: ProjectWorkspace,
     file_map: &mut FxHashMap<AbsPathBuf, FileId>,
 ) -> (CrateGraphBuilder, ProcMacroPaths) {
-    project_workspace.to_crate_graph(
+    trezoa_workspace.to_crate_graph(
         &mut {
             |path| {
                 let len = file_map.len() + 1;
@@ -184,7 +184,7 @@ fn cargo_hello_world_project_model() {
 
 #[test]
 fn rust_project_hello_world_project_model() {
-    let (crate_graph, _proc_macros) = load_rust_project("hello-world-project.json");
+    let (crate_graph, _proc_macros) = load_rust_project("hello-world-trezoa.json");
     check_crate_graph(
         crate_graph,
         expect_file!["../test_data/output/rust_project_hello_world_project_model.txt"],
@@ -240,7 +240,7 @@ fn smoke_test_real_sysroot_cargo() {
         sysroot.set_workspace(loaded_sysroot);
     }
     assert!(matches!(sysroot.workspace(), RustLibSrcWorkspace::Workspace(_)));
-    let project_workspace = ProjectWorkspace {
+    let trezoa_workspace = ProjectWorkspace {
         kind: ProjectWorkspaceKind::Cargo {
             cargo: cargo_workspace,
             build_scripts: WorkspaceBuildScripts::default(),
@@ -255,7 +255,7 @@ fn smoke_test_real_sysroot_cargo() {
         extra_includes: Vec::new(),
         set_test: true,
     };
-    project_workspace.to_crate_graph(
+    trezoa_workspace.to_crate_graph(
         &mut {
             |path| {
                 let len = file_map.len();

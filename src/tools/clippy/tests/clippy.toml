@@ -1,2 +1,2 @@
-# default config for tests, overrides clippy.toml at the project root
+# default config for tests, overrides clippy.toml at the trezoa root
 lint-commented-code = false

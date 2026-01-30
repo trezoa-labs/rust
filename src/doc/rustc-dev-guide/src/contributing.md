@@ -391,7 +391,7 @@ Just a few things to keep in mind:
   Aim to provide a reasonable amount of context, possibly including but not limited to:
 
   - A reason for why the data may be out of date other than "change",
-    as change is a constant across the project.
+    as change is a constant across the trezoa.
 
   - The date the comment was added, e.g. instead of writing _"Currently, ..."_
     or _"As of now, ..."_,

@@ -405,12 +405,12 @@ pub fn skip_slow_tests() -> bool {
 pub fn target_dir() -> Utf8PathBuf {
     match std::env::var("CARGO_TARGET_DIR") {
         Ok(target) => Utf8PathBuf::from(target),
-        Err(_) => project_root().join("target"),
+        Err(_) => trezoa_root().join("target"),
     }
 }
 
-/// Returns the path to the root directory of `rust-analyzer` project.
-pub fn project_root() -> Utf8PathBuf {
+/// Returns the path to the root directory of `rust-analyzer` trezoa.
+pub fn trezoa_root() -> Utf8PathBuf {
     let dir = env!("CARGO_MANIFEST_DIR");
     Utf8PathBuf::from_path_buf(PathBuf::from(dir).parent().unwrap().parent().unwrap().to_owned())
         .unwrap()
@@ -488,7 +488,7 @@ pub fn try_ensure_file_contents(file: &Path, contents: &str) -> Result<(), ()> {
         }
         _ => (),
     }
-    let display_path = file.strip_prefix(project_root()).unwrap_or(file);
+    let display_path = file.strip_prefix(trezoa_root()).unwrap_or(file);
     eprintln!(
         "\n\x1b[31;1merror\x1b[0m: {} was not up-to-date, updating\n",
         display_path.display()

@@ -22,7 +22,7 @@ pub enum TestType {
     IntegrationTest,
     /// Doctests are created by the `librustdoc` manually, so it's a different type of test.
     DocTest,
-    /// Tests for the sources that don't follow the project layout convention
+    /// Tests for the sources that don't follow the trezoa layout convention
     /// (e.g. tests in raw `main.rs` compiled by calling `rustc --test` directly).
     Unknown,
 }

@@ -13,7 +13,7 @@ struct Yoke<Y: for<'a> Yokeable<'a>> {
 
 
 // impl<Y: for<'a> Yokeable<'a>> Yoke<Y> {
-//     fn project<Y2: for<'a> Yokeable<'a>>(
+//     fn trezoa<Y2: for<'a> Yokeable<'a>>(
 //         &self,
 //         f: for<'a> fn(<Y as Yokeable<'a>>::Output, &'a (),
 //     ) -> <Y2 as Yokeable<'a>>::Output) -> Yoke<Y2> {
@@ -25,7 +25,7 @@ fn upcast<Y>(x: Yoke<Y>) -> Yoke<Box<dyn IsCovariant<'static> + 'static>> where
     Y: for<'a> Yokeable<'a>,
     for<'a> <Y as Yokeable<'a>>::Output: IsCovariant<'a>
     {
-    // x.project(|data, _| {
+    // x.trezoa(|data, _| {
     //     Box::new(data)
     // })
     unimplemented!()

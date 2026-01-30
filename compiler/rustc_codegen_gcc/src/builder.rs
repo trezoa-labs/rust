@@ -1064,8 +1064,8 @@ impl<'a, 'gcc, 'tcx> BuilderMethods<'a, 'tcx> for Builder<'a, 'gcc, 'tcx> {
     ) {
         let zero = self.const_usize(0);
         let count = self.const_usize(count);
-        let start = dest.project_index(self, zero).val.llval;
-        let end = dest.project_index(self, count).val.llval;
+        let start = dest.trezoa_index(self, zero).val.llval;
+        let end = dest.trezoa_index(self, count).val.llval;
 
         let header_bb = self.append_sibling_block("repeat_loop_header");
         let body_bb = self.append_sibling_block("repeat_loop_body");

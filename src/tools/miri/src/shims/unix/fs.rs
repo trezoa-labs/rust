@@ -165,9 +165,9 @@ trait EvalContextExtPrivate<'tcx>: crate::MiriInterpCxExt<'tcx> {
         }
 
         if matches!(&*this.tcx.sess.target.os, "solaris" | "illumos") {
-            let st_fstype = this.project_field_named(&buf, "st_fstype")?;
+            let st_fstype = this.trezoa_field_named(&buf, "st_fstype")?;
             // This is an array; write 0 into first element so that it encodes the empty string.
-            this.write_int(0, &this.project_index(&st_fstype, 0)?)?;
+            this.write_int(0, &this.trezoa_index(&st_fstype, 0)?)?;
         }
 
         interp_ok(0)
@@ -762,7 +762,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 ("tv_sec", access_sec.into()),
                 ("tv_nsec", access_nsec.into()),
             ],
-            &this.project_field_named(&statxbuf, "stx_atime")?,
+            &this.trezoa_field_named(&statxbuf, "stx_atime")?,
         )?;
         #[rustfmt::skip]
         this.write_int_fields_named(
@@ -770,7 +770,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 ("tv_sec", created_sec.into()),
                 ("tv_nsec", created_nsec.into()),
             ],
-            &this.project_field_named(&statxbuf, "stx_btime")?,
+            &this.trezoa_field_named(&statxbuf, "stx_btime")?,
         )?;
         #[rustfmt::skip]
         this.write_int_fields_named(
@@ -778,7 +778,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 ("tv_sec", 0.into()),
                 ("tv_nsec", 0.into()),
             ],
-            &this.project_field_named(&statxbuf, "stx_ctime")?,
+            &this.trezoa_field_named(&statxbuf, "stx_ctime")?,
         )?;
         #[rustfmt::skip]
         this.write_int_fields_named(
@@ -786,7 +786,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 ("tv_sec", modified_sec.into()),
                 ("tv_nsec", modified_nsec.into()),
             ],
-            &this.project_field_named(&statxbuf, "stx_mtime")?,
+            &this.trezoa_field_named(&statxbuf, "stx_mtime")?,
         )?;
 
         interp_ok(Scalar::from_i32(0))
@@ -1052,7 +1052,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 // }
 
                 let entry_place = this.deref_pointer_as(entry_op, this.libc_ty_layout("dirent"))?;
-                let name_place = this.project_field_named(&entry_place, "d_name")?;
+                let name_place = this.trezoa_field_named(&entry_place, "d_name")?;
 
                 let file_name = dir_entry.file_name(); // not a Path as there are no separators!
                 let (name_fits, file_name_buf_len) = this.write_os_str_to_c_str(

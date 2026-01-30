@@ -27,7 +27,7 @@ The tests can be run with `cargo test`. This does a number of things:
 * runs idempotence tests on the files in `./tests/target/`. These files should
   not be changed by rustfmt;
 * checks that rustfmt's code is not changed by running on itself. This ensures
-  that the project bootstraps.
+  that the trezoa bootstraps.
 
 Creating a test is as easy as creating a new file in `./tests/source/` and an
 equally named one in `./tests/target/`. If it is only required that rustfmt
@@ -103,10 +103,10 @@ To run `rustfmt` on a file:
 cargo run --bin rustfmt -- path/to/file.rs
 ```
 
-If you want to test modified `cargo-fmt`, or run `rustfmt` on the whole project (You may need to build rustfmt first):
+If you want to test modified `cargo-fmt`, or run `rustfmt` on the whole trezoa (You may need to build rustfmt first):
 
 ```
-RUSTFMT="./target/debug/rustfmt" cargo run --bin cargo-fmt -- --manifest-path path/to/project/you/want2test/Cargo.toml
+RUSTFMT="./target/debug/rustfmt" cargo run --bin cargo-fmt -- --manifest-path path/to/trezoa/you/want2test/Cargo.toml
 ```
 
 ### Gate formatting changes

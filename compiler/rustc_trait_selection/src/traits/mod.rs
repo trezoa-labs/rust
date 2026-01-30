@@ -12,7 +12,7 @@ mod fulfill;
 pub mod misc;
 pub mod normalize;
 pub mod outlives_bounds;
-pub mod project;
+pub mod trezoa;
 pub mod query;
 #[allow(hidden_glob_reexports)]
 mod select;
@@ -51,7 +51,7 @@ pub use self::dyn_compatibility::{
 pub use self::engine::{ObligationCtxt, TraitEngineExt};
 pub use self::fulfill::{FulfillmentContext, OldSolverError, PendingPredicateObligation};
 pub use self::normalize::NormalizeExt;
-pub use self::project::{normalize_inherent_projection, normalize_projection_term};
+pub use self::trezoa::{normalize_inherent_projection, normalize_projection_term};
 pub use self::select::{
     EvaluationCache, EvaluationResult, IntercrateAmbiguityCause, OverflowError, SelectionCache,
     SelectionContext,
@@ -96,7 +96,7 @@ impl<'tcx> FulfillmentError<'tcx> {
     pub fn is_true_error(&self) -> bool {
         match self.code {
             FulfillmentErrorCode::Select(_)
-            | FulfillmentErrorCode::Project(_)
+            | FulfillmentErrorCode::Trezoa(_)
             | FulfillmentErrorCode::Subtype(_, _)
             | FulfillmentErrorCode::ConstEquate(_, _) => true,
             FulfillmentErrorCode::Cycle(_) | FulfillmentErrorCode::Ambiguity { overflow: _ } => {
@@ -112,7 +112,7 @@ pub enum FulfillmentErrorCode<'tcx> {
     /// if it is already implemented.
     Cycle(PredicateObligations<'tcx>),
     Select(SelectionError<'tcx>),
-    Project(MismatchedProjectionTypes<'tcx>),
+    Trezoa(MismatchedProjectionTypes<'tcx>),
     Subtype(ExpectedFound<Ty<'tcx>>, TypeError<'tcx>), // always comes from a SubtypePredicate
     ConstEquate(ExpectedFound<ty::Const<'tcx>>, TypeError<'tcx>),
     Ambiguity {
@@ -127,7 +127,7 @@ impl<'tcx> Debug for FulfillmentErrorCode<'tcx> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match *self {
             FulfillmentErrorCode::Select(ref e) => write!(f, "{e:?}"),
-            FulfillmentErrorCode::Project(ref e) => write!(f, "{e:?}"),
+            FulfillmentErrorCode::Trezoa(ref e) => write!(f, "{e:?}"),
             FulfillmentErrorCode::Subtype(ref a, ref b) => {
                 write!(f, "CodeSubtypeError({a:?}, {b:?})")
             }

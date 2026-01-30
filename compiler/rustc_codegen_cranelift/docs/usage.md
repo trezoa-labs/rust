@@ -6,13 +6,13 @@ Assuming `$cg_clif_dir` is the directory you cloned this repo into and you follo
 
 ## Cargo
 
-In the directory with your project (where you can do the usual `cargo build`), run:
+In the directory with your trezoa (where you can do the usual `cargo build`), run:
 
 ```bash
 $ $cg_clif_dir/dist/cargo-clif build
 ```
 
-This will build your project with rustc_codegen_cranelift instead of the usual LLVM backend.
+This will build your trezoa with rustc_codegen_cranelift instead of the usual LLVM backend.
 
 ## Rustc
 

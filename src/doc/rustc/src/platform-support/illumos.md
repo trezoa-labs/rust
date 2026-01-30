@@ -38,5 +38,5 @@ Tests can be run in the same way as a regular binary.
 
 The target supports C code.
 
-The illumos project makes available [prebuilt sysroot artefacts](https://github.com/illumos/sysroot) which can be used for cross compilation.
+The illumos trezoa makes available [prebuilt sysroot artefacts](https://github.com/illumos/sysroot) which can be used for cross compilation.
 The official Rust binaries are cross-compiled using these artefacts.

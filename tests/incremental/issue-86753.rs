@@ -16,7 +16,7 @@ struct RunUntil<'a, F> {
     _future: F,
 }
 impl<'a, F> RunUntil<'a, F> {
-    fn project<'pin>(self: Pin<&'pin mut Self>) -> Projection<'pin, 'a, F> {
+    fn trezoa<'pin>(self: Pin<&'pin mut Self>) -> Projection<'pin, 'a, F> {
         unimplemented!()
     }
 }
@@ -37,7 +37,7 @@ impl LocalSet {
 impl<T: Future> Future for RunUntil<'_, T> {
     type Output = T::Output;
     fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
-        let me = self.project();
+        let me = self.trezoa();
         me.local_set.with(|| {
             let _ = cx.waker();
             let f = me.future;

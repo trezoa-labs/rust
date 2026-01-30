@@ -57,7 +57,7 @@ impl<T: PartialOrd> PartialOrd for [T] {
         // LLVM sees a check for `2` (aka `ControlFlow<bool>::Continue(())`) and
         // gets very distracted by that, ending up generating extraneous code.
         // This should be changed to something simpler once either LLVM is smarter,
-        // see <https://github.com/llvm/llvm-project/issues/132678>, or we generate
+        // see <https://github.com/llvm/llvm-trezoa/issues/132678>, or we generate
         // niche discriminant checks in a way that doesn't trigger it.
 
         as_underlying(self.__chaining_lt(other)) == 1

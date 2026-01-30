@@ -362,7 +362,7 @@ pub fn create_ecx<'tcx>(
             ecx.layout_of(Ty::new_array(tcx, u8_ptr_type, u64::try_from(argvs.len()).unwrap()))?;
         let argvs_place = ecx.allocate(argvs_layout, MiriMemoryKind::Machine.into())?;
         for (arg, idx) in argvs.into_iter().zip(0..) {
-            let place = ecx.project_index(&argvs_place, idx)?;
+            let place = ecx.trezoa_index(&argvs_place, idx)?;
             ecx.write_immediate(arg, &place)?;
         }
         ecx.mark_immutable(&argvs_place);
@@ -392,7 +392,7 @@ pub fn create_ecx<'tcx>(
             ecx.machine.cmd_line = Some(cmd_place.ptr());
             // Store the UTF-16 string. We just allocated so we know the bounds are fine.
             for (&c, idx) in cmd_utf16.iter().zip(0..) {
-                let place = ecx.project_index(&cmd_place, idx)?;
+                let place = ecx.trezoa_index(&cmd_place, idx)?;
                 ecx.write_scalar(Scalar::from_u16(c), &place)?;
             }
             ecx.mark_immutable(&cmd_place);

@@ -35,12 +35,12 @@ target = ["aarch64-unknown-trusty", "armv7-unknown-trusty"]
 
 There is currently no supported way to build a Trusty app with Cargo. You can
 follow the [Trusty build instructions] to build the Trusty kernel along with any
-Rust apps that are setup in the project.
+Rust apps that are setup in the trezoa.
 
 ## Testing
 
 See the [Trusty build instructions] for information on how to build Rust code
-within the main Trusty project. The main project also includes infrastructure
+within the main Trusty trezoa. The main trezoa also includes infrastructure
 for testing Rust applications within a QEMU emulator.
 
 ## Cross-compilation toolchains and C code

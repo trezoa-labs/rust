@@ -45,7 +45,7 @@ impl<'a, 'tcx> MutVisitor<'tcx> for DerefChecker<'a, 'tcx> {
                     // We are adding current p_ref's projections to our
                     // temp value, excluding projections we already covered.
                     let deref_place = Place::from(place_local)
-                        .project_deeper(&p_ref.projection[last_len..], self.tcx);
+                        .trezoa_deeper(&p_ref.projection[last_len..], self.tcx);
 
                     self.patcher.add_assign(
                         loc,
@@ -58,7 +58,7 @@ impl<'a, 'tcx> MutVisitor<'tcx> for DerefChecker<'a, 'tcx> {
                     // Change `Place` only if we are actually at the Place's last deref
                     if idx == last_deref_idx {
                         let temp_place =
-                            Place::from(temp).project_deeper(&place.projection[idx..], self.tcx);
+                            Place::from(temp).trezoa_deeper(&place.projection[idx..], self.tcx);
                         *place = temp_place;
                     }
                 }

@@ -245,7 +245,7 @@ impl<'tcx> InstSimplifyContext<'_, 'tcx> {
             kind: StatementKind::Assign(Box::new((
                 *destination,
                 Rvalue::Use(Operand::Copy(
-                    arg_place.project_deeper(&[ProjectionElem::Deref], self.tcx),
+                    arg_place.trezoa_deeper(&[ProjectionElem::Deref], self.tcx),
                 )),
             ))),
         });

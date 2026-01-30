@@ -114,7 +114,7 @@ pub trait ValueVisitor<'tcx, M: Machine<'tcx>>: Sized {
                 let raw_ptr_ty = self.ecx().layout_of(raw_ptr_ty)?;
                 let vtable_field = self
                     .ecx()
-                    .project_field(v, FieldIdx::ONE)?
+                    .trezoa_field(v, FieldIdx::ONE)?
                     .transmute(raw_ptr_ty, self.ecx())?;
                 self.visit_field(v, 1, &vtable_field)?;
 
@@ -143,15 +143,15 @@ pub trait ValueVisitor<'tcx, M: Machine<'tcx>>: Sized {
                 // `Box` has two fields: the pointer we care about, and the allocator.
                 assert_eq!(v.layout().fields.count(), 2, "`Box` must have exactly 2 fields");
                 let (unique_ptr, alloc) = (
-                    self.ecx().project_field(v, FieldIdx::ZERO)?,
-                    self.ecx().project_field(v, FieldIdx::ONE)?,
+                    self.ecx().trezoa_field(v, FieldIdx::ZERO)?,
+                    self.ecx().trezoa_field(v, FieldIdx::ONE)?,
                 );
                 // Unfortunately there is some type junk in the way here: `unique_ptr` is a `Unique`...
                 // (which means another 2 fields, the second of which is a `PhantomData`)
                 assert_eq!(unique_ptr.layout().fields.count(), 2);
                 let (nonnull_ptr, phantom) = (
-                    self.ecx().project_field(&unique_ptr, FieldIdx::ZERO)?,
-                    self.ecx().project_field(&unique_ptr, FieldIdx::ONE)?,
+                    self.ecx().trezoa_field(&unique_ptr, FieldIdx::ZERO)?,
+                    self.ecx().trezoa_field(&unique_ptr, FieldIdx::ONE)?,
                 );
                 assert!(
                     phantom.layout().ty.ty_adt_def().is_some_and(|adt| adt.is_phantom_data()),
@@ -160,7 +160,7 @@ pub trait ValueVisitor<'tcx, M: Machine<'tcx>>: Sized {
                 );
                 // ... that contains a `NonNull`... (gladly, only a single field here)
                 assert_eq!(nonnull_ptr.layout().fields.count(), 1);
-                let raw_ptr = self.ecx().project_field(&nonnull_ptr, FieldIdx::ZERO)?; // the actual raw ptr
+                let raw_ptr = self.ecx().trezoa_field(&nonnull_ptr, FieldIdx::ZERO)?; // the actual raw ptr
                 // ... whose only field finally is a raw ptr we can dereference.
                 self.visit_box(ty, &raw_ptr)?;
 
@@ -192,12 +192,12 @@ pub trait ValueVisitor<'tcx, M: Machine<'tcx>>: Sized {
             }
             FieldsShape::Arbitrary { memory_index, .. } => {
                 for idx in Self::aggregate_field_iter(memory_index) {
-                    let field = self.ecx().project_field(v, idx)?;
+                    let field = self.ecx().trezoa_field(v, idx)?;
                     self.visit_field(v, idx.as_usize(), &field)?;
                 }
             }
             FieldsShape::Array { .. } => {
-                let mut iter = self.ecx().project_array_fields(v)?;
+                let mut iter = self.ecx().trezoa_array_fields(v)?;
                 while let Some((idx, field)) = iter.next(self.ecx())? {
                     self.visit_field(v, idx.try_into().unwrap(), &field)?;
                 }
@@ -216,7 +216,7 @@ pub trait ValueVisitor<'tcx, M: Machine<'tcx>>: Sized {
                 // - variant.fields.count() == 0: works fine because `ImmTy::offset` has a special case for
                 //   zero-field aggregates.
                 // - variant.abi.is_uninhabited(): triggers UB in `read_discriminant` so we never get here.
-                let inner = self.ecx().project_downcast(v, idx)?;
+                let inner = self.ecx().trezoa_downcast(v, idx)?;
                 trace!("walk_value: variant layout: {:#?}", inner.layout());
                 // recurse with the inner type
                 self.visit_variant(v, idx, &inner)?;

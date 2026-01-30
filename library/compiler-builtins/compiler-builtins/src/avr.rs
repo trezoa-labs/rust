@@ -3,7 +3,7 @@ intrinsics! {
         // On AVRs, an architecture that doesn't support traps, unreachable code
         // paths get lowered into calls to `abort`:
         //
-        // https://github.com/llvm/llvm-project/blob/cbe8f3ad7621e402b050e768f400ff0d19c3aedd/llvm/lib/CodeGen/SelectionDAG/LegalizeDAG.cpp#L4462
+        // https://github.com/llvm/llvm-trezoa/blob/cbe8f3ad7621e402b050e768f400ff0d19c3aedd/llvm/lib/CodeGen/SelectionDAG/LegalizeDAG.cpp#L4462
         //
         // When control gets here, it means that either core::intrinsics::abort()
         // was called or an undefined bebavior has occurred, so there's not that

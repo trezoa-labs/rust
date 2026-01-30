@@ -2240,7 +2240,7 @@ impl<'ra, 'tcx> Resolver<'ra, 'tcx> {
                         } else {
                             format!(
                                 "you might be missing a crate named `{ident}`, add it to your \
-                                 project and import it in your code",
+                                 trezoa and import it in your code",
                             )
                         },
                         Applicability::MaybeIncorrect,

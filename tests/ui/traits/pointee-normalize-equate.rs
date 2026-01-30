@@ -26,19 +26,19 @@ fn wrapper_to_unit<T>(ptr: *const ()) -> *const Wrapper<T> {
     cast_same_meta(ptr)
 }
 
-trait Project {
+trait Trezoa {
     type Assoc: ?Sized;
 }
 
-struct WrapperProject<T: ?Sized + Project>(T::Assoc);
+struct WrapperProject<T: ?Sized + Trezoa>(T::Assoc);
 
 // normalize `WrapperProject<T>::Metadata` -> `T::Assoc::Metadata`
-fn wrapper_project_tail<T: ?Sized + Project>(ptr: *const T::Assoc) -> *const WrapperProject<T> {
+fn wrapper_project_tail<T: ?Sized + Trezoa>(ptr: *const T::Assoc) -> *const WrapperProject<T> {
     cast_same_meta(ptr)
 }
 
 // normalize `WrapperProject<T>::Metadata` -> `T::Assoc::Metadata` -> `()`
-fn wrapper_project_unit<T: ?Sized + Project>(ptr: *const ()) -> *const WrapperProject<T>
+fn wrapper_project_unit<T: ?Sized + Trezoa>(ptr: *const ()) -> *const WrapperProject<T>
 where
     T::Assoc: Sized,
 {

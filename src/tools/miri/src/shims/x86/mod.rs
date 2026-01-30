@@ -54,8 +54,8 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 };
 
                 let (sum, cb_out) = carrying_add(this, cb_in, a, b, op)?;
-                this.write_scalar(cb_out, &this.project_field(dest, FieldIdx::ZERO)?)?;
-                this.write_immediate(*sum, &this.project_field(dest, FieldIdx::ONE)?)?;
+                this.write_scalar(cb_out, &this.trezoa_field(dest, FieldIdx::ZERO)?)?;
+                this.write_immediate(*sum, &this.trezoa_field(dest, FieldIdx::ONE)?)?;
             }
 
             // Used to implement the `_addcarryx_u{32, 64}` functions. They are semantically identical with the `_addcarry_u{32, 64}` functions,
@@ -329,22 +329,22 @@ fn bin_op_simd_float_first<'tcx, F: rustc_apfloat::Float>(
     right: &OpTy<'tcx>,
     dest: &MPlaceTy<'tcx>,
 ) -> InterpResult<'tcx, ()> {
-    let (left, left_len) = ecx.project_to_simd(left)?;
-    let (right, right_len) = ecx.project_to_simd(right)?;
-    let (dest, dest_len) = ecx.project_to_simd(dest)?;
+    let (left, left_len) = ecx.trezoa_to_simd(left)?;
+    let (right, right_len) = ecx.trezoa_to_simd(right)?;
+    let (dest, dest_len) = ecx.trezoa_to_simd(dest)?;
 
     assert_eq!(dest_len, left_len);
     assert_eq!(dest_len, right_len);
 
     let res0 = bin_op_float::<F>(
         which,
-        &ecx.read_immediate(&ecx.project_index(&left, 0)?)?,
-        &ecx.read_immediate(&ecx.project_index(&right, 0)?)?,
+        &ecx.read_immediate(&ecx.trezoa_index(&left, 0)?)?,
+        &ecx.read_immediate(&ecx.trezoa_index(&right, 0)?)?,
     )?;
-    ecx.write_scalar(res0, &ecx.project_index(&dest, 0)?)?;
+    ecx.write_scalar(res0, &ecx.trezoa_index(&dest, 0)?)?;
 
     for i in 1..dest_len {
-        ecx.copy_op(&ecx.project_index(&left, i)?, &ecx.project_index(&dest, i)?)?;
+        ecx.copy_op(&ecx.trezoa_index(&left, i)?, &ecx.trezoa_index(&dest, i)?)?;
     }
 
     interp_ok(())
@@ -359,17 +359,17 @@ fn bin_op_simd_float_all<'tcx, F: rustc_apfloat::Float>(
     right: &OpTy<'tcx>,
     dest: &MPlaceTy<'tcx>,
 ) -> InterpResult<'tcx, ()> {
-    let (left, left_len) = ecx.project_to_simd(left)?;
-    let (right, right_len) = ecx.project_to_simd(right)?;
-    let (dest, dest_len) = ecx.project_to_simd(dest)?;
+    let (left, left_len) = ecx.trezoa_to_simd(left)?;
+    let (right, right_len) = ecx.trezoa_to_simd(right)?;
+    let (dest, dest_len) = ecx.trezoa_to_simd(dest)?;
 
     assert_eq!(dest_len, left_len);
     assert_eq!(dest_len, right_len);
 
     for i in 0..dest_len {
-        let left = ecx.read_immediate(&ecx.project_index(&left, i)?)?;
-        let right = ecx.read_immediate(&ecx.project_index(&right, i)?)?;
-        let dest = ecx.project_index(&dest, i)?;
+        let left = ecx.read_immediate(&ecx.trezoa_index(&left, i)?)?;
+        let right = ecx.read_immediate(&ecx.trezoa_index(&right, i)?)?;
+        let dest = ecx.trezoa_index(&dest, i)?;
 
         let res = bin_op_float::<F>(which, &left, &right)?;
         ecx.write_scalar(res, &dest)?;
@@ -426,16 +426,16 @@ fn unary_op_ss<'tcx>(
     op: &OpTy<'tcx>,
     dest: &MPlaceTy<'tcx>,
 ) -> InterpResult<'tcx, ()> {
-    let (op, op_len) = ecx.project_to_simd(op)?;
-    let (dest, dest_len) = ecx.project_to_simd(dest)?;
+    let (op, op_len) = ecx.trezoa_to_simd(op)?;
+    let (dest, dest_len) = ecx.trezoa_to_simd(dest)?;
 
     assert_eq!(dest_len, op_len);
 
-    let res0 = unary_op_f32(ecx, which, &ecx.read_immediate(&ecx.project_index(&op, 0)?)?)?;
-    ecx.write_scalar(res0, &ecx.project_index(&dest, 0)?)?;
+    let res0 = unary_op_f32(ecx, which, &ecx.read_immediate(&ecx.trezoa_index(&op, 0)?)?)?;
+    ecx.write_scalar(res0, &ecx.trezoa_index(&dest, 0)?)?;
 
     for i in 1..dest_len {
-        ecx.copy_op(&ecx.project_index(&op, i)?, &ecx.project_index(&dest, i)?)?;
+        ecx.copy_op(&ecx.trezoa_index(&op, i)?, &ecx.trezoa_index(&dest, i)?)?;
     }
 
     interp_ok(())
@@ -449,14 +449,14 @@ fn unary_op_ps<'tcx>(
     op: &OpTy<'tcx>,
     dest: &MPlaceTy<'tcx>,
 ) -> InterpResult<'tcx, ()> {
-    let (op, op_len) = ecx.project_to_simd(op)?;
-    let (dest, dest_len) = ecx.project_to_simd(dest)?;
+    let (op, op_len) = ecx.trezoa_to_simd(op)?;
+    let (dest, dest_len) = ecx.trezoa_to_simd(dest)?;
 
     assert_eq!(dest_len, op_len);
 
     for i in 0..dest_len {
-        let op = ecx.read_immediate(&ecx.project_index(&op, i)?)?;
-        let dest = ecx.project_index(&dest, i)?;
+        let op = ecx.read_immediate(&ecx.trezoa_index(&op, i)?)?;
+        let dest = ecx.trezoa_index(&dest, i)?;
 
         let res = unary_op_f32(ecx, which, &op)?;
         ecx.write_scalar(res, &dest)?;
@@ -487,8 +487,8 @@ fn shift_simd_by_scalar<'tcx>(
     which: ShiftOp,
     dest: &MPlaceTy<'tcx>,
 ) -> InterpResult<'tcx, ()> {
-    let (left, left_len) = ecx.project_to_simd(left)?;
-    let (dest, dest_len) = ecx.project_to_simd(dest)?;
+    let (left, left_len) = ecx.trezoa_to_simd(left)?;
+    let (dest, dest_len) = ecx.trezoa_to_simd(dest)?;
 
     assert_eq!(dest_len, left_len);
     // `right` may have a different length, and we only care about its
@@ -501,8 +501,8 @@ fn shift_simd_by_scalar<'tcx>(
     let shift = u32::try_from(extract_first_u64(ecx, right)?).unwrap_or(u32::MAX);
 
     for i in 0..dest_len {
-        let left = ecx.read_scalar(&ecx.project_index(&left, i)?)?;
-        let dest = ecx.project_index(&dest, i)?;
+        let left = ecx.read_scalar(&ecx.trezoa_index(&left, i)?)?;
+        let dest = ecx.trezoa_index(&dest, i)?;
 
         let res = match which {
             ShiftOp::Left => {
@@ -543,17 +543,17 @@ fn shift_simd_by_simd<'tcx>(
     which: ShiftOp,
     dest: &MPlaceTy<'tcx>,
 ) -> InterpResult<'tcx, ()> {
-    let (left, left_len) = ecx.project_to_simd(left)?;
-    let (right, right_len) = ecx.project_to_simd(right)?;
-    let (dest, dest_len) = ecx.project_to_simd(dest)?;
+    let (left, left_len) = ecx.trezoa_to_simd(left)?;
+    let (right, right_len) = ecx.trezoa_to_simd(right)?;
+    let (dest, dest_len) = ecx.trezoa_to_simd(dest)?;
 
     assert_eq!(dest_len, left_len);
     assert_eq!(dest_len, right_len);
 
     for i in 0..dest_len {
-        let left = ecx.read_scalar(&ecx.project_index(&left, i)?)?;
-        let right = ecx.read_scalar(&ecx.project_index(&right, i)?)?;
-        let dest = ecx.project_index(&dest, i)?;
+        let left = ecx.read_scalar(&ecx.trezoa_index(&left, i)?)?;
+        let right = ecx.read_scalar(&ecx.trezoa_index(&right, i)?)?;
+        let dest = ecx.trezoa_index(&dest, i)?;
 
         // It is ok to saturate the value to u32::MAX because any value
         // above BITS - 1 will produce the same result.
@@ -597,7 +597,7 @@ fn extract_first_u64<'tcx>(
     let op = op.transmute(array_layout, ecx)?;
 
     // Get the first u64 from the array
-    ecx.read_scalar(&ecx.project_index(&op, 0)?)?.to_u64()
+    ecx.read_scalar(&ecx.trezoa_index(&op, 0)?)?.to_u64()
 }
 
 // Rounds the first element of `right` according to `rounding`
@@ -609,24 +609,24 @@ fn round_first<'tcx, F: rustc_apfloat::Float>(
     rounding: &OpTy<'tcx>,
     dest: &MPlaceTy<'tcx>,
 ) -> InterpResult<'tcx, ()> {
-    let (left, left_len) = ecx.project_to_simd(left)?;
-    let (right, right_len) = ecx.project_to_simd(right)?;
-    let (dest, dest_len) = ecx.project_to_simd(dest)?;
+    let (left, left_len) = ecx.trezoa_to_simd(left)?;
+    let (right, right_len) = ecx.trezoa_to_simd(right)?;
+    let (dest, dest_len) = ecx.trezoa_to_simd(dest)?;
 
     assert_eq!(dest_len, left_len);
     assert_eq!(dest_len, right_len);
 
     let rounding = rounding_from_imm(ecx.read_scalar(rounding)?.to_i32()?)?;
 
-    let op0: F = ecx.read_scalar(&ecx.project_index(&right, 0)?)?.to_float()?;
+    let op0: F = ecx.read_scalar(&ecx.trezoa_index(&right, 0)?)?.to_float()?;
     let res = op0.round_to_integral(rounding).value;
     ecx.write_scalar(
         Scalar::from_uint(res.to_bits(), Size::from_bits(F::BITS)),
-        &ecx.project_index(&dest, 0)?,
+        &ecx.trezoa_index(&dest, 0)?,
     )?;
 
     for i in 1..dest_len {
-        ecx.copy_op(&ecx.project_index(&left, i)?, &ecx.project_index(&dest, i)?)?;
+        ecx.copy_op(&ecx.trezoa_index(&left, i)?, &ecx.trezoa_index(&dest, i)?)?;
     }
 
     interp_ok(())
@@ -639,19 +639,19 @@ fn round_all<'tcx, F: rustc_apfloat::Float>(
     rounding: &OpTy<'tcx>,
     dest: &MPlaceTy<'tcx>,
 ) -> InterpResult<'tcx, ()> {
-    let (op, op_len) = ecx.project_to_simd(op)?;
-    let (dest, dest_len) = ecx.project_to_simd(dest)?;
+    let (op, op_len) = ecx.trezoa_to_simd(op)?;
+    let (dest, dest_len) = ecx.trezoa_to_simd(dest)?;
 
     assert_eq!(dest_len, op_len);
 
     let rounding = rounding_from_imm(ecx.read_scalar(rounding)?.to_i32()?)?;
 
     for i in 0..dest_len {
-        let op: F = ecx.read_scalar(&ecx.project_index(&op, i)?)?.to_float()?;
+        let op: F = ecx.read_scalar(&ecx.trezoa_index(&op, i)?)?.to_float()?;
         let res = op.round_to_integral(rounding).value;
         ecx.write_scalar(
             Scalar::from_uint(res.to_bits(), Size::from_bits(F::BITS)),
-            &ecx.project_index(&dest, i)?,
+            &ecx.trezoa_index(&dest, i)?,
         )?;
     }
 
@@ -691,15 +691,15 @@ fn convert_float_to_int<'tcx>(
     rnd: rustc_apfloat::Round,
     dest: &MPlaceTy<'tcx>,
 ) -> InterpResult<'tcx, ()> {
-    let (op, op_len) = ecx.project_to_simd(op)?;
-    let (dest, dest_len) = ecx.project_to_simd(dest)?;
+    let (op, op_len) = ecx.trezoa_to_simd(op)?;
+    let (dest, dest_len) = ecx.trezoa_to_simd(dest)?;
 
     // Output must be *signed* integers.
     assert!(matches!(dest.layout.field(ecx, 0).ty.kind(), ty::Int(_)));
 
     for i in 0..op_len.min(dest_len) {
-        let op = ecx.read_immediate(&ecx.project_index(&op, i)?)?;
-        let dest = ecx.project_index(&dest, i)?;
+        let op = ecx.read_immediate(&ecx.trezoa_index(&op, i)?)?;
+        let dest = ecx.trezoa_index(&dest, i)?;
 
         let res = ecx.float_to_int_checked(&op, dest.layout, rnd)?.unwrap_or_else(|| {
             // Fallback to minimum according to SSE/AVX semantics.
@@ -709,7 +709,7 @@ fn convert_float_to_int<'tcx>(
     }
     // Fill remainder with zeros
     for i in op_len..dest_len {
-        let dest = ecx.project_index(&dest, i)?;
+        let dest = ecx.trezoa_index(&dest, i)?;
         ecx.write_scalar(Scalar::from_int(0, dest.layout.size), &dest)?;
     }
 
@@ -725,16 +725,16 @@ fn int_abs<'tcx>(
     op: &OpTy<'tcx>,
     dest: &MPlaceTy<'tcx>,
 ) -> InterpResult<'tcx, ()> {
-    let (op, op_len) = ecx.project_to_simd(op)?;
-    let (dest, dest_len) = ecx.project_to_simd(dest)?;
+    let (op, op_len) = ecx.trezoa_to_simd(op)?;
+    let (dest, dest_len) = ecx.trezoa_to_simd(dest)?;
 
     assert_eq!(op_len, dest_len);
 
     let zero = ImmTy::from_int(0, op.layout.field(ecx, 0));
 
     for i in 0..dest_len {
-        let op = ecx.read_immediate(&ecx.project_index(&op, i)?)?;
-        let dest = ecx.project_index(&dest, i)?;
+        let op = ecx.read_immediate(&ecx.trezoa_index(&op, i)?)?;
+        let dest = ecx.trezoa_index(&dest, i)?;
 
         let lt_zero = ecx.binary_op(mir::BinOp::Lt, &op, &zero)?;
         let res =
@@ -803,9 +803,9 @@ fn horizontal_bin_op<'tcx>(
 
     let middle = items_per_chunk / 2;
     for i in 0..num_chunks {
-        let left = ecx.project_index(&left, i)?;
-        let right = ecx.project_index(&right, i)?;
-        let dest = ecx.project_index(&dest, i)?;
+        let left = ecx.trezoa_index(&left, i)?;
+        let right = ecx.trezoa_index(&right, i)?;
+        let dest = ecx.trezoa_index(&dest, i)?;
 
         for j in 0..items_per_chunk {
             // `j` is the index in `dest`
@@ -813,8 +813,8 @@ fn horizontal_bin_op<'tcx>(
             let (k, src) = if j < middle { (j, &left) } else { (j.strict_sub(middle), &right) };
             // `base_i` is the index of the first item of the 2-item chunk in `src`
             let base_i = k.strict_mul(2);
-            let lhs = ecx.read_immediate(&ecx.project_index(src, base_i)?)?;
-            let rhs = ecx.read_immediate(&ecx.project_index(src, base_i.strict_add(1))?)?;
+            let lhs = ecx.read_immediate(&ecx.trezoa_index(src, base_i)?)?;
+            let rhs = ecx.read_immediate(&ecx.trezoa_index(src, base_i.strict_add(1))?)?;
 
             let res = if saturating {
                 Immediate::from(ecx.saturating_arith(which, &lhs, &rhs)?)
@@ -822,7 +822,7 @@ fn horizontal_bin_op<'tcx>(
                 *ecx.binary_op(which, &lhs, &rhs)?
             };
 
-            ecx.write_immediate(res, &ecx.project_index(&dest, j)?)?;
+            ecx.write_immediate(res, &ecx.trezoa_index(&dest, j)?)?;
         }
     }
 
@@ -858,9 +858,9 @@ fn conditional_dot_product<'tcx>(
     let imm = ecx.read_scalar(imm)?.to_uint(imm.layout.size)?;
 
     for i in 0..num_chunks {
-        let left = ecx.project_index(&left, i)?;
-        let right = ecx.project_index(&right, i)?;
-        let dest = ecx.project_index(&dest, i)?;
+        let left = ecx.trezoa_index(&left, i)?;
+        let right = ecx.trezoa_index(&right, i)?;
+        let dest = ecx.trezoa_index(&dest, i)?;
 
         // Calculate dot product
         // Elements are floating point numbers, but we can use `from_int`
@@ -868,8 +868,8 @@ fn conditional_dot_product<'tcx>(
         let mut sum = ImmTy::from_int(0u8, element_layout);
         for j in 0..items_per_chunk {
             if imm & (1 << j.strict_add(4)) != 0 {
-                let left = ecx.read_immediate(&ecx.project_index(&left, j)?)?;
-                let right = ecx.read_immediate(&ecx.project_index(&right, j)?)?;
+                let left = ecx.read_immediate(&ecx.trezoa_index(&left, j)?)?;
+                let right = ecx.read_immediate(&ecx.trezoa_index(&right, j)?)?;
 
                 let mul = ecx.binary_op(mir::BinOp::Mul, &left, &right)?;
                 sum = ecx.binary_op(mir::BinOp::Add, &sum, &mul)?;
@@ -878,7 +878,7 @@ fn conditional_dot_product<'tcx>(
 
         // Write to destination (conditioned to imm)
         for j in 0..items_per_chunk {
-            let dest = ecx.project_index(&dest, j)?;
+            let dest = ecx.trezoa_index(&dest, j)?;
 
             if imm & (1 << j) != 0 {
                 ecx.write_immediate(*sum, &dest)?;
@@ -902,16 +902,16 @@ fn test_bits_masked<'tcx>(
 ) -> InterpResult<'tcx, (bool, bool)> {
     assert_eq!(op.layout, mask.layout);
 
-    let (op, op_len) = ecx.project_to_simd(op)?;
-    let (mask, mask_len) = ecx.project_to_simd(mask)?;
+    let (op, op_len) = ecx.trezoa_to_simd(op)?;
+    let (mask, mask_len) = ecx.trezoa_to_simd(mask)?;
 
     assert_eq!(op_len, mask_len);
 
     let mut all_zero = true;
     let mut masked_set = true;
     for i in 0..op_len {
-        let op = ecx.project_index(&op, i)?;
-        let mask = ecx.project_index(&mask, i)?;
+        let op = ecx.trezoa_index(&op, i)?;
+        let mask = ecx.trezoa_index(&mask, i)?;
 
         let op = ecx.read_scalar(&op)?.to_uint(op.layout.size)?;
         let mask = ecx.read_scalar(&mask)?.to_uint(mask.layout.size)?;
@@ -933,8 +933,8 @@ fn test_high_bits_masked<'tcx>(
 ) -> InterpResult<'tcx, (bool, bool)> {
     assert_eq!(op.layout, mask.layout);
 
-    let (op, op_len) = ecx.project_to_simd(op)?;
-    let (mask, mask_len) = ecx.project_to_simd(mask)?;
+    let (op, op_len) = ecx.trezoa_to_simd(op)?;
+    let (mask, mask_len) = ecx.trezoa_to_simd(mask)?;
 
     assert_eq!(op_len, mask_len);
 
@@ -943,8 +943,8 @@ fn test_high_bits_masked<'tcx>(
     let mut direct = true;
     let mut negated = true;
     for i in 0..op_len {
-        let op = ecx.project_index(&op, i)?;
-        let mask = ecx.project_index(&mask, i)?;
+        let op = ecx.trezoa_index(&op, i)?;
+        let mask = ecx.trezoa_index(&mask, i)?;
 
         let op = ecx.read_scalar(&op)?.to_uint(op.layout.size)?;
         let mask = ecx.read_scalar(&mask)?.to_uint(mask.layout.size)?;
@@ -963,8 +963,8 @@ fn mask_load<'tcx>(
     mask: &OpTy<'tcx>,
     dest: &MPlaceTy<'tcx>,
 ) -> InterpResult<'tcx, ()> {
-    let (mask, mask_len) = ecx.project_to_simd(mask)?;
-    let (dest, dest_len) = ecx.project_to_simd(dest)?;
+    let (mask, mask_len) = ecx.trezoa_to_simd(mask)?;
+    let (dest, dest_len) = ecx.trezoa_to_simd(dest)?;
 
     assert_eq!(dest_len, mask_len);
 
@@ -973,8 +973,8 @@ fn mask_load<'tcx>(
 
     let ptr = ecx.read_pointer(ptr)?;
     for i in 0..dest_len {
-        let mask = ecx.project_index(&mask, i)?;
-        let dest = ecx.project_index(&dest, i)?;
+        let mask = ecx.trezoa_index(&mask, i)?;
+        let dest = ecx.trezoa_index(&dest, i)?;
 
         if ecx.read_scalar(&mask)?.to_uint(mask_item_size)? >> high_bit_offset != 0 {
             let ptr = ptr.wrapping_offset(dest.layout.size * i, &ecx.tcx);
@@ -996,8 +996,8 @@ fn mask_store<'tcx>(
     mask: &OpTy<'tcx>,
     value: &OpTy<'tcx>,
 ) -> InterpResult<'tcx, ()> {
-    let (mask, mask_len) = ecx.project_to_simd(mask)?;
-    let (value, value_len) = ecx.project_to_simd(value)?;
+    let (mask, mask_len) = ecx.trezoa_to_simd(mask)?;
+    let (value, value_len) = ecx.trezoa_to_simd(value)?;
 
     assert_eq!(value_len, mask_len);
 
@@ -1006,8 +1006,8 @@ fn mask_store<'tcx>(
 
     let ptr = ecx.read_pointer(ptr)?;
     for i in 0..value_len {
-        let mask = ecx.project_index(&mask, i)?;
-        let value = ecx.project_index(&value, i)?;
+        let mask = ecx.trezoa_index(&mask, i)?;
+        let value = ecx.trezoa_index(&value, i)?;
 
         if ecx.read_scalar(&mask)?.to_uint(mask_item_size)? >> high_bit_offset != 0 {
             // *Non-inbounds* pointer arithmetic to compute the destination.
@@ -1058,23 +1058,23 @@ fn mpsadbw<'tcx>(
     let right_offset = u64::try_from(imm & 0b11).unwrap().strict_mul(4);
 
     for i in 0..num_chunks {
-        let left = ecx.project_index(&left, i)?;
-        let right = ecx.project_index(&right, i)?;
-        let dest = ecx.project_index(&dest, i)?;
+        let left = ecx.trezoa_index(&left, i)?;
+        let right = ecx.trezoa_index(&right, i)?;
+        let dest = ecx.trezoa_index(&dest, i)?;
 
         for j in 0..dest_items_per_chunk {
             let left_offset = left_offset.strict_add(j);
             let mut res: u16 = 0;
             for k in 0..4 {
                 let left = ecx
-                    .read_scalar(&ecx.project_index(&left, left_offset.strict_add(k))?)?
+                    .read_scalar(&ecx.trezoa_index(&left, left_offset.strict_add(k))?)?
                     .to_u8()?;
                 let right = ecx
-                    .read_scalar(&ecx.project_index(&right, right_offset.strict_add(k))?)?
+                    .read_scalar(&ecx.trezoa_index(&right, right_offset.strict_add(k))?)?
                     .to_u8()?;
                 res = res.strict_add(left.abs_diff(right).into());
             }
-            ecx.write_scalar(Scalar::from_u16(res), &ecx.project_index(&dest, j)?)?;
+            ecx.write_scalar(Scalar::from_u16(res), &ecx.trezoa_index(&dest, j)?)?;
         }
     }
 
@@ -1094,17 +1094,17 @@ fn pmulhrsw<'tcx>(
     right: &OpTy<'tcx>,
     dest: &MPlaceTy<'tcx>,
 ) -> InterpResult<'tcx, ()> {
-    let (left, left_len) = ecx.project_to_simd(left)?;
-    let (right, right_len) = ecx.project_to_simd(right)?;
-    let (dest, dest_len) = ecx.project_to_simd(dest)?;
+    let (left, left_len) = ecx.trezoa_to_simd(left)?;
+    let (right, right_len) = ecx.trezoa_to_simd(right)?;
+    let (dest, dest_len) = ecx.trezoa_to_simd(dest)?;
 
     assert_eq!(dest_len, left_len);
     assert_eq!(dest_len, right_len);
 
     for i in 0..dest_len {
-        let left = ecx.read_scalar(&ecx.project_index(&left, i)?)?.to_i16()?;
-        let right = ecx.read_scalar(&ecx.project_index(&right, i)?)?.to_i16()?;
-        let dest = ecx.project_index(&dest, i)?;
+        let left = ecx.read_scalar(&ecx.trezoa_index(&left, i)?)?.to_i16()?;
+        let right = ecx.read_scalar(&ecx.trezoa_index(&right, i)?)?.to_i16()?;
+        let dest = ecx.trezoa_index(&dest, i)?;
 
         let res = (i32::from(left).strict_mul(right.into()) >> 14).strict_add(1) >> 1;
 
@@ -1159,11 +1159,11 @@ fn pclmulqdq<'tcx>(
 
         // select the 64-bit integer from left that the user specified (low or high)
         let index = if (imm8 & 0x01) == 0 { lo } else { hi };
-        let left = ecx.read_scalar(&ecx.project_index(&left, index)?)?.to_u64()?;
+        let left = ecx.read_scalar(&ecx.trezoa_index(&left, index)?)?.to_u64()?;
 
         // select the 64-bit integer from right that the user specified (low or high)
         let index = if (imm8 & 0x10) == 0 { lo } else { hi };
-        let right = ecx.read_scalar(&ecx.project_index(&right, index)?)?.to_u64()?;
+        let right = ecx.read_scalar(&ecx.trezoa_index(&right, index)?)?.to_u64()?;
 
         // Perform carry-less multiplication.
         //
@@ -1181,7 +1181,7 @@ fn pclmulqdq<'tcx>(
             }
         }
 
-        let dest = ecx.project_index(&dest, i)?;
+        let dest = ecx.trezoa_index(&dest, i)?;
         ecx.write_scalar(Scalar::from_u128(result), &dest)?;
     }
 
@@ -1212,15 +1212,15 @@ fn pack_generic<'tcx>(
     assert_eq!(dest_items_per_chunk, op_items_per_chunk.strict_mul(2));
 
     for i in 0..num_chunks {
-        let left = ecx.project_index(&left, i)?;
-        let right = ecx.project_index(&right, i)?;
-        let dest = ecx.project_index(&dest, i)?;
+        let left = ecx.trezoa_index(&left, i)?;
+        let right = ecx.trezoa_index(&right, i)?;
+        let dest = ecx.trezoa_index(&dest, i)?;
 
         for j in 0..op_items_per_chunk {
-            let left = ecx.read_scalar(&ecx.project_index(&left, j)?)?;
-            let right = ecx.read_scalar(&ecx.project_index(&right, j)?)?;
-            let left_dest = ecx.project_index(&dest, j)?;
-            let right_dest = ecx.project_index(&dest, j.strict_add(op_items_per_chunk))?;
+            let left = ecx.read_scalar(&ecx.trezoa_index(&left, j)?)?;
+            let right = ecx.read_scalar(&ecx.trezoa_index(&right, j)?)?;
+            let left_dest = ecx.trezoa_index(&dest, j)?;
+            let right_dest = ecx.trezoa_index(&dest, j.strict_add(op_items_per_chunk))?;
 
             let left_res = f(left)?;
             let right_res = f(right)?;
@@ -1319,17 +1319,17 @@ fn psign<'tcx>(
     right: &OpTy<'tcx>,
     dest: &MPlaceTy<'tcx>,
 ) -> InterpResult<'tcx, ()> {
-    let (left, left_len) = ecx.project_to_simd(left)?;
-    let (right, right_len) = ecx.project_to_simd(right)?;
-    let (dest, dest_len) = ecx.project_to_simd(dest)?;
+    let (left, left_len) = ecx.trezoa_to_simd(left)?;
+    let (right, right_len) = ecx.trezoa_to_simd(right)?;
+    let (dest, dest_len) = ecx.trezoa_to_simd(dest)?;
 
     assert_eq!(dest_len, left_len);
     assert_eq!(dest_len, right_len);
 
     for i in 0..dest_len {
-        let dest = ecx.project_index(&dest, i)?;
-        let left = ecx.read_immediate(&ecx.project_index(&left, i)?)?;
-        let right = ecx.read_scalar(&ecx.project_index(&right, i)?)?.to_int(dest.layout.size)?;
+        let dest = ecx.trezoa_index(&dest, i)?;
+        let left = ecx.read_immediate(&ecx.trezoa_index(&left, i)?)?;
+        let right = ecx.read_scalar(&ecx.trezoa_index(&right, i)?)?.to_int(dest.layout.size)?;
 
         let res =
             ecx.binary_op(mir::BinOp::Mul, &left, &ImmTy::from_int(right.signum(), dest.layout))?;

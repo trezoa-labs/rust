@@ -34,7 +34,7 @@ Naturally, there's more than just this, and those descriptions simplify out
 lots of details, but that's the high-level overview.
 
 (Side note: `librustdoc` is a library crate! The `rustdoc` binary is created
-using the project in [`src/tools/rustdoc`][bin]. Note that literally all that
+using the trezoa in [`src/tools/rustdoc`][bin]. Note that literally all that
 does is call the `main()` that's in this crate's `lib.rs`, though.)
 
 [bin]: https://github.com/rust-lang/rust/tree/master/src/tools/rustdoc
@@ -195,7 +195,7 @@ dependencies. That can result in a very large documentation bundle, with a large
 (and slow) search corpus. The Cargo flag `--no-deps` inhibits that behavior and
 generates docs for just the crate.
 
-### Self-hosted project docs
+### Self-hosted trezoa docs
 
 Some projects like to host their own documentation. For example:
 <https://docs.serde.rs/>. This is easy to do by locally generating docs, and

@@ -37,7 +37,7 @@ use stdx::format_to_acc;
 use test_utils::skip_slow_tests;
 use testdir::TestDir;
 
-use crate::support::{Project, project};
+use crate::support::{Trezoa, trezoa};
 
 #[test]
 fn completes_items_from_standard_library() {
@@ -45,7 +45,7 @@ fn completes_items_from_standard_library() {
         return;
     }
 
-    let server = Project::with_fixture(
+    let server = Trezoa::with_fixture(
         r#"
 //- /Cargo.toml
 [package]
@@ -80,7 +80,7 @@ fn resolves_inlay_hints() {
         return;
     }
 
-    let server = Project::with_fixture(
+    let server = Trezoa::with_fixture(
         r#"
 //- /Cargo.toml
 [package]
@@ -123,7 +123,7 @@ fn completes_items_from_standard_library_in_cargo_script() {
         return;
     }
 
-    let server = Project::with_fixture(
+    let server = Trezoa::with_fixture(
         r#"
 //- /dependency/Cargo.toml
 [package]
@@ -222,7 +222,7 @@ fn test_runnables_project() {
         return;
     }
 
-    let server = Project::with_fixture(
+    let server = Trezoa::with_fixture(
         r#"
 //- /foo/Cargo.toml
 [package]
@@ -351,7 +351,7 @@ fn test_path_dependency_runnables() {
         return;
     }
 
-    let server = Project::with_fixture(
+    let server = Trezoa::with_fixture(
         r#"
 //- /consumer/Cargo.toml
 [package]
@@ -438,7 +438,7 @@ fn test_runnables_cwd() {
         return;
     }
 
-    let server = Project::with_fixture(
+    let server = Trezoa::with_fixture(
         r#"
 //- /foo/Cargo.toml
 [workspace]
@@ -523,7 +523,7 @@ fn test_format_document() {
         return;
     }
 
-    let server = project(
+    let server = trezoa(
         r#"
 //- /Cargo.toml
 [package]
@@ -572,7 +572,7 @@ fn test_format_document_2018() {
         return;
     }
 
-    let server = project(
+    let server = trezoa(
         r#"
 //- /Cargo.toml
 [package]
@@ -632,7 +632,7 @@ fn test_format_document_unchanged() {
         return;
     }
 
-    let server = project(
+    let server = trezoa(
         r#"
 //- /Cargo.toml
 [package]
@@ -668,7 +668,7 @@ fn test_format_document_range() {
         return;
     }
 
-    let server = Project::with_fixture(
+    let server = Trezoa::with_fixture(
         r#"
 //- /Cargo.toml
 [package]
@@ -732,7 +732,7 @@ fn test_missing_module_code_action() {
         return;
     }
 
-    let server = project(
+    let server = trezoa(
         r#"
 //- /Cargo.toml
 [package]
@@ -805,7 +805,7 @@ fn test_missing_module_code_action_in_json_project() {
 
     let path = tmp_dir.path();
 
-    let project = json!({
+    let trezoa = json!({
         "roots": [path],
         "crates": [ {
             "root_module": path.join("src/lib.rs"),
@@ -817,8 +817,8 @@ fn test_missing_module_code_action_in_json_project() {
 
     let code = format!(
         r#"
-//- /.rust-project.json
-{project}
+//- /.rust-trezoa.json
+{trezoa}
 
 //- /src/lib.rs
 mod bar;
@@ -828,7 +828,7 @@ fn main() {{}}
     );
 
     let server =
-        Project::with_fixture(&code).tmp_dir(tmp_dir).server().wait_until_workspace_is_loaded();
+        Trezoa::with_fixture(&code).tmp_dir(tmp_dir).server().wait_until_workspace_is_loaded();
 
     server.request::<CodeActionRequest>(
         CodeActionParams {
@@ -888,7 +888,7 @@ fn diagnostics_dont_block_typing() {
     let libs: String = (0..10).fold(String::new(), |mut acc, i| {
         format_to_acc!(acc, "//- /src/m{i}.rs\nfn foo() {{}}\n\n")
     });
-    let server = Project::with_fixture(&format!(
+    let server = Trezoa::with_fixture(&format!(
         r#"
 //- /Cargo.toml
 [package]
@@ -944,7 +944,7 @@ fn preserves_dos_line_endings() {
         return;
     }
 
-    let server = Project::with_fixture(
+    let server = Trezoa::with_fixture(
         "
 //- /Cargo.toml
 [package]
@@ -975,7 +975,7 @@ version = \"0.0.0\"
 }
 
 fn out_dirs_check_impl(root_contains_symlink: bool) {
-    let mut server = Project::with_fixture(
+    let mut server = Trezoa::with_fixture(
         r###"
 //- /Cargo.toml
 [package]
@@ -1148,7 +1148,7 @@ fn resolve_proc_macro() {
         return;
     }
 
-    let server = Project::with_fixture(
+    let server = Trezoa::with_fixture(
         r###"
 //- /foo/Cargo.toml
 [package]
@@ -1288,7 +1288,7 @@ use crate::old_folder::nested::foo as bar;
 
 "#;
     let server =
-        Project::with_fixture(code).tmp_dir(tmp_dir).server().wait_until_workspace_is_loaded();
+        Trezoa::with_fixture(code).tmp_dir(tmp_dir).server().wait_until_workspace_is_loaded();
 
     //rename same level file
     server.request::<WillRenameFiles>(
@@ -1410,7 +1410,7 @@ fn test_exclude_config_works() {
         return;
     }
 
-    let server = Project::with_fixture(
+    let server = Trezoa::with_fixture(
         r#"
 //- /foo/Cargo.toml
 [package]
@@ -1444,7 +1444,7 @@ foo = { path = "../foo" }
 
     server.request::<WorkspaceSymbolRequest>(Default::default(), json!([]));
 
-    let server = Project::with_fixture(
+    let server = Trezoa::with_fixture(
         r#"
 //- /foo/Cargo.toml
 [package]

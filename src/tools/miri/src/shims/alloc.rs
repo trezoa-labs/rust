@@ -31,7 +31,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
         // `max_fundamental_align` is bigger.
         // This matches what some real-world implementations do, see e.g.
         // - https://github.com/jemalloc/jemalloc/issues/1533
-        // - https://github.com/llvm/llvm-project/issues/53540
+        // - https://github.com/llvm/llvm-trezoa/issues/53540
         // - https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2293.htm
         if size >= max_fundamental_align {
             return Align::from_bytes(max_fundamental_align).unwrap();

@@ -36,7 +36,7 @@ fn main() -> anyhow::Result<()> {
     let flags = flags::Xtask::from_env_or_exit();
 
     let sh = &Shell::new()?;
-    sh.change_dir(project_root());
+    sh.change_dir(trezoa_root());
 
     match flags.subcommand {
         flags::XtaskCmd::Install(cmd) => cmd.run(sh),
@@ -63,8 +63,8 @@ fn main() -> anyhow::Result<()> {
     }
 }
 
-/// Returns the path to the root directory of `rust-analyzer` project.
-fn project_root() -> PathBuf {
+/// Returns the path to the root directory of `rust-analyzer` trezoa.
+fn trezoa_root() -> PathBuf {
     let dir =
         env::var("CARGO_MANIFEST_DIR").unwrap_or_else(|_| env!("CARGO_MANIFEST_DIR").to_owned());
     PathBuf::from(dir).parent().unwrap().to_owned()

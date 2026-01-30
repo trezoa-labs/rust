@@ -134,7 +134,7 @@ mod float_mul_f128 {
     float_mul! {
         f128, __multf3, Quad,
         // FIXME(llvm): there is a bug in LLVM rt.
-        // See <https://github.com/llvm/llvm-project/issues/91840>.
+        // See <https://github.com/llvm/llvm-trezoa/issues/91840>.
         not(any(feature = "no-sys-f128", all(target_arch = "aarch64", target_os = "linux")));
     }
 }

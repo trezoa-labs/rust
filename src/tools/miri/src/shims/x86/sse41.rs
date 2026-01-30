@@ -30,9 +30,9 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             "insertps" => {
                 let [left, right, imm] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
 
-                let (left, left_len) = this.project_to_simd(left)?;
-                let (right, right_len) = this.project_to_simd(right)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (left, left_len) = this.trezoa_to_simd(left)?;
+                let (right, right_len) = this.trezoa_to_simd(right)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(dest_len, left_len);
                 assert_eq!(dest_len, right_len);
@@ -42,10 +42,10 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 let src_index = u64::from((imm >> 6) & 0b11);
                 let dst_index = u64::from((imm >> 4) & 0b11);
 
-                let src_value = this.read_immediate(&this.project_index(&right, src_index)?)?;
+                let src_value = this.read_immediate(&this.trezoa_index(&right, src_index)?)?;
 
                 for i in 0..dest_len {
-                    let dest = this.project_index(&dest, i)?;
+                    let dest = this.trezoa_index(&dest, i)?;
 
                     if imm & (1 << i) != 0 {
                         // zeroed
@@ -55,7 +55,7 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                         this.write_immediate(*src_value, &dest)?;
                     } else {
                         // copy from `left`
-                        this.copy_op(&this.project_index(&left, i)?, &dest)?;
+                        this.copy_op(&this.trezoa_index(&left, i)?, &dest)?;
                     }
                 }
             }
@@ -113,14 +113,14 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             "phminposuw" => {
                 let [op] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
 
-                let (op, op_len) = this.project_to_simd(op)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (op, op_len) = this.trezoa_to_simd(op)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 // Find minimum
                 let mut min_value = u16::MAX;
                 let mut min_index = 0;
                 for i in 0..op_len {
-                    let op = this.read_scalar(&this.project_index(&op, i)?)?.to_u16()?;
+                    let op = this.read_scalar(&this.trezoa_index(&op, i)?)?.to_u16()?;
                     if op < min_value {
                         min_value = op;
                         min_index = i;
@@ -128,14 +128,14 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 }
 
                 // Write value and index
-                this.write_scalar(Scalar::from_u16(min_value), &this.project_index(&dest, 0)?)?;
+                this.write_scalar(Scalar::from_u16(min_value), &this.trezoa_index(&dest, 0)?)?;
                 this.write_scalar(
                     Scalar::from_u16(min_index.try_into().unwrap()),
-                    &this.project_index(&dest, 1)?,
+                    &this.trezoa_index(&dest, 1)?,
                 )?;
                 // Fill remainder with zeros
                 for i in 2..dest_len {
-                    this.write_scalar(Scalar::from_u16(0), &this.project_index(&dest, i)?)?;
+                    this.write_scalar(Scalar::from_u16(0), &this.trezoa_index(&dest, i)?)?;
                 }
             }
             // Used to implement the _mm_mpsadbw_epu8 function.

@@ -176,7 +176,7 @@ macro_rules! impl_float {
             $(
             #[inline]
             fn $fn(self) -> Self {
-                // https://github.com/llvm/llvm-project/issues/83729
+                // https://github.com/llvm/llvm-trezoa/issues/83729
                 #[cfg(target_arch = "aarch64")]
                 {
                     let mut ln = Self::splat(0f64);

@@ -2070,7 +2070,7 @@ impl<T: ?Sized, A: Allocator> AsMut<T> for Box<T, A> {
  *
  *  Another type with the same semantics as Box but only a conditional
  *  implementation of `Unpin` (where `T: Unpin`) would be valid/safe, and
- *  could have a method to project a Pin<T> from it.
+ *  could have a method to trezoa a Pin<T> from it.
  */
 #[stable(feature = "pin", since = "1.33.0")]
 impl<T: ?Sized, A: Allocator> Unpin for Box<T, A> {}

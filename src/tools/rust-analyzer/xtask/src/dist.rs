@@ -12,7 +12,7 @@ use zip::{DateTime, ZipWriter, write::SimpleFileOptions};
 use crate::{
     date_iso,
     flags::{self, Malloc, PgoTrainingCrate},
-    project_root,
+    trezoa_root,
     util::detect_target,
 };
 
@@ -24,10 +24,10 @@ impl flags::Dist {
     pub(crate) fn run(self, sh: &Shell) -> anyhow::Result<()> {
         let stable = sh.var("GITHUB_REF").unwrap_or_default().as_str() == "refs/heads/release";
 
-        let project_root = project_root();
-        let target = Target::get(&project_root, sh);
+        let trezoa_root = trezoa_root();
+        let target = Target::get(&trezoa_root, sh);
         let allocator = self.allocator();
-        let dist = project_root.join("dist");
+        let dist = trezoa_root.join("dist");
         sh.remove_path(&dist)?;
         sh.create_dir(&dist)?;
 
@@ -201,13 +201,13 @@ struct Target {
 }
 
 impl Target {
-    fn get(project_root: &Path, sh: &Shell) -> Self {
+    fn get(trezoa_root: &Path, sh: &Shell) -> Self {
         let name = detect_target(sh);
         let (name, libc_suffix) = match name.split_once('.') {
             Some((l, r)) => (l.to_owned(), Some(r.to_owned())),
             None => (name, None),
         };
-        let out_path = project_root.join("target").join(&name).join("release");
+        let out_path = trezoa_root.join("target").join(&name).join("release");
         let (exe_suffix, symbols_path) = if name.contains("-windows-") {
             (".exe".into(), Some(out_path.join("rust_analyzer.pdb")))
         } else {

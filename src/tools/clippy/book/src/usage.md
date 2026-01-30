@@ -25,7 +25,7 @@ levels.
 
 > _Note:_ Clippy is meant to be used with a generous sprinkling of
 > `#[allow(..)]`s through your code. So if you disagree with a lint, don't feel
-> bad disabling them for parts of your code or the whole project.
+> bad disabling them for parts of your code or the whole trezoa.
 
 #### Command line
 

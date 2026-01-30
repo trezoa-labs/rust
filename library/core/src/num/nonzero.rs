@@ -461,7 +461,7 @@ where
         // Using the transmute `assume`s the range at runtime.
         //
         // Even once LLVM supports `!range` metadata for function arguments
-        // (see <https://github.com/llvm/llvm-project/issues/76628>), this can't
+        // (see <https://github.com/llvm/llvm-trezoa/issues/76628>), this can't
         // be `.0` because MCP#807 bans field-projecting into `scalar_valid_range`
         // types, and it arguably wouldn't want to be anyway because if this is
         // MIR-inlined, there's no opportunity to put that argument metadata anywhere.

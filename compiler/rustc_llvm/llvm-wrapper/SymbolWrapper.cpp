@@ -1,11 +1,11 @@
 // Derived from code in LLVM, which is:
-// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+// Part of the LLVM Trezoa, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
 // Derived from:
-// * https://github.com/llvm/llvm-project/blob/ef6d1ec07c693352c4a60dd58db08d2d8558f6ea/llvm/include/llvm/Object/ArchiveWriter.h
-// * https://github.com/llvm/llvm-project/blob/ef6d1ec07c693352c4a60dd58db08d2d8558f6ea/llvm/lib/Object/ArchiveWriter.cpp
+// * https://github.com/llvm/llvm-trezoa/blob/ef6d1ec07c693352c4a60dd58db08d2d8558f6ea/llvm/include/llvm/Object/ArchiveWriter.h
+// * https://github.com/llvm/llvm-trezoa/blob/ef6d1ec07c693352c4a60dd58db08d2d8558f6ea/llvm/lib/Object/ArchiveWriter.cpp
 
 #include "LLVMWrapper.h"
 

@@ -6,7 +6,7 @@ line-index is a library to convert between text offsets and corresponding line/c
 
 ## Installation
 
-To add this crate to a project simply run `cargo add line-index`.
+To add this crate to a trezoa simply run `cargo add line-index`.
 
 ## Usage
 

@@ -49,7 +49,7 @@ path = [
     ".ignore",
 ]
 precedence = "override"
-SPDX-FileCopyrightText = "The Rust Project Developers (see https://thanks.rust-lang.org)"
+SPDX-FileCopyrightText = "The Rust Trezoa Developers (see https://thanks.rust-lang.org)"
 SPDX-License-Identifier = "MIT or Apache-2.0"
 
 [[annotations]]
@@ -57,7 +57,7 @@ path = "compiler/rustc_llvm/llvm-wrapper/SymbolWrapper.cpp"
 precedence = "override"
 SPDX-FileCopyrightText = [
     "2003-2019 University of Illinois at Urbana-Champaign.",
-    "The Rust Project Developers (see https://thanks.rust-lang.org)",
+    "The Rust Trezoa Developers (see https://thanks.rust-lang.org)",
 ]
 SPDX-License-Identifier = "Apache-2.0 WITH LLVM-exception AND (Apache-2.0 OR MIT)"
 
@@ -71,8 +71,8 @@ SPDX-License-Identifier = "Unicode-3.0"
 path = "library/std/src/sync/mpmc/**"
 precedence = "override"
 SPDX-FileCopyrightText = [
-    "2019 The Crossbeam Project Developers",
-    "The Rust Project Developers (see https://thanks.rust-lang.org)",
+    "2019 The Crossbeam Trezoa Developers",
+    "The Rust Trezoa Developers (see https://thanks.rust-lang.org)",
 ]
 SPDX-License-Identifier = "MIT OR Apache-2.0"
 
@@ -81,7 +81,7 @@ path = "library/std/src/sys/sync/mutex/fuchsia.rs"
 precedence = "override"
 SPDX-FileCopyrightText = [
     "2016 The Fuchsia Authors",
-    "The Rust Project Developers (see https://thanks.rust-lang.org)",
+    "The Rust Trezoa Developers (see https://thanks.rust-lang.org)",
 ]
 SPDX-License-Identifier = "BSD-2-Clause AND (MIT OR Apache-2.0)"
 
@@ -123,7 +123,7 @@ path = "src/librustdoc/html/static/css/rustdoc.css"
 precedence = "override"
 SPDX-FileCopyrightText = [
     "2016 Ike Ku, Jessica Stokes and Leon Guan",
-    "The Rust Project Developers (see https://thanks.rust-lang.org)",
+    "The Rust Trezoa Developers (see https://thanks.rust-lang.org)",
 ]
 SPDX-License-Identifier = "MIT OR Apache-2.0"
 
@@ -138,7 +138,7 @@ path = "library/backtrace/**"
 precedence = "override"
 SPDX-FileCopyrightText = [
     "2014 Alex Crichton",
-    "The Rust Project Developers (see https://thanks.rust-lang.org)",
+    "The Rust Trezoa Developers (see https://thanks.rust-lang.org)",
 ]
 SPDX-License-Identifier = "MIT OR Apache-2.0"
 
@@ -147,7 +147,7 @@ path = "src/doc/embedded-book/**"
 precedence = "override"
 SPDX-FileCopyrightText = [
     "Rust on Embedded Devices Working Group",
-    "The Rust Project Developers (see https://thanks.rust-lang.org)",
+    "The Rust Trezoa Developers (see https://thanks.rust-lang.org)",
 ]
 SPDX-License-Identifier = "MIT OR Apache-2.0 OR CC-BY-SA-4.0"
 
@@ -156,15 +156,15 @@ path = "src/doc/rust-by-example/**"
 precedence = "override"
 SPDX-FileCopyrightText = [
     "2014 Jorge Aparicio",
-    "The Rust Project Developers (see https://thanks.rust-lang.org)",
+    "The Rust Trezoa Developers (see https://thanks.rust-lang.org)",
 ]
 SPDX-License-Identifier = "MIT OR Apache-2.0"
 
 [[annotations]]
-path = "src/llvm-project/**"
+path = "src/llvm-trezoa/**"
 precedence = "override"
 SPDX-FileCopyrightText = [
-    "2003-2019 by the contributors listed in CREDITS.TXT (https://github.com/rust-lang/llvm-project/blob/7738295178045041669876bf32b0543ec8319a5c/llvm/CREDITS.TXT)",
+    "2003-2019 by the contributors listed in CREDITS.TXT (https://github.com/rust-lang/llvm-trezoa/blob/7738295178045041669876bf32b0543ec8319a5c/llvm/CREDITS.TXT)",
     "2010 Apple Inc",
     "2003-2019 University of Illinois at Urbana-Champaign.",
 ]

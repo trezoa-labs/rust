@@ -77,10 +77,10 @@
     "activationEvents": [
         "workspaceContains:Cargo.toml",
         "workspaceContains:*/Cargo.toml",
-        "workspaceContains:rust-project.json",
-        "workspaceContains:*/rust-project.json",
-        "workspaceContains:.rust-project.json",
-        "workspaceContains:*/.rust-project.json"
+        "workspaceContains:rust-trezoa.json",
+        "workspaceContains:*/rust-trezoa.json",
+        "workspaceContains:.rust-trezoa.json",
+        "workspaceContains:*/.rust-trezoa.json"
     ],
     "main": "./out/main",
     "contributes": {
@@ -613,7 +613,7 @@
                         }
                     },
                     "rust-analyzer.debug.buildBeforeRestart": {
-                        "markdownDescription": "Whether to rebuild the project modules before debugging the same test again",
+                        "markdownDescription": "Whether to rebuild the trezoa modules before debugging the same test again",
                         "type": "boolean",
                         "default": false
                     },
@@ -705,7 +705,7 @@
                 "title": "cachePriming",
                 "properties": {
                     "rust-analyzer.cachePriming.enable": {
-                        "markdownDescription": "Warm up caches on project load.",
+                        "markdownDescription": "Warm up caches on trezoa load.",
                         "default": true,
                         "type": "boolean"
                     }
@@ -752,7 +752,7 @@
                 "title": "cargo",
                 "properties": {
                     "rust-analyzer.cargo.autoreload": {
-                        "markdownDescription": "Automatically refresh project info via `cargo metadata` on\n`Cargo.toml` or `.cargo/config.toml` changes.",
+                        "markdownDescription": "Automatically refresh trezoa info via `cargo metadata` on\n`Cargo.toml` or `.cargo/config.toml` changes.",
                         "default": true,
                         "type": "boolean"
                     }
@@ -772,7 +772,7 @@
                 "title": "cargo",
                 "properties": {
                     "rust-analyzer.cargo.buildScripts.invocationStrategy": {
-                        "markdownDescription": "Specifies the invocation strategy to use when running the build scripts command.\nIf `per_workspace` is set, the command will be executed for each Rust workspace with the\nworkspace as the working directory.\nIf `once` is set, the command will be executed once with the opened project as the\nworking directory.\nThis config only has an effect when `#rust-analyzer.cargo.buildScripts.overrideCommand#`\nis set.",
+                        "markdownDescription": "Specifies the invocation strategy to use when running the build scripts command.\nIf `per_workspace` is set, the command will be executed for each Rust workspace with the\nworkspace as the working directory.\nIf `once` is set, the command will be executed once with the opened trezoa as the\nworking directory.\nThis config only has an effect when `#rust-analyzer.cargo.buildScripts.overrideCommand#`\nis set.",
                         "default": "per_workspace",
                         "type": "string",
                         "enum": [
@@ -781,7 +781,7 @@
                         ],
                         "enumDescriptions": [
                             "The command will be executed for each Rust workspace with the workspace as the working directory.",
-                            "The command will be executed once with the opened project as the working directory."
+                            "The command will be executed once with the opened trezoa as the working directory."
                         ]
                     }
                 }
@@ -1088,7 +1088,7 @@
                         ],
                         "enumDescriptions": [
                             "The command will be executed for each Rust workspace with the workspace as the working directory.",
-                            "The command will be executed once with the opened project as the working directory."
+                            "The command will be executed once with the opened trezoa as the working directory."
                         ]
                     }
                 }
@@ -2490,7 +2490,7 @@
                 "title": "general",
                 "properties": {
                     "rust-analyzer.linkedProjects": {
-                        "markdownDescription": "Disable project auto-discovery in favor of explicitly specified set\nof projects.\n\nElements must be paths pointing to `Cargo.toml`,\n`rust-project.json`, `.rs` files (which will be treated as standalone files) or JSON\nobjects in `rust-project.json` format.",
+                        "markdownDescription": "Disable trezoa auto-discovery in favor of explicitly specified set\nof projects.\n\nElements must be paths pointing to `Cargo.toml`,\n`rust-trezoa.json`, `.rs` files (which will be treated as standalone files) or JSON\nobjects in `rust-trezoa.json` format.",
                         "default": [],
                         "type": "array",
                         "items": {
@@ -2675,7 +2675,7 @@
                 "title": "rustc",
                 "properties": {
                     "rust-analyzer.rustc.source": {
-                        "markdownDescription": "Path to the Cargo.toml of the rust compiler workspace, for usage in rustc_private\nprojects, or \"discover\" to try to automatically find it if the `rustc-dev` component\nis installed.\n\nAny project which uses rust-analyzer with the rustcPrivate\ncrates must set `[package.metadata.rust-analyzer] rustc_private=true` to use it.\n\nThis option does not take effect until rust-analyzer is restarted.",
+                        "markdownDescription": "Path to the Cargo.toml of the rust compiler workspace, for usage in rustc_private\nprojects, or \"discover\" to try to automatically find it if the `rustc-dev` component\nis installed.\n\nAny trezoa which uses rust-analyzer with the rustcPrivate\ncrates must set `[package.metadata.rust-analyzer] rustc_private=true` to use it.\n\nThis option does not take effect until rust-analyzer is restarted.",
                         "default": null,
                         "type": [
                             "null",
@@ -2861,7 +2861,7 @@
                 "title": "workspace",
                 "properties": {
                     "rust-analyzer.workspace.discoverConfig": {
-                        "markdownDescription": "Enables automatic discovery of projects using [`DiscoverWorkspaceConfig::command`].\n\n[`DiscoverWorkspaceConfig`] also requires setting `progress_label` and `files_to_watch`.\n`progress_label` is used for the title in progress indicators, whereas `files_to_watch`\nis used to determine which build system-specific files should be watched in order to\nreload rust-analyzer.\n\nBelow is an example of a valid configuration:\n```json\n\"rust-analyzer.workspace.discoverConfig\": {\n        \"command\": [\n                \"rust-project\",\n                \"develop-json\"\n        ],\n        \"progressLabel\": \"rust-analyzer\",\n        \"filesToWatch\": [\n                \"BUCK\"\n        ]\n}\n```\n\n## On `DiscoverWorkspaceConfig::command`\n\n**Warning**: This format is provisional and subject to change.\n\n[`DiscoverWorkspaceConfig::command`] *must* return a JSON object\ncorresponding to `DiscoverProjectData::Finished`:\n\n```norun\n#[derive(Debug, Clone, Deserialize, Serialize)]\n#[serde(tag = \"kind\")]\n#[serde(rename_all = \"snake_case\")]\nenum DiscoverProjectData {\n        Finished { buildfile: Utf8PathBuf, project: ProjectJsonData },\n        Error { error: String, source: Option<String> },\n        Progress { message: String },\n}\n```\n\nAs JSON, `DiscoverProjectData::Finished` is:\n\n```json\n{\n        // the internally-tagged representation of the enum.\n        \"kind\": \"finished\",\n        // the file used by a non-Cargo build system to define\n        // a package or target.\n        \"buildfile\": \"rust-analyzer/BUILD\",\n        // the contents of a rust-project.json, elided for brevity\n        \"project\": {\n                \"sysroot\": \"foo\",\n                \"crates\": []\n        }\n}\n```\n\nIt is encouraged, but not required, to use the other variants on\n`DiscoverProjectData` to provide a more polished end-user experience.\n\n`DiscoverWorkspaceConfig::command` may *optionally* include an `{arg}`,\nwhich will be substituted with the JSON-serialized form of the following\nenum:\n\n```norun\n#[derive(PartialEq, Clone, Debug, Serialize)]\n#[serde(rename_all = \"camelCase\")]\npub enum DiscoverArgument {\n     Path(AbsPathBuf),\n     Buildfile(AbsPathBuf),\n}\n```\n\nThe JSON representation of `DiscoverArgument::Path` is:\n\n```json\n{\n        \"path\": \"src/main.rs\"\n}\n```\n\nSimilarly, the JSON representation of `DiscoverArgument::Buildfile` is:\n\n```json\n{\n        \"buildfile\": \"BUILD\"\n}\n```\n\n`DiscoverArgument::Path` is used to find and generate a `rust-project.json`,\nand therefore, a workspace, whereas `DiscoverArgument::buildfile` is used to\nto update an existing workspace. As a reference for implementors,\nbuck2's `rust-project` will likely be useful:\nhttps://github.com/facebook/buck2/tree/main/integrations/rust-project.",
+                        "markdownDescription": "Enables automatic discovery of projects using [`DiscoverWorkspaceConfig::command`].\n\n[`DiscoverWorkspaceConfig`] also requires setting `progress_label` and `files_to_watch`.\n`progress_label` is used for the title in progress indicators, whereas `files_to_watch`\nis used to determine which build system-specific files should be watched in order to\nreload rust-analyzer.\n\nBelow is an example of a valid configuration:\n```json\n\"rust-analyzer.workspace.discoverConfig\": {\n        \"command\": [\n                \"rust-trezoa\",\n                \"develop-json\"\n        ],\n        \"progressLabel\": \"rust-analyzer\",\n        \"filesToWatch\": [\n                \"BUCK\"\n        ]\n}\n```\n\n## On `DiscoverWorkspaceConfig::command`\n\n**Warning**: This format is provisional and subject to change.\n\n[`DiscoverWorkspaceConfig::command`] *must* return a JSON object\ncorresponding to `DiscoverProjectData::Finished`:\n\n```norun\n#[derive(Debug, Clone, Deserialize, Serialize)]\n#[serde(tag = \"kind\")]\n#[serde(rename_all = \"snake_case\")]\nenum DiscoverProjectData {\n        Finished { buildfile: Utf8PathBuf, trezoa: ProjectJsonData },\n        Error { error: String, source: Option<String> },\n        Progress { message: String },\n}\n```\n\nAs JSON, `DiscoverProjectData::Finished` is:\n\n```json\n{\n        // the internally-tagged representation of the enum.\n        \"kind\": \"finished\",\n        // the file used by a non-Cargo build system to define\n        // a package or target.\n        \"buildfile\": \"rust-analyzer/BUILD\",\n        // the contents of a rust-trezoa.json, elided for brevity\n        \"trezoa\": {\n                \"sysroot\": \"foo\",\n                \"crates\": []\n        }\n}\n```\n\nIt is encouraged, but not required, to use the other variants on\n`DiscoverProjectData` to provide a more polished end-user experience.\n\n`DiscoverWorkspaceConfig::command` may *optionally* include an `{arg}`,\nwhich will be substituted with the JSON-serialized form of the following\nenum:\n\n```norun\n#[derive(PartialEq, Clone, Debug, Serialize)]\n#[serde(rename_all = \"camelCase\")]\npub enum DiscoverArgument {\n     Path(AbsPathBuf),\n     Buildfile(AbsPathBuf),\n}\n```\n\nThe JSON representation of `DiscoverArgument::Path` is:\n\n```json\n{\n        \"path\": \"src/main.rs\"\n}\n```\n\nSimilarly, the JSON representation of `DiscoverArgument::Buildfile` is:\n\n```json\n{\n        \"buildfile\": \"BUILD\"\n}\n```\n\n`DiscoverArgument::Path` is used to find and generate a `rust-trezoa.json`,\nand therefore, a workspace, whereas `DiscoverArgument::buildfile` is used to\nto update an existing workspace. As a reference for implementors,\nbuck2's `rust-trezoa` will likely be useful:\nhttps://github.com/facebook/buck2/tree/main/integrations/rust-trezoa.",
                         "default": null,
                         "anyOf": [
                             {
@@ -3566,12 +3566,12 @@
         },
         "jsonValidation": [
             {
-                "fileMatch": "rust-project.json",
-                "url": "https://json.schemastore.org/rust-project.json"
+                "fileMatch": "rust-trezoa.json",
+                "url": "https://json.schemastore.org/rust-trezoa.json"
             },
             {
-                "fileMatch": ".rust-project.json",
-                "url": "https://json.schemastore.org/rust-project.json"
+                "fileMatch": ".rust-trezoa.json",
+                "url": "https://json.schemastore.org/rust-trezoa.json"
             }
         ],
         "walkthroughs": [

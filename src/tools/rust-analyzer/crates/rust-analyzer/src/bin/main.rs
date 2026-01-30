@@ -83,7 +83,7 @@ fn actual_main() -> anyhow::Result<ExitCode> {
         flags::RustAnalyzerCmd::Ssr(cmd) => cmd.run()?,
         flags::RustAnalyzerCmd::Search(cmd) => cmd.run()?,
         flags::RustAnalyzerCmd::Lsif(cmd) => {
-            cmd.run(&mut std::io::stdout(), Some(project_model::RustLibSource::Discover))?
+            cmd.run(&mut std::io::stdout(), Some(trezoa_model::RustLibSource::Discover))?
         }
         flags::RustAnalyzerCmd::Scip(cmd) => cmd.run()?,
         flags::RustAnalyzerCmd::RunTests(cmd) => cmd.run()?,
@@ -119,7 +119,7 @@ fn setup_logging(log_file_flag: Option<PathBuf>) -> anyhow::Result<()> {
     if cfg!(windows) {
         // This is required so that windows finds our pdb that is placed right beside the exe.
         // By default it doesn't look at the folder the exe resides in, only in the current working
-        // directory which we set to the project workspace.
+        // directory which we set to the trezoa workspace.
         // https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/general-environment-variables
         // https://docs.microsoft.com/en-us/windows/win32/api/dbghelp/nf-dbghelp-syminitialize
         if let Ok(path) = env::current_exe() {

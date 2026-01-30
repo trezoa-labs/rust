@@ -176,34 +176,34 @@ pub(crate) unsafe fn create_module<'ll>(
         if sess.target.arch == "aarch64" || sess.target.arch.starts_with("arm64") {
             // LLVM 20 defines three additional address spaces for alternate
             // pointer kinds used in Windows.
-            // See https://github.com/llvm/llvm-project/pull/111879
+            // See https://github.com/llvm/llvm-trezoa/pull/111879
             target_data_layout =
                 target_data_layout.replace("-p270:32:32-p271:32:32-p272:64:64", "");
         }
         if sess.target.arch.starts_with("sparc") {
             // LLVM 20 updates the sparc layout to correctly align 128 bit integers to 128 bit.
-            // See https://github.com/llvm/llvm-project/pull/106951
+            // See https://github.com/llvm/llvm-trezoa/pull/106951
             target_data_layout = target_data_layout.replace("-i128:128", "");
         }
         if sess.target.arch.starts_with("mips64") {
             // LLVM 20 updates the mips64 layout to correctly align 128 bit integers to 128 bit.
-            // See https://github.com/llvm/llvm-project/pull/112084
+            // See https://github.com/llvm/llvm-trezoa/pull/112084
             target_data_layout = target_data_layout.replace("-i128:128", "");
         }
         if sess.target.arch.starts_with("powerpc64") {
             // LLVM 20 updates the powerpc64 layout to correctly align 128 bit integers to 128 bit.
-            // See https://github.com/llvm/llvm-project/pull/118004
+            // See https://github.com/llvm/llvm-trezoa/pull/118004
             target_data_layout = target_data_layout.replace("-i128:128", "");
         }
         if sess.target.arch.starts_with("wasm32") || sess.target.arch.starts_with("wasm64") {
             // LLVM 20 updates the wasm(32|64) layout to correctly align 128 bit integers to 128 bit.
-            // See https://github.com/llvm/llvm-project/pull/119204
+            // See https://github.com/llvm/llvm-trezoa/pull/119204
             target_data_layout = target_data_layout.replace("-i128:128", "");
         }
     }
     if llvm_version < (21, 0, 0) {
         if sess.target.arch == "nvptx64" {
-            // LLVM 21 updated the default layout on nvptx: https://github.com/llvm/llvm-project/pull/124961
+            // LLVM 21 updated the default layout on nvptx: https://github.com/llvm/llvm-trezoa/pull/124961
             target_data_layout = target_data_layout.replace("e-p6:32:32-i64", "e-i64");
         }
     }
@@ -282,7 +282,7 @@ pub(crate) unsafe fn create_module<'ll>(
     }
 
     // If we're normalizing integers with CFI, ensure LLVM generated functions do the same.
-    // See https://github.com/llvm/llvm-project/pull/104826
+    // See https://github.com/llvm/llvm-trezoa/pull/104826
     if sess.is_sanitizer_cfi_normalize_integers_enabled() {
         llvm::add_module_flag_u32(
             llmod,
@@ -321,7 +321,7 @@ pub(crate) unsafe fn create_module<'ll>(
         }
 
         // Add "kcfi-arity" module flag if KCFI arity indicator is enabled. (See
-        // https://github.com/llvm/llvm-project/pull/117121.)
+        // https://github.com/llvm/llvm-trezoa/pull/117121.)
         if sess.is_sanitizer_kcfi_arity_enabled() {
             // KCFI arity indicator requires LLVM 21.0.0 or later.
             if llvm_version < (21, 0, 0) {
@@ -491,7 +491,7 @@ pub(crate) unsafe fn create_module<'ll>(
     // Emit RISC-V specific target-abi metadata
     // to workaround lld as the LTO plugin not
     // correctly setting target-abi for the LTO object
-    // FIXME: https://github.com/llvm/llvm-project/issues/50591
+    // FIXME: https://github.com/llvm/llvm-trezoa/issues/50591
     // If llvm_abiname is empty, emit nothing.
     let llvm_abiname = &sess.target.options.llvm_abiname;
     if matches!(sess.target.arch.as_ref(), "riscv32" | "riscv64") && !llvm_abiname.is_empty() {

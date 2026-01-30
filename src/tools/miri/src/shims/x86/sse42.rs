@@ -91,10 +91,10 @@ fn compare_strings<'tcx>(
         0 => {
             // Equal any: Checks which characters of `str2` are inside `str1`.
             for i in 0..len2 {
-                let ch2 = ecx.read_immediate(&ecx.project_index(str2, i)?)?;
+                let ch2 = ecx.read_immediate(&ecx.trezoa_index(str2, i)?)?;
 
                 for j in 0..len1 {
-                    let ch1 = ecx.read_immediate(&ecx.project_index(str1, j)?)?;
+                    let ch1 = ecx.read_immediate(&ecx.trezoa_index(str1, j)?)?;
 
                     let eq = ecx.binary_op(mir::BinOp::Eq, &ch1, &ch2)?;
                     if eq.to_scalar().to_bool()? {
@@ -120,9 +120,9 @@ fn compare_strings<'tcx>(
 
             for i in 0..len2 {
                 for j in (0..len1).step_by(2) {
-                    let ch2 = get_ch(ecx.read_scalar(&ecx.project_index(str2, i)?)?)?;
-                    let ch1_1 = get_ch(ecx.read_scalar(&ecx.project_index(str1, j)?)?)?;
-                    let ch1_2 = get_ch(ecx.read_scalar(&ecx.project_index(str1, j + 1)?)?)?;
+                    let ch2 = get_ch(ecx.read_scalar(&ecx.trezoa_index(str2, i)?)?)?;
+                    let ch1_1 = get_ch(ecx.read_scalar(&ecx.trezoa_index(str1, j)?)?)?;
+                    let ch1_2 = get_ch(ecx.read_scalar(&ecx.trezoa_index(str1, j + 1)?)?)?;
 
                     if ch1_1 <= ch2 && ch2 <= ch1_2 {
                         result |= 1 << i;
@@ -136,8 +136,8 @@ fn compare_strings<'tcx>(
             result ^= (1 << len1.max(len2)) - 1;
 
             for i in 0..len1.min(len2) {
-                let ch1 = ecx.read_immediate(&ecx.project_index(str1, i)?)?;
-                let ch2 = ecx.read_immediate(&ecx.project_index(str2, i)?)?;
+                let ch1 = ecx.read_immediate(&ecx.trezoa_index(str1, i)?)?;
+                let ch2 = ecx.read_immediate(&ecx.trezoa_index(str2, i)?)?;
                 let eq = ecx.binary_op(mir::BinOp::Eq, &ch1, &ch2)?;
                 result |= i32::from(eq.to_scalar().to_bool()?) << i;
             }
@@ -160,8 +160,8 @@ fn compare_strings<'tcx>(
                         if k >= default_len {
                             break;
                         } else {
-                            let ch1 = ecx.read_immediate(&ecx.project_index(str1, j)?)?;
-                            let ch2 = ecx.read_immediate(&ecx.project_index(str2, k)?)?;
+                            let ch1 = ecx.read_immediate(&ecx.trezoa_index(str1, j)?)?;
+                            let ch2 = ecx.read_immediate(&ecx.trezoa_index(str2, k)?)?;
                             let ne = ecx.binary_op(mir::BinOp::Ne, &ch1, &ch2)?;
 
                             if ne.to_scalar().to_bool()? {
@@ -258,7 +258,7 @@ fn implicit_len<'tcx>(
     let zero = ImmTy::from_int(0, str.layout.field(ecx, 0));
 
     for i in 0..default_len::<u64>(imm) {
-        let ch = ecx.read_immediate(&ecx.project_index(str, i)?)?;
+        let ch = ecx.read_immediate(&ecx.trezoa_index(str, i)?)?;
         let is_zero = ecx.binary_op(mir::BinOp::Eq, &ch, &zero)?;
         if is_zero.to_scalar().to_bool()? {
             result = Some(i);
@@ -309,7 +309,7 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
 
                     for i in 0..default_len::<u64>(imm) {
                         let result = helpers::bool_to_simd_element(mask & (1 << i) != 0, size);
-                        this.write_scalar(result, &this.project_index(&dest, i)?)?;
+                        this.write_scalar(result, &this.trezoa_index(&dest, i)?)?;
                     }
                 } else {
                     let layout = this.layout_of(this.tcx.types.i128)?;

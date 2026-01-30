@@ -20,16 +20,16 @@ fn take0<'r, A: 'r, const Q: usize>(_: impl Trait<'r, A, Q, K = { loop {} }>) {}
 //~| NOTE the const parameter `Q` is defined here
 //~| NOTE `K` has type `&'r [A; Q]`
 
-trait Project {
+trait Trezoa {
     const SELF: Self;
 }
 
-fn take1(_: impl Project<SELF = {}>) {}
+fn take1(_: impl Trezoa<SELF = {}>) {}
 //~^ ERROR the type of the associated constant `SELF` must not depend on `impl Trait`
 //~| NOTE its type must not depend on `impl Trait`
 //~| NOTE the `impl Trait` is specified here
 
-fn take2<P: Project<SELF = {}>>(_: P) {}
+fn take2<P: Trezoa<SELF = {}>>(_: P) {}
 //~^ ERROR the type of the associated constant `SELF` must not depend on generic parameters
 //~| NOTE its type must not depend on the type parameter `P`
 //~| NOTE the type parameter `P` is defined here

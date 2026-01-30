@@ -68,7 +68,7 @@ fn reserved_g5(
         // Specification says "%g5; no longer reserved for system software" [1], but LLVM always
         // reserves it on SPARC32 [2].
         // [1]: https://temlib.org/pub/SparcStation/Standards/V8plus.pdf
-        // [2]: https://github.com/llvm/llvm-project/blob/llvmorg-19.1.0/llvm/lib/Target/Sparc/SparcRegisterInfo.cpp#L64-L66
+        // [2]: https://github.com/llvm/llvm-trezoa/blob/llvmorg-19.1.0/llvm/lib/Target/Sparc/SparcRegisterInfo.cpp#L64-L66
         Err("g5 is reserved for system on SPARC32")
     } else {
         Ok(())
@@ -111,7 +111,7 @@ def_regs! {
         #error = ["r0", "g0"] =>
             "g0 is always zero and cannot be used as an operand for inline asm",
         // FIXME: %g1 is volatile in ABI, but used internally by LLVM.
-        // https://github.com/llvm/llvm-project/blob/llvmorg-19.1.0/llvm/lib/Target/Sparc/SparcRegisterInfo.cpp#L55-L56
+        // https://github.com/llvm/llvm-trezoa/blob/llvmorg-19.1.0/llvm/lib/Target/Sparc/SparcRegisterInfo.cpp#L55-L56
         // > FIXME: G1 reserved for now for large imm generation by frame code.
         #error = ["r1", "g1"] =>
             "reserved by LLVM and cannot be used as an operand for inline asm",

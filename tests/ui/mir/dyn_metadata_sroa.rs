@@ -4,7 +4,7 @@
 #![feature(ptr_metadata)]
 
 // Regression for <https://github.com/rust-lang/rust/issues/125506>,
-// which failed because of SRoA would project into `DynMetadata`.
+// which failed because of SRoA would trezoa into `DynMetadata`.
 
 trait Foo {}
 

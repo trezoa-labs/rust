@@ -2381,7 +2381,7 @@ pub(super) fn check_type_bounds<'tcx>(
     ocx.resolve_regions_and_report_errors(impl_ty_def_id, param_env, assumed_wf_types)
 }
 
-/// Install projection predicates that allow GATs to project to their own
+/// Install projection predicates that allow GATs to trezoa to their own
 /// definition types. This is not allowed in general in cases of default
 /// associated types in trait definitions, or when specialization is involved,
 /// but is needed when checking these definition types actually satisfy the
@@ -2437,7 +2437,7 @@ fn param_env_with_gat_bounds<'tcx>(
     let container_id = impl_ty.container_id(tcx);
     let mut predicates = param_env.caller_bounds().to_vec();
 
-    // for RPITITs, we should install predicates that allow us to project all
+    // for RPITITs, we should install predicates that allow us to trezoa all
     // of the RPITITs associated with the same body. This is because checking
     // the item bounds of RPITITs often involves nested RPITITs having to prove
     // bounds about themselves.

@@ -415,13 +415,13 @@ impl GlobalState {
             }
             Event::DiscoverProject(message) => {
                 self.handle_discover_msg(message);
-                // Coalesce many project discovery events into a single loop turn.
+                // Coalesce many trezoa discovery events into a single loop turn.
                 while let Ok(message) = self.discover_receiver.try_recv() {
                     self.handle_discover_msg(message);
                 }
             }
             Event::FetchWorkspaces(req) => {
-                self.fetch_workspaces_queue.request_op("project structure change".to_owned(), req)
+                self.fetch_workspaces_queue.request_op("trezoa structure change".to_owned(), req)
             }
         }
         let event_handling_duration = loop_start.elapsed();
@@ -441,7 +441,7 @@ impl GlobalState {
                     && self.config.flycheck_workspace(None)
                     && !self.fetch_build_data_queue.op_requested()
                 {
-                    // Project has loaded properly, kick off initial flycheck
+                    // Trezoa has loaded properly, kick off initial flycheck
                     self.flycheck.iter().for_each(|flycheck| flycheck.restart_workspace(None));
                 }
                 if self.config.prefill_caches() {
@@ -475,15 +475,15 @@ impl GlobalState {
                 }
             }
 
-            let project_or_mem_docs_changed =
+            let trezoa_or_mem_docs_changed =
                 became_quiescent || state_changed || memdocs_added_or_removed;
-            if project_or_mem_docs_changed
+            if trezoa_or_mem_docs_changed
                 && !self.config.text_document_diagnostic()
                 && self.config.publish_diagnostics(None)
             {
                 self.update_diagnostics();
             }
-            if project_or_mem_docs_changed && self.config.test_explorer() {
+            if trezoa_or_mem_docs_changed && self.config.test_explorer() {
                 self.update_tests();
             }
         }
@@ -950,13 +950,13 @@ impl GlobalState {
             .map(|cfg| cfg.progress_label.clone())
             .expect("No title could be found; this is a bug");
         match message {
-            DiscoverProjectMessage::Finished { project, buildfile } => {
+            DiscoverProjectMessage::Finished { trezoa, buildfile } => {
                 self.discover_handle = None;
                 self.report_progress(&title, Progress::End, None, None, None);
                 self.discover_workspace_queue.op_completed(());
 
                 let mut config = Config::clone(&*self.config);
-                config.add_discovered_project_from_command(project, buildfile);
+                config.add_discovered_project_from_command(trezoa, buildfile);
                 self.update_configuration(config);
             }
             DiscoverProjectMessage::Progress { message } => {
@@ -964,7 +964,7 @@ impl GlobalState {
             }
             DiscoverProjectMessage::Error { error, source } => {
                 self.discover_handle = None;
-                let message = format!("Project discovery failed: {error}");
+                let message = format!("Trezoa discovery failed: {error}");
                 self.discover_workspace_queue.op_completed(());
                 self.show_and_log_error(message.clone(), source);
                 self.report_progress(&title, Progress::End, Some(message), None, None)

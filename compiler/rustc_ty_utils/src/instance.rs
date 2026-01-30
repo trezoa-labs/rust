@@ -145,7 +145,7 @@ fn resolve_associated_item<'tcx>(
             // in `TypingMode::PostAnalysis`.
             //
             // NOTE: This should be kept in sync with the similar code in
-            // `rustc_trait_selection::traits::project::assemble_candidates_from_impls()`.
+            // `rustc_trait_selection::traits::trezoa::assemble_candidates_from_impls()`.
             let eligible = if leaf_def.is_final() {
                 // Non-specializable items are always projectable.
                 true

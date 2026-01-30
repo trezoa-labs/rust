@@ -36,7 +36,7 @@ pub fn skip_sys_checks(test_name: &str) -> bool {
 
     // FIXME(f16_f128): Wide multiply carry bug in `compiler-rt`, re-enable when nightly no longer
     // uses `compiler-rt` version.
-    // <https://github.com/llvm/llvm-project/issues/91840>
+    // <https://github.com/llvm/llvm-trezoa/issues/91840>
     const AARCH64_SKIPPED: &[&str] = &["mul_f128", "div_f128"];
 
     // FIXME(llvm): system symbols have incorrect results on Windows

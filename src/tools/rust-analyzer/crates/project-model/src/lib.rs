@@ -1,21 +1,21 @@
 //! In rust-analyzer, we maintain a strict separation between pure abstract
-//! semantic project model and a concrete model of a particular build system.
+//! semantic trezoa model and a concrete model of a particular build system.
 //!
 //! Pure model is represented by the [`base_db::CrateGraph`] from another crate.
 //!
-//! In this crate, we are concerned with "real world" project models.
+//! In this crate, we are concerned with "real world" trezoa models.
 //!
-//! Specifically, here we have a representation for a Cargo project
+//! Specifically, here we have a representation for a Cargo trezoa
 //! ([`CargoWorkspace`]) and for manually specified layout ([`ProjectJson`]).
 //!
 //! Roughly, the things we do here are:
 //!
-//! * Project discovery (where's the relevant Cargo.toml for the current dir).
+//! * Trezoa discovery (where's the relevant Cargo.toml for the current dir).
 //! * Custom build steps (`build.rs` code generation and compilation of
 //!   procedural macros).
 //! * Lowering of concrete model to a [`base_db::CrateGraph`]
 
-pub mod project_json;
+pub mod trezoa_json;
 pub mod toolchain_info {
     pub mod rustc_cfg;
     pub mod target_data_layout;
@@ -64,7 +64,7 @@ pub use crate::{
         PackageDependency, RustLibSource, Target, TargetData, TargetKind,
     },
     manifest_path::ManifestPath,
-    project_json::{ProjectJson, ProjectJsonData},
+    trezoa_json::{ProjectJson, ProjectJsonData},
     sysroot::Sysroot,
     workspace::{FileLoader, PackageRoot, ProjectWorkspace, ProjectWorkspaceKind},
 };
@@ -72,10 +72,10 @@ pub use cargo_metadata::Metadata;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ProjectJsonFromCommand {
-    /// The data describing this project, such as its dependencies.
+    /// The data describing this trezoa, such as its dependencies.
     pub data: ProjectJsonData,
-    /// The build system specific file that describes this project,
-    /// such as a `my-project/BUCK` file.
+    /// The build system specific file that describes this trezoa,
+    /// such as a `my-trezoa/BUCK` file.
     pub buildfile: AbsPathBuf,
 }
 
@@ -90,10 +90,10 @@ impl ProjectManifest {
     pub fn from_manifest_file(path: AbsPathBuf) -> anyhow::Result<ProjectManifest> {
         let path = ManifestPath::try_from(path)
             .map_err(|path| format_err!("bad manifest path: {path}"))?;
-        if path.file_name().unwrap_or_default() == "rust-project.json" {
+        if path.file_name().unwrap_or_default() == "rust-trezoa.json" {
             return Ok(ProjectManifest::ProjectJson(path));
         }
-        if path.file_name().unwrap_or_default() == ".rust-project.json" {
+        if path.file_name().unwrap_or_default() == ".rust-trezoa.json" {
             return Ok(ProjectManifest::ProjectJson(path));
         }
         if path.file_name().unwrap_or_default() == "Cargo.toml" {
@@ -103,7 +103,7 @@ impl ProjectManifest {
             return Ok(ProjectManifest::CargoScript(path));
         }
         bail!(
-            "project root must point to a Cargo.toml, rust-project.json or <script>.rs file: {path}"
+            "trezoa root must point to a Cargo.toml, rust-trezoa.json or <script>.rs file: {path}"
         );
     }
 
@@ -115,17 +115,17 @@ impl ProjectManifest {
         };
 
         if !candidates.is_empty() {
-            bail!("more than one project");
+            bail!("more than one trezoa");
         }
         Ok(res)
     }
 
     pub fn discover(path: &AbsPath) -> io::Result<Vec<ProjectManifest>> {
-        if let Some(project_json) = find_in_parent_dirs(path, "rust-project.json") {
-            return Ok(vec![ProjectManifest::ProjectJson(project_json)]);
+        if let Some(trezoa_json) = find_in_parent_dirs(path, "rust-trezoa.json") {
+            return Ok(vec![ProjectManifest::ProjectJson(trezoa_json)]);
         }
-        if let Some(project_json) = find_in_parent_dirs(path, ".rust-project.json") {
-            return Ok(vec![ProjectManifest::ProjectJson(project_json)]);
+        if let Some(trezoa_json) = find_in_parent_dirs(path, ".rust-trezoa.json") {
+            return Ok(vec![ProjectManifest::ProjectJson(trezoa_json)]);
         }
         return find_cargo_toml(path)
             .map(|paths| paths.into_iter().map(ProjectManifest::CargoToml).collect());

@@ -219,7 +219,7 @@ pub struct SourceRootInput {
     pub source_root: Arc<SourceRoot>,
 }
 
-/// Database which stores all significant input facts: source code and project
+/// Database which stores all significant input facts: source code and trezoa
 /// model. Everything else in rust-analyzer is derived from these queries.
 #[query_group::query_group]
 pub trait RootQueryDb: SourceDatabase + salsa::Database {

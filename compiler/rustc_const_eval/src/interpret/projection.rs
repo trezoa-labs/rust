@@ -30,7 +30,7 @@ pub enum OffsetMode {
     Wrapping,
 }
 
-/// A thing that we can project into, and that has a layout.
+/// A thing that we can trezoa into, and that has a layout.
 pub trait Projectable<'tcx, Prov: Provenance>: Sized + std::fmt::Debug {
     /// Get the layout.
     fn layout(&self) -> TyAndLayout<'tcx>;
@@ -140,13 +140,13 @@ where
     Prov: Provenance,
     M: Machine<'tcx, Provenance = Prov>,
 {
-    /// Offset a pointer to project to a field of a struct/union. Unlike `place_field`, this is
+    /// Offset a pointer to trezoa to a field of a struct/union. Unlike `place_field`, this is
     /// always possible without allocating, so it can take `&self`. Also return the field's layout.
     /// This supports both struct and array fields, but not slices!
     ///
     /// This also works for arrays, but then the `FieldIdx` index type is restricting.
-    /// For indexing into arrays, use [`Self::project_index`].
-    pub fn project_field<P: Projectable<'tcx, M::Provenance>>(
+    /// For indexing into arrays, use [`Self::trezoa_index`].
+    pub fn trezoa_field<P: Projectable<'tcx, M::Provenance>>(
         &self,
         base: &P,
         field: FieldIdx,
@@ -200,7 +200,7 @@ where
     }
 
     /// Downcasting to an enum variant.
-    pub fn project_downcast<P: Projectable<'tcx, M::Provenance>>(
+    pub fn trezoa_downcast<P: Projectable<'tcx, M::Provenance>>(
         &self,
         base: &P,
         variant: VariantIdx,
@@ -219,7 +219,7 @@ where
     }
 
     /// Compute the offset and field layout for accessing the given index.
-    pub fn project_index<P: Projectable<'tcx, M::Provenance>>(
+    pub fn trezoa_index<P: Projectable<'tcx, M::Provenance>>(
         &self,
         base: &P,
         index: u64,
@@ -244,7 +244,7 @@ where
             }
             _ => span_bug!(
                 self.cur_span(),
-                "`project_index` called on non-array type {:?}",
+                "`trezoa_index` called on non-array type {:?}",
                 base.layout().ty
             ),
         };
@@ -252,20 +252,20 @@ where
         base.offset(offset, field_layout, self)
     }
 
-    /// Converts a repr(simd) value into an array of the right size, such that `project_index`
+    /// Converts a repr(simd) value into an array of the right size, such that `trezoa_index`
     /// accesses the SIMD elements. Also returns the number of elements.
-    pub fn project_to_simd<P: Projectable<'tcx, M::Provenance>>(
+    pub fn trezoa_to_simd<P: Projectable<'tcx, M::Provenance>>(
         &self,
         base: &P,
     ) -> InterpResult<'tcx, (P, u64)> {
         assert!(base.layout().ty.ty_adt_def().unwrap().repr().simd());
-        // SIMD types must be newtypes around arrays, so all we have to do is project to their only field.
-        let array = self.project_field(base, FieldIdx::ZERO)?;
+        // SIMD types must be newtypes around arrays, so all we have to do is trezoa to their only field.
+        let array = self.trezoa_field(base, FieldIdx::ZERO)?;
         let len = array.len(self)?;
         interp_ok((array, len))
     }
 
-    fn project_constant_index<P: Projectable<'tcx, M::Provenance>>(
+    fn trezoa_constant_index<P: Projectable<'tcx, M::Provenance>>(
         &self,
         base: &P,
         offset: u64,
@@ -286,22 +286,22 @@ where
             offset
         };
 
-        self.project_index(base, index)
+        self.trezoa_index(base, index)
     }
 
     /// Iterates over all fields of an array. Much more efficient than doing the
-    /// same by repeatedly calling `project_index`.
-    pub fn project_array_fields<'a, P: Projectable<'tcx, M::Provenance>>(
+    /// same by repeatedly calling `trezoa_index`.
+    pub fn trezoa_array_fields<'a, P: Projectable<'tcx, M::Provenance>>(
         &self,
         base: &'a P,
     ) -> InterpResult<'tcx, ArrayIterator<'a, 'tcx, M::Provenance, P>> {
         let abi::FieldsShape::Array { stride, .. } = base.layout().fields else {
-            span_bug!(self.cur_span(), "project_array_fields: expected an array layout");
+            span_bug!(self.cur_span(), "trezoa_array_fields: expected an array layout");
         };
         let len = base.len(self)?;
         let field_layout = base.layout().field(self, 0);
         // Ensure that all the offsets are in-bounds once, up-front.
-        debug!("project_array_fields: {base:?} {len}");
+        debug!("trezoa_array_fields: {base:?} {len}");
         base.offset(len * stride, self.layout_of(self.tcx.types.unit).unwrap(), self)?;
         // Create the iterator.
         interp_ok(ArrayIterator {
@@ -314,7 +314,7 @@ where
     }
 
     /// Subslicing
-    fn project_subslice<P: Projectable<'tcx, M::Provenance>>(
+    fn trezoa_subslice<P: Projectable<'tcx, M::Provenance>>(
         &self,
         base: &P,
         from: u64,
@@ -372,7 +372,7 @@ where
 
     /// Applying a general projection
     #[instrument(skip(self), level = "trace")]
-    pub fn project<P>(&self, base: &P, proj_elem: mir::PlaceElem<'tcx>) -> InterpResult<'tcx, P>
+    pub fn trezoa<P>(&self, base: &P, proj_elem: mir::PlaceElem<'tcx>) -> InterpResult<'tcx, P>
     where
         P: Projectable<'tcx, M::Provenance> + From<MPlaceTy<'tcx, M::Provenance>> + std::fmt::Debug,
     {
@@ -384,19 +384,19 @@ where
             UnwrapUnsafeBinder(target) => base.transmute(self.layout_of(target)?, self)?,
             // We don't want anything happening here, this is here as a dummy.
             Subtype(_) => base.transmute(base.layout(), self)?,
-            Field(field, _) => self.project_field(base, field)?,
-            Downcast(_, variant) => self.project_downcast(base, variant)?,
+            Field(field, _) => self.trezoa_field(base, field)?,
+            Downcast(_, variant) => self.trezoa_downcast(base, variant)?,
             Deref => self.deref_pointer(&base.to_op(self)?)?.into(),
             Index(local) => {
                 let layout = self.layout_of(self.tcx.types.usize)?;
                 let n = self.local_to_op(local, Some(layout))?;
                 let n = self.read_target_usize(&n)?;
-                self.project_index(base, n)?
+                self.trezoa_index(base, n)?
             }
             ConstantIndex { offset, min_length, from_end } => {
-                self.project_constant_index(base, offset, min_length, from_end)?
+                self.trezoa_constant_index(base, offset, min_length, from_end)?
             }
-            Subslice { from, to, from_end } => self.project_subslice(base, from, to, from_end)?,
+            Subslice { from, to, from_end } => self.trezoa_subslice(base, from, to, from_end)?,
         })
     }
 }

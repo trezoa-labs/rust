@@ -7,7 +7,7 @@
     nonstandard_style,
     //~^ NOTE the lint level is defined here
     reason = r#"people shouldn't have to change their usual style habits
-to contribute to our project"#
+to contribute to our trezoa"#
 )]
 #![allow(unused, reason = "unused code has never killed anypony")]
 

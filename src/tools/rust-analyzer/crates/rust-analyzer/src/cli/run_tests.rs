@@ -1,10 +1,10 @@
-//! Run all tests in a project, similar to `cargo test`, but using the mir interpreter.
+//! Run all tests in a trezoa, similar to `cargo test`, but using the mir interpreter.
 
 use hir::{Crate, Module};
 use hir_ty::db::HirDatabase;
 use ide_db::{LineIndexDatabase, base_db::SourceDatabase};
 use profile::StopWatch;
-use project_model::{CargoConfig, RustLibSource};
+use trezoa_model::{CargoConfig, RustLibSource};
 use syntax::TextRange;
 
 use load_cargo::{LoadCargoConfig, ProcMacroServerChoice, load_workspace_at};

@@ -389,7 +389,7 @@
                 "CARGO_CRATE_NAME": "libc",
                 "CARGO_MANIFEST_DIR": "$ROOT$.cargo/registry/src/github.com-1ecc6299db9ec823/libc-0.2.98",
                 "CARGO_MANIFEST_PATH": "$ROOT$.cargo/registry/src/github.com-1ecc6299db9ec823/libc-0.2.98/Cargo.toml",
-                "CARGO_PKG_AUTHORS": "The Rust Project Developers",
+                "CARGO_PKG_AUTHORS": "The Rust Trezoa Developers",
                 "CARGO_PKG_DESCRIPTION": "Raw FFI bindings to platform libraries like libc.\n",
                 "CARGO_PKG_HOMEPAGE": "https://github.com/rust-lang/libc",
                 "CARGO_PKG_LICENSE": "MIT OR Apache-2.0",

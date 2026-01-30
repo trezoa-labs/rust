@@ -1,6 +1,6 @@
 # Installation
 
-In the near future, `std::autodiff` should become available in nightly builds for users. As a contributor however, you will still need to build rustc from source. Please be aware that the msvc target is not supported at the moment, all other tier 1 targets should work. Please open an issue if you encounter any problems on a supported tier 1 target, or if you successfully build this project on a tier2/tier3 target.
+In the near future, `std::autodiff` should become available in nightly builds for users. As a contributor however, you will still need to build rustc from source. Please be aware that the msvc target is not supported at the moment, all other tier 1 targets should work. Please open an issue if you encounter any problems on a supported tier 1 target, or if you successfully build this trezoa on a tier2/tier3 target.
 
 ## Build instructions
 
@@ -66,8 +66,8 @@ We recommend that approach, if you just want to use any of them and have no expe
 However, if you prefer to just build Enzyme without Rust, then these instructions might help.
 
 ```bash
-git clone --depth=1 git@github.com:llvm/llvm-project.git 
-cd llvm-project
+git clone --depth=1 git@github.com:llvm/llvm-trezoa.git 
+cd llvm-trezoa
 mkdir build
 cd build
 cmake -G Ninja ../llvm -DLLVM_TARGETS_TO_BUILD="host" -DLLVM_ENABLE_ASSERTIONS=ON -DLLVM_ENABLE_PROJECTS="clang;lld" -DLLVM_ENABLE_RUNTIMES="openmp" -DLLVM_ENABLE_PLUGINS=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=.
@@ -75,13 +75,13 @@ ninja
 ninja install
 ```
 This gives you a working LLVM build, now we can continue with building Enzyme.
-Leave the `llvm-project` folder, and execute the following commands:
+Leave the `llvm-trezoa` folder, and execute the following commands:
 ```bash
 git clone git@github.com:EnzymeAD/Enzyme.git 
 cd Enzyme/enzyme
 mkdir build 
 cd build 
-cmake .. -G Ninja -DLLVM_DIR=<YourLocalPath>/llvm-project/build/lib/cmake/llvm/ -DLLVM_EXTERNAL_LIT=<YourLocalPath>/llvm-project/llvm/utils/lit/lit.py -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -DBUILD_SHARED_LIBS=ON
+cmake .. -G Ninja -DLLVM_DIR=<YourLocalPath>/llvm-trezoa/build/lib/cmake/llvm/ -DLLVM_EXTERNAL_LIT=<YourLocalPath>/llvm-trezoa/llvm/utils/lit/lit.py -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -DBUILD_SHARED_LIBS=ON
 ninja
 ```
 This will build Enzyme, and you can find it in `Enzyme/enzyme/build/lib/<LLD/Clang/LLVM>Enzyme.so`. (Endings might differ based on your OS).

@@ -2,7 +2,7 @@
 
 This fork of Rust contains changes that enable rustc to build BPF
 modules.  It depends on a customized
-[fork](https://github.com/trezoa-xyz/llvm-project) of Rust's LLVM
+[fork](https://github.com/trezoa-xyz/llvm-trezoa) of Rust's LLVM
 fork.
 
 Trezoa SDK does not depend directly on this repo.  Instead [platform-tools]
@@ -19,7 +19,7 @@ Upgrading the compiler and standard library source tree
 
 The source tree has two external dependencies
 1. [compiler-builtins]
-2. [llvm-project]
+2. [llvm-trezoa]
 
 If any of the depencies is changed or this repository is updated to
 make a new release of the bpf-tools, tag the dependencies, and this
@@ -28,7 +28,7 @@ the released bpf-tools have the same tag, e.g. bpf-tools-v1.6. Thus,
 release of every version of the bpf-tools is fully specified by the
 release version.
 
-The [llvm-project] is a submodule of this repository, therefore its
+The [llvm-trezoa] is a submodule of this repository, therefore its
 version is explicitly committed in this repository.  However,
 [compiler-builtins] is pulled in as a cargo package.  Therefore, it is
 necessary to update the `[patch.crates-io]` subsection of the
@@ -41,7 +41,7 @@ version of the rust repository and make a new release tag in
 [bpf-tools] repository.
 
 [compiler-builtins]: https://github.com/trezoa-xyz/compiler-builtins
-[llvm-project]: https://github.com/trezoa-xyz/llvm-project
+[llvm-trezoa]: https://github.com/trezoa-xyz/llvm-trezoa
 
 ---
 

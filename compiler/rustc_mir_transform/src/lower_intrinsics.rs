@@ -273,7 +273,7 @@ impl<'tcx> crate::MirPass<'tcx> for LowerIntrinsics {
 
                         let place = ptrish.node.place().unwrap();
                         assert!(!place.is_indirect());
-                        let updated_place = place.project_deeper(
+                        let updated_place = place.trezoa_deeper(
                             &[
                                 ProjectionElem::Deref,
                                 ProjectionElem::Index(

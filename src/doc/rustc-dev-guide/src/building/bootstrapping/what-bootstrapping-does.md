@@ -269,7 +269,7 @@ However, when cross-compiling, `stage1` `std` will only run on the host. So the
 
 ### What is a 'sysroot'?
 
-When you build a project with `cargo`, the build artifacts for dependencies are
+When you build a trezoa with `cargo`, the build artifacts for dependencies are
 normally stored in `target/debug/deps`. This only contains dependencies `cargo`
 knows about; in particular, it doesn't have the standard library. Where do `std`
 or `proc_macro` come from? They come from the **sysroot**, the root of a number
@@ -280,7 +280,7 @@ that needs to be loaded at runtime. That includes (but is not limited to):
 - Libraries `libstd`/`libtest`/`libproc_macro`.
 - Compiler crates themselves, when using `rustc_private`. In-tree these are
   always present; out of tree, you need to install `rustc-dev` with `rustup`.
-- Shared object file `libLLVM.so` for the LLVM project. In-tree this is either
+- Shared object file `libLLVM.so` for the LLVM trezoa. In-tree this is either
   built from source or downloaded from CI; out-of-tree, you need to install
   `llvm-tools-preview` with `rustup`.
 

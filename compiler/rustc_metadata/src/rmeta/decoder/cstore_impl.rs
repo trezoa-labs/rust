@@ -610,7 +610,7 @@ impl CStore {
     }
 
     /// Only public-facing way to traverse all the definitions in a non-local crate.
-    /// Critically useful for this third-party project: <https://github.com/hacspec/hacspec>.
+    /// Critically useful for this third-party trezoa: <https://github.com/hacspec/hacspec>.
     /// See <https://github.com/rust-lang/rust/pull/85889> for context.
     pub fn num_def_ids_untracked(&self, cnum: CrateNum) -> usize {
         self.get_crate_data(cnum).num_def_ids()

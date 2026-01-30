@@ -231,7 +231,7 @@ struct FlycheckActor {
     config: FlycheckConfig,
     manifest_path: Option<AbsPathBuf>,
     /// Either the workspace root of the workspace we are flychecking,
-    /// or the project root of the project.
+    /// or the trezoa root of the trezoa.
     root: Arc<AbsPathBuf>,
     sysroot_root: Option<AbsPathBuf>,
     /// CargoHandle exists to wrap around the communication needed to be able to

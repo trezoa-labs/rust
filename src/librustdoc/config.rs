@@ -964,7 +964,7 @@ fn parse_extern_html_roots(
 
 /// Path directly to crate-info file.
 ///
-/// For example, `/home/user/project/target/doc.parts/<crate>/crate-info`.
+/// For example, `/home/user/trezoa/target/doc.parts/<crate>/crate-info`.
 #[derive(Clone, Debug)]
 pub(crate) struct PathToParts(pub(crate) PathBuf);
 

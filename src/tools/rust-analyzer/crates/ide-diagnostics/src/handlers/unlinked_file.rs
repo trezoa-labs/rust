@@ -29,7 +29,7 @@ pub(crate) fn unlinked_file(
     let mut range = TextRange::up_to(ctx.sema.db.line_index(file_id).len());
     let fixes = fixes(ctx, file_id, range);
     // FIXME: This is a hack for the vscode extension to notice whether there is an autofix or not before having to resolve diagnostics.
-    // This is to prevent project linking popups from appearing when there is an autofix. https://github.com/rust-lang/rust-analyzer/issues/14523
+    // This is to prevent trezoa linking popups from appearing when there is an autofix. https://github.com/rust-lang/rust-analyzer/issues/14523
     let message = if fixes.is_none() {
         "This file is not included in any crates, so rust-analyzer can't offer IDE services."
     } else {

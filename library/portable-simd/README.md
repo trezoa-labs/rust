@@ -1,14 +1,14 @@
 # The Rust standard library's portable SIMD API
 ![Build Status](https://github.com/rust-lang/portable-simd/actions/workflows/ci.yml/badge.svg?branch=master)
 
-Code repository for the [Portable SIMD Project Group](https://github.com/rust-lang/project-portable-simd).
+Code repository for the [Portable SIMD Trezoa Group](https://github.com/rust-lang/trezoa-portable-simd).
 Please refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for our contributing guidelines.
 
 The docs for this crate are published from the main branch.
 You can [read them here][docs].
 
 If you have questions about SIMD, we have begun writing a [guide][simd-guide].
-We can also be found on [Zulip][zulip-project-portable-simd].
+We can also be found on [Zulip][zulip-trezoa-portable-simd].
 
 If you are interested in support for a specific architecture, you may want [stdarch] instead.
 
@@ -54,6 +54,6 @@ Floating point, signed integers, unsigned integers, and pointers are the [primit
 The mask types have elements that are "truthy" values, like `bool`, but have an unspecified layout because different architectures prefer different layouts for mask types.
 
 [simd-guide]: ./beginners-guide.md
-[zulip-project-portable-simd]: https://rust-lang.zulipchat.com/#narrow/stream/257879-project-portable-simd
+[zulip-trezoa-portable-simd]: https://rust-lang.zulipchat.com/#narrow/stream/257879-trezoa-portable-simd
 [stdarch]: https://github.com/rust-lang/stdarch
 [docs]: https://rust-lang.github.io/portable-simd/core_simd

@@ -1,5 +1,5 @@
 #![feature(unboxed_closures)]
-// Test for projection cache. We should be able to project distinct
+// Test for projection cache. We should be able to trezoa distinct
 // lifetimes from `foo` as we reinstantiate it multiple times, but not
 // if we do it just once. In this variant, the region `'a` is used in
 // an invariant position, which affects the results.

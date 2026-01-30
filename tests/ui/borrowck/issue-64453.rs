@@ -1,4 +1,4 @@
-struct Project;
+struct Trezoa;
 struct Value;
 
 static settings_dir: String = format!("");

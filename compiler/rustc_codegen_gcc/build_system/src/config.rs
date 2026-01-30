@@ -41,7 +41,7 @@ impl ConfigFile {
     pub fn new(config_file: &Path) -> Result<Self, String> {
         let content = fs::read_to_string(config_file).map_err(|_| {
             format!(
-                "Failed to read `{}`. Take a look at `Readme.md` to see how to set up the project",
+                "Failed to read `{}`. Take a look at `Readme.md` to see how to set up the trezoa",
                 config_file.display(),
             )
         })?;
@@ -209,7 +209,7 @@ impl ConfigInfo {
         let commit_hash_file = self.compute_path("libgccjit.version");
         let content = fs::read_to_string(&commit_hash_file).map_err(|_| {
             format!(
-                "Failed to read `{}`. Take a look at `Readme.md` to see how to set up the project",
+                "Failed to read `{}`. Take a look at `Readme.md` to see how to set up the trezoa",
                 commit_hash_file.display(),
             )
         })?;

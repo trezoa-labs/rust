@@ -29,7 +29,7 @@ You can use the following options for the `x perf` command, which mirror the cor
 - `--scenarios`: Select scenarios (`Full`, `IncrFull`, `IncrPatched`, `IncrUnchanged`) which should be profiled/benchmarked.
 
 [samply]: https://github.com/mstange/samply
-[cachegrind]: https://www.cs.cmu.edu/afs/cs.cmu.edu/project/cmt-40/Nice/RuleRefinement/bin/valgrind-3.2.0/docs/html/cg-manual.html
+[cachegrind]: https://www.cs.cmu.edu/afs/cs.cmu.edu/trezoa/cmt-40/Nice/RuleRefinement/bin/valgrind-3.2.0/docs/html/cg-manual.html
 [rustc-perf]: https://github.com/rust-lang/rustc-perf
 [rustc-perf-readme]: https://github.com/rust-lang/rustc-perf/blob/master/collector/README.md
 [rustc-perf-readme-profilers]: https://github.com/rust-lang/rustc-perf/blob/master/collector/README.md#profiling-local-builds

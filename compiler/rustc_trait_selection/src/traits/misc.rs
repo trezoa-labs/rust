@@ -230,7 +230,7 @@ pub fn all_fields_implement_trait<'tcx>(
             let normalization_errors = ocx.select_where_possible();
 
             // NOTE: The post-normalization type may also reference errors,
-            // such as when we project to a missing type or we have a mismatch
+            // such as when we trezoa to a missing type or we have a mismatch
             // between expected and found const-generic types. Don't report an
             // additional copy error here, since it's not typically useful.
             if !normalization_errors.is_empty() || ty.references_error() {

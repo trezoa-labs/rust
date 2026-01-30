@@ -201,14 +201,14 @@ enum DevCommand {
     ///
     /// Lint a package directory: {n}
     ///     cargo dev lint tests/ui-cargo/wildcard_dependencies/fail {n}
-    ///     cargo dev lint ~/my-project
+    ///     cargo dev lint ~/my-trezoa
     ///
     /// Run rustfix: {n}
-    ///     cargo dev lint ~/my-project -- --fix
+    ///     cargo dev lint ~/my-trezoa -- --fix
     ///
     /// Set lint levels: {n}
     ///     cargo dev lint file.rs -- -W clippy::pedantic {n}
-    ///     cargo dev lint ~/my-project -- -- -W clippy::pedantic
+    ///     cargo dev lint ~/my-trezoa -- -- -W clippy::pedantic
     Lint {
         /// The Rust edition to use
         #[arg(long, default_value = "2024")]
@@ -273,7 +273,7 @@ enum SetupSubcommand {
     /// Install a rustup toolchain pointing to the local clippy build
     ///
     /// This creates a toolchain with symlinks pointing at
-    /// `target/.../{clippy-driver,cargo-clippy}`, rebuilds of the project will be reflected in the
+    /// `target/.../{clippy-driver,cargo-clippy}`, rebuilds of the trezoa will be reflected in the
     /// created toolchain unless `--standalone` is passed
     Toolchain {
         #[arg(long, short)]

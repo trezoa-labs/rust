@@ -1,7 +1,7 @@
 # Notification groups
 
 The **notification groups** are an easy way to help out with rustc in a
-"piece-meal" fashion, without committing to a larger project.
+"piece-meal" fashion, without committing to a larger trezoa.
 Notification groups are **[easy to join](#join)** (just submit a PR!)
 and joining does not entail any particular commitment.
 

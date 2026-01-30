@@ -7,7 +7,7 @@ use xshell::{Shell, cmd};
 
 use crate::{
     flags::{self, CodegenType},
-    project_root,
+    trezoa_root,
 };
 
 pub(crate) mod assists_doc_tests;
@@ -114,7 +114,7 @@ pub(crate) struct Location {
 
 impl fmt::Display for Location {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let path = self.file.strip_prefix(project_root()).unwrap().display().to_string();
+        let path = self.file.strip_prefix(trezoa_root()).unwrap().display().to_string();
         let path = path.replace('\\', "/");
         let name = self.file.file_name().unwrap();
         write!(
@@ -129,7 +129,7 @@ impl fmt::Display for Location {
 
 fn reformat(text: String) -> String {
     let sh = Shell::new().unwrap();
-    let rustfmt_toml = project_root().join("rustfmt.toml");
+    let rustfmt_toml = trezoa_root().join("rustfmt.toml");
     let version = cmd!(sh, "rustup run stable rustfmt --version").read().unwrap_or_default();
 
     // First try explicitly requesting the stable channel via rustup in case nightly is being used by default,
@@ -180,7 +180,7 @@ fn ensure_file_contents(cg: CodegenType, file: &Path, contents: &str, check: boo
         }
     }
 
-    let display_path = file.strip_prefix(project_root()).unwrap_or(file);
+    let display_path = file.strip_prefix(trezoa_root()).unwrap_or(file);
     if check {
         panic!(
             "{} was not up-to-date{}",

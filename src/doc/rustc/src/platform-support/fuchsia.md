@@ -83,7 +83,7 @@ rustup target add aarch64-unknown-fuchsia
 After installing our Fuchsia targets, we can now compile a Rust binary that targets
 Fuchsia.
 
-To create our Rust project, we can use [`cargo`][cargo] as follows:
+To create our Rust trezoa, we can use [`cargo`][cargo] as follows:
 
 **From base working directory**
 ```sh
@@ -137,7 +137,7 @@ These options configure the following:
 * `-Lnative=${SDK_PATH}/arch/${ARCH}/sysroot/lib`: Link against Fuchsia sysroot
   libraries from the SDK
 
-In total, our new project will look like:
+In total, our new trezoa will look like:
 
 **Current directory structure**
 ```txt

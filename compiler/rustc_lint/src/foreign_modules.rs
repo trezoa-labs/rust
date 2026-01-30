@@ -55,7 +55,7 @@ declare_lint! {
     /// mistake. Check to make sure that the `extern` definitions are correct
     /// and equivalent, and possibly consider unifying them in one location.
     ///
-    /// This lint does not run between crates because a project may have
+    /// This lint does not run between crates because a trezoa may have
     /// dependencies which both rely on the same extern function, but declare
     /// it in a different (but valid) way. For example, they may both declare
     /// an opaque type for one or more of the arguments (which would end up

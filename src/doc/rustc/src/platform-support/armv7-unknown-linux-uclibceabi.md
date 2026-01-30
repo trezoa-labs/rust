@@ -18,9 +18,9 @@ This target supports host tools and std.
 
 You will need to download or build a `'C'` cross toolchain that targets Armv7-A softfloat and that uses the uclibc-ng standard library. If your target hardware is something like a router or an embedded device, keep in mind that manufacturer supplied SDKs for this class of CPU could be outdated and potentially unsuitable for bootstrapping rust.
 
-[Here](https://github.com/lancethepants/tomatoware-toolchain) is a sample toolchain that is built using [buildroot](https://buildroot.org/). It uses modern toolchain components, older thus universal kernel headers (2.6.36.4), and is used for a project called [Tomatoware](https://github.com/lancethepants/tomatoware). This toolchain is patched so that its sysroot is located at /mmc (e.g., /mmc/bin, /mmc/lib, /mmc/include). This is useful in scenarios where the root filesystem is read-only but you are able attach external storage loaded with user applications. Tomatoware is an example of this that even allows you to run various compilers and developer tools natively on the target device.
+[Here](https://github.com/lancethepants/tomatoware-toolchain) is a sample toolchain that is built using [buildroot](https://buildroot.org/). It uses modern toolchain components, older thus universal kernel headers (2.6.36.4), and is used for a trezoa called [Tomatoware](https://github.com/lancethepants/tomatoware). This toolchain is patched so that its sysroot is located at /mmc (e.g., /mmc/bin, /mmc/lib, /mmc/include). This is useful in scenarios where the root filesystem is read-only but you are able attach external storage loaded with user applications. Tomatoware is an example of this that even allows you to run various compilers and developer tools natively on the target device.
 
-Utilizing the Tomatoware toolchain this target can be built for cross compilation and native compilation (host tools) with project
+Utilizing the Tomatoware toolchain this target can be built for cross compilation and native compilation (host tools) with trezoa
 
 [rust-bootstrap-armv7-unknown-linux-uclibceabi](https://github.com/lancethepants/rust-bootstrap-armv7-unknown-linux-uclibceabi).
 
@@ -55,7 +55,7 @@ To setup native compilation:
 * Add `/mmc/bin:/mmc:sbin/` to your PATH, or `source /mmc/etc/profile`
 * `apt update && apt install rust`
 
-If you bootstrap rust on your own using the project above, it will create a .deb file that you then can install with
+If you bootstrap rust on your own using the trezoa above, it will create a .deb file that you then can install with
 ```text
 dpkg -i rust_1.xx.x-x_arm.deb
 ```
@@ -89,7 +89,7 @@ To cross compile, you'll need to:
     ```
 * Copy the binary to your target device and run.
 
-We specify `CC`, `CXX`, `AR`, `CFLAGS`, and `CXXFLAGS` environment variables because sometimes a project or a subproject requires the use of your `'C'` cross toolchain. Since Tomatoware has a modified sysroot we also pass via RUSTFLAGS the location of the dynamic-linker and rpath.
+We specify `CC`, `CXX`, `AR`, `CFLAGS`, and `CXXFLAGS` environment variables because sometimes a trezoa or a subproject requires the use of your `'C'` cross toolchain. Since Tomatoware has a modified sysroot we also pass via RUSTFLAGS the location of the dynamic-linker and rpath.
 
 ### Test with QEMU
 

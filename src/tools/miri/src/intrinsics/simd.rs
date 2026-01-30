@@ -53,8 +53,8 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             | "bitreverse"
             => {
                 let [op] = check_intrinsic_arg_count(args)?;
-                let (op, op_len) = this.project_to_simd(op)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (op, op_len) = this.trezoa_to_simd(op)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(dest_len, op_len);
 
@@ -82,8 +82,8 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 };
 
                 for i in 0..dest_len {
-                    let op = this.read_immediate(&this.project_index(&op, i)?)?;
-                    let dest = this.project_index(&dest, i)?;
+                    let op = this.read_immediate(&this.trezoa_index(&op, i)?)?;
+                    let dest = this.trezoa_index(&dest, i)?;
                     let val = match which {
                         Op::MirOp(mir_op) => {
                             // This already does NaN adjustments
@@ -200,9 +200,9 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 use mir::BinOp;
 
                 let [left, right] = check_intrinsic_arg_count(args)?;
-                let (left, left_len) = this.project_to_simd(left)?;
-                let (right, right_len) = this.project_to_simd(right)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (left, left_len) = this.trezoa_to_simd(left)?;
+                let (right, right_len) = this.trezoa_to_simd(right)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(dest_len, left_len);
                 assert_eq!(dest_len, right_len);
@@ -239,9 +239,9 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 };
 
                 for i in 0..dest_len {
-                    let left = this.read_immediate(&this.project_index(&left, i)?)?;
-                    let right = this.read_immediate(&this.project_index(&right, i)?)?;
-                    let dest = this.project_index(&dest, i)?;
+                    let left = this.read_immediate(&this.trezoa_index(&left, i)?)?;
+                    let right = this.read_immediate(&this.trezoa_index(&right, i)?)?;
+                    let dest = this.trezoa_index(&dest, i)?;
                     let val = match which {
                         Op::MirOp(mir_op) => {
                             // This does NaN adjustments.
@@ -291,20 +291,20 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             }
             "fma" | "relaxed_fma" => {
                 let [a, b, c] = check_intrinsic_arg_count(args)?;
-                let (a, a_len) = this.project_to_simd(a)?;
-                let (b, b_len) = this.project_to_simd(b)?;
-                let (c, c_len) = this.project_to_simd(c)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (a, a_len) = this.trezoa_to_simd(a)?;
+                let (b, b_len) = this.trezoa_to_simd(b)?;
+                let (c, c_len) = this.trezoa_to_simd(c)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(dest_len, a_len);
                 assert_eq!(dest_len, b_len);
                 assert_eq!(dest_len, c_len);
 
                 for i in 0..dest_len {
-                    let a = this.read_scalar(&this.project_index(&a, i)?)?;
-                    let b = this.read_scalar(&this.project_index(&b, i)?)?;
-                    let c = this.read_scalar(&this.project_index(&c, i)?)?;
-                    let dest = this.project_index(&dest, i)?;
+                    let a = this.read_scalar(&this.trezoa_index(&a, i)?)?;
+                    let b = this.read_scalar(&this.trezoa_index(&b, i)?)?;
+                    let c = this.read_scalar(&this.trezoa_index(&c, i)?)?;
+                    let dest = this.trezoa_index(&dest, i)?;
 
                     let fuse: bool = intrinsic_name == "fma"
                         || (this.machine.float_nondet && this.machine.rng.get_mut().random());
@@ -356,7 +356,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 use mir::BinOp;
 
                 let [op] = check_intrinsic_arg_count(args)?;
-                let (op, op_len) = this.project_to_simd(op)?;
+                let (op, op_len) = this.trezoa_to_simd(op)?;
 
                 let imm_from_bool =
                     |b| ImmTy::from_scalar(Scalar::from_bool(b), this.machine.layouts.bool);
@@ -378,13 +378,13 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 };
 
                 // Initialize with first lane, then proceed with the rest.
-                let mut res = this.read_immediate(&this.project_index(&op, 0)?)?;
+                let mut res = this.read_immediate(&this.trezoa_index(&op, 0)?)?;
                 if matches!(which, Op::MirOpBool(_)) {
                     // Convert to `bool` scalar.
                     res = imm_from_bool(simd_element_to_bool(res)?);
                 }
                 for i in 1..op_len {
-                    let op = this.read_immediate(&this.project_index(&op, i)?)?;
+                    let op = this.read_immediate(&this.trezoa_index(&op, i)?)?;
                     res = match which {
                         Op::MirOp(mir_op) => {
                             this.binary_op(mir_op, &res, &op)?
@@ -419,7 +419,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 use mir::BinOp;
 
                 let [op, init] = check_intrinsic_arg_count(args)?;
-                let (op, op_len) = this.project_to_simd(op)?;
+                let (op, op_len) = this.trezoa_to_simd(op)?;
                 let init = this.read_immediate(init)?;
 
                 let mir_op = match intrinsic_name {
@@ -430,27 +430,27 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
 
                 let mut res = init;
                 for i in 0..op_len {
-                    let op = this.read_immediate(&this.project_index(&op, i)?)?;
+                    let op = this.read_immediate(&this.trezoa_index(&op, i)?)?;
                     res = this.binary_op(mir_op, &res, &op)?;
                 }
                 this.write_immediate(*res, dest)?;
             }
             "select" => {
                 let [mask, yes, no] = check_intrinsic_arg_count(args)?;
-                let (mask, mask_len) = this.project_to_simd(mask)?;
-                let (yes, yes_len) = this.project_to_simd(yes)?;
-                let (no, no_len) = this.project_to_simd(no)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (mask, mask_len) = this.trezoa_to_simd(mask)?;
+                let (yes, yes_len) = this.trezoa_to_simd(yes)?;
+                let (no, no_len) = this.trezoa_to_simd(no)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(dest_len, mask_len);
                 assert_eq!(dest_len, yes_len);
                 assert_eq!(dest_len, no_len);
 
                 for i in 0..dest_len {
-                    let mask = this.read_immediate(&this.project_index(&mask, i)?)?;
-                    let yes = this.read_immediate(&this.project_index(&yes, i)?)?;
-                    let no = this.read_immediate(&this.project_index(&no, i)?)?;
-                    let dest = this.project_index(&dest, i)?;
+                    let mask = this.read_immediate(&this.trezoa_index(&mask, i)?)?;
+                    let yes = this.read_immediate(&this.trezoa_index(&yes, i)?)?;
+                    let no = this.read_immediate(&this.trezoa_index(&no, i)?)?;
+                    let dest = this.trezoa_index(&dest, i)?;
 
                     let val = if simd_element_to_bool(mask)? { yes } else { no };
                     this.write_immediate(*val, &dest)?;
@@ -459,9 +459,9 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             // Variant of `select` that takes a bitmask rather than a "vector of bool".
             "select_bitmask" => {
                 let [mask, yes, no] = check_intrinsic_arg_count(args)?;
-                let (yes, yes_len) = this.project_to_simd(yes)?;
-                let (no, no_len) = this.project_to_simd(no)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (yes, yes_len) = this.trezoa_to_simd(yes)?;
+                let (no, no_len) = this.trezoa_to_simd(no)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
                 let bitmask_len = dest_len.next_multiple_of(8);
                 if bitmask_len > 64 {
                     throw_unsup_format!(
@@ -510,9 +510,9 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 for i in 0..dest_len {
                     let bit_i = simd_bitmask_index(i, dest_len, this.data_layout().endian);
                     let mask = mask & 1u64.strict_shl(bit_i);
-                    let yes = this.read_immediate(&this.project_index(&yes, i.into())?)?;
-                    let no = this.read_immediate(&this.project_index(&no, i.into())?)?;
-                    let dest = this.project_index(&dest, i.into())?;
+                    let yes = this.read_immediate(&this.trezoa_index(&yes, i.into())?)?;
+                    let no = this.read_immediate(&this.trezoa_index(&no, i.into())?)?;
+                    let dest = this.trezoa_index(&dest, i.into())?;
 
                     let val = if mask != 0 { yes } else { no };
                     this.write_immediate(*val, &dest)?;
@@ -522,7 +522,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             // Converts a "vector of bool" into a bitmask.
             "bitmask" => {
                 let [op] = check_intrinsic_arg_count(args)?;
-                let (op, op_len) = this.project_to_simd(op)?;
+                let (op, op_len) = this.trezoa_to_simd(op)?;
                 let bitmask_len = op_len.next_multiple_of(8);
                 if bitmask_len > 64 {
                     throw_unsup_format!(
@@ -533,7 +533,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 let op_len = u32::try_from(op_len).unwrap();
                 let mut res = 0u64;
                 for i in 0..op_len {
-                    let op = this.read_immediate(&this.project_index(&op, i.into())?)?;
+                    let op = this.read_immediate(&this.trezoa_index(&op, i.into())?)?;
                     if simd_element_to_bool(op)? {
                         let bit_i = simd_bitmask_index(i, op_len, this.data_layout().endian);
                         res |= 1u64.strict_shl(bit_i);
@@ -570,8 +570,8 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             }
             "cast" | "as" | "cast_ptr" | "expose_provenance" | "with_exposed_provenance" => {
                 let [op] = check_intrinsic_arg_count(args)?;
-                let (op, op_len) = this.project_to_simd(op)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (op, op_len) = this.trezoa_to_simd(op)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(dest_len, op_len);
 
@@ -582,8 +582,8 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 let from_exposed_cast = intrinsic_name == "with_exposed_provenance";
 
                 for i in 0..dest_len {
-                    let op = this.read_immediate(&this.project_index(&op, i)?)?;
-                    let dest = this.project_index(&dest, i)?;
+                    let op = this.read_immediate(&this.trezoa_index(&op, i)?)?;
+                    let dest = this.trezoa_index(&dest, i)?;
 
                     let val = match (op.layout.ty.kind(), dest.layout.ty.kind()) {
                         // Int-to-(int|float): always safe
@@ -627,9 +627,9 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             }
             "shuffle_const_generic" => {
                 let [left, right] = check_intrinsic_arg_count(args)?;
-                let (left, left_len) = this.project_to_simd(left)?;
-                let (right, right_len) = this.project_to_simd(right)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (left, left_len) = this.trezoa_to_simd(left)?;
+                let (right, right_len) = this.trezoa_to_simd(right)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 let index = generic_args[2].expect_const().to_value().valtree.unwrap_branch();
                 let index_len = index.len();
@@ -640,13 +640,13 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 for i in 0..dest_len {
                     let src_index: u64 =
                         index[usize::try_from(i).unwrap()].unwrap_leaf().to_u32().into();
-                    let dest = this.project_index(&dest, i)?;
+                    let dest = this.trezoa_index(&dest, i)?;
 
                     let val = if src_index < left_len {
-                        this.read_immediate(&this.project_index(&left, src_index)?)?
+                        this.read_immediate(&this.trezoa_index(&left, src_index)?)?
                     } else if src_index < left_len.strict_add(right_len) {
                         let right_idx = src_index.strict_sub(left_len);
-                        this.read_immediate(&this.project_index(&right, right_idx)?)?
+                        this.read_immediate(&this.trezoa_index(&right, right_idx)?)?
                     } else {
                         throw_ub_format!(
                             "`simd_shuffle_const_generic` index {src_index} is out-of-bounds for 2 vectors with length {dest_len}"
@@ -657,27 +657,27 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             }
             "shuffle" => {
                 let [left, right, index] = check_intrinsic_arg_count(args)?;
-                let (left, left_len) = this.project_to_simd(left)?;
-                let (right, right_len) = this.project_to_simd(right)?;
-                let (index, index_len) = this.project_to_simd(index)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (left, left_len) = this.trezoa_to_simd(left)?;
+                let (right, right_len) = this.trezoa_to_simd(right)?;
+                let (index, index_len) = this.trezoa_to_simd(index)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(left_len, right_len);
                 assert_eq!(index_len, dest_len);
 
                 for i in 0..dest_len {
                     let src_index: u64 = this
-                        .read_immediate(&this.project_index(&index, i)?)?
+                        .read_immediate(&this.trezoa_index(&index, i)?)?
                         .to_scalar()
                         .to_u32()?
                         .into();
-                    let dest = this.project_index(&dest, i)?;
+                    let dest = this.trezoa_index(&dest, i)?;
 
                     let val = if src_index < left_len {
-                        this.read_immediate(&this.project_index(&left, src_index)?)?
+                        this.read_immediate(&this.trezoa_index(&left, src_index)?)?
                     } else if src_index < left_len.strict_add(right_len) {
                         let right_idx = src_index.strict_sub(left_len);
-                        this.read_immediate(&this.project_index(&right, right_idx)?)?
+                        this.read_immediate(&this.trezoa_index(&right, right_idx)?)?
                     } else {
                         throw_ub_format!(
                             "`simd_shuffle` index {src_index} is out-of-bounds for 2 vectors with length {dest_len}"
@@ -688,20 +688,20 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             }
             "gather" => {
                 let [passthru, ptrs, mask] = check_intrinsic_arg_count(args)?;
-                let (passthru, passthru_len) = this.project_to_simd(passthru)?;
-                let (ptrs, ptrs_len) = this.project_to_simd(ptrs)?;
-                let (mask, mask_len) = this.project_to_simd(mask)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (passthru, passthru_len) = this.trezoa_to_simd(passthru)?;
+                let (ptrs, ptrs_len) = this.trezoa_to_simd(ptrs)?;
+                let (mask, mask_len) = this.trezoa_to_simd(mask)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(dest_len, passthru_len);
                 assert_eq!(dest_len, ptrs_len);
                 assert_eq!(dest_len, mask_len);
 
                 for i in 0..dest_len {
-                    let passthru = this.read_immediate(&this.project_index(&passthru, i)?)?;
-                    let ptr = this.read_immediate(&this.project_index(&ptrs, i)?)?;
-                    let mask = this.read_immediate(&this.project_index(&mask, i)?)?;
-                    let dest = this.project_index(&dest, i)?;
+                    let passthru = this.read_immediate(&this.trezoa_index(&passthru, i)?)?;
+                    let ptr = this.read_immediate(&this.trezoa_index(&ptrs, i)?)?;
+                    let mask = this.read_immediate(&this.trezoa_index(&mask, i)?)?;
+                    let dest = this.trezoa_index(&dest, i)?;
 
                     let val = if simd_element_to_bool(mask)? {
                         let place = this.deref_pointer(&ptr)?;
@@ -714,17 +714,17 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             }
             "scatter" => {
                 let [value, ptrs, mask] = check_intrinsic_arg_count(args)?;
-                let (value, value_len) = this.project_to_simd(value)?;
-                let (ptrs, ptrs_len) = this.project_to_simd(ptrs)?;
-                let (mask, mask_len) = this.project_to_simd(mask)?;
+                let (value, value_len) = this.trezoa_to_simd(value)?;
+                let (ptrs, ptrs_len) = this.trezoa_to_simd(ptrs)?;
+                let (mask, mask_len) = this.trezoa_to_simd(mask)?;
 
                 assert_eq!(ptrs_len, value_len);
                 assert_eq!(ptrs_len, mask_len);
 
                 for i in 0..ptrs_len {
-                    let value = this.read_immediate(&this.project_index(&value, i)?)?;
-                    let ptr = this.read_immediate(&this.project_index(&ptrs, i)?)?;
-                    let mask = this.read_immediate(&this.project_index(&mask, i)?)?;
+                    let value = this.read_immediate(&this.trezoa_index(&value, i)?)?;
+                    let ptr = this.read_immediate(&this.trezoa_index(&ptrs, i)?)?;
+                    let mask = this.read_immediate(&this.trezoa_index(&mask, i)?)?;
 
                     if simd_element_to_bool(mask)? {
                         let place = this.deref_pointer(&ptr)?;
@@ -734,18 +734,18 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             }
             "masked_load" => {
                 let [mask, ptr, default] = check_intrinsic_arg_count(args)?;
-                let (mask, mask_len) = this.project_to_simd(mask)?;
+                let (mask, mask_len) = this.trezoa_to_simd(mask)?;
                 let ptr = this.read_pointer(ptr)?;
-                let (default, default_len) = this.project_to_simd(default)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (default, default_len) = this.trezoa_to_simd(default)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(dest_len, mask_len);
                 assert_eq!(dest_len, default_len);
 
                 for i in 0..dest_len {
-                    let mask = this.read_immediate(&this.project_index(&mask, i)?)?;
-                    let default = this.read_immediate(&this.project_index(&default, i)?)?;
-                    let dest = this.project_index(&dest, i)?;
+                    let mask = this.read_immediate(&this.trezoa_index(&mask, i)?)?;
+                    let default = this.read_immediate(&this.trezoa_index(&default, i)?)?;
+                    let dest = this.trezoa_index(&dest, i)?;
 
                     let val = if simd_element_to_bool(mask)? {
                         // Size * u64 is implemented as always checked
@@ -760,15 +760,15 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             }
             "masked_store" => {
                 let [mask, ptr, vals] = check_intrinsic_arg_count(args)?;
-                let (mask, mask_len) = this.project_to_simd(mask)?;
+                let (mask, mask_len) = this.trezoa_to_simd(mask)?;
                 let ptr = this.read_pointer(ptr)?;
-                let (vals, vals_len) = this.project_to_simd(vals)?;
+                let (vals, vals_len) = this.trezoa_to_simd(vals)?;
 
                 assert_eq!(mask_len, vals_len);
 
                 for i in 0..vals_len {
-                    let mask = this.read_immediate(&this.project_index(&mask, i)?)?;
-                    let val = this.read_immediate(&this.project_index(&vals, i)?)?;
+                    let mask = this.read_immediate(&this.trezoa_index(&mask, i)?)?;
+                    let val = this.read_immediate(&this.trezoa_index(&vals, i)?)?;
 
                     if simd_element_to_bool(mask)? {
                         // Size * u64 is implemented as always checked

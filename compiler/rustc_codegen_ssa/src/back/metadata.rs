@@ -567,7 +567,7 @@ pub(crate) fn create_wrapper_file(
 //
 // As a result, we choose a slightly shorter name! As to why
 // `.note.rustc` works on MinGW, see
-// https://github.com/llvm/llvm-project/blob/llvmorg-12.0.0/lld/COFF/Writer.cpp#L1190-L1197
+// https://github.com/llvm/llvm-trezoa/blob/llvmorg-12.0.0/lld/COFF/Writer.cpp#L1190-L1197
 pub fn create_compressed_metadata_file(
     sess: &Session,
     metadata: &EncodedMetadata,

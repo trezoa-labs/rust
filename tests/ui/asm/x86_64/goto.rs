@@ -85,7 +85,7 @@ fn goto_out_jump_noreturn() {
 }
 
 // asm goto with outputs cause miscompilation in LLVM when multiple outputs are present.
-// The code sample below is adapted from https://github.com/llvm/llvm-project/issues/74483
+// The code sample below is adapted from https://github.com/llvm/llvm-trezoa/issues/74483
 // and does not work with `-C opt-level=0`
 #[expect(unused)]
 fn goto_multi_out() {

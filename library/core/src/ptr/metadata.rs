@@ -170,7 +170,7 @@ impl<Dyn: PointeeSized> DynMetadata<Dyn> {
     /// computation does magic and the resulting layout is *not* a `FieldsShape::Aggregate`, instead
     /// it is a `FieldsShape::Primitive`. This means that the same type can have different layout
     /// depending on whether it appears as the metadata field of a wide pointer or as a stand-alone
-    /// type, which understandably confuses codegen and leads to ICEs when trying to project to a
+    /// type, which understandably confuses codegen and leads to ICEs when trying to trezoa to a
     /// field of `DynMetadata`. To work around that issue, we use `transmute` instead of using a
     /// field projection.
     #[inline]

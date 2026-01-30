@@ -61,7 +61,7 @@ llvm-filecheck = "/home/user/x-tools/clang/bin/FileCheck"
 
 ## Building Rust programs
 
-The following `.cargo/config` is needed inside any project directory to build for the BE8 target:
+The following `.cargo/config` is needed inside any trezoa directory to build for the BE8 target:
 
 ```toml
 [build]

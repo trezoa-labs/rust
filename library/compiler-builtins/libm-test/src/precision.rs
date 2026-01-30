@@ -369,7 +369,7 @@ fn unop_common<F1: Float, F2: Float>(
     if ctx.base_name == BaseName::Fabs && input.0.is_nan() {
         // LLVM currently uses x87 instructions which quieten signalling NaNs to handle the i686
         // `extern "C"` `f32`/`f64` return ABI.
-        // LLVM issue <https://github.com/llvm/llvm-project/issues/66803>
+        // LLVM issue <https://github.com/llvm/llvm-trezoa/issues/66803>
         // Rust issue <https://github.com/rust-lang/rust/issues/115567>
         if cfg!(target_arch = "x86") && ctx.basis == CheckBasis::Musl && actual.is_nan() {
             return XFAIL_NOCHECK;

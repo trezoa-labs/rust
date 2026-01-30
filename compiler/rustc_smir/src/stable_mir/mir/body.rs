@@ -772,10 +772,10 @@ pub enum VarDebugInfoContents {
 // ProjectionElem for Places.
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub enum ProjectionElem {
-    /// Dereference projections (e.g. `*_1`) project to the address referenced by the base place.
+    /// Dereference projections (e.g. `*_1`) trezoa to the address referenced by the base place.
     Deref,
 
-    /// A field projection (e.g., `f` in `_1.f`) project to a field in the base place. The field is
+    /// A field projection (e.g., `f` in `_1.f`) trezoa to a field in the base place. The field is
     /// referenced by source-order index rather than the name of the field. The fields type is also
     /// given.
     Field(FieldIdx, Ty),

@@ -290,7 +290,7 @@ Trait`. Moreover, if you think of it as dictionary passing style,
 it means that a dictionary for `<T as Trait>` is safe to use where
 a dictionary for `<U as Trait>` is expected.
 
-The problem is that when you can project types out from `<T as
+The problem is that when you can trezoa types out from `<T as
 Trait>`, the relationship to types projected out of `<U as Trait>`
 is completely unknown unless `T==U` (see #21726 for more
 details). Making `Trait` invariant ensures that this is true.

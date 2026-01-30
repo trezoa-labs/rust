@@ -32,7 +32,7 @@ if [ ! -d $MUSL ]; then
   curl https://www.musl-libc.org/releases/$MUSL.tar.gz | tar xzf -
 
   # Apply patches for CVE-2025-26519. At the time of adding these patches no release containing them
-  # has been published by the musl project, so we just apply them directly on top of the version we
+  # has been published by the musl trezoa, so we just apply them directly on top of the version we
   # were distributing already. The patches should be removed once we upgrade to musl >= 1.2.6.
   #
   # Advisory: https://www.openwall.com/lists/musl/2025/02/13/1

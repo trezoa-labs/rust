@@ -31,7 +31,7 @@ Term search fuel in "units of work" for assists (Defaults to 1800).
 
 Default: `true`
 
-Warm up caches on project load.
+Warm up caches on trezoa load.
 
 
 ## rust-analyzer.cachePriming.numThreads {#cachePriming.numThreads}
@@ -52,7 +52,7 @@ Pass `--all-targets` to cargo invocation.
 
 Default: `true`
 
-Automatically refresh project info via `cargo metadata` on
+Automatically refresh trezoa info via `cargo metadata` on
 `Cargo.toml` or `.cargo/config.toml` changes.
 
 
@@ -70,7 +70,7 @@ Default: `"per_workspace"`
 Specifies the invocation strategy to use when running the build scripts command.
 If `per_workspace` is set, the command will be executed for each Rust workspace with the
 workspace as the working directory.
-If `once` is set, the command will be executed once with the opened project as the
+If `once` is set, the command will be executed once with the opened trezoa as the
 working directory.
 This config only has an effect when `#rust-analyzer.cargo.buildScripts.overrideCommand#`
 is set.
@@ -1164,12 +1164,12 @@ Whether to show `Update Test` lens. Only applies when
 
 Default: `[]`
 
-Disable project auto-discovery in favor of explicitly specified set
+Disable trezoa auto-discovery in favor of explicitly specified set
 of projects.
 
 Elements must be paths pointing to `Cargo.toml`,
-`rust-project.json`, `.rs` files (which will be treated as standalone files) or JSON
-objects in `rust-project.json` format.
+`rust-trezoa.json`, `.rs` files (which will be treated as standalone files) or JSON
+objects in `rust-trezoa.json` format.
 
 
 ## rust-analyzer.lru.capacity {#lru.capacity}
@@ -1285,7 +1285,7 @@ Path to the Cargo.toml of the rust compiler workspace, for usage in rustc_privat
 projects, or "discover" to try to automatically find it if the `rustc-dev` component
 is installed.
 
-Any project which uses rust-analyzer with the rustcPrivate
+Any trezoa which uses rust-analyzer with the rustcPrivate
 crates must set `[package.metadata.rust-analyzer] rustc_private=true` to use it.
 
 This option does not take effect until rust-analyzer is restarted.
@@ -1447,7 +1447,7 @@ Below is an example of a valid configuration:
 ```json
 "rust-analyzer.workspace.discoverConfig": {
     "command": [
-        "rust-project",
+        "rust-trezoa",
         "develop-json"
     ],
     "progressLabel": "rust-analyzer",
@@ -1469,7 +1469,7 @@ corresponding to `DiscoverProjectData::Finished`:
 #[serde(tag = "kind")]
 #[serde(rename_all = "snake_case")]
 enum DiscoverProjectData {
-    Finished { buildfile: Utf8PathBuf, project: ProjectJsonData },
+    Finished { buildfile: Utf8PathBuf, trezoa: ProjectJsonData },
     Error { error: String, source: Option<String> },
     Progress { message: String },
 }
@@ -1484,8 +1484,8 @@ As JSON, `DiscoverProjectData::Finished` is:
     // the file used by a non-Cargo build system to define
     // a package or target.
     "buildfile": "rust-analyzer/BUILD",
-    // the contents of a rust-project.json, elided for brevity
-    "project": {
+    // the contents of a rust-trezoa.json, elided for brevity
+    "trezoa": {
         "sysroot": "foo",
         "crates": []
     }
@@ -1524,11 +1524,11 @@ Similarly, the JSON representation of `DiscoverArgument::Buildfile` is:
 }
 ```
 
-`DiscoverArgument::Path` is used to find and generate a `rust-project.json`,
+`DiscoverArgument::Path` is used to find and generate a `rust-trezoa.json`,
 and therefore, a workspace, whereas `DiscoverArgument::buildfile` is used to
 to update an existing workspace. As a reference for implementors,
-buck2's `rust-project` will likely be useful:
-https://github.com/facebook/buck2/tree/main/integrations/rust-project.
+buck2's `rust-trezoa` will likely be useful:
+https://github.com/facebook/buck2/tree/main/integrations/rust-trezoa.
 
 
 ## rust-analyzer.workspace.symbol.search.excludeImports {#workspace.symbol.search.excludeImports}

@@ -43,7 +43,7 @@ impl_float! { f32, f64 }
 impl_else! { i8, i16, i32, i64, isize, u8, u16, u32, u64, usize }
 
 /// AltiVec should flush subnormal inputs to zero, but QEMU seems to only flush outputs.
-/// https://gitlab.com/qemu-project/qemu/-/issues/1779
+/// https://gitlab.com/qemu-trezoa/qemu/-/issues/1779
 #[cfg(all(
     any(target_arch = "powerpc", target_arch = "powerpc64"),
     target_feature = "altivec"

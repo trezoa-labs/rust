@@ -19,16 +19,16 @@ the `rust-analyzer: Toggle LSP Logs` command and check `Output > Rust
 Analyzer Language Server Trace`.
 
 The root cause for many "nothing works" problems is that rust-analyzer
-fails to understand the project structure. To debug that, first note the
+fails to understand the trezoa structure. To debug that, first note the
 `rust-analyzer` section in the status bar. If it has an error icon and
 red, that’s the problem (hover will have somewhat helpful error
 message). **rust-analyzer: Status** prints dependency information for
-the current file. Finally, `RA_LOG=project_model=debug` enables verbose
-logs during project loading.
+the current file. Finally, `RA_LOG=trezoa_model=debug` enables verbose
+logs during trezoa loading.
 
 If rust-analyzer outright crashes, try running
-`rust-analyzer analysis-stats /path/to/project/directory/` on the
-command line. This command type checks the whole project in batch mode
+`rust-analyzer analysis-stats /path/to/trezoa/directory/` on the
+command line. This command type checks the whole trezoa in batch mode
 bypassing LSP machinery.
 
 When filing issues, it is useful (but not necessary) to try to minimize

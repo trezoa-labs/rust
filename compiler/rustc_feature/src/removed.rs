@@ -136,7 +136,7 @@ declare_features! (
      Some("use #[doc = include_str!(\"filename\")] instead, which handles macro invocations"), 85457),
     /// Allows using `#[ffi_returns_twice]` on foreign functions.
     (removed, ffi_returns_twice, "1.78.0", Some(58314),
-     Some("being investigated by the ffi-unwind project group"), 120502),
+     Some("being investigated by the ffi-unwind trezoa group"), 120502),
     /// Allows generators to be cloned.
     (removed, generator_clone, "1.75.0", Some(95360), Some("renamed to `coroutine_clone`"), 116958),
     /// Allows defining generators.

@@ -43,23 +43,23 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             "pmadd.wd" => {
                 let [left, right] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
 
-                let (left, left_len) = this.project_to_simd(left)?;
-                let (right, right_len) = this.project_to_simd(right)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (left, left_len) = this.trezoa_to_simd(left)?;
+                let (right, right_len) = this.trezoa_to_simd(right)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(left_len, right_len);
                 assert_eq!(dest_len.strict_mul(2), left_len);
 
                 for i in 0..dest_len {
                     let j1 = i.strict_mul(2);
-                    let left1 = this.read_scalar(&this.project_index(&left, j1)?)?.to_i16()?;
-                    let right1 = this.read_scalar(&this.project_index(&right, j1)?)?.to_i16()?;
+                    let left1 = this.read_scalar(&this.trezoa_index(&left, j1)?)?.to_i16()?;
+                    let right1 = this.read_scalar(&this.trezoa_index(&right, j1)?)?.to_i16()?;
 
                     let j2 = j1.strict_add(1);
-                    let left2 = this.read_scalar(&this.project_index(&left, j2)?)?.to_i16()?;
-                    let right2 = this.read_scalar(&this.project_index(&right, j2)?)?.to_i16()?;
+                    let left2 = this.read_scalar(&this.trezoa_index(&left, j2)?)?.to_i16()?;
+                    let right2 = this.read_scalar(&this.trezoa_index(&right, j2)?)?.to_i16()?;
 
-                    let dest = this.project_index(&dest, i)?;
+                    let dest = this.trezoa_index(&dest, i)?;
 
                     // Multiplications are i16*i16->i32, which will not overflow.
                     let mul1 = i32::from(left1).strict_mul(right1.into());
@@ -81,9 +81,9 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             "psad.bw" => {
                 let [left, right] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
 
-                let (left, left_len) = this.project_to_simd(left)?;
-                let (right, right_len) = this.project_to_simd(right)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (left, left_len) = this.trezoa_to_simd(left)?;
+                let (right, right_len) = this.trezoa_to_simd(right)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 // left and right are u8x16, dest is u64x2
                 assert_eq!(left_len, right_len);
@@ -91,15 +91,15 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
                 assert_eq!(dest_len, 2);
 
                 for i in 0..dest_len {
-                    let dest = this.project_index(&dest, i)?;
+                    let dest = this.trezoa_index(&dest, i)?;
 
                     let mut res: u16 = 0;
                     let n = left_len.strict_div(dest_len);
                     for j in 0..n {
                         let op_i = j.strict_add(i.strict_mul(n));
-                        let left = this.read_scalar(&this.project_index(&left, op_i)?)?.to_u8()?;
+                        let left = this.read_scalar(&this.trezoa_index(&left, op_i)?)?.to_u8()?;
                         let right =
-                            this.read_scalar(&this.project_index(&right, op_i)?)?.to_u8()?;
+                            this.read_scalar(&this.trezoa_index(&right, op_i)?)?.to_u8()?;
 
                         res = res.strict_add(left.abs_diff(right).into());
                     }
@@ -261,13 +261,13 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             | "ucomineq.sd" => {
                 let [left, right] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
 
-                let (left, left_len) = this.project_to_simd(left)?;
-                let (right, right_len) = this.project_to_simd(right)?;
+                let (left, left_len) = this.trezoa_to_simd(left)?;
+                let (right, right_len) = this.trezoa_to_simd(right)?;
 
                 assert_eq!(left_len, right_len);
 
-                let left = this.read_scalar(&this.project_index(&left, 0)?)?.to_f64()?;
-                let right = this.read_scalar(&this.project_index(&right, 0)?)?.to_f64()?;
+                let left = this.read_scalar(&this.trezoa_index(&left, 0)?)?.to_f64()?;
+                let right = this.read_scalar(&this.trezoa_index(&right, 0)?)?.to_f64()?;
                 // The difference between the com* and ucom* variants is signaling
                 // of exceptions when either argument is a quiet NaN. We do not
                 // support accessing the SSE status register from miri (or from Rust,
@@ -288,9 +288,9 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             // Converts the first component of `op` from f64 to i32/i64.
             "cvtsd2si" | "cvttsd2si" | "cvtsd2si64" | "cvttsd2si64" => {
                 let [op] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
-                let (op, _) = this.project_to_simd(op)?;
+                let (op, _) = this.trezoa_to_simd(op)?;
 
-                let op = this.read_immediate(&this.project_index(&op, 0)?)?;
+                let op = this.read_immediate(&this.trezoa_index(&op, 0)?)?;
 
                 let rnd = match unprefixed_name {
                     // "current SSE rounding mode", assume nearest
@@ -315,15 +315,15 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             "cvtsd2ss" | "cvtss2sd" => {
                 let [left, right] = this.check_shim(abi, CanonAbi::C, link_name, args)?;
 
-                let (left, left_len) = this.project_to_simd(left)?;
-                let (right, _) = this.project_to_simd(right)?;
-                let (dest, dest_len) = this.project_to_simd(dest)?;
+                let (left, left_len) = this.trezoa_to_simd(left)?;
+                let (right, _) = this.trezoa_to_simd(right)?;
+                let (dest, dest_len) = this.trezoa_to_simd(dest)?;
 
                 assert_eq!(dest_len, left_len);
 
                 // Convert first element of `right`
-                let right0 = this.read_immediate(&this.project_index(&right, 0)?)?;
-                let dest0 = this.project_index(&dest, 0)?;
+                let right0 = this.read_immediate(&this.trezoa_index(&right, 0)?)?;
+                let dest0 = this.trezoa_index(&dest, 0)?;
                 // `float_to_float_or_int` here will convert from f64 to f32 (cvtsd2ss) or
                 // from f32 to f64 (cvtss2sd).
                 let res0 = this.float_to_float_or_int(&right0, dest0.layout)?;
@@ -331,7 +331,7 @@ pub(super) trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
 
                 // Copy remaining from `left`
                 for i in 1..dest_len {
-                    this.copy_op(&this.project_index(&left, i)?, &this.project_index(&dest, i)?)?;
+                    this.copy_op(&this.trezoa_index(&left, i)?, &this.trezoa_index(&dest, i)?)?;
                 }
             }
             _ => return interp_ok(EmulateItemResult::NotSupported),

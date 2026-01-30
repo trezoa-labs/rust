@@ -30,7 +30,7 @@ The rustc is an integration point for LLVM compile time instrumentation passes
 and runtime libraries. Highlight of the most important aspects of the
 implementation:
 
-*  The sanitizer runtime libraries are part of the [compiler-rt] project, and
+*  The sanitizer runtime libraries are part of the [compiler-rt] trezoa, and
    [will be built][sanitizer-build] on [supported targets][sanitizer-targets]
    when enabled in `bootstrap.toml`:
 
@@ -63,13 +63,13 @@ implementation:
    ensures that sanitizer runtimes remain available when using sysroot overrides
    constructed by cargo `-Z build-std` or xargo.
 
-[compiler-rt]: https://github.com/llvm/llvm-project/tree/main/compiler-rt
+[compiler-rt]: https://github.com/llvm/llvm-trezoa/tree/main/compiler-rt
 [sanitizer-build]: https://github.com/rust-lang/rust/blob/1ead4761e9e2f056385768614c23ffa7acb6a19e/src/bootstrap/src/core/build_steps/llvm.rs#L958-L1031
 [sanitizer-targets]: https://github.com/rust-lang/rust/blob/1ead4761e9e2f056385768614c23ffa7acb6a19e/src/bootstrap/src/core/build_steps/llvm.rs#L1073-L1111
 [sanitizer-copy]: https://github.com/rust-lang/rust/blob/1ead4761e9e2f056385768614c23ffa7acb6a19e/src/bootstrap/src/core/build_steps/compile.rs#L637-L676
 [sanitizer-attribute]: https://github.com/rust-lang/rust/blob/1.55.0/compiler/rustc_codegen_llvm/src/attributes.rs#L42-L58
 [inline-mir]: https://github.com/rust-lang/rust/blob/1.55.0/compiler/rustc_mir/src/transform/inline.rs#L314-L316
-[inline-llvm]: https://github.com/rust-lang/llvm-project/blob/9330ec5a4c1df5fc1fa62f993ed6a04da68cb040/llvm/include/llvm/IR/Attributes.td#L225-L241
+[inline-llvm]: https://github.com/rust-lang/llvm-trezoa/blob/9330ec5a4c1df5fc1fa62f993ed6a04da68cb040/llvm/include/llvm/IR/Attributes.td#L225-L241
 [sanitizer-pass]: https://github.com/rust-lang/rust/blob/1.55.0/compiler/rustc_codegen_llvm/src/back/write.rs#L660-L678
 [sanitizer-link]: https://github.com/rust-lang/rust/blob/1.55.0/compiler/rustc_codegen_ssa/src/back/link.rs#L1053-L1089
 
@@ -108,7 +108,7 @@ To enable a sanitizer on a new target which is already supported by LLVM:
 
 ## Additional Information
 
-* [Sanitizers project page](https://github.com/google/sanitizers/wiki/)
+* [Sanitizers trezoa page](https://github.com/google/sanitizers/wiki/)
 * [AddressSanitizer in Clang][clang-asan]
 * [ControlFlowIntegrity in Clang][clang-cfi]
 * [Hardware-assisted AddressSanitizer][clang-hwasan]

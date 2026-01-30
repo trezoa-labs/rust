@@ -157,7 +157,7 @@ impl<'a, 'tcx, Bx: BuilderMethods<'a, 'tcx>> FunctionCx<'a, 'tcx, Bx> {
             {
                 let (variant_index, variant_dest, active_field_index) = match **kind {
                     mir::AggregateKind::Adt(_, variant_index, _, _, active_field_index) => {
-                        let variant_dest = dest.project_downcast(bx, variant_index);
+                        let variant_dest = dest.trezoa_downcast(bx, variant_index);
                         (variant_index, variant_dest, active_field_index)
                     }
                     _ => (FIRST_VARIANT, dest, None),
@@ -172,9 +172,9 @@ impl<'a, 'tcx, Bx: BuilderMethods<'a, 'tcx>> FunctionCx<'a, 'tcx, Bx> {
                         let field_index = active_field_index.unwrap_or(i);
                         let field = if let mir::AggregateKind::Array(_) = **kind {
                             let llindex = bx.cx().const_usize(field_index.as_u32().into());
-                            variant_dest.project_index(bx, llindex)
+                            variant_dest.trezoa_index(bx, llindex)
                         } else {
-                            variant_dest.project_field(bx, field_index.as_usize())
+                            variant_dest.trezoa_field(bx, field_index.as_usize())
                         };
                         op.val.store(bx, field);
                     }
@@ -898,7 +898,7 @@ impl<'a, 'tcx, Bx: BuilderMethods<'a, 'tcx>> FunctionCx<'a, 'tcx, Bx> {
                     // <https://graphics.stanford.edu/~seander/bithacks.html#CopyIntegerSign>
                     // However, as of 2023-11 it optimizes worse in things like derived
                     // `PartialOrd`, so only use it in debug for now. Once LLVM can handle it
-                    // better (see <https://github.com/llvm/llvm-project/issues/73417>), it'll
+                    // better (see <https://github.com/llvm/llvm-trezoa/issues/73417>), it'll
                     // be worth trying it in optimized builds as well.
                     let is_gt = bx.icmp(pred(mir::BinOp::Gt), lhs, rhs);
                     let gtext = bx.zext(is_gt, bx.type_i8());

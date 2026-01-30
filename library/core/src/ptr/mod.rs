@@ -2294,7 +2294,7 @@ pub(crate) unsafe fn align_offset<T: Sized>(p: *const T, a: usize) -> usize {
 
         let aligned_address = wrapping_add(addr, a_minus_one) & wrapping_sub(0, a);
         let byte_offset = wrapping_sub(aligned_address, addr);
-        // FIXME: Remove the assume after <https://github.com/llvm/llvm-project/issues/62502>
+        // FIXME: Remove the assume after <https://github.com/llvm/llvm-trezoa/issues/62502>
         // SAFETY: Masking by `-a` can only affect the low bits, and thus cannot have reduced
         // the value by more than `a-1`, so even though the intermediate values might have
         // wrapped, the byte_offset is always in `[0, a)`.

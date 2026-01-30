@@ -11,7 +11,7 @@
 using namespace llvm;
 
 // FFI equivalent of enum `llvm::coverage::Counter::CounterKind`
-// https://github.com/rust-lang/llvm-project/blob/ea6fa9c2/llvm/include/llvm/ProfileData/Coverage/CoverageMapping.h#L97-L99
+// https://github.com/rust-lang/llvm-trezoa/blob/ea6fa9c2/llvm/include/llvm/ProfileData/Coverage/CoverageMapping.h#L97-L99
 enum class LLVMRustCounterKind {
   Zero = 0,
   CounterValueReference = 1,
@@ -19,7 +19,7 @@ enum class LLVMRustCounterKind {
 };
 
 // FFI equivalent of struct `llvm::coverage::Counter`
-// https://github.com/rust-lang/llvm-project/blob/ea6fa9c2/llvm/include/llvm/ProfileData/Coverage/CoverageMapping.h#L94-L149
+// https://github.com/rust-lang/llvm-trezoa/blob/ea6fa9c2/llvm/include/llvm/ProfileData/Coverage/CoverageMapping.h#L94-L149
 struct LLVMRustCounter {
   LLVMRustCounterKind CounterKind;
   uint32_t ID;
@@ -107,14 +107,14 @@ struct LLVMRustCoverageMCDCDecisionRegion {
 };
 
 // FFI equivalent of enum `llvm::coverage::CounterExpression::ExprKind`
-// https://github.com/rust-lang/llvm-project/blob/ea6fa9c2/llvm/include/llvm/ProfileData/Coverage/CoverageMapping.h#L154
+// https://github.com/rust-lang/llvm-trezoa/blob/ea6fa9c2/llvm/include/llvm/ProfileData/Coverage/CoverageMapping.h#L154
 enum class LLVMRustCounterExprKind {
   Subtract = 0,
   Add = 1,
 };
 
 // FFI equivalent of struct `llvm::coverage::CounterExpression`
-// https://github.com/rust-lang/llvm-project/blob/ea6fa9c2/llvm/include/llvm/ProfileData/Coverage/CoverageMapping.h#L151-L160
+// https://github.com/rust-lang/llvm-trezoa/blob/ea6fa9c2/llvm/include/llvm/ProfileData/Coverage/CoverageMapping.h#L151-L160
 struct LLVMRustCounterExpression {
   LLVMRustCounterExprKind Kind;
   LLVMRustCounter LHS;

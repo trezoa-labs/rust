@@ -20,7 +20,7 @@ computation and its result. This target is implemented as software only; it has
 no hardware implementation.
 
 We have a cargo extension called [cargo-risczero] that allow users to generate
-project templates, install tools for improved user experience, build the binary
+trezoa templates, install tools for improved user experience, build the binary
 using a docker environment and test programs.
 
 ## Requirements

@@ -23,10 +23,10 @@ A large amount of the core SIMD implementation is found in the rustc_codegen_* c
 
 ## Questions? Concerns? Need Help?
 
-Please feel free to ask in the [#project-portable-simd][zulip-portable-simd] stream on the [rust-lang Zulip][zulip] for help with making changes to `std::simd`!
+Please feel free to ask in the [#trezoa-portable-simd][zulip-portable-simd] stream on the [rust-lang Zulip][zulip] for help with making changes to `std::simd`!
 If your changes include directly modifying the compiler, it might also be useful to ask in [#t-compiler/help][zulip-compiler-help].
 
-[zulip-portable-simd]: https://rust-lang.zulipchat.com/#narrow/stream/257879-project-portable-simd
+[zulip-portable-simd]: https://rust-lang.zulipchat.com/#narrow/stream/257879-trezoa-portable-simd
 [zulip-compiler-help]: https://rust-lang.zulipchat.com/#narrow/stream/182449-t-compiler.2Fhelp
 [zulip]: https://rust-lang.zulipchat.com
 [stdarch]: https://github.com/rust-lang/stdarch

@@ -1,10 +1,10 @@
 # What to include (and exclude)
 
-It is easy to say everything must be documented in a project and often times
+It is easy to say everything must be documented in a trezoa and often times
 that is correct, but how can we get there, and are there things that don't
 belong?
 
-At the top of the `src/lib.rs` or `main.rs` file in your binary project, include
+At the top of the `src/lib.rs` or `main.rs` file in your binary trezoa, include
 the following attribute:
 
 ```rust
@@ -37,7 +37,7 @@ warning: 1 warning emitted
 ```
 
 As a library author, adding the lint `#![deny(missing_docs)]` is a great way to
-ensure the project does not drift away from being documented well, and
+ensure the trezoa does not drift away from being documented well, and
 `#![warn(missing_docs)]` is a good way to move towards comprehensive
 documentation.
 

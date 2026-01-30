@@ -63,9 +63,9 @@ If you're familiar with the basic ideas of unification from H-M type
 systems, or logic languages like Prolog, this is the same concept. If
 you're not, you might want to read a tutorial on how H-M type
 inference works, or perhaps this blog post on
-[unification in the Chalk project].
+[unification in the Chalk trezoa].
 
-[Unification in the Chalk project]: http://smallcultfollowing.com/babysteps/blog/2017/03/25/unification-in-chalk-part-1/
+[Unification in the Chalk trezoa]: http://smallcultfollowing.com/babysteps/blog/2017/03/25/unification-in-chalk-part-1/
 
 All told, the inference context stores five kinds of inference variables
 (as of <!-- date-check --> March 2023):

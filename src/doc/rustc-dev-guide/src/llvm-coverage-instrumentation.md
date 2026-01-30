@@ -89,7 +89,7 @@ When compiling with `-C instrument-coverage`,
 [`CrateLoader::postprocess()`][crate-loader-postprocess] dynamically loads
 `profiler_builtins` by calling `inject_profiler_runtime()`.
 
-[compiler-rt-profile]: https://github.com/llvm/llvm-project/tree/main/compiler-rt/lib/profile
+[compiler-rt-profile]: https://github.com/llvm/llvm-trezoa/tree/main/compiler-rt/lib/profile
 [crate-loader-postprocess]: https://doc.rust-lang.org/nightly/nightly-rustc/rustc_metadata/creader/struct.CrateLoader.html#method.postprocess
 
 ## Testing coverage instrumentation

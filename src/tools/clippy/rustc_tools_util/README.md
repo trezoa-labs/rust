@@ -41,7 +41,7 @@ This gives the following output in clippy:
 
 ## Repository
 
-This project is part of the rust-lang/rust-clippy repository. The source code
+This trezoa is part of the rust-lang/rust-clippy repository. The source code
 can be found under `./rustc_tools_util/`.
 
 The changelog for `rustc_tools_util` is available under:
@@ -51,12 +51,12 @@ The changelog for `rustc_tools_util` is available under:
 
 <!-- REUSE-IgnoreStart -->
 
-Copyright 2014-2025 The Rust Project Developers
+Copyright 2014-2025 The Rust Trezoa Developers
 
 Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
 http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
 <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
-option. All files in the project carrying such notice may not be
+option. All files in the trezoa carrying such notice may not be
 copied, modified, or distributed except according to those terms.
 
 <!-- REUSE-IgnoreEnd -->

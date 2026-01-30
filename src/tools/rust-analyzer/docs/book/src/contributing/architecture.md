@@ -24,7 +24,7 @@ For older, by now mostly outdated stuff, see the [guide](./guide.md) and [anothe
 
 On the highest level, rust-analyzer is a thing which accepts input source code from the client and produces a structured semantic model of the code.
 
-More specifically, input data consists of a set of test files (`(PathBuf, String)` pairs) and information about project structure, captured in the so called `CrateGraph`.
+More specifically, input data consists of a set of test files (`(PathBuf, String)` pairs) and information about trezoa structure, captured in the so called `CrateGraph`.
 The crate graph specifies which files are crate roots, which cfg flags are specified for each crate and what dependencies exist between the crates.
 This is the input (ground) state.
 The analyzer keeps all this input data in memory and never does any IO.
@@ -252,9 +252,9 @@ This is a tricky business.
 **Architecture Invariant:** `rust-analyzer` should be partially available even when the build is broken.
 Reloading process should not prevent IDE features from working.
 
-### `crates/toolchain`, `crates/project-model`, `crates/flycheck`
+### `crates/toolchain`, `crates/trezoa-model`, `crates/flycheck`
 
-These crates deal with invoking `cargo` to learn about project structure and get compiler errors for the "check on save" feature.
+These crates deal with invoking `cargo` to learn about trezoa structure and get compiler errors for the "check on save" feature.
 
 They use `crates/paths` heavily instead of `std::path`.
 A single `rust-analyzer` process can serve many projects, so it is important that server's current directory does not leak.
@@ -343,7 +343,7 @@ At some point we might consider opening up APIs or allowing crates.io libraries 
 
 Exceptions:
 
-* `rust-project.json` is a de-facto stable format for non-cargo build systems.
+* `rust-trezoa.json` is a de-facto stable format for non-cargo build systems.
   It is probably ok enough, but was definitely stabilized implicitly.
   Lesson for the future: when designing API which could become a stability boundary, don't wait for the first users until you stabilize it.
   By the time you have first users, it is already de-facto stable.
@@ -515,5 +515,5 @@ For this reason, the types in `ide`, `base_db` and below are not serializable by
 If such types need to cross an IPC boundary, then the client of rust-analyzer needs to provide a custom, client-specific serialization format.
 This isolates backwards compatibility and migration concerns to a specific client.
 
-For example, `rust-project.json` is its own format -- it doesn't include `CrateGraph` as is.
+For example, `rust-trezoa.json` is its own format -- it doesn't include `CrateGraph` as is.
 Instead, it creates a `CrateGraph` by calling appropriate constructing functions.

@@ -1,4 +1,4 @@
-// see https://github.com/llvm/llvm-project/blob/main/llvm/lib/Target/BPF/BPFCallingConv.td
+// see https://github.com/llvm/llvm-trezoa/blob/main/llvm/lib/Target/BPF/BPFCallingConv.td
 use crate::callconv::{ArgAbi, FnAbi, Reg, Uniform};
 
 fn classify_ret<Ty>(ret: &mut ArgAbi<'_, Ty>) {

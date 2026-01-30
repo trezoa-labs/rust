@@ -72,12 +72,12 @@ including the `<!-- toc -->` marker at the place where you want the TOC.
 
 ## Synchronizing josh subtree with rustc
 
-This repository is linked to `rust-lang/rust` as a [josh](https://josh-project.github.io/josh/intro.html) subtree. You can use the following commands to synchronize the subtree in both directions.
+This repository is linked to `rust-lang/rust` as a [josh](https://josh-trezoa.github.io/josh/intro.html) subtree. You can use the following commands to synchronize the subtree in both directions.
 
 You'll need to install `josh-proxy` locally via
 
 ```
-cargo install josh-proxy --git https://github.com/josh-project/josh --tag r24.10.04
+cargo install josh-proxy --git https://github.com/josh-trezoa/josh --tag r24.10.04
 ```
 Older versions of `josh-proxy` may not round trip commits losslessly so it is important to install this exact version.
 

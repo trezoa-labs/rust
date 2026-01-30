@@ -109,7 +109,7 @@ macro join_internal {
             let mut futures = unsafe { Pin::new_unchecked(&mut futures) };
             poll_fn(move |cx| {
                 let mut done = true;
-                // For each `fut`, pin-project to it, and poll it.
+                // For each `fut`, pin-trezoa to it, and poll it.
                 $(
                     // SAFETY: pinning projection
                     let fut = unsafe {

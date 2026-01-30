@@ -100,7 +100,7 @@ macro_rules! check {
     ($func:ident $ty:ident $class:ident $mov:literal $modifier:literal) => {
         // FIXME(f16_f128): Change back to `$func(x: $ty) -> $ty` once arm64ec can pass and return
         // `f16` and `f128` without LLVM erroring.
-        // LLVM issue: <https://github.com/llvm/llvm-project/issues/94434>
+        // LLVM issue: <https://github.com/llvm/llvm-trezoa/issues/94434>
         #[no_mangle]
         pub unsafe fn $func(inp: &$ty, out: &mut $ty) {
             let x = *inp;

@@ -387,7 +387,7 @@ rust-analyzer supports two `kind`s of runnables, `"cargo"` and `"shell"`. The `a
      */
     cwd: string;
     /**
-     * The workspace root directory of the cargo project.
+     * The workspace root directory of the cargo trezoa.
      */
     workspaceRoot?: string;
     /**
@@ -606,7 +606,7 @@ Returns internal status message, mostly for debugging purposes.
 
 **Response:** `null`
 
-Reloads project information (that is, re-executes `cargo metadata`).
+Reloads trezoa information (that is, re-executes `cargo metadata`).
 
 ## Rebuild proc-macros
 
@@ -876,7 +876,7 @@ Such actions on the client side are appended to a hover bottom as command links:
 
 **Experimental Server Capability:** `{ "openCargoToml": boolean }`
 
-This request is sent from client to server to open the current project's Cargo.toml
+This request is sent from client to server to open the current trezoa's Cargo.toml
 
 **Method:** `experimental/openCargoToml`
 

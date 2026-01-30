@@ -33,7 +33,7 @@ impl OverlayKind {
         match self {
             OverlayKind::Rust => &["COPYRIGHT", "LICENSE-APACHE", "LICENSE-MIT", "README.md"],
             OverlayKind::Llvm => {
-                &["src/llvm-project/llvm/LICENSE.TXT", "src/llvm-project/llvm/README.txt"]
+                &["src/llvm-trezoa/llvm/LICENSE.TXT", "src/llvm-trezoa/llvm/README.txt"]
             }
             OverlayKind::Cargo => &[
                 "src/tools/cargo/README.md",

@@ -83,7 +83,7 @@ jobs:
         sudo mount debian-m68k.img vm
         sudo cp $(which qemu-m68k-static) vm/usr/bin/
 
-    - name: Build sample project with target defined as JSON spec
+    - name: Build sample trezoa with target defined as JSON spec
       run: |
         ./y.sh prepare --only-libcore --cross
         ./y.sh build --sysroot --features compiler_builtins/no-f16-f128 --target-triple m68k-unknown-linux-gnu --target ${{ github.workspace }}/target_specs/m68k-unknown-linux-gnu.json
