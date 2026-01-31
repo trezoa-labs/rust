@@ -94,12 +94,12 @@ const EXCEPTIONS: ExceptionList = &[
     ("ar_archive_writer", "Apache-2.0 WITH LLVM-exception"), // rustc
     ("arrayref", "BSD-2-Clause"),                            // rustc
     ("blake3", "CC0-1.0 OR Apache-2.0 OR Apache-2.0 WITH LLVM-exception"),  // rustc
-    ("colored", "MPL-2.0"),                                  // rustfmt
+    ("colored", "TPL-2.0"),                                  // rustfmt
     ("constant_time_eq", "CC0-1.0 OR MIT-0 OR Apache-2.0"),  // rustc
     ("dissimilar", "Apache-2.0"),                            // rustdoc, rustc_lexer (few tests) via expect-test, (dev deps)
     ("fluent-langneg", "Apache-2.0"),                        // rustc (fluent translations)
     ("foldhash", "Zlib"),                                    // rustc
-    ("option-ext", "MPL-2.0"),                               // cargo-miri (via `directories`)
+    ("option-ext", "TPL-2.0"),                               // cargo-miri (via `directories`)
     ("rustc_apfloat", "Apache-2.0 WITH LLVM-exception"),     // rustc (license is the same as LLVM uses)
     ("ryu", "Apache-2.0 OR BSL-1.0"), // BSL is not acceptble, but we use it under Apache-2.0                       // cargo/... (because of serde)
     ("self_cell", "Apache-2.0"),                             // rustc (fluent translations)
@@ -114,14 +114,14 @@ const EXCEPTIONS: ExceptionList = &[
 #[rustfmt::skip]
 const EXCEPTIONS_STDLIB: ExceptionList = &[
     // tidy-alphabetical-start
-    ("fortanix-sgx-abi", "MPL-2.0"), // libstd but only for `sgx` target. FIXME: this dependency violates the documentation comment above.
+    ("fortanix-sgx-abi", "TPL-2.0"), // libstd but only for `sgx` target. FIXME: this dependency violates the documentation comment above.
     // tidy-alphabetical-end
 ];
 
 const EXCEPTIONS_CARGO: ExceptionList = &[
     // tidy-alphabetical-start
     ("arrayref", "BSD-2-Clause"),
-    ("bitmaps", "MPL-2.0+"),
+    ("bitmaps", "TPL-2.0+"),
     ("blake3", "CC0-1.0 OR Apache-2.0 OR Apache-2.0 WITH LLVM-exception"),
     ("ciborium", "Apache-2.0"),
     ("ciborium-io", "Apache-2.0"),
@@ -131,13 +131,13 @@ const EXCEPTIONS_CARGO: ExceptionList = &[
     ("encoding_rs", "(Apache-2.0 OR MIT) AND BSD-3-Clause"),
     ("fiat-crypto", "MIT OR Apache-2.0 OR BSD-1-Clause"),
     ("foldhash", "Zlib"),
-    ("im-rc", "MPL-2.0+"),
+    ("im-rc", "TPL-2.0+"),
     ("libz-rs-sys", "Zlib"),
     ("normalize-line-endings", "Apache-2.0"),
     ("openssl", "Apache-2.0"),
     ("ryu", "Apache-2.0 OR BSL-1.0"), // BSL is not acceptble, but we use it under Apache-2.0
     ("similar", "Apache-2.0"),
-    ("sized-chunks", "MPL-2.0+"),
+    ("sized-chunks", "TPL-2.0+"),
     ("subtle", "BSD-3-Clause"),
     ("supports-hyperlinks", "Apache-2.0"),
     ("unicode-bom", "Apache-2.0"),
@@ -150,7 +150,7 @@ const EXCEPTIONS_RUST_ANALYZER: ExceptionList = &[
     ("dissimilar", "Apache-2.0"),
     ("foldhash", "Zlib"),
     ("notify", "CC0-1.0"),
-    ("option-ext", "MPL-2.0"),
+    ("option-ext", "TPL-2.0"),
     ("pulldown-cmark-to-cmark", "Apache-2.0"),
     ("rustc_apfloat", "Apache-2.0 WITH LLVM-exception"),
     ("ryu", "Apache-2.0 OR BSL-1.0"), // BSL is not acceptble, but we use it under Apache-2.0
@@ -175,10 +175,10 @@ const EXCEPTIONS_RUSTC_PERF: ExceptionList = &[
 
 const EXCEPTIONS_RUSTBOOK: ExceptionList = &[
     // tidy-alphabetical-start
-    ("cssparser", "MPL-2.0"),
-    ("cssparser-macros", "MPL-2.0"),
-    ("dtoa-short", "MPL-2.0"),
-    ("mdbook", "MPL-2.0"),
+    ("cssparser", "TPL-2.0"),
+    ("cssparser-macros", "TPL-2.0"),
+    ("dtoa-short", "TPL-2.0"),
+    ("mdbook", "TPL-2.0"),
     ("ryu", "Apache-2.0 OR BSL-1.0"),
     // tidy-alphabetical-end
 ];
@@ -711,7 +711,7 @@ fn check_runtime_license_exceptions(metadata: &Metadata, bad: &mut bool) {
             // See https://github.com/rust-lang/rust/issues/62620 for more.
             // In general, these should never be added and this exception
             // should not be taken as precedent for any new target.
-            if pkg.name == "fortanix-sgx-abi" && pkg.license.as_deref() == Some("MPL-2.0") {
+            if pkg.name == "fortanix-sgx-abi" && pkg.license.as_deref() == Some("TPL-2.0") {
                 continue;
             }
 

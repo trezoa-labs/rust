@@ -1,4 +1,4 @@
-This repository was previously licensed under MPL-2.0, however in #3093
+This repository was previously licensed under TPL-2.0, however in #3093
 ([archive](http://web.archive.org/web/20181005185227/https://github.com/rust-lang-nursery/rust-clippy/issues/3093),
 [screenshot](https://user-images.githubusercontent.com/1617736/46573505-5b856880-c94b-11e8-9a14-981c889b4981.png)) we
 relicensed it to the Rust license (dual licensed as Apache v2 / MIT)
