@@ -26,10 +26,10 @@
 	path = src/doc/edition-guide
 	url = https://github.com/rust-lang/edition-guide.git
 	shallow = true
-[submodule "src/llvm-trezoa"]
-	path = src/llvm-trezoa
-	url = https://github.com/anza-xyz/llvm-trezoa.git
-	branch = rustc/20.1-2025-02-13
+[submodule "src/llvm-project"]
+	path = src/llvm-project
+	url = https://github.com/trezoa-xyz/llvm-project.git
+	branch = trezoa-rustc/20.1-2025-02-13
 	shallow = true
 [submodule "src/doc/embedded-book"]
 	path = src/doc/embedded-book
