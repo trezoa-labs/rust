@@ -876,7 +876,7 @@ impl Session {
         // scientific.
 
         if self.target.options.vendor == "trezoa" {
-            // Default to 1 for SBF programs. It makes a huge difference in
+            // Default to 1 for TBF programs. It makes a huge difference in
             // terms of generated code size for us
             // (https://github.com/rust-lang/rust/issues/47745) and compilation
             // time isn't a huge concern (programs tend to be small). It's still

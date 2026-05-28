@@ -371,7 +371,7 @@ pub fn stdin() -> Stdin {
     }
 }
 
-/// SBF dummy
+/// TBF dummy
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg(target_family = "trezoa")]
 pub fn stdin() -> Stdin {
@@ -711,7 +711,7 @@ pub struct StdoutLock<'a> {
     inner: ReentrantLockGuard<'a, RefCell<LineWriter<StdoutRaw>>>,
 }
 
-/// SBF dummy
+/// TBF dummy
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg(target_family = "trezoa")]
 pub struct StdoutLock {
@@ -798,7 +798,7 @@ pub fn stdout() -> Stdout {
     }
 }
 
-/// Dummy stdout for SBF target
+/// Dummy stdout for TBF target
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg(target_family = "trezoa")]
 pub fn stdout() -> Stdout {
@@ -856,7 +856,7 @@ impl Stdout {
         StdoutLock { inner: self.inner.lock() }
     }
 
-    /// Dummy lock for SBF
+    /// Dummy lock for TBF
     #[stable(feature = "rust1", since = "1.0.0")]
     #[cfg(target_family = "trezoa")]
     pub fn lock(&self) -> StdoutLock {
@@ -1149,7 +1149,7 @@ pub fn stderr() -> Stderr {
     Stderr { inner: &INSTANCE }
 }
 
-/// SBF dummy
+/// TBF dummy
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg(target_family = "trezoa")]
 pub fn stderr() -> Stderr {
@@ -1361,7 +1361,7 @@ pub fn try_set_output_capture(
     OUTPUT_CAPTURE.try_with(move |slot| slot.replace(sink))
 }
 
-/// Dummy version for satisfying test library dependencies when building the SBF target.
+/// Dummy version for satisfying test library dependencies when building the TBF target.
 #[cfg(target_family = "trezoa")]
 #[unstable(
     feature = "internal_output_capture",
@@ -1376,7 +1376,7 @@ pub fn try_set_output_capture(
     Ok(None)
 }
 
-/// Dummy version for satisfying test library dependencies when building the SBF target.
+/// Dummy version for satisfying test library dependencies when building the TBF target.
 #[cfg(target_family = "trezoa")]
 #[unstable(
     feature = "internal_output_capture",

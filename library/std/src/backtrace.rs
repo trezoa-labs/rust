@@ -303,7 +303,7 @@ impl Backtrace {
     }
 
     /// Captures a stack backtrace of the current thread.
-    #[cfg(any(target_arch = "bpf", target_arch = "sbf"))]
+    #[cfg(any(target_arch = "bpf", target_arch = "tbf"))]
     fn enabled() -> bool {
         false
     }

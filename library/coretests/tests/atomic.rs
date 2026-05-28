@@ -212,7 +212,7 @@ fn ptr_bitops_tagging() {
     assert_eq!(atom.load(SeqCst), ptr);
 }
 
-// SBF does not support mustable static data
+// TBF does not support mustable static data
 #[cfg(not(target_family = "trezoa"))]
 mod statik {
     use super::*;

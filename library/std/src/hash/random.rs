@@ -55,7 +55,7 @@ impl RandomState {
     #[stable(feature = "hashmap_build_hasher", since = "1.7.0")]
     pub fn new() -> RandomState {
         if cfg!(target_family = "trezoa") {
-            // sbf doesn't support thread_local!()
+            // tbf doesn't support thread_local!()
             return RandomState { k0: 0, k1: 0 };
         }
 

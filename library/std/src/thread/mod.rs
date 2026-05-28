@@ -610,7 +610,7 @@ impl Builder {
         })
     }
 
-    /// SBF version of spawn_unchecked
+    /// TBF version of spawn_unchecked
     #[cfg(target_family = "trezoa")]
     unsafe fn spawn_unchecked_<'a, 'scope, F, T>(
         self,
@@ -1300,7 +1300,7 @@ impl ThreadId {
                 drop(counter);
                 ThreadId(NonZero::new(id).unwrap())
             } else {
-                // threads are not supported in sbf, so this isn't actually used
+                // threads are not supported in tbf, so this isn't actually used
                 // anywhere. This branch of the if is only to avoid creating static
                 // mutable data.
                 ThreadId(NonZero::new(1).unwrap())

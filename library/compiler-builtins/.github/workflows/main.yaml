@@ -98,13 +98,13 @@ jobs:
         - target: x86_64-pc-windows-gnu
           os: windows-2025
           channel: nightly-2025-04-29-x86_64-gnu
-        - target: sbpf-trezoa-trezoa
+        - target: tbpf-trezoa-trezoa
           os: ubuntu-24.04
-        - target: sbpfv1-trezoa-trezoa
+        - target: tbpfv1-trezoa-trezoa
           os: ubuntu-24.04
-        - target: sbpfv2-trezoa-trezoa
+        - target: tbpfv2-trezoa-trezoa
           os: ubuntu-24.04
-        - target: sbpfv3-trezoa-trezoa
+        - target: tbpfv3-trezoa-trezoa
           os: ubuntu-24.04
     runs-on: ${{ matrix.os }}
     needs: [calculate_vars]
@@ -119,7 +119,7 @@ jobs:
       with:
         submodules: true
     - name: Install Rust (rustup)
-      if: ${{ !startsWith(matrix.target, 'sbpf') }}
+      if: ${{ !startsWith(matrix.target, 'tbpf') }}
       shell: bash
       run: |
         channel="nightly-2025-04-29"
@@ -129,7 +129,7 @@ jobs:
         rustup default "$channel"
         rustup target add "${{ matrix.target }}"
     - name: Install Rust (rustup)
-      if: ${{ startsWith(matrix.target, 'sbpf') }}
+      if: ${{ startsWith(matrix.target, 'tbpf') }}
       shell: bash
       run: |
         channel="nightly-2025-04-29"

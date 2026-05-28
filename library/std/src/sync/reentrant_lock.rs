@@ -236,7 +236,7 @@ impl<T> ReentrantLock<T> {
     ///
     /// let lock = ReentrantLock::new(0);
     /// ```
-    #[cfg(all(not(target_arch = "bpf"), not(target_arch = "sbf")))]
+    #[cfg(all(not(target_arch = "bpf"), not(target_arch = "tbf")))]
     pub const fn new(t: T) -> ReentrantLock<T> {
         ReentrantLock {
             mutex: sys::Mutex::new(),
@@ -258,7 +258,7 @@ impl<T> ReentrantLock<T> {
     /// let lock = ReentrantLock::new(0);
     /// assert_eq!(lock.into_inner(), 0);
     /// ```
-    #[cfg(all(not(target_arch = "bpf"), not(target_arch = "sbf")))]
+    #[cfg(all(not(target_arch = "bpf"), not(target_arch = "tbf")))]
     pub fn into_inner(self) -> T {
         self.data
     }
@@ -290,7 +290,7 @@ impl<T: ?Sized> ReentrantLock<T> {
     /// }).join().expect("thread::spawn failed");
     /// assert_eq!(lock.lock().get(), 10);
     /// ```
-    #[cfg(all(not(target_arch = "bpf"), not(target_arch = "sbf")))]
+    #[cfg(all(not(target_arch = "bpf"), not(target_arch = "tbf")))]
     pub fn lock(&self) -> ReentrantLockGuard<'_, T> {
         let this_thread = current_id();
         // Safety: We only touch lock_count when we own the inner mutex.
@@ -325,7 +325,7 @@ impl<T: ?Sized> ReentrantLock<T> {
     /// *lock.get_mut() = 10;
     /// assert_eq!(*lock.lock(), 10);
     /// ```
-    #[cfg(all(not(target_arch = "bpf"), not(target_arch = "sbf")))]
+    #[cfg(all(not(target_arch = "bpf"), not(target_arch = "tbf")))]
     pub fn get_mut(&mut self) -> &mut T {
         &mut self.data
     }
@@ -337,7 +337,7 @@ impl<T: ?Sized> ReentrantLock<T> {
     ///
     /// This function does not block.
     // FIXME maybe make it a public part of the API?
-    #[cfg(all(not(target_arch = "bpf"), not(target_arch = "sbf")))]
+    #[cfg(all(not(target_arch = "bpf"), not(target_arch = "tbf")))]
     #[unstable(issue = "none", feature = "std_internals")]
     #[doc(hidden)]
     pub fn try_lock(&self) -> Option<ReentrantLockGuard<'_, T>> {
@@ -371,7 +371,7 @@ impl<T: ?Sized> ReentrantLock<T> {
         &raw const self.data
     }
 
-    #[cfg(all(not(target_arch = "bpf"), not(target_arch = "sbf")))]
+    #[cfg(all(not(target_arch = "bpf"), not(target_arch = "tbf")))]
     unsafe fn increment_lock_count(&self) -> Option<()> {
         unsafe {
             *self.lock_count.get() = (*self.lock_count.get()).checked_add(1)?;

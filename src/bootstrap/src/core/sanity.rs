@@ -36,13 +36,13 @@ const STAGE0_MISSING_TARGETS: &[&str] = &[
     // just a dummy comment so the list doesn't get onelined
     "loongarch32-unknown-none",
     "loongarch32-unknown-none-softfloat",
-    "sbf-trezoa-trezoa",
-    "sbpf-trezoa-trezoa",
-    "sbpfv0-trezoa-trezoa",
-    "sbpfv1-trezoa-trezoa",
-    "sbpfv2-trezoa-trezoa",
-    "sbpfv3-trezoa-trezoa",
-    "sbpfv4-trezoa-trezoa",
+    "tbf-trezoa-trezoa",
+    "tbpf-trezoa-trezoa",
+    "tbpfv0-trezoa-trezoa",
+    "tbpfv1-trezoa-trezoa",
+    "tbpfv2-trezoa-trezoa",
+    "tbpfv3-trezoa-trezoa",
+    "tbpfv4-trezoa-trezoa",
 ];
 
 /// Minimum version threshold for libstdc++ required when using prebuilt LLVM
@@ -303,9 +303,9 @@ than building it.
             }
         }
 
-        // sbf target relies on in-tree built llvm,
+        // tbf target relies on in-tree built llvm,
         // which doesn't exist when this check runs
-        if !skip_tools_checks && !target.contains("sbf") && !target.contains("bpf") {
+        if !skip_tools_checks && !target.contains("tbf") && !target.contains("bpf") {
             cmd_finder.must_have(build.cc(*target));
             if let Some(ar) = build.ar(*target) {
                 cmd_finder.must_have(ar);

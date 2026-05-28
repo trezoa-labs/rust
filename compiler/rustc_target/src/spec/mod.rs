@@ -2046,13 +2046,13 @@ supported_targets! {
 
     ("bpfeb-unknown-none", bpfeb_unknown_none),
     ("bpfel-unknown-none", bpfel_unknown_none),
-    ("sbf-trezoa-trezoa", sbf_trezoa_trezoa),
-    ("sbpf-trezoa-trezoa", sbpf_trezoa_trezoa),
-    ("sbpfv0-trezoa-trezoa", sbpfv0_trezoa_trezoa),
-    ("sbpfv1-trezoa-trezoa", sbpfv1_trezoa_trezoa),
-    ("sbpfv2-trezoa-trezoa", sbpfv2_trezoa_trezoa),
-    ("sbpfv3-trezoa-trezoa", sbpfv3_trezoa_trezoa),
-    ("sbpfv4-trezoa-trezoa", sbpfv4_trezoa_trezoa),
+    ("tbf-trezoa-trezoa", tbf_trezoa_trezoa),
+    ("tbpf-trezoa-trezoa", tbpf_trezoa_trezoa),
+    ("tbpfv0-trezoa-trezoa", tbpfv0_trezoa_trezoa),
+    ("tbpfv1-trezoa-trezoa", tbpfv1_trezoa_trezoa),
+    ("tbpfv2-trezoa-trezoa", tbpfv2_trezoa_trezoa),
+    ("tbpfv3-trezoa-trezoa", tbpfv3_trezoa_trezoa),
+    ("tbpfv4-trezoa-trezoa", tbpfv4_trezoa_trezoa),
 
 
     ("armv6k-nintendo-3ds", armv6k_nintendo_3ds),
@@ -3501,7 +3501,7 @@ impl Target {
             "loongarch64" => (Architecture::LoongArch64, None),
             "csky" => (Architecture::Csky, None),
             "arm64ec" => (Architecture::Aarch64, Some(object::SubArchitecture::Arm64EC)),
-            "sbf" => (Architecture::Sbf, None),
+            "tbf" => (Architecture::Sbf, None),
             // Unsupported architecture.
             _ => return None,
         })

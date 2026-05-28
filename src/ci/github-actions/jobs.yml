@@ -162,30 +162,30 @@ pr:
   - name: x86_64-gnu-miri
     <<: *job-linux-4c
 
-  - name: sbf-trezoa-trezoa
+  - name: tbf-trezoa-trezoa
     continue_on_error: true
     env:
-      IMAGE: sbf-trezoa-trezoa
+      IMAGE: tbf-trezoa-trezoa
     <<: *job-linux-4c
-  - name: sbpf-trezoa-trezoa
+  - name: tbpf-trezoa-trezoa
     continue_on_error: true
     env:
-      IMAGE: sbpf-trezoa-trezoa
+      IMAGE: tbpf-trezoa-trezoa
     <<: *job-linux-4c
-  - name: sbpfv1-trezoa-trezoa
+  - name: tbpfv1-trezoa-trezoa
     continue_on_error: true
     env:
-      IMAGE: sbpfv1-trezoa-trezoa
+      IMAGE: tbpfv1-trezoa-trezoa
     <<: *job-linux-4c
-  - name: sbpfv2-trezoa-trezoa
+  - name: tbpfv2-trezoa-trezoa
     continue_on_error: true
     env:
-      IMAGE: sbpfv2-trezoa-trezoa
+      IMAGE: tbpfv2-trezoa-trezoa
     <<: *job-linux-4c
-  - name: sbpfv3-trezoa-trezoa
+  - name: tbpfv3-trezoa-trezoa
     continue_on_error: true
     env:
-      IMAGE: sbpfv3-trezoa-trezoa
+      IMAGE: tbpfv3-trezoa-trezoa
     <<: *job-linux-4c
 
 # Jobs that run when you perform a try build (@bors try)

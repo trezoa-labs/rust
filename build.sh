@@ -39,7 +39,7 @@ if [ -n "${REBUILD_LLVM}" ]; then
 fi
 
 if [ -n "${WITH_NIX}" ]; then
-    nix-shell src/tools/nix-dev-shell/shell.nix --pure --run "x build --stage 1 --target ${HOST_TRIPLE},sbf-trezoa-trezoa,sbpf-trezoa-trezoa,sbpfv1-trezoa-trezoa,sbpfv2-trezoa-trezoa"
+    nix-shell src/tools/nix-dev-shell/shell.nix --pure --run "x build --stage 1 --target ${HOST_TRIPLE},tbf-trezoa-trezoa,tbpf-trezoa-trezoa,tbpfv1-trezoa-trezoa,tbpfv2-trezoa-trezoa"
 else
-    ./x.py build --stage 1 --target "${HOST_TRIPLE}",sbf-trezoa-trezoa,sbpf-trezoa-trezoa,sbpfv1-trezoa-trezoa,sbpfv2-trezoa-trezoa
+    ./x.py build --stage 1 --target "${HOST_TRIPLE}",tbf-trezoa-trezoa,tbpf-trezoa-trezoa,tbpfv1-trezoa-trezoa,tbpfv2-trezoa-trezoa
 fi

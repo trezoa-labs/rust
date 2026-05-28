@@ -1923,7 +1923,7 @@ symbols! {
         saturating_add,
         saturating_div,
         saturating_sub,
-        sbf_target_feature,
+        tbf_target_feature,
         sdylib,
         search_unbox,
         select_unpredictable,

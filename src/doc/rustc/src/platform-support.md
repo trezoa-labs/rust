@@ -389,13 +389,13 @@ target | std | host | notes
 [`riscv64gc-unknown-openbsd`](platform-support/openbsd.md) | ✓ | ✓ | OpenBSD/riscv64
 [`riscv64imac-unknown-nuttx-elf`](platform-support/nuttx.md) | ✓ |  | RISC-V 64bit with NuttX
 [`s390x-unknown-linux-musl`](platform-support/s390x-unknown-linux-musl.md) | ✓ |  | S390x Linux (kernel 3.2, musl 1.2.3)
-`sbf-trezoa-trezoa` | ✓ |  | SBF
-`sbpf-trezoa-trezoa` | ✓ |  | SBPF
-`sbpfv0-trezoa-trezoa` | ✓ |  | SBPF v0
-`sbpfv1-trezoa-trezoa` | ✓ |  | SBPF v1
-`sbpfv2-trezoa-trezoa` | ✓ |  | SBPF v2
-`sbpfv3-trezoa-trezoa` | ✓ |  | SBPF v3
-`sbpfv4-trezoa-trezoa` | ✓ |  | SBPF v4
+`tbf-trezoa-trezoa` | ✓ |  | TBF
+`tbpf-trezoa-trezoa` | ✓ |  | TBPF
+`tbpfv0-trezoa-trezoa` | ✓ |  | TBPF v0
+`tbpfv1-trezoa-trezoa` | ✓ |  | TBPF v1
+`tbpfv2-trezoa-trezoa` | ✓ |  | TBPF v2
+`tbpfv3-trezoa-trezoa` | ✓ |  | TBPF v3
+`tbpfv4-trezoa-trezoa` | ✓ |  | TBPF v4
 `sparc-unknown-linux-gnu` | ✓ |  | 32-bit SPARC Linux
 [`sparc-unknown-none-elf`](./platform-support/sparc-unknown-none-elf.md) | * |  | Bare 32-bit SPARC V7+
 [`sparc64-unknown-netbsd`](platform-support/netbsd.md) | ✓ | ✓ | NetBSD/sparc64

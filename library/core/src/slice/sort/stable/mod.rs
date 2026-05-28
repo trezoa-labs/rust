@@ -126,7 +126,7 @@ fn driftsort_main<T, F: FnMut(&T, &T) -> bool, BufT: BufGuard<T>>(v: &mut [T], i
 
     #[cfg(all(target_family = "trezoa", not(target_feature = "dynamic-frames")))]
     {
-        // Allocating 4096 bytes on SBPFv0 overflows the stack
+        // Allocating 4096 bytes on TBPFv0 overflows the stack
         stack_buf = AlignedStorage::<T, 2048>::new();
     }
 

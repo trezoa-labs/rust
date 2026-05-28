@@ -715,27 +715,27 @@
     [xtensa_esp32s3_espidf] compile-flags: --target xtensa-esp32s3-espidf
     [xtensa_esp32s3_espidf] needs-llvm-components: xtensa
 */
-//@ revisions: sbf_trezoa_trezoa
-//@ [sbf_trezoa_trezoa] compile-flags: --target sbf-trezoa-trezoa
-//@ [sbf_trezoa_trezoa] needs-llvm-components: sbf
-//@ revisions: sbpf_trezoa_trezoa
-//@ [sbpf_trezoa_trezoa] compile-flags: --target sbpf-trezoa-trezoa
-//@ [sbpf_trezoa_trezoa] needs-llvm-components: sbf
-//@ revisions: sbpfv0_trezoa_trezoa
-//@ [sbpfv0_trezoa_trezoa] compile-flags: --target sbpfv0-trezoa-trezoa
-//@ [sbpfv0_trezoa_trezoa] needs-llvm-components: sbf
-//@ revisions: sbpfv1_trezoa_trezoa
-//@ [sbpfv1_trezoa_trezoa] compile-flags: --target sbpfv1-trezoa-trezoa
-//@ [sbpfv1_trezoa_trezoa] needs-llvm-components: sbf
-//@ revisions: sbpfv2_trezoa_trezoa
-//@ [sbpfv2_trezoa_trezoa] compile-flags: --target sbpfv2-trezoa-trezoa
-//@ [sbpfv2_trezoa_trezoa] needs-llvm-components: sbf
-//@ revisions: sbpfv3_trezoa_trezoa
-//@ [sbpfv3_trezoa_trezoa] compile-flags: --target sbpfv3-trezoa-trezoa
-//@ [sbpfv3_trezoa_trezoa] needs-llvm-components: sbf
-//@ revisions: sbpfv4_trezoa_trezoa
-//@ [sbpfv4_trezoa_trezoa] compile-flags: --target sbpfv4-trezoa-trezoa
-//@ [sbpfv4_trezoa_trezoa] needs-llvm-components: sbf
+//@ revisions: tbf_trezoa_trezoa
+//@ [tbf_trezoa_trezoa] compile-flags: --target tbf-trezoa-trezoa
+//@ [tbf_trezoa_trezoa] needs-llvm-components: tbf
+//@ revisions: tbpf_trezoa_trezoa
+//@ [tbpf_trezoa_trezoa] compile-flags: --target tbpf-trezoa-trezoa
+//@ [tbpf_trezoa_trezoa] needs-llvm-components: tbf
+//@ revisions: tbpfv0_trezoa_trezoa
+//@ [tbpfv0_trezoa_trezoa] compile-flags: --target tbpfv0-trezoa-trezoa
+//@ [tbpfv0_trezoa_trezoa] needs-llvm-components: tbf
+//@ revisions: tbpfv1_trezoa_trezoa
+//@ [tbpfv1_trezoa_trezoa] compile-flags: --target tbpfv1-trezoa-trezoa
+//@ [tbpfv1_trezoa_trezoa] needs-llvm-components: tbf
+//@ revisions: tbpfv2_trezoa_trezoa
+//@ [tbpfv2_trezoa_trezoa] compile-flags: --target tbpfv2-trezoa-trezoa
+//@ [tbpfv2_trezoa_trezoa] needs-llvm-components: tbf
+//@ revisions: tbpfv3_trezoa_trezoa
+//@ [tbpfv3_trezoa_trezoa] compile-flags: --target tbpfv3-trezoa-trezoa
+//@ [tbpfv3_trezoa_trezoa] needs-llvm-components: tbf
+//@ revisions: tbpfv4_trezoa_trezoa
+//@ [tbpfv4_trezoa_trezoa] compile-flags: --target tbpfv4-trezoa-trezoa
+//@ [tbpfv4_trezoa_trezoa] needs-llvm-components: tbf
 
 // Sanity-check that each target can produce assembly code.
 

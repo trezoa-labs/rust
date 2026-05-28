@@ -173,5 +173,5 @@ check-cfg = [
     'cfg(target_has_reliable_f128_math)',
     'cfg(target_family, values("trezoa"))',
     'cfg(target_os, values("trezoa"))',
-    'cfg(target_arch, values("sbf"))',
+    'cfg(target_arch, values("tbf"))',
 ]

@@ -65,8 +65,8 @@ cfg_if::cfg_if! {
         mod zkvm;
         pub use self::zkvm::*;
     } else if #[cfg(target_family = "trezoa")] {
-        mod sbf;
-        pub use self::sbf::*;
+        mod tbf;
+        pub use self::tbf::*;
     } else {
         mod unsupported;
         pub use self::unsupported::*;

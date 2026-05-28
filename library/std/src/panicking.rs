@@ -20,7 +20,7 @@ use core::panic::PanicPayload;
 use realstd::io::try_set_output_capture;
 
 use crate::any::Any;
-#[cfg(all(not(test), not(target_arch = "bpf"), not(target_arch = "sbf")))]
+#[cfg(all(not(test), not(target_arch = "bpf"), not(target_arch = "tbf")))]
 use crate::io::try_set_output_capture;
 #[cfg(not(target_family = "trezoa"))]
 use crate::mem::{self, ManuallyDrop};
@@ -178,7 +178,7 @@ pub fn set_hook(hook: Box<dyn Fn(&PanicHookInfo<'_>) + 'static + Sync + Send>) {
     drop(old);
 }
 
-/// Dummy version for satisfying library/test dependencies for SBF target
+/// Dummy version for satisfying library/test dependencies for TBF target
 #[cfg(target_family = "trezoa")]
 #[stable(feature = "panic_hooks", since = "1.10.0")]
 pub fn set_hook(_hook: Box<dyn Fn(&PanicHookInfo<'_>) + 'static + Sync + Send>) {
@@ -283,7 +283,7 @@ where
     *hook = Hook::Custom(Box::new(move |info| hook_fn(&prev, info)));
 }
 
-/// Dummy version for satisfying library/test dependencies for SBF target
+/// Dummy version for satisfying library/test dependencies for TBF target
 #[cfg(target_family = "trezoa")]
 #[unstable(feature = "panic_update_hook", issue = "92649")]
 pub fn update_hook<F>(_hook_fn: F)
@@ -569,14 +569,14 @@ pub unsafe fn catch_unwind<R, F: FnOnce() -> R>(f: F) -> Result<R, Box<dyn Any +
 }
 
 #[cfg(not(feature = "panic_immediate_abort"))]
-#[cfg(target_arch = "sbf")]
+#[cfg(target_arch = "tbf")]
 pub unsafe fn catch_unwind<R, F: FnOnce() -> R>(f: F) -> Result<R, Box<dyn Any + Send>> {
     Ok(f())
 }
 
 /// Invoke a closure, capturing the cause of an unwinding panic if one occurs.
 #[cfg(not(feature = "panic_immediate_abort"))]
-#[cfg(not(target_arch = "sbf"))]
+#[cfg(not(target_arch = "tbf"))]
 pub unsafe fn catch_unwind<R, F: FnOnce() -> R>(f: F) -> Result<R, Box<dyn Any + Send>> {
     union Data<F, R> {
         f: ManuallyDrop<F>,
@@ -1000,7 +1000,7 @@ fn rust_panic(_: &mut dyn PanicPayload) -> ! {
 }
 
 // Note: The panicking functions have been stripped and rewritten
-//       in order to save space in SBF programs.  Panic messages
+//       in order to save space in TBF programs.  Panic messages
 //       are not supported, just file, line, column.
 
 /// This function is called by the panic runtime if it catches an exception
@@ -1017,7 +1017,7 @@ pub fn panicking() -> bool {
     true
 }
 
-/// Entry point of panicking for panic!() and assert!() SBF version.
+/// Entry point of panicking for panic!() and assert!() TBF version.
 #[cfg(target_family = "trezoa")]
 #[unstable(feature = "libstd_sys_internals", reason = "used by the panic! macro", issue = "none")]
 #[cfg_attr(not(test), lang = "begin_panic")]
@@ -1040,7 +1040,7 @@ pub fn begin_panic<M: Any + Send>(_msg: M) -> ! {
     crate::sys::panic(&info);
 }
 
-/// The entry point for panicking with a formatted message SBF version.
+/// The entry point for panicking with a formatted message TBF version.
 #[cfg(target_family = "trezoa")]
 #[unstable(feature = "libstd_sys_internals", reason = "used by the panic! macro", issue = "none")]
 #[cold]

@@ -25,7 +25,7 @@ mod bignum;
 mod const_from;
 mod dec2flt;
 mod float_iter_sum_identity;
-// sbf doesn't support floats
+// tbf doesn't support floats
 #[cfg(not(target_family = "trezoa"))]
 mod flt2dec;
 mod ieee754;

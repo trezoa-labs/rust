@@ -299,7 +299,7 @@ fn create_elf_raw_dylib_stub(sess: &Session, soname: &str, symbols: &[DllImport]
         (Architecture::Riscv32, None) => elf::EM_RISCV,
         (Architecture::Riscv64, None) => elf::EM_RISCV,
         (Architecture::S390x, None) => elf::EM_S390,
-        (Architecture::Sbf, None) => elf::EM_SBF,
+        (Architecture::Sbf, None) => elf::EM_TBF,
         (Architecture::Sharc, None) => elf::EM_SHARC,
         (Architecture::Sparc, None) => elf::EM_SPARC,
         (Architecture::Sparc32Plus, None) => elf::EM_SPARC32PLUS,

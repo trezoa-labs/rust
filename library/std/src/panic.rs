@@ -3,9 +3,9 @@
 #![stable(feature = "std_panic", since = "1.9.0")]
 
 use crate::any::Any;
-#[cfg(not(any(target_arch = "sbf")))]
+#[cfg(not(any(target_arch = "tbf")))]
 use crate::sync::atomic::{Atomic, AtomicU8, Ordering};
-#[cfg(not(any(target_arch = "sbf")))]
+#[cfg(not(any(target_arch = "tbf")))]
 use crate::sync::{Condvar, Mutex, RwLock};
 use crate::thread::Result;
 use crate::{collections, fmt, panicking};
@@ -402,7 +402,7 @@ pub fn resume_unwind(payload: Box<dyn Any + Send>) -> ! {
     panicking::rust_panic_without_hook(payload)
 }
 
-/// SBF version of resume_unwind
+/// TBF version of resume_unwind
 #[stable(feature = "resume_unwind", since = "1.9.0")]
 #[cfg(target_family = "trezoa")]
 pub fn resume_unwind(_payload: Box<dyn Any + Send>) -> ! {

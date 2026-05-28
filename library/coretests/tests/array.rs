@@ -1,4 +1,4 @@
-#![cfg(all(not(target_arch = "bpf"), not(target_arch = "sbf")))]
+#![cfg(all(not(target_arch = "bpf"), not(target_arch = "tbf")))]
 
 use core::num::NonZero;
 use core::sync::atomic::{AtomicUsize, Ordering};
