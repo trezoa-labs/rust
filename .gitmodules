@@ -28,7 +28,7 @@
 	shallow = true
 [submodule "src/llvm-trezoa"]
 	path = src/llvm-trezoa
-	url = https://github.com/trezoa-xyz/llvm-project.git
+	url = https://github.com/trezoa-labs/llvm-project.git
 	branch = trezoa-rustc/20.1-2025-02-13
 	shallow = true
 [submodule "src/doc/embedded-book"]
