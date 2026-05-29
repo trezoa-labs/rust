@@ -16,7 +16,7 @@ use thin_vec::ThinVec;
 use tracing::{debug, debug_span, instrument};
 
 use super::effects::{self, HostEffectObligation};
-use super::trezoa::{self, ProjectAndUnifyResult};
+use super::project::{self, ProjectAndUnifyResult};
 use super::select::SelectionContext;
 use super::{
     EvaluationResult, FulfillmentError, FulfillmentErrorCode, PredicateObligation,
@@ -25,7 +25,7 @@ use super::{
 use crate::error_reporting::InferCtxtErrorExt;
 use crate::infer::{InferCtxt, TyOrConstInferVar};
 use crate::traits::normalize::normalize_with_depth_to;
-use crate::traits::trezoa::{PolyProjectionObligation, ProjectionCacheKeyExt as _};
+use crate::traits::project::{PolyProjectionObligation, ProjectionCacheKeyExt as _};
 use crate::traits::query::evaluate_obligation::InferCtxtExt;
 use crate::traits::{EvaluateConstErr, sizedness_fast_path};
 
@@ -872,7 +872,7 @@ impl<'a, 'tcx> FulfillProcessor<'a, 'tcx> {
             }
         }
 
-        match trezoa::poly_project_and_unify_term(&mut self.selcx, &trezoa_obligation) {
+        match project::poly_project_and_unify_term(&mut self.selcx, &trezoa_obligation) {
             ProjectAndUnifyResult::Holds(os) => ProcessResult::Changed(mk_pending(obligation, os)),
             ProjectAndUnifyResult::FailedNormalization => {
                 stalled_on.clear();

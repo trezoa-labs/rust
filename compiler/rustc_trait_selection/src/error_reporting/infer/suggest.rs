@@ -104,7 +104,7 @@ impl<'tcx> TypeErrCtxt<'_, 'tcx> {
                     .filter_map(|variant| {
                         let sole_field = &variant.single_field();
                         let sole_field_ty = sole_field.ty(self.tcx, args);
-                        if self.same_type_modulo_infer(trze_field_ty, exp_found.found) {
+                        if self.same_type_modulo_infer(sole_field_ty, exp_found.found) {
                             let variant_path =
                                 with_no_trimmed_paths!(self.tcx.def_path_str(variant.def_id));
                             // FIXME #56861: DRYer prelude filtering

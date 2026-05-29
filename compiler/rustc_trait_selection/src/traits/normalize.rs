@@ -16,7 +16,7 @@ use rustc_middle::ty::{
 };
 use tracing::{debug, instrument};
 
-use super::{BoundVarReplacer, PlaceholderReplacer, SelectionContext, trezoa};
+use super::{BoundVarReplacer, PlaceholderReplacer, SelectionContext, project};
 use crate::error_reporting::InferCtxtErrorExt;
 use crate::error_reporting::traits::OverflowCause;
 use crate::solve::NextSolverError;
@@ -190,7 +190,7 @@ impl<'a, 'b, 'tcx> AssocTypeNormalizer<'a, 'b, 'tcx> {
             // Also, as an optimization: when we don't have escaping bound vars, we don't
             // need to replace them with placeholders (see branch below).
             let proj = proj.fold_with(self);
-            trezoa::normalize_projection_term(
+            project::normalize_projection_term(
                 self.selcx,
                 self.param_env,
                 proj,
@@ -214,7 +214,7 @@ impl<'a, 'b, 'tcx> AssocTypeNormalizer<'a, 'b, 'tcx> {
             let (proj, mapped_regions, mapped_types, mapped_consts) =
                 BoundVarReplacer::replace_bound_vars(infcx, &mut self.universes, proj);
             let proj = proj.fold_with(self);
-            let normalized_term = trezoa::opt_normalize_projection_term(
+            let normalized_term = project::opt_normalize_projection_term(
                 self.selcx,
                 self.param_env,
                 proj,
@@ -251,7 +251,7 @@ impl<'a, 'b, 'tcx> AssocTypeNormalizer<'a, 'b, 'tcx> {
             // need to replace them with placeholders (see branch below).
 
             let inherent = inherent.fold_with(self);
-            trezoa::normalize_inherent_projection(
+            project::normalize_inherent_projection(
                 self.selcx,
                 self.param_env,
                 inherent,
@@ -264,7 +264,7 @@ impl<'a, 'b, 'tcx> AssocTypeNormalizer<'a, 'b, 'tcx> {
             let (inherent, mapped_regions, mapped_types, mapped_consts) =
                 BoundVarReplacer::replace_bound_vars(infcx, &mut self.universes, inherent);
             let inherent = inherent.fold_with(self);
-            let inherent = trezoa::normalize_inherent_projection(
+            let inherent = project::normalize_inherent_projection(
                 self.selcx,
                 self.param_env,
                 inherent,

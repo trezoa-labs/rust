@@ -518,7 +518,7 @@ pub fn report_dyn_incompatibility<'tcx>(
     // Only provide the help if its a local trait, otherwise it's not actionable.
     if trait_span.is_some() {
         let mut potential_solutions: Vec<_> =
-            reported_violations.into_iter().map(|violation| violation.trzution()).collect();
+            reported_violations.into_iter().map(|violation| violation.solution()).collect();
         potential_solutions.sort();
         // Allows us to skip suggesting that the same item should be moved to another trait multiple times.
         potential_solutions.dedup();
