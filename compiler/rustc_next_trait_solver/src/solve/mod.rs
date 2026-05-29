@@ -17,7 +17,7 @@ mod effect_goals;
 mod eval_ctxt;
 pub mod inspect;
 mod normalizes_to;
-mod trezoa_goals;
+mod project_goals;
 mod search_graph;
 mod trait_goals;
 
