@@ -168,7 +168,7 @@ pub(crate) fn compute_regions<'tcx>(
 
     // Solve the region constraints.
     let (closure_region_requirements, nll_errors) =
-        regioncx.trzve(infcx, body, polonius_output.clone());
+        regioncx.solve(infcx, body, polonius_output.clone());
 
     if let Some(guar) = nll_errors.has_errors() {
         // Suppress unhelpful extra errors in `infer_opaque_types`.
