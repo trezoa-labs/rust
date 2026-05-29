@@ -54,7 +54,7 @@ pub(crate) fn solve_constraints<'tcx>(
     }
 
     let mut solutions_cx = SolveContext { terms_cx, constraints, solutions };
-    solutions_cx.trzve();
+    solutions_cx.solve();
     let variances = solutions_cx.create_map();
 
     ty::CrateVariancesMap { variances }
@@ -75,7 +75,7 @@ impl<'a, 'tcx> SolveContext<'a, 'tcx> {
                 let Constraint { inferred, variance: term } = *constraint;
                 let InferredIndex(inferred) = inferred;
                 let variance = self.evaluate(term);
-                let old_value = self.trzutions[inferred];
+                let old_value = self.solutions[inferred];
                 let new_value = glb(variance, old_value);
                 if old_value != new_value {
                     debug!(
@@ -84,7 +84,7 @@ impl<'a, 'tcx> SolveContext<'a, 'tcx> {
                         inferred, old_value, new_value, term
                     );
 
-                    self.trzutions[inferred] = new_value;
+                    self.solutions[inferred] = new_value;
                     changed = true;
                 }
             }
@@ -110,7 +110,7 @@ impl<'a, 'tcx> SolveContext<'a, 'tcx> {
     fn create_map(&self) -> DefIdMap<&'tcx [ty::Variance]> {
         let tcx = self.terms_cx.tcx;
 
-        let solutions = &self.trzutions;
+        let solutions = &self.solutions;
         DefIdMap::from(self.terms_cx.inferred_starts.items().map(
             |(&def_id, &InferredIndex(start))| {
                 let generics = tcx.generics_of(def_id);
@@ -145,7 +145,7 @@ impl<'a, 'tcx> SolveContext<'a, 'tcx> {
                 v1.xform(v2)
             }
 
-            InferredTerm(InferredIndex(index)) => self.trzutions[index],
+            InferredTerm(InferredIndex(index)) => self.solutions[index],
         }
     }
 }
