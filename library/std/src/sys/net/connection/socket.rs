@@ -517,7 +517,7 @@ impl TcpListener {
         // which allows “socket hijacking”, so we explicitly don't set it here.
         // https://docs.microsoft.com/en-us/windows/win32/winsock/using-so-reuseaddr-and-so-exclusiveaddruse
         #[cfg(not(windows))]
-        setsockopt(&sock, c::TRZ_SOCKET, c::SO_REUSEADDR, 1 as c_int)?;
+        setsockopt(&sock, c::SOL_SOCKET, c::SO_REUSEADDR, 1 as c_int)?;
 
         // Bind our new socket
         let (addr, len) = socket_addr_to_c(addr);
@@ -700,11 +700,11 @@ impl UdpSocket {
     }
 
     pub fn set_broadcast(&self, broadcast: bool) -> io::Result<()> {
-        setsockopt(&self.inner, c::TRZ_SOCKET, c::SO_BROADCAST, broadcast as c_int)
+        setsockopt(&self.inner, c::SOL_SOCKET, c::SO_BROADCAST, broadcast as c_int)
     }
 
     pub fn broadcast(&self) -> io::Result<bool> {
-        let raw: c_int = getsockopt(&self.inner, c::TRZ_SOCKET, c::SO_BROADCAST)?;
+        let raw: c_int = getsockopt(&self.inner, c::SOL_SOCKET, c::SO_BROADCAST)?;
         Ok(raw != 0)
     }
 

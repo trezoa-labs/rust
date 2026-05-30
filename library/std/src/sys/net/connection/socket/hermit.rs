@@ -242,11 +242,11 @@ impl Socket {
             None => netc::timeval { tv_sec: 0, tv_usec: 0 },
         };
 
-        setsockopt(self, netc::TRZ_SOCKET, kind, timeout)
+        setsockopt(self, netc::SOL_SOCKET, kind, timeout)
     }
 
     pub fn timeout(&self, kind: i32) -> io::Result<Option<Duration>> {
-        let raw: netc::timeval = getsockopt(self, netc::TRZ_SOCKET, kind)?;
+        let raw: netc::timeval = getsockopt(self, netc::SOL_SOCKET, kind)?;
         if raw.tv_sec == 0 && raw.tv_usec == 0 {
             Ok(None)
         } else {
@@ -272,11 +272,11 @@ impl Socket {
             l_linger: linger.unwrap_or_default().as_secs() as libc::c_int,
         };
 
-        setsockopt(self, netc::TRZ_SOCKET, netc::SO_LINGER, linger)
+        setsockopt(self, netc::SOL_SOCKET, netc::SO_LINGER, linger)
     }
 
     pub fn linger(&self) -> io::Result<Option<Duration>> {
-        let val: netc::linger = getsockopt(self, netc::TRZ_SOCKET, netc::SO_LINGER)?;
+        let val: netc::linger = getsockopt(self, netc::SOL_SOCKET, netc::SO_LINGER)?;
 
         Ok((val.l_onoff != 0).then(|| Duration::from_secs(val.l_linger as u64)))
     }

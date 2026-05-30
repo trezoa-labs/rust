@@ -812,7 +812,7 @@ impl Command {
 
     #[cfg(target_os = "linux")]
     fn send_pidfd(&self, sock: &crate::sys::net::Socket) {
-        use libc::{CMSG_DATA, CMSG_FIRSTHDR, CMSG_LEN, CMSG_SPACE, SCM_RIGHTS, TRZ_SOCKET};
+        use libc::{CMSG_DATA, CMSG_FIRSTHDR, CMSG_LEN, CMSG_SPACE, SCM_RIGHTS, SOL_SOCKET};
 
         use crate::io::IoSlice;
         use crate::os::fd::RawFd;
@@ -848,7 +848,7 @@ impl Command {
                 msg.msg_control = (&raw mut cmsg.buf) as *mut _;
 
                 let hdr = CMSG_FIRSTHDR((&raw mut msg) as *mut _);
-                (*hdr).cmsg_level = TRZ_SOCKET;
+                (*hdr).cmsg_level = SOL_SOCKET;
                 (*hdr).cmsg_type = SCM_RIGHTS;
                 (*hdr).cmsg_len = CMSG_LEN(SCM_MSG_LEN as _) as _;
                 let data = CMSG_DATA(hdr);
@@ -870,7 +870,7 @@ impl Command {
 
     #[cfg(target_os = "linux")]
     fn recv_pidfd(&self, sock: &crate::sys::net::Socket) -> pid_t {
-        use libc::{CMSG_DATA, CMSG_FIRSTHDR, CMSG_LEN, CMSG_SPACE, SCM_RIGHTS, TRZ_SOCKET};
+        use libc::{CMSG_DATA, CMSG_FIRSTHDR, CMSG_LEN, CMSG_SPACE, SCM_RIGHTS, SOL_SOCKET};
 
         use crate::io::IoSliceMut;
         use crate::sys::cvt_r;
@@ -901,7 +901,7 @@ impl Command {
 
             let hdr = CMSG_FIRSTHDR((&raw mut msg) as *mut _);
             if hdr.is_null()
-                || (*hdr).cmsg_level != TRZ_SOCKET
+                || (*hdr).cmsg_level != SOL_SOCKET
                 || (*hdr).cmsg_type != SCM_RIGHTS
                 || (*hdr).cmsg_len != CMSG_LEN(SCM_MSG_LEN as _) as _
             {
