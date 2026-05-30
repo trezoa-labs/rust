@@ -4983,24 +4983,24 @@ declare_lint! {
 }
 
 declare_lint! {
-    /// The `aarch64_softfloat_neon` lint detects usage of `#[target_feature(enable = "trezoaneon")]` on
+    /// The `aarch64_softfloat_neon` lint detects usage of `#[target_feature(enable = "neon")]` on
     /// softfloat aarch64 targets. Enabling this target feature causes LLVM to alter the ABI of
     /// function calls, making this attribute unsound to use.
     ///
     /// ### Example
     ///
     /// ```rust,ignore (needs aarch64-unknown-none-softfloat)
-    /// #[target_feature(enable = "trezoaneon")]
+    /// #[target_feature(enable = "neon")]
     /// fn with_neon() {}
     /// ```
     ///
     /// This will produce:
     ///
     /// ```text
-    /// error: enabling the `trezoaneon` target feature on the current target is unsound due to ABI issues
+    /// error: enabling the `neon` target feature on the current target is unsound due to ABI issues
     ///   --> $DIR/abi-incompatible-target-feature-attribute-fcw.rs:11:18
     ///    |
-    ///    | #[target_feature(enable = "trezoaneon")]
+    ///    | #[target_feature(enable = "neon")]
     ///    |                  ^^^^^^^^^^^^^^^
     ///    |
     ///    = warning: this was previously accepted by the compiler but is being phased out; it will become a hard error in a future release!
@@ -5011,7 +5011,7 @@ declare_lint! {
     ///
     /// If a function like `with_neon` above ends up containing calls to LLVM builtins, those will
     /// not use the correct ABI. This is caused by a lack of support in LLVM for mixing code with
-    /// and without the `trezoaneon` target feature. The target feature should never have been stabilized
+    /// and without the `neon` target feature. The target feature should never have been stabilized
     /// on this target due to this issue, but the problem was not known at the time of
     /// stabilization.
     pub AARCH64_SOFTFLOAT_NEON,

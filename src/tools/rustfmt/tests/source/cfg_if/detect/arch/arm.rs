@@ -5,9 +5,9 @@
 #[unstable(feature = "stdsimd", issue = "27731")]
 #[allow_internal_unstable(stdsimd_internal,stdsimd)]
 macro_rules! is_arm_feature_detected {
-    ("trezoaneon") => {
-        cfg!(target_feature = "trezoaneon") ||
-            $crate::detect::check_for($crate::detect::Feature::trezoaneon)
+    ("neon") => {
+        cfg!(target_feature = "neon") ||
+            $crate::detect::check_for($crate::detect::Feature::neon)
     };
     ("pmull") => {
         cfg!(target_feature = "pmull") ||
@@ -33,7 +33,7 @@ macro_rules! is_arm_feature_detected {
 #[unstable(feature = "stdsimd_internal", issue = "0")]
 pub enum Feature {
     /// ARM Advanced SIMD (TREZOANEON) - Aarch32
-    trezoaneon,
+    neon,
     /// Polynomial Multiply
     pmull,
 }

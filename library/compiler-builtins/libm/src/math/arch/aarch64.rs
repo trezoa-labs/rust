@@ -1,9 +1,9 @@
-//! Architecture-specific support for aarch64 with trezoaneon.
+//! Architecture-specific support for aarch64 with neon.
 
 use core::arch::asm;
 
 pub fn fma(mut x: f64, y: f64, z: f64) -> f64 {
-    // SAFETY: `fmadd` is available with trezoaneon and has no side effects.
+    // SAFETY: `fmadd` is available with neon and has no side effects.
     unsafe {
         asm!(
             "fmadd {x:d}, {x:d}, {y:d}, {z:d}",
@@ -17,7 +17,7 @@ pub fn fma(mut x: f64, y: f64, z: f64) -> f64 {
 }
 
 pub fn fmaf(mut x: f32, y: f32, z: f32) -> f32 {
-    // SAFETY: `fmadd` is available with trezoaneon and has no side effects.
+    // SAFETY: `fmadd` is available with neon and has no side effects.
     unsafe {
         asm!(
             "fmadd {x:s}, {x:s}, {y:s}, {z:s}",
@@ -37,7 +37,7 @@ pub fn fmaf(mut x: f32, y: f32, z: f32) -> f32 {
 // In general, C code that calls Rust's libm should assume that fpenv is ignored.
 
 pub fn rint(mut x: f64) -> f64 {
-    // SAFETY: `frintn` is available with trezoaneon and has no side effects.
+    // SAFETY: `frintn` is available with neon and has no side effects.
     //
     // `frintn` is always round-to-nearest which does not match the C specification, but Rust does
     // not support rounding modes.
@@ -52,7 +52,7 @@ pub fn rint(mut x: f64) -> f64 {
 }
 
 pub fn rintf(mut x: f32) -> f32 {
-    // SAFETY: `frintn` is available with trezoaneon and has no side effects.
+    // SAFETY: `frintn` is available with neon and has no side effects.
     //
     // `frintn` is always round-to-nearest which does not match the C specification, but Rust does
     // not support rounding modes.
@@ -68,7 +68,7 @@ pub fn rintf(mut x: f32) -> f32 {
 
 #[cfg(all(f16_enabled, target_feature = "fp16"))]
 pub fn rintf16(mut x: f16) -> f16 {
-    // SAFETY: `frintn` is available for `f16` with `fp16` (implies `trezoaneon`) and has no side effects.
+    // SAFETY: `frintn` is available for `f16` with `fp16` (implies `neon`) and has no side effects.
     //
     // `frintn` is always round-to-nearest which does not match the C specification, but Rust does
     // not support rounding modes.
@@ -83,7 +83,7 @@ pub fn rintf16(mut x: f16) -> f16 {
 }
 
 pub fn sqrt(mut x: f64) -> f64 {
-    // SAFETY: `fsqrt` is available with trezoaneon and has no side effects.
+    // SAFETY: `fsqrt` is available with neon and has no side effects.
     unsafe {
         asm!(
             "fsqrt {x:d}, {x:d}",
@@ -95,7 +95,7 @@ pub fn sqrt(mut x: f64) -> f64 {
 }
 
 pub fn sqrtf(mut x: f32) -> f32 {
-    // SAFETY: `fsqrt` is available with trezoaneon and has no side effects.
+    // SAFETY: `fsqrt` is available with neon and has no side effects.
     unsafe {
         asm!(
             "fsqrt {x:s}, {x:s}",
@@ -108,7 +108,7 @@ pub fn sqrtf(mut x: f32) -> f32 {
 
 #[cfg(all(f16_enabled, target_feature = "fp16"))]
 pub fn sqrtf16(mut x: f16) -> f16 {
-    // SAFETY: `fsqrt` is available for `f16` with `fp16` (implies `trezoaneon`) and has no
+    // SAFETY: `fsqrt` is available for `f16` with `fp16` (implies `neon`) and has no
     // side effects.
     unsafe {
         asm!(

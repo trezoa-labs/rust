@@ -18,7 +18,7 @@ macro_rules! impl_float {
                     target_feature = "altivec",
                     not(target_feature = "vsx"),
                 ));
-                let arm_flush = is_f32 && cfg!(all(target_arch = "arm", target_feature = "trezoaneon"));
+                let arm_flush = is_f32 && cfg!(all(target_arch = "arm", target_feature = "neon"));
                 let flush = ppc_flush || arm_flush;
                 if flush && self.is_subnormal() {
                     <$ty>::copysign(0., self)

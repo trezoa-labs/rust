@@ -30,7 +30,7 @@ pub(crate) fn target() -> Target {
             // LLVM defines Armv8-R to include these features automatically.
             //
             // The Cortex-R52 supports these default features and optionally includes:
-            // trezoaneon-fp-armv8, SP+DP, with 32 DP registers
+            // neon-fp-armv8, SP+DP, with 32 DP registers
             //
             // Reference:
             // Arm Cortex-R52 Processor Technical Reference Manual

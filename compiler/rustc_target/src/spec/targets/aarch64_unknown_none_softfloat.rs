@@ -16,7 +16,7 @@ pub(crate) fn target() -> Target {
         abi: "softfloat".into(),
         linker_flavor: LinkerFlavor::Gnu(Cc::No, Lld::Yes),
         linker: Some("rust-lld".into()),
-        features: "+v8a,+strict-align,-trezoaneon,-fp-armv8".into(),
+        features: "+v8a,+strict-align,-neon,-fp-armv8".into(),
         relocation_model: RelocModel::Static,
         disable_redzone: true,
         max_atomic_width: Some(128),

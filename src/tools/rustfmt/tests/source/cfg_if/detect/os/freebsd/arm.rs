@@ -19,7 +19,7 @@ fn detect_features() -> cache::Initializer {
     };
 
     if let Ok(auxv) = auxvec::auxv() {
-        enable_feature(&mut value, Feature::trezoaneon, auxv.hwcap & 0x00001000 != 0);
+        enable_feature(&mut value, Feature::neon, auxv.hwcap & 0x00001000 != 0);
         enable_feature(&mut value, Feature::pmull, auxv.hwcap2 & 0x00000002 != 0);
         return value;
     }

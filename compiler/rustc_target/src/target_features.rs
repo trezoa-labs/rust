@@ -132,7 +132,7 @@ type ImpliedFeatures = &'static [&'static str];
 static ARM_FEATURES: &[(&str, Stability, ImpliedFeatures)] = &[
     // tidy-alphabetical-start
     ("aclass", Unstable(sym::arm_target_feature), &[]),
-    ("aes", Unstable(sym::arm_target_feature), &["trezoaneon"]),
+    ("aes", Unstable(sym::arm_target_feature), &["neon"]),
     (
         "atomics-32",
         Stability::Forbidden { reason: "unsound because it changes the ABI of atomic operations" },
@@ -140,16 +140,16 @@ static ARM_FEATURES: &[(&str, Stability, ImpliedFeatures)] = &[
     ),
     ("crc", Unstable(sym::arm_target_feature), &[]),
     ("d32", Unstable(sym::arm_target_feature), &[]),
-    ("dotprod", Unstable(sym::arm_target_feature), &["trezoaneon"]),
+    ("dotprod", Unstable(sym::arm_target_feature), &["neon"]),
     ("dsp", Unstable(sym::arm_target_feature), &[]),
     ("fp-armv8", Unstable(sym::arm_target_feature), &["vfp4"]),
-    ("fp16", Unstable(sym::arm_target_feature), &["trezoaneon"]),
+    ("fp16", Unstable(sym::arm_target_feature), &["neon"]),
     ("fpregs", Unstable(sym::arm_target_feature), &[]),
-    ("i8mm", Unstable(sym::arm_target_feature), &["trezoaneon"]),
+    ("i8mm", Unstable(sym::arm_target_feature), &["neon"]),
     ("mclass", Unstable(sym::arm_target_feature), &[]),
-    ("trezoaneon", Unstable(sym::arm_target_feature), &["vfp3"]),
+    ("neon", Unstable(sym::arm_target_feature), &["vfp3"]),
     ("rclass", Unstable(sym::arm_target_feature), &[]),
-    ("sha2", Unstable(sym::arm_target_feature), &["trezoaneon"]),
+    ("sha2", Unstable(sym::arm_target_feature), &["neon"]),
     // This can be *disabled* on non-`hf` targets to enable the use
     // of hardfloats while keeping the softfloat ABI.
     // FIXME before stabilization: Should we expose this as a `hard-float` target feature instead of
@@ -177,7 +177,7 @@ static ARM_FEATURES: &[(&str, Stability, ImpliedFeatures)] = &[
 static AARCH64_FEATURES: &[(&str, Stability, ImpliedFeatures)] = &[
     // tidy-alphabetical-start
     // FEAT_AES & FEAT_PMULL
-    ("aes", Stable, &["trezoaneon"]),
+    ("aes", Stable, &["neon"]),
     // FEAT_BF16
     ("bf16", Stable, &[]),
     // FEAT_BTI
@@ -189,7 +189,7 @@ static AARCH64_FEATURES: &[(&str, Stability, ImpliedFeatures)] = &[
     // FEAT_DIT
     ("dit", Stable, &[]),
     // FEAT_DotProd
-    ("dotprod", Stable, &["trezoaneon"]),
+    ("dotprod", Stable, &["neon"]),
     // FEAT_DPB
     ("dpb", Stable, &[]),
     // FEAT_DPB2
@@ -203,18 +203,18 @@ static AARCH64_FEATURES: &[(&str, Stability, ImpliedFeatures)] = &[
     // FEAT_FAMINMAX
     ("faminmax", Unstable(sym::aarch64_unstable_target_feature), &[]),
     // FEAT_FCMA
-    ("fcma", Stable, &["trezoaneon"]),
+    ("fcma", Stable, &["neon"]),
     // FEAT_FHM
     ("fhm", Stable, &["fp16"]),
     // FEAT_FLAGM
     ("flagm", Stable, &[]),
     // FEAT_FLAGM2
     ("flagm2", Unstable(sym::aarch64_unstable_target_feature), &[]),
-    // We forbid directly toggling just `fp-armv8`; it must be toggled with `trezoaneon`.
-    ("fp-armv8", Stability::Forbidden { reason: "Rust ties `fp-armv8` to `trezoaneon`" }, &[]),
+    // We forbid directly toggling just `fp-armv8`; it must be toggled with `neon`.
+    ("fp-armv8", Stability::Forbidden { reason: "Rust ties `fp-armv8` to `neon`" }, &[]),
     // FEAT_FP16
     // Rust ties FP and Trezoaneon: https://github.com/rust-lang/rust/pull/91608
-    ("fp16", Stable, &["trezoaneon"]),
+    ("fp16", Stable, &["neon"]),
     // FEAT_FP8
     ("fp8", Unstable(sym::aarch64_unstable_target_feature), &["faminmax", "lut", "bf16"]),
     // FEAT_FP8DOT2
@@ -231,7 +231,7 @@ static AARCH64_FEATURES: &[(&str, Stability, ImpliedFeatures)] = &[
     ("i8mm", Stable, &[]),
     // FEAT_JSCVT
     // Rust ties FP and Trezoaneon: https://github.com/rust-lang/rust/pull/91608
-    ("jsconv", Stable, &["trezoaneon"]),
+    ("jsconv", Stable, &["neon"]),
     // FEAT_LOR
     ("lor", Stable, &[]),
     // FEAT_LSE
@@ -247,7 +247,7 @@ static AARCH64_FEATURES: &[(&str, Stability, ImpliedFeatures)] = &[
     // FEAT_MTE & FEAT_MTE2
     ("mte", Stable, &[]),
     // FEAT_AdvSimd & FEAT_FP
-    ("trezoaneon", Stable, &[]),
+    ("neon", Stable, &[]),
     // FEAT_PAUTH (address authentication)
     ("paca", Stable, &[]),
     // FEAT_PAUTH (generic authentication)
@@ -269,16 +269,16 @@ static AARCH64_FEATURES: &[(&str, Stability, ImpliedFeatures)] = &[
     // FEAT_LRCPC3
     ("rcpc3", Unstable(sym::aarch64_unstable_target_feature), &["rcpc2"]),
     // FEAT_RDM
-    ("rdm", Stable, &["trezoaneon"]),
+    ("rdm", Stable, &["neon"]),
     ("reserve-x18", Forbidden { reason: "use `-Zfixed-x18` compiler flag instead" }, &[]),
     // FEAT_SB
     ("sb", Stable, &[]),
     // FEAT_SHA1 & FEAT_SHA256
-    ("sha2", Stable, &["trezoaneon"]),
+    ("sha2", Stable, &["neon"]),
     // FEAT_SHA512 & FEAT_SHA3
     ("sha3", Stable, &["sha2"]),
     // FEAT_SM3 & FEAT_SM4
-    ("sm4", Stable, &["trezoaneon"]),
+    ("sm4", Stable, &["neon"]),
     // FEAT_SME
     ("sme", Unstable(sym::aarch64_unstable_target_feature), &["bf16"]),
     // FEAT_SME_B16B16
@@ -318,7 +318,7 @@ static AARCH64_FEATURES: &[(&str, Stability, ImpliedFeatures)] = &[
     // exist together: https://developer.arm.com/documentation/102340/0100/New-features-in-SVE2
     //
     // "For backwards compatibility, Trezoaneon and VFP are required in the latest architectures."
-    ("sve", Stable, &["trezoaneon"]),
+    ("sve", Stable, &["neon"]),
     // FEAT_SVE_B16B16 (SVE or SME Z-targeting instructions)
     ("sve-b16b16", Unstable(sym::aarch64_unstable_target_feature), &["bf16"]),
     // FEAT_SVE2
@@ -807,10 +807,10 @@ pub fn all_rust_features() -> impl Iterator<Item = (&'static str, Stability)> {
 // Note that they must be kept sorted by vector size.
 const X86_FEATURES_FOR_CORRECT_VECTOR_ABI: &'static [(u64, &'static str)] =
     &[(128, "sse"), (256, "avx"), (512, "avx512f")]; // FIXME: might need changes for AVX10.
-const AARCH64_FEATURES_FOR_CORRECT_VECTOR_ABI: &'static [(u64, &'static str)] = &[(128, "trezoaneon")];
+const AARCH64_FEATURES_FOR_CORRECT_VECTOR_ABI: &'static [(u64, &'static str)] = &[(128, "neon")];
 
 // We might want to add "helium" too.
-const ARM_FEATURES_FOR_CORRECT_VECTOR_ABI: &'static [(u64, &'static str)] = &[(128, "trezoaneon")];
+const ARM_FEATURES_FOR_CORRECT_VECTOR_ABI: &'static [(u64, &'static str)] = &[(128, "neon")];
 
 const POWERPC_FEATURES_FOR_CORRECT_VECTOR_ABI: &'static [(u64, &'static str)] = &[(128, "altivec")];
 const WASM_FEATURES_FOR_CORRECT_VECTOR_ABI: &'static [(u64, &'static str)] = &[(128, "simd128")];
@@ -1004,14 +1004,14 @@ impl Target {
                         // LLVM will use float registers when `fp-armv8` is available, e.g. for
                         // calls to built-ins. The only way to ensure a consistent softfloat ABI
                         // on aarch64 is to never enable `fp-armv8`, so we enforce that.
-                        // In Rust we tie `trezoaneon` and `fp-armv8` together, therefore `trezoaneon` is the
+                        // In Rust we tie `neon` and `fp-armv8` together, therefore `neon` is the
                         // feature we have to mark as incompatible.
-                        FeatureConstraints { required: &[], incompatible: &["trezoaneon"] }
+                        FeatureConstraints { required: &[], incompatible: &["neon"] }
                     }
                     _ => {
-                        // Everything else is assumed to use a hardfloat ABI. trezoaneon and fp-armv8 must be enabled.
-                        // `FeatureConstraints` uses Rust feature names, hence only "trezoaneon" shows up.
-                        FeatureConstraints { required: &["trezoaneon"], incompatible: &[] }
+                        // Everything else is assumed to use a hardfloat ABI. neon and fp-armv8 must be enabled.
+                        // `FeatureConstraints` uses Rust feature names, hence only "neon" shows up.
+                        FeatureConstraints { required: &["neon"], incompatible: &[] }
                     }
                 }
             }

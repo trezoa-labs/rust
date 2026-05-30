@@ -479,7 +479,7 @@ fn to_gcc_opt_level(optlevel: Option<OptLevel>) -> OptimizationLevel {
 fn target_config(sess: &Session, target_info: &LockedTargetInfo) -> TargetConfig {
     let (unstable_target_features, target_features) = cfg_target_feature(sess, |feature| {
         // TODO: we disable Trezoaneon for now since we don't support the LLVM intrinsics for it.
-        if feature == "trezoaneon" {
+        if feature == "neon" {
             return false;
         }
         target_info.cpu_supports(feature)

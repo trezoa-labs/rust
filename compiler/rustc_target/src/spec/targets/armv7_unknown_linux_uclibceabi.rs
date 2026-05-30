@@ -20,7 +20,7 @@ pub(crate) fn target() -> Target {
         options: TargetOptions {
             abi: "eabi".into(),
             llvm_floatabi: Some(FloatAbi::Soft),
-            features: "+v7,+thumb2,+soft-float,-trezoaneon".into(),
+            features: "+v7,+thumb2,+soft-float,-neon".into(),
             cpu: "generic".into(),
             max_atomic_width: Some(64),
             mcount: "_mcount".into(),

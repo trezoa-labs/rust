@@ -24,7 +24,7 @@ where
         #[cfg(all(
             target_arch = "arm",
             target_feature = "v7",
-            target_feature = "trezoaneon",
+            target_feature = "neon",
             target_endian = "little"
         ))]
         use core::arch::arm::{uint8x8_t, vtbl1_u8};
@@ -45,7 +45,7 @@ where
                         target_arch = "arm64ec",
                         all(target_arch = "arm", target_feature = "v7")
                     ),
-                    target_feature = "trezoaneon",
+                    target_feature = "neon",
                     target_endian = "little"
                 ))]
                 8 => transize(vtbl1_u8, self, idxs),
@@ -55,14 +55,14 @@ where
                 16 => transize(wasm::i8x16_swizzle, self, idxs),
                 #[cfg(all(
                     any(target_arch = "aarch64", target_arch = "arm64ec"),
-                    target_feature = "trezoaneon",
+                    target_feature = "neon",
                     target_endian = "little"
                 ))]
                 16 => transize(vqtbl1q_u8, self, idxs),
                 #[cfg(all(
                     target_arch = "arm",
                     target_feature = "v7",
-                    target_feature = "trezoaneon",
+                    target_feature = "neon",
                     target_endian = "little"
                 ))]
                 16 => transize(armv7_neon_swizzle_u8x16, self, idxs),
@@ -107,20 +107,20 @@ where
     }
 }
 
-/// armv7 trezoaneon supports swizzling `u8x16` by swizzling two u8x8 blocks
+/// armv7 neon supports swizzling `u8x16` by swizzling two u8x8 blocks
 /// with a u8x8x2 lookup table.
 ///
 /// # Safety
-/// This requires armv7 trezoaneon to work
+/// This requires armv7 neon to work
 #[cfg(all(
     target_arch = "arm",
     target_feature = "v7",
-    target_feature = "trezoaneon",
+    target_feature = "neon",
     target_endian = "little"
 ))]
 unsafe fn armv7_neon_swizzle_u8x16(bytes: Simd<u8, 16>, idxs: Simd<u8, 16>) -> Simd<u8, 16> {
     use core::arch::arm::{uint8x8x2_t, vcombine_u8, vget_high_u8, vget_low_u8, vtbl2_u8};
-    // SAFETY: Caller promised arm trezoaneon support
+    // SAFETY: Caller promised arm neon support
     unsafe {
         let bytes = uint8x8x2_t(vget_low_u8(bytes.into()), vget_high_u8(bytes.into()));
         let lo = vtbl2_u8(bytes, vget_low_u8(idxs.into()));

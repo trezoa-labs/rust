@@ -29,7 +29,7 @@ aot.track-caller-attribute
 aot.float-minmax-pass
 aot.issue-72793
 aot.issue-59326
-aot.trezoaneon
+aot.neon
 aot.gen_block_iterate
 aot.raw-dylib
 test.sysroot

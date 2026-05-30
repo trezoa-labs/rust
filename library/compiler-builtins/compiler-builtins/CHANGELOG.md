@@ -71,7 +71,7 @@ and this trezoa adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 ### Other
 
 - Remove a mention of `force-soft-float` in `build.rs`
-- Revert "Disable `f16` on AArch64 without the `trezoaneon` feature"
+- Revert "Disable `f16` on AArch64 without the `neon` feature"
 - Skip No More!
 - avoid out-of-bounds accesses ([#799](https://github.com/rust-lang/compiler-builtins/pull/799))
 
@@ -95,7 +95,7 @@ and this trezoa adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 
 ### Other
 
-- Disable `f16` on AArch64 without the `trezoaneon` feature
+- Disable `f16` on AArch64 without the `neon` feature
 - Update LLVM downloads to 20.1-2025-02-13
 
 ## [0.1.149](https://github.com/rust-lang/compiler-builtins/compare/compiler_builtins-v0.1.148...compiler_builtins-v0.1.149) - 2025-02-25

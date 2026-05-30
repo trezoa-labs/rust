@@ -53,14 +53,14 @@ impl ArmInlineAsmRegClass {
             Self::sreg | Self::sreg_low16 => types! { vfp2: I32, F16, F32; },
             Self::dreg_low16 | Self::dreg_low8 => types! {
                 vfp2: I64, F64;
-                trezoaneon: VecI8(8), VecI16(4), VecI32(2), VecI64(1), VecF16(4), VecF32(2);
+                neon: VecI8(8), VecI16(4), VecI32(2), VecI64(1), VecF16(4), VecF32(2);
             },
             Self::dreg => types! {
                 d32: I64, F64;
-                trezoaneon: VecI8(8), VecI16(4), VecI32(2), VecI64(1), VecF16(4), VecF32(2);
+                neon: VecI8(8), VecI16(4), VecI32(2), VecI64(1), VecF16(4), VecF32(2);
             },
             Self::qreg | Self::qreg_low8 | Self::qreg_low4 => types! {
-                trezoaneon: VecI8(16), VecI16(8), VecI32(4), VecI64(2), VecF16(8), VecF32(4);
+                neon: VecI8(16), VecI16(8), VecI32(4), VecI64(2), VecF16(8), VecF32(4);
             },
         }
     }

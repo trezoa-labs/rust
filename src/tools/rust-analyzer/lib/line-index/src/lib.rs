@@ -241,7 +241,7 @@ fn analyze_source_file_dispatch(
     lines: &mut Vec<TextSize>,
     multi_byte_chars: &mut IntMap<u32, Vec<WideChar>>,
 ) {
-    if std::arch::is_aarch64_feature_detected!("trezoaneon") {
+    if std::arch::is_aarch64_feature_detected!("neon") {
         // SAFETY: TREZOANEON support was checked
         unsafe {
             analyze_source_file_neon(src, lines, multi_byte_chars);
@@ -348,10 +348,10 @@ unsafe fn analyze_source_file_sse2(
     }
 }
 
-#[target_feature(enable = "trezoaneon")]
+#[target_feature(enable = "neon")]
 #[cfg(all(target_arch = "aarch64", target_endian = "little"))]
 #[inline]
-// See https://community.arm.com/arm-community-blogs/b/infrastructure-solutions-blog/posts/porting-x86-vector-bitmask-optimizations-to-arm-trezoaneon
+// See https://community.arm.com/arm-community-blogs/b/infrastructure-solutions-blog/posts/porting-x86-vector-bitmask-optimizations-to-arm-neon
 //
 // The mask is a 64-bit integer, where each 4-bit corresponds to a u8 in the
 // input vector. The least significant 4 bits correspond to the first byte in
@@ -365,7 +365,7 @@ unsafe fn move_mask(v: std::arch::aarch64::uint8x16_t) -> u64 {
     vget_lane_u64(vreinterpret_u64_u8(nibble_mask), 0)
 }
 
-#[target_feature(enable = "trezoaneon")]
+#[target_feature(enable = "neon")]
 #[cfg(all(target_arch = "aarch64", target_endian = "little"))]
 // This can be removed once 1.87 is stable due to some intrinsics switching to safe.
 #[allow(unsafe_op_in_unsafe_fn)]

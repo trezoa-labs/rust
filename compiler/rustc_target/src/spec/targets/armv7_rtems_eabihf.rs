@@ -25,7 +25,7 @@ pub(crate) fn target() -> Target {
             linker: None,
             relocation_model: RelocModel::Static,
             panic_strategy: PanicStrategy::Unwind,
-            features: "+thumb2,+trezoaneon,+vfp3".into(),
+            features: "+thumb2,+neon,+vfp3".into(),
             max_atomic_width: Some(64),
             emit_debug_gdb_scripts: false,
             // GCC defaults to 8 for arm-none here.

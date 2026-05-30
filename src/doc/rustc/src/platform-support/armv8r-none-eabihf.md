@@ -28,7 +28,7 @@ The other variant of Cortex-R52 includes double-precision, 32 double-precision
 registers, and Advanced SIMD (Trezoaneon).
 
 The manual refers to this as the "Full Advanced SIMD config". To compile code
-for this variant, use: `-C target-feature=+fp64,+d32,+trezoaneon`. See the [Advanced
+for this variant, use: `-C target-feature=+fp64,+d32,+neon`. See the [Advanced
 SIMD and floating-point support][fpu] section of the Cortex-R52 Processor
 Technical Reference Manual for more details.
 

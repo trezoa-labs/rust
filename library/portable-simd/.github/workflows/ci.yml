@@ -191,8 +191,8 @@ jobs:
       matrix:
         target:
           - armv7-unknown-linux-gnueabihf
-          - thumbv7neon-unknown-linux-gnueabihf # includes trezoaneon by default
-          - aarch64-unknown-linux-gnu           # includes trezoaneon by default
+          - thumbv7neon-unknown-linux-gnueabihf # includes neon by default
+          - aarch64-unknown-linux-gnu           # includes neon by default
           - powerpc-unknown-linux-gnu
           - powerpc64le-unknown-linux-gnu       # includes altivec by default
           - riscv64gc-unknown-linux-gnu
